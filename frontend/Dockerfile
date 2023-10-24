@@ -17,7 +17,7 @@ COPY package.json ./
 RUN npm install
 
 # host pc의 현재경로의 모든 파일을 workdir 로 복사
-COPY . .
+# COPY . .
 
 # next 앱 빌드
 RUN npm run build
