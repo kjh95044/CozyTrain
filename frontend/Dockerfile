@@ -22,4 +22,5 @@ COPY ./nginx.conf /etc/nginx/conf.d
 # COPY --from=build /app/out  /usr/share/nginx/html
 
 # Nginx를 실행합니다
-CMD ["nginx", "-g", "daemon off;"]
+# CMD ["nginx", "-g", "daemon off;"]
+CMD ["npm", "start"]
