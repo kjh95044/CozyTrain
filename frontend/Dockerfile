@@ -22,7 +22,7 @@ FROM nginx
 EXPOSE 3000
 
 # default.conf을 /etc/nginx/conf.d/ 경로에 있는 default.conf에 복사한다.
-COPY ./default.conf /etc/nginx/conf.d/default.conf
+COPY ./nginx.conf /etc/nginx/conf.d
 
 # nextjs build한 결과물을 /usr/share/nginx/html에 복사한다.
 COPY --from=build app/out  /usr/share/nginx/html
