@@ -7,13 +7,7 @@ WORKDIR /app
 # 컨테이너에 package.json와 package-lock.json 파일을 복사합니다
 COPY package*.json ./
 
-# npm 설치
-RUN npm install
-
 COPY . .
-
-# Next.js를 빌드합니다
-RUN npm run build
 
 # 새로운 독립적인 nginx 이미지를 생성합니다
 FROM nginx
@@ -25,7 +19,7 @@ EXPOSE 3000
 COPY ./nginx.conf /etc/nginx/conf.d
 
 # nextjs 빌드 결과물을 /usr/share/nginx/html에 복사합니다
-COPY --from=build /app/out  /usr/share/nginx/html
+# COPY --from=build /app/out  /usr/share/nginx/html
 
 # Nginx를 실행합니다
 CMD ["nginx", "-g", "daemon off;"]
