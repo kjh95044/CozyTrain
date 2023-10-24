@@ -1,33 +1,28 @@
-# Node.js 이미지를 기반으로 사용합니다.
-FROM node:alpine as build
+# Node.js 이미지로 사용
+FROM node:14-alpine as build
 
-# root 에 app 폴더를 생성
-RUN mkdir /app
-
-# work dir 고정
+# 작업 디렉토리를 /app으로 설정한다
 WORKDIR /app
 
-# work dir 에 build 폴더 생성 /app/build
-RUN mkdir ./build
+# 컨테이너에 package.json와 package-lock.json 파일을 복사합니다.
+COPY package*.json ./
 
-# 소스 코드를 현재 디렉토리로 복사합니다.
+# npm 설치
+RUN npm install
+
 COPY . .
 
-# 필요한 종속성을 설치하고 빌드합니다.
-RUN npm install
+# Next.js를 빌드한다
 RUN npm run build
 
-# Nginx 이미지를 사용합니다.
+# 새로운 단독의 nginx 이미지 생성
 FROM nginx
 
-# Nginx 설정 파일을 복사합니다.
-COPY nginx.conf /etc/nginx/conf.d/default.conf
+# 오픈할 포트를 적어둔다
+EXPOSE 3000
 
-# host pc의 현재경로의 build 폴더를 workdir 의 build 폴더로 복사
-ADD ./build ./build
+# default.conf을 /etc/nginx/conf.d/ 경로에 있는 default.conf에 복사한다.
+COPY ./default.conf /etc/nginx/conf.d/default.conf
 
-# 80 포트를 엽니다.
-EXPOSE 80
-
-# Nginx를 실행합니다.
-CMD ["nginx", "-g", "daemon off;"]
+# nextjs build한 결과물을 /usr/share/nginx/html에 복사한다.
+COPY --from=build app/out  /usr/share/nginx/html
