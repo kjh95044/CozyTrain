@@ -1,8 +1,14 @@
 # Node.js 이미지를 기반으로 사용합니다.
 FROM node:alpine as build
 
-# 작업 디렉토리를 설정합니다.
-WORKDIR /usr/src/app
+# root 에 app 폴더를 생성
+RUN mkdir /app
+
+# work dir 고정
+WORKDIR /app
+
+# work dir 에 build 폴더 생성 /app/build
+RUN mkdir ./build
 
 # 소스 코드를 현재 디렉토리로 복사합니다.
 COPY . .
@@ -17,8 +23,8 @@ FROM nginx
 # Nginx 설정 파일을 복사합니다.
 COPY nginx.conf /etc/nginx/conf.d/default.conf
 
-# 빌드된 애플리케이션을 Nginx의 기본 디렉토리로 복사합니다.
-COPY --from=build /usr/src/app/build /usr/share/nginx/html
+# host pc의 현재경로의 build 폴더를 workdir 의 build 폴더로 복사
+ADD ./build ./build
 
 # 80 포트를 엽니다.
 EXPOSE 80
