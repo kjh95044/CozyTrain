@@ -2,7 +2,7 @@ version: '3'
 services:
   backend:
     build:
-      context: ./backend/cozytrain
+      context: .
       args:
         TZ: Asia/Seoul
     ports:
