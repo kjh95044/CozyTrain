@@ -5,7 +5,7 @@ services:
       dockerfile: Dockerfile # dockerfile이름
       context: ./ # 도커파일 위치 명시
     image: frontend
-    container_name: frontend
+    container_name: frontend-blue
     ports:
       - 3000:80
     volumes:
