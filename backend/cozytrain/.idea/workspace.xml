@@ -88,6 +88,7 @@
     "project.structure.proportion": "0.15",
     "project.structure.side.proportion": "0.2",
     "settings.editor.selected.configurable": "reference.settingsdialog.project.gradle",
+    "spring.configuration.checksum": "5c104cbef9addcaf29d4f33f35319d2c",
     "vue.rearranger.settings.migration": "true"
   }
 }]]></component>
@@ -166,6 +167,7 @@
       <workItem from="1698038888216" duration="79000" />
       <workItem from="1698045376422" duration="3970000" />
       <workItem from="1698192851554" duration="4321000" />
+      <workItem from="1698215609399" duration="990000" />
     </task>
     <servers />
   </component>

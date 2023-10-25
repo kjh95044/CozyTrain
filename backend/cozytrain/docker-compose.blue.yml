@@ -1,0 +1,12 @@
+version: '3'
+services:
+  backend:
+    build:
+      context: ./backend/cozytrain
+      args:
+        TZ: Asia/Seoul
+    ports:
+      - "8589:8080"
+    environment:
+      - TZ=Asia/Seoul
+    container_name: backend-blue
