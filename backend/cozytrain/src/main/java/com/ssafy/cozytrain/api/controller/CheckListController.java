@@ -17,7 +17,8 @@ public class CheckListController {
     private final CheckListService checkListService;
 
     @PostMapping
-    public ApiUtils.ApiResult<Integer> createBalanceGame(@RequestBody CheckListDtoReq checkListDtoReq){
+    public ApiUtils.ApiResult<Integer> createCheckList(@RequestBody CheckListDtoReq checkListDtoReq){
         return success(checkListService.checkListSave(checkListDtoReq));
     }
+
 }
