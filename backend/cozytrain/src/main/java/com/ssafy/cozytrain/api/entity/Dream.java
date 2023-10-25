@@ -4,19 +4,25 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
+import java.time.LocalDate;
 import java.time.LocalDateTime;
-import java.util.Date;
 
-
-
-@Entity
 @Getter
+@Entity
 @NoArgsConstructor
-public class CheckList {
+public class Dream {
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long checkListId;
-    private Date checkListDate;
+    private Long id;
+
+    private String dreamContent;
+    private Integer dreamType;
+    private LocalDate dreamDate;
     private LocalDateTime createdAt;
     private LocalDateTime updatedAt;
+
+    @ManyToOne
+    @JoinColumn(name = "member_id", referencedColumnName = "member_id")
+    private Member member;
 }
