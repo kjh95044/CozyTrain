@@ -13,19 +13,15 @@ public class CheckListItem {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long checkListItemId;
-    private Integer checkListItemType;
-    private String checkListItemBrand;
-    private String checkListItemName;
+    private Long elsId;
 
     @ManyToOne
     @JoinColumn(name = "check_list_id", referencedColumnName = "check_list_id")
     private CheckList checkList;
 
     @Builder
-    public CheckListItem(Integer checkListItemType, String checkListItemBrand, String checkListItemName, CheckList checkList) {
-        this.checkListItemType = checkListItemType;
-        this.checkListItemBrand = checkListItemBrand;
-        this.checkListItemName = checkListItemName;
+    public CheckListItem(Long elsId, CheckList checkList) {
+        this.elsId = elsId;
         this.checkList = checkList;
     }
 }
