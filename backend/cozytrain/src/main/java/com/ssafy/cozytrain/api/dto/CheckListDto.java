@@ -8,12 +8,7 @@ public class CheckListDto {
     @Getter
     public static class CheckListSaveReq {
         private Integer checkListType;
+        private String checkListBrand;
         private String checkListName;
-
-        @Builder
-        public CheckListSaveReq(Integer checkListType, String checkListName) {
-            this.checkListType = checkListType;
-            this.checkListName = checkListName;
-        }
     }
 }
