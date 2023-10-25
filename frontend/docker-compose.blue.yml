@@ -8,6 +8,4 @@ services:
     container_name: frontend-blue
     ports:
       - 3000:80
-    volumes:
-      - /home/ubuntu/env/front/.env:/app/.env
     stdin_open: true
