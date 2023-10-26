@@ -5,6 +5,7 @@ import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 
+import javax.validation.constraints.NotNull;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -13,6 +14,7 @@ public class CheckListDto {
     @Getter
     @NoArgsConstructor
     public static class CheckListDtoReq {
+        @NotNull(message = "elsId is not Null")
         private Long elsId; // dataId
 
         @Builder

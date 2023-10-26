@@ -10,4 +10,5 @@ import java.util.List;
 @Repository
 public interface CheckListItemRepository extends JpaRepository<CheckListItem, Long> {
     List<CheckListItem> findAllByCheckList(CheckList checkList);
+    Integer deleteByCheckListItemId(Long checkListItemId);
 }

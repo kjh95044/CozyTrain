@@ -6,7 +6,7 @@ import com.ssafy.cozytrain.common.utils.ApiUtils;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.List;
+import javax.validation.Valid;
 
 import static com.ssafy.cozytrain.common.utils.ApiUtils.success;
 
@@ -17,13 +17,18 @@ public class CheckListController {
     private final CheckListService checkListService;
 
     @PostMapping
-    public ApiUtils.ApiResult<Integer> createCheckList(@RequestBody CheckListDtoReq checkListDtoReq){
+    public ApiUtils.ApiResult<Integer> createCheckList(@RequestBody @Valid CheckListDtoReq checkListDtoReq){
         return success(checkListService.checkListSave(checkListDtoReq));
     }
 
     @GetMapping
     public ApiUtils.ApiResult<CheckListTodayRes> getCheckList(){
         return success(checkListService.checkListToday());
+    }
+
+    @DeleteMapping("/{checkListId}")
+    public ApiUtils.ApiResult<Integer> deleteCheckList(@PathVariable Long checkListId){
+        return success(checkListService.checkListDelete(checkListId));
     }
 
 }

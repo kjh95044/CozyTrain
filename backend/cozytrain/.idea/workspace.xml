@@ -4,7 +4,17 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="f917966f-e5bb-4a0c-a8b3-61e9b341aacc" name="Changes" comment="Feat: CheckList Get Api" />
+    <list default="true" id="f917966f-e5bb-4a0c-a8b3-61e9b341aacc" name="Changes" comment="Fix: CheckList Get Api">
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/build.gradle" beforeDir="false" afterPath="$PROJECT_DIR$/build.gradle" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/ssafy/cozytrain/api/controller/CheckListController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/ssafy/cozytrain/api/controller/CheckListController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/ssafy/cozytrain/api/dto/CheckListDto.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/ssafy/cozytrain/api/dto/CheckListDto.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/ssafy/cozytrain/api/repository/CheckListItemRepository.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/ssafy/cozytrain/api/repository/CheckListItemRepository.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/ssafy/cozytrain/api/repository/CheckListRepository.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/ssafy/cozytrain/api/repository/CheckListRepository.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/ssafy/cozytrain/api/service/CheckListService.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/ssafy/cozytrain/api/service/CheckListService.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/ssafy/cozytrain/api/service/serviceImpl/CheckListServiceImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/ssafy/cozytrain/api/service/serviceImpl/CheckListServiceImpl.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/ssafy/cozytrain/common/handler/GlobalExceptionHandler.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/ssafy/cozytrain/common/handler/GlobalExceptionHandler.java" afterDir="false" />
+    </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -157,7 +167,7 @@
       <workItem from="1698038888216" duration="79000" />
       <workItem from="1698045376422" duration="3970000" />
       <workItem from="1698192851554" duration="4321000" />
-      <workItem from="1698278912057" duration="1036000" />
+      <workItem from="1698278912057" duration="3290000" />
     </task>
     <task id="LOCAL-00001" summary="Fix: CheckList Post Api">
       <option name="closed" value="true" />
@@ -183,7 +193,15 @@
       <option name="project" value="LOCAL" />
       <updated>1698279935297</updated>
     </task>
-    <option name="localTasksCounter" value="4" />
+    <task id="LOCAL-00004" summary="Fix: CheckList Get Api">
+      <option name="closed" value="true" />
+      <created>1698280230460</created>
+      <option name="number" value="00004" />
+      <option name="presentableId" value="LOCAL-00004" />
+      <option name="project" value="LOCAL" />
+      <updated>1698280230460</updated>
+    </task>
+    <option name="localTasksCounter" value="5" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -192,6 +210,7 @@
   <component name="VcsManagerConfiguration">
     <MESSAGE value="Fix: CheckList Post Api" />
     <MESSAGE value="Feat: CheckList Get Api" />
-    <option name="LAST_COMMIT_MESSAGE" value="Feat: CheckList Get Api" />
+    <MESSAGE value="Fix: CheckList Get Api" />
+    <option name="LAST_COMMIT_MESSAGE" value="Fix: CheckList Get Api" />
   </component>
 </project>
