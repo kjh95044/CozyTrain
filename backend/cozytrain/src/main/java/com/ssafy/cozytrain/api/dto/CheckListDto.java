@@ -1,6 +1,7 @@
 package com.ssafy.cozytrain.api.dto;
 
 import com.ssafy.cozytrain.api.entity.CheckListItem;
+import io.swagger.annotations.ApiParam;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -14,6 +15,8 @@ public class CheckListDto {
     @Getter
     @NoArgsConstructor
     public static class CheckListDtoReq {
+
+        @ApiParam(value = "ELS ID 값")
         @NotNull(message = "elsId is not Null")
         private Long elsId; // dataId
 
