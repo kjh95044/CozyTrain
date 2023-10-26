@@ -70,8 +70,17 @@ public class CheckListServiceImpl implements CheckListService {
     }
 
     @Override
-    public Integer checkListDelete() {
-        return null;
+    @Transactional(rollbackFor = Exception.class)
+    public Integer checkListDelete(Long checkListItemId) {
+        Integer res = checkListItemRepository.deleteByCheckListItemId(checkListItemId);
+        List<CheckListRes> checkListDtoList = checkListToday().getCheckListDtoList();
+        log.info(checkListDtoList.size()+"");
+        if(checkListDtoList.isEmpty()) {
+            log.info("dd");
+            CheckList checkListItem = checkListRepository.findByCheckListDate(LocalDate.now());
+            checkListRepository.deleteByCheckListId(checkListItem.getCheckListId());
+        }
+        return res;
     }
 
     @Override

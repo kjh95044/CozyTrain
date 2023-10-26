@@ -11,5 +11,6 @@ import java.util.Optional;
 public interface CheckListService {
     Integer checkListSave(CheckListDtoReq checkListDtoReq);
     CheckListTodayRes checkListToday();
+    Integer checkListDelete(Long checkListItemId);
     Optional<CheckList> isCheckList(Member member);
 }
