@@ -1,0 +1,15 @@
+.title {
+  padding-top: 20%;
+  font-size: 34px;
+  font-weight: bold;
+  text-align: center;
+}
+
+.kakaoLoginBtn {
+  width: 80%;
+  background-color: red;
+}
+
+.kakaoLoginBtn:hover {
+  cursor: pointer;
+}
