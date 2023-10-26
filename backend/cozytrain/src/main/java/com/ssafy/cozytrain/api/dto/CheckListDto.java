@@ -29,7 +29,7 @@ public class CheckListDto {
         public CheckListTodayRes(List<CheckListItem> checkListItem) {
             this.checkListDtoList = checkListItem.stream()
                     .map((item) -> {
-                        return CheckListDtoReq.builder().checkListId(item.getCheckListItemId()).build();
+                        return CheckListDtoReq.builder().checkListId(item.getElsId()).build();
                     })
                     .collect(Collectors.toList());
         }

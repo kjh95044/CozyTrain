@@ -21,4 +21,9 @@ public class CheckListController {
         return success(checkListService.checkListSave(checkListDtoReq));
     }
 
+    @GetMapping
+    public ApiUtils.ApiResult<CheckListTodayRes> getCheckList(){
+        return success(checkListService.checkListToday());
+    }
+
 }
