@@ -1,15 +1,15 @@
 version: '3'
 services:
-  backend:
+  backend-prod:
     build:
       dockerfile: Dockerfile # dockerfile이름
       context: ./
       args:
         TZ: Asia/Seoul
     ports:
-      - "8589:8080"
-    image: backend
+      - "8699:8080"
+    image: backend-prod
     environment:
       - TZ=Asia/Seoul
-    container_name: backend-blue
+    container_name: backend-prod-green
     stdin_open: true
