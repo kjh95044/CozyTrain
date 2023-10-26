@@ -48,7 +48,7 @@ public class CheckListServiceImpl implements CheckListService {
         }
 
         CheckListItem checkListItem = CheckListItem.builder()
-                .elsId(checkListDtoReq.getCheckListId())
+                .elsId(checkListDtoReq.getElsId())
                 .checkList(todayCheckList)
                 .build();
         checkListItemRepository.save(checkListItem);
@@ -67,6 +67,11 @@ public class CheckListServiceImpl implements CheckListService {
                 .checkListItem(checkList)
                 .build();
         return checkListTodayRes;
+    }
+
+    @Override
+    public Integer checkListDelete() {
+        return null;
     }
 
     @Override
