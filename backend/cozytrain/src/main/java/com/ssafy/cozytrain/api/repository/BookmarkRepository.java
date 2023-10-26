@@ -10,4 +10,6 @@ import java.util.List;
 @Repository
 public interface BookmarkRepository extends JpaRepository<Bookmark, BookmarkKey> {
     List<Bookmark> findAllByBookmarkKey(BookmarkKey bookmarkKey);
+    List<Bookmark> findAllByBookmarkKeyMemberId(Long memberId);
+
 }

@@ -5,12 +5,11 @@ import com.ssafy.cozytrain.api.service.BookmarkService;
 import com.ssafy.cozytrain.common.utils.ApiUtils;
 import io.swagger.v3.oas.annotations.Operation;
 import lombok.RequiredArgsConstructor;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
+
+import java.util.List;
 
 import static com.ssafy.cozytrain.common.utils.ApiUtils.success;
 
@@ -26,5 +25,10 @@ public class BookmarkController {
         return success(bookmarkService.saveBookmark(bookmarkDto));
     }
 
+    @GetMapping
+    @Operation(summary = "북마크 조회")
+    public ApiUtils.ApiResult<List<BookmarkDto>> createBookmark(){
+        return success(bookmarkService.getBookmark());
+    }
 
 }
