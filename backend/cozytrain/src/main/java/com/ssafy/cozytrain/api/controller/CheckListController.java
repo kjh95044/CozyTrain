@@ -1,6 +1,6 @@
 package com.ssafy.cozytrain.api.controller;
 
-import com.ssafy.cozytrain.api.dto.CheckListDto;
+import com.ssafy.cozytrain.api.dto.CheckListDto.*;
 import com.ssafy.cozytrain.api.service.CheckListService;
 import com.ssafy.cozytrain.common.utils.ApiUtils;
 import lombok.RequiredArgsConstructor;
@@ -17,7 +17,13 @@ public class CheckListController {
     private final CheckListService checkListService;
 
     @PostMapping
-    public ApiUtils.ApiResult<Long> createBalanceGame(@RequestBody CheckListDto.CheckListSaveReq checkListSaveReq){
-        return success(checkListService.checkListSave(checkListSaveReq));
+    public ApiUtils.ApiResult<Integer> createCheckList(@RequestBody CheckListDtoReq checkListDtoReq){
+        return success(checkListService.checkListSave(checkListDtoReq));
     }
+
+    @GetMapping
+    public ApiUtils.ApiResult<CheckListTodayRes> getCheckList(){
+        return success(checkListService.checkListToday());
+    }
+
 }

@@ -33,17 +33,6 @@
                 <item name="" type="6a2764b6:ExternalProjectsStructure$RootNode" />
                 <item name="cozytrain" type="f1a62948:ProjectNode" />
               </path>
-              <path>
-                <item name="" type="6a2764b6:ExternalProjectsStructure$RootNode" />
-                <item name="cozytrain" type="f1a62948:ProjectNode" />
-                <item name="Tasks" type="e4a08cd1:TasksNode" />
-              </path>
-              <path>
-                <item name="" type="6a2764b6:ExternalProjectsStructure$RootNode" />
-                <item name="cozytrain" type="f1a62948:ProjectNode" />
-                <item name="Tasks" type="e4a08cd1:TasksNode" />
-                <item name="build" type="c8890929:TasksNode$1" />
-              </path>
             </expand>
             <select />
           </tree_state>
@@ -58,6 +47,9 @@
         <option value="Class" />
       </list>
     </option>
+  </component>
+  <component name="Git.Merge.Settings">
+    <option name="BRANCH" value="origin/dev/BE" />
   </component>
   <component name="Git.Settings">
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$/../.." />
@@ -190,9 +182,39 @@
       <workItem from="1698215609399" duration="2580000" />
       <workItem from="1698279551102" duration="331000" />
     </task>
+    <task id="LOCAL-00001" summary="Fix: CheckList Post Api">
+      <option name="closed" value="true" />
+      <created>1698215035588</created>
+      <option name="number" value="00001" />
+      <option name="presentableId" value="LOCAL-00001" />
+      <option name="project" value="LOCAL" />
+      <updated>1698215035588</updated>
+    </task>
+    <task id="LOCAL-00002" summary="Fix: CheckList Post Api">
+      <option name="closed" value="true" />
+      <created>1698215117383</created>
+      <option name="number" value="00002" />
+      <option name="presentableId" value="LOCAL-00002" />
+      <option name="project" value="LOCAL" />
+      <updated>1698215117383</updated>
+    </task>
+    <task id="LOCAL-00003" summary="Feat: CheckList Get Api">
+      <option name="closed" value="true" />
+      <created>1698279935296</created>
+      <option name="number" value="00003" />
+      <option name="presentableId" value="LOCAL-00003" />
+      <option name="project" value="LOCAL" />
+      <updated>1698279935297</updated>
+    </task>
+    <option name="localTasksCounter" value="4" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
     <option name="version" value="3" />
+  </component>
+  <component name="VcsManagerConfiguration">
+    <MESSAGE value="Fix: CheckList Post Api" />
+    <MESSAGE value="Feat: CheckList Get Api" />
+    <option name="LAST_COMMIT_MESSAGE" value="Feat: CheckList Get Api" />
   </component>
 </project>
