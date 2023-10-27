@@ -45,6 +45,19 @@ public class DreamServiceImpl implements DreamService {
     @Override
     @Transactional(rollbackFor = Exception.class)
     public boolean saveDream(DreamDto.DreamDtoReq dreamDtoReq) {
+
+    @Override
+    @Transactional(rollbackFor = Exception.class)
+    public boolean updateDream(Long dreamId, DreamDto.DreamDtoReq dreamDtoReq) {
+        try {
+            Dream dream = dreamRepository.findByDreamId(dreamId);
+            dream.update(dreamDtoReq.getDreamContent(), dreamDtoReq.getDreamType());
+            Dream saved = dreamRepository.save(dream);
+
+            return saved != null;
+        } catch (Exception e) {
+            return false;
+        }
     }
 
 

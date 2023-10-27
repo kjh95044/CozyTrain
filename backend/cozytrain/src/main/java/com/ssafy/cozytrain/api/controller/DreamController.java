@@ -31,6 +31,11 @@ public class DreamController {
     public ApiUtils.ApiResult<Boolean> createDream(@RequestBody @Valid DreamDtoReq dreamDtoReq) {
         return success(dreamService.saveDream(dreamDtoReq));
     }
+
+    @PatchMapping("/{dreamId}")
+    public ApiUtils.ApiResult<Boolean> updateDream(@PathVariable Long dreamId, @RequestBody @Valid DreamDtoReq dreamDtoReq) {
+        return success(dreamService.updateDream(dreamId, dreamDtoReq));
+    }
     
     @DeleteMapping("/{dreamId}")
     public ApiUtils.ApiResult<Boolean> deleteDream(@PathVariable Long dreamId) {

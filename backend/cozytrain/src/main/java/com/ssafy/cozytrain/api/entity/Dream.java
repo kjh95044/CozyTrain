@@ -31,6 +31,11 @@ public class Dream {
         this.member = member;
     }
 
+    public void update(String dreamContent, Integer dreamType) {
+        this.dreamContent = dreamContent;
+        this.dreamType = dreamType;
+    }
+    
     @Override
     public String toString() {
         return "Dream{" +
