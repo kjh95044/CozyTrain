@@ -48,4 +48,14 @@ public class DreamServiceImpl implements DreamService {
     }
 
 
+    @Override
+    @Transactional(rollbackFor = Exception.class)
+    public boolean deleteDream(Long dreamId) {
+        try {
+            dreamRepository.deleteById(dreamId);
+            return true;
+        } catch (EmptyResultDataAccessException e) {
+            return false;
+        }
+    }
 }

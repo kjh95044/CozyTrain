@@ -5,11 +5,8 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="f917966f-e5bb-4a0c-a8b3-61e9b341aacc" name="Changes" comment="Changes">
-      <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/com/ssafy/cozytrain/api/controller/DreamController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/ssafy/cozytrain/api/controller/DreamController.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/com/ssafy/cozytrain/api/entity/Dream.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/ssafy/cozytrain/api/entity/Dream.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/ssafy/cozytrain/api/repository/DreamRepository.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/ssafy/cozytrain/api/repository/DreamRepository.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/com/ssafy/cozytrain/api/service/DreamService.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/ssafy/cozytrain/api/service/DreamService.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/com/ssafy/cozytrain/api/service/serviceImpl/DreamServiceImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/ssafy/cozytrain/api/service/serviceImpl/DreamServiceImpl.java" afterDir="false" />
     </list>

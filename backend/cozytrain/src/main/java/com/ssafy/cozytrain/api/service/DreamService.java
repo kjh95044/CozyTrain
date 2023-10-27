@@ -10,4 +10,6 @@ public interface DreamService {
 
     boolean saveDream(DreamDto.DreamDtoReq dreamDtoReq);
 
+
+    boolean deleteDream(Long dreamId);
 }
