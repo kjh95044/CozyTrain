@@ -25,8 +25,6 @@ public class DreamServiceImpl implements DreamService {
 
     @Override
     @Transactional(readOnly = true)
-    public DreamDto.DreamDtoListRes getDreams() { // 리스트
-        Member member = memberService.findByMemberId(1L);
     public DreamDto.DreamDtoRes getDream(Long dreamId) {
         try {
             Dream dream = dreamRepository.findByDreamId(dreamId);
@@ -40,6 +38,18 @@ public class DreamServiceImpl implements DreamService {
             return null;
         }
     }
+
+    @Override
+    @Transactional(readOnly = true)
+    public DreamDto.DreamDtoListRes getDreams() {
+        try {
+            Member member = memberService.findByMemberId(1L);
+            List<Dream> allByMember = dreamRepository.findAllByMember(member);
+
+            return DreamDto.DreamDtoListRes.builder().dreamList(allByMember).build();
+        } catch (Exception e) {
+            return null;
+        }
     }
 
     @Override
