@@ -55,6 +55,22 @@ public class DreamServiceImpl implements DreamService {
     @Override
     @Transactional(rollbackFor = Exception.class)
     public boolean saveDream(DreamDto.DreamDtoReq dreamDtoReq) {
+        try {
+            Member member = memberService.findByMemberId(1L);
+
+            Dream dream = Dream.builder()
+                    .dreamContent(dreamDtoReq.getDreamContent())
+                    .dreamType(dreamDtoReq.getDreamType())
+                    .dreamDate(LocalDate.now())
+                    .member(member).build();
+
+            Dream saved = dreamRepository.save(dream);
+
+            return saved != null;
+        } catch (Exception e) {
+            return false;
+        }
+    }
 
     @Override
     @Transactional(rollbackFor = Exception.class)
