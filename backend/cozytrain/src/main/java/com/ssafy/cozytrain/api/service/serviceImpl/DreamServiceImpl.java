@@ -27,7 +27,19 @@ public class DreamServiceImpl implements DreamService {
     @Transactional(readOnly = true)
     public DreamDto.DreamDtoListRes getDreams() { // 리스트
         Member member = memberService.findByMemberId(1L);
+    public DreamDto.DreamDtoRes getDream(Long dreamId) {
+        try {
+            Dream dream = dreamRepository.findByDreamId(dreamId);
 
+            return DreamDto.DreamDtoRes.builder()
+                    .dreamType(dream.getDreamType())
+                    .dreamContent(dream.getDreamContent())
+                    .dreamDate(dream.getDreamDate())
+                    .build();
+        } catch (Exception e) {
+            return null;
+        }
+    }
     }
 
     @Override

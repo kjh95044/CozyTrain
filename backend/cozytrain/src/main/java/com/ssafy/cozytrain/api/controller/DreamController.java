@@ -17,6 +17,11 @@ import static com.ssafy.cozytrain.common.utils.ApiUtils.success;
 public class DreamController {
     private final DreamService dreamService;
 
+    @GetMapping("/{dreamId}")
+    public ApiUtils.ApiResult<DreamDto.DreamDtoRes> getDream(@PathVariable Long dreamId) {
+        return success(dreamService.getDream(dreamId));
+    }
+
     @GetMapping
     public ApiUtils.ApiResult<DreamDto.DreamDtoListRes> getDreams() {
         return success(dreamService.getDreams());
