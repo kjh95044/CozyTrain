@@ -16,9 +16,11 @@ import java.util.Collections;
 public class SwaggerConfig {
     @Bean
     public Docket api() {
+        Server serverLocal = new Server("local", "http://localhost:8080", "for local usages", Collections.emptyList(), Collections.emptyList());
+        Server devServer = new Server("dev", "https://dev.cozytrain.com", "for dev server", Collections.emptyList(), Collections.emptyList());
         return new Docket(DocumentationType.OAS_30)
                 .apiInfo(apiInfo())
-                .servers(new Server("root", "/", "root", Collections.emptyList(), Collections.emptyList()))
+                .servers(serverLocal,devServer)
                 .select()
                 .apis(RequestHandlerSelectors.basePackage("com.ssafy.cozytrain"))
                 .paths(PathSelectors.any())
