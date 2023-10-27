@@ -6,7 +6,6 @@ import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
 import java.time.LocalDate;
-import java.time.LocalDateTime;
 
 @Getter
 @Entity
@@ -15,7 +14,7 @@ public class Dream {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
+    private Long dreamId;
     private String dreamContent;
     private Integer dreamType;
     private LocalDate dreamDate;
@@ -35,7 +34,7 @@ public class Dream {
     @Override
     public String toString() {
         return "Dream{" +
-                "id=" + id +
+                "id=" + dreamId +
                 ", dreamContent='" + dreamContent + '\'' +
                 ", dreamType=" + dreamType +
                 ", dreamDate=" + dreamDate +

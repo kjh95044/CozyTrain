@@ -1,8 +1,7 @@
 package com.ssafy.cozytrain.api.controller;
 
-import com.ssafy.cozytrain.api.dto.CheckListDto;
 import com.ssafy.cozytrain.api.dto.DreamDto;
-import com.ssafy.cozytrain.api.dto.DreamDto.*;
+import com.ssafy.cozytrain.api.dto.DreamDto.DreamDtoReq;
 import com.ssafy.cozytrain.api.service.DreamService;
 import com.ssafy.cozytrain.common.utils.ApiUtils;
 import lombok.RequiredArgsConstructor;
