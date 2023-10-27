@@ -14,21 +14,6 @@ public class DreamDto {
 
     @Getter
     @NoArgsConstructor
-    public static class DreamDtoReq {
-        @NonNull
-        private Integer dreamType;
-        @NonNull
-        private String dreamContent;
-
-        @Builder
-        public DreamDtoReq(Integer dreamType, String dreamContent) {
-            this.dreamType = dreamType;
-            this.dreamContent = dreamContent;
-        }
-    }
-
-    @Getter
-    @NoArgsConstructor
     public static class DreamDtoRes {
         private LocalDate dreamDate;
         private Integer dreamType;
@@ -59,4 +44,18 @@ public class DreamDto {
         }
     }
 
+    @Getter
+    @NoArgsConstructor
+    public static class DreamDtoReq {
+        @NonNull
+        private Integer dreamType;
+        @NonNull
+        private String dreamContent;
+
+        @Builder
+        public DreamDtoReq(Integer dreamType, String dreamContent) {
+            this.dreamType = dreamType;
+            this.dreamContent = dreamContent;
+        }
+    }
 }
