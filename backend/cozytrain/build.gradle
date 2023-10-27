@@ -36,6 +36,10 @@ dependencies {
     // swagger
     implementation group: 'io.springfox', name: 'springfox-boot-starter', version: '3.0.0'
 
+    // Elastic search
+    implementation 'org.springframework.boot:spring-boot-starter-data-elasticsearch'
+    implementation group: 'org.elasticsearch.client', name: 'elasticsearch-rest-high-level-client', version: '7.16.2'
+
 }
 
 tasks.named('test') {
