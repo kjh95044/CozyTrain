@@ -2,6 +2,8 @@
     width: 100vw;
     height: 100vh;
     overflow: hidden;
+    background-image: url("../../../public/assets/image/map-all.png");
+    background-size: cover;
 }
 
 .map_all {
