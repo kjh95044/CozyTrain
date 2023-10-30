@@ -39,12 +39,16 @@ public class MemberDto {
         private String memberName;
         private String memberAge;
         private String memberProfileImg;
+        private String accessToken;
+        private String refreshToken;
 
         @Builder
-        public LoginRes(Member member) {
+        public LoginRes(Member member, String accessToken, String refreshToken) {
             this.memberName = member.getMemberName();
             this.memberAge = member.getMemberAge();
             this.memberProfileImg = member.getMemberImageUrl();
+            this.accessToken = accessToken;
+            this.refreshToken = refreshToken;
         }
     }
 }

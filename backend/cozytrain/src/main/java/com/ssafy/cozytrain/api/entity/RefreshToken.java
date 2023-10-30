@@ -1,6 +1,5 @@
 package com.ssafy.cozytrain.api.entity;
 
-import lombok.Builder;
 import lombok.Getter;
 import lombok.ToString;
 import org.springframework.data.annotation.Id;
@@ -11,8 +10,8 @@ import org.springframework.data.redis.core.RedisHash;
 @RedisHash(timeToLive = 604800)
 public class RefreshToken {
 
-    @Id
     private String refreshToken;
+    @Id
     private String memberId;
 
     public RefreshToken(String memberId, String refreshToken) {

@@ -11,7 +11,6 @@ import com.ssafy.cozytrain.common.exception.NotFoundException;
 import com.ssafy.cozytrain.common.utils.JwtUtils;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -51,17 +50,16 @@ public class MemberServiceImpl implements MemberService {
         }
 
         TokenDto tokenDto = jwtUtil.createAllToken(loginReq.getMemberId());
-        Optional<RefreshToken> refreshToken = refreshTokenRepository.findById(tokenDto.getRefreshToken());
+        Optional<RefreshToken> refreshToken = refreshTokenRepository.findById(loginReq.getMemberId());
 
         String cookieValue = null;
+        RefreshToken newToken = new RefreshToken(loginReq.memberId, tokenDto.getRefreshToken());
         if(refreshToken.isPresent()) {
-            refreshTokenRepository.save(refreshToken.get().updateToken(tokenDto.getRefreshToken()));
             cookieValue = refreshToken.get().getRefreshToken();
         }else {
-            RefreshToken newToken = new RefreshToken(loginReq.memberId, tokenDto.getRefreshToken());
-            refreshTokenRepository.save(newToken);
             cookieValue = tokenDto.getRefreshToken();
         }
+        refreshTokenRepository.save(newToken);
         setHeader(response, tokenDto);
 
         String cookieName = "refreshToken";
@@ -69,7 +67,10 @@ public class MemberServiceImpl implements MemberService {
         cookie.setMaxAge(60 * 60 * 24 * 7);
         cookie.setPath("/");
 
-        return LoginRes.builder().member(member).build();
+        return LoginRes.builder()
+                .member(member)
+                .accessToken(tokenDto.getAccessToken())
+                .refreshToken(cookieValue).build();
     }
 
     @Override
