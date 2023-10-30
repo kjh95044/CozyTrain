@@ -3,11 +3,15 @@ package com.ssafy.cozytrain.api.service.serviceImpl;
 import com.ssafy.cozytrain.api.dto.MemberDto.*;
 import com.ssafy.cozytrain.api.dto.TokenDto;
 import com.ssafy.cozytrain.api.entity.Member;
+import com.ssafy.cozytrain.api.entity.RefreshToken;
 import com.ssafy.cozytrain.api.repository.MemberRepository;
+import com.ssafy.cozytrain.api.repository.RefreshTokenRepository;
 import com.ssafy.cozytrain.api.service.MemberService;
 import com.ssafy.cozytrain.common.exception.NotFoundException;
 import com.ssafy.cozytrain.common.utils.JwtUtils;
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
+import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -15,12 +19,14 @@ import org.springframework.transaction.annotation.Transactional;
 import javax.servlet.http.HttpServletResponse;
 import java.util.Optional;
 
+@Slf4j
 @Service
 @RequiredArgsConstructor
 public class MemberServiceImpl implements MemberService {
     private final MemberRepository memberRepository;
     private final JwtUtils jwtUtil;
     private final PasswordEncoder passwordEncoder;
+    private final RefreshTokenRepository refreshTokenRepository;
 
     @Override
     @Transactional(rollbackFor = Exception.class)
@@ -32,6 +38,25 @@ public class MemberServiceImpl implements MemberService {
         Member member = Member.builder().signupReq(signupReq).build();
         memberRepository.save(member);
         return true;
+    }
+
+    @Override
+    public LoginRes login(LoginReq loginReq, HttpServletResponse response) {
+        Member member = memberRepository.findByMemberLoginIdAndMemberPassword(loginReq.memberId, loginReq.memberPassword)
+                .orElseThrow(() -> new NotFoundException("Not Found User"));
+
+        TokenDto tokenDto = jwtUtil.createAllToken(loginReq.getMemberId());
+        Optional<RefreshToken> refreshToken = refreshTokenRepository.findById(tokenDto.getRefreshToken());
+        if(refreshToken.isPresent()) {
+            refreshTokenRepository.save(refreshToken.get().updateToken(tokenDto.getRefreshToken()));
+        }else {
+            RefreshToken newToken = new RefreshToken(loginReq.memberId, tokenDto.getRefreshToken());
+            refreshTokenRepository.save(newToken);
+        }
+
+        setHeader(response, tokenDto);
+        // TODO: 쿠키에 refresh token 담기
+        return LoginRes.builder().member(member).build();
     }
 
     @Override
@@ -47,6 +72,5 @@ public class MemberServiceImpl implements MemberService {
 
     private void setHeader(HttpServletResponse response, TokenDto tokenDto) {
         response.addHeader(JwtUtils.ACCESS_TOKEN, tokenDto.getAccessToken());
-        response.addHeader(JwtUtils.REFRESH_TOKEN, tokenDto.getRefreshToken());
     }
 }

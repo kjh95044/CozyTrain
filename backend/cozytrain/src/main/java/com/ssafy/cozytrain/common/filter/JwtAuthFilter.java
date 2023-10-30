@@ -3,6 +3,7 @@ package com.ssafy.cozytrain.common.filter;
 import com.ssafy.cozytrain.common.exception.AccessTokenExpiredException;
 import com.ssafy.cozytrain.common.utils.JwtUtils;
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpStatus;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
@@ -10,10 +11,12 @@ import org.springframework.web.filter.OncePerRequestFilter;
 
 import javax.servlet.FilterChain;
 import javax.servlet.ServletException;
+import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 
+@Slf4j
 @RequiredArgsConstructor
 public class JwtAuthFilter extends OncePerRequestFilter {
 
@@ -22,8 +25,9 @@ public class JwtAuthFilter extends OncePerRequestFilter {
     @Override
     protected void doFilterInternal(HttpServletRequest request, HttpServletResponse response, FilterChain filterChain) throws ServletException, IOException {
         String accessToken = jwtUtil.getHeaderToken(request, "Access");
-        String refreshToken = jwtUtil.getHeaderToken(request, "Refresh");
-
+        log.info(accessToken);
+        String refreshToken = resolveRefreshToken(request);
+        log.info(refreshToken);
         if(accessToken != null) {
             if(jwtUtil.tokenValidation(accessToken)){
                 setAuthentication(jwtUtil.getIdFromToken(accessToken));
@@ -41,10 +45,23 @@ public class JwtAuthFilter extends OncePerRequestFilter {
                 }
             }
         }
+        filterChain.doFilter(request, response);
     }
-    public void setAuthentication(String email) {
-        Authentication authentication = jwtUtil.createAuthentication(email);
+    public void setAuthentication(String memberId) {
+        Authentication authentication = jwtUtil.createAuthentication(memberId);
         SecurityContextHolder.getContext().setAuthentication(authentication);
+    }
+
+    private String resolveRefreshToken(HttpServletRequest request) {
+        Cookie[] cookies = request.getCookies();
+        if (cookies != null) {
+            for (Cookie cookie : cookies) {
+                if (cookie.getName().equals("refreshToken")) {
+                    return cookie.getValue();
+                }
+            }
+        }
+        return null;
     }
 
 }

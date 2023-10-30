@@ -21,6 +21,7 @@ import javax.servlet.http.HttpServletResponse;
 import java.security.Key;
 import java.util.Base64;
 import java.util.Date;
+import java.util.Optional;
 
 @Slf4j
 @Component
@@ -29,7 +30,7 @@ public class JwtUtils {
     private final RefreshTokenRepository refreshTokenRepository;
     private final MemberDetailServiceImpl memberDetailService;
 
-    private static final long ACCESS_TIME =  60 * 1000L;
+    private static final long ACCESS_TIME =  30 * 60 * 1000L;
     private static final long REFRESH_TIME = 14 * 24 * 60 * 60 * 1000L;
     public static final String ACCESS_TOKEN = "Access_Token";
     public static final String REFRESH_TOKEN = "Refresh_Token";
@@ -47,7 +48,7 @@ public class JwtUtils {
     }
 
     public String getHeaderToken(HttpServletRequest request, String type) {
-        return type.equals("Access") ? request.getHeader(ACCESS_TOKEN) : request.getHeader(REFRESH_TOKEN);
+        return request.getHeader(ACCESS_TOKEN);
     }
 
     public TokenDto createAllToken(String nickname) {
@@ -79,8 +80,8 @@ public class JwtUtils {
     public Boolean refreshTokenValidation(String token) {
         if(!tokenValidation(token)) return false;
 
-        // TODO: DB에 저장한 토큰 비교
-        return false;
+        Optional<RefreshToken> refreshToken = refreshTokenRepository.findById(getIdFromToken(token));
+        return refreshToken.isPresent() && token.equals(refreshToken.get().getRefreshToken());
     }
 
     public Authentication createAuthentication(String userId) {
@@ -96,7 +97,4 @@ public class JwtUtils {
         response.setHeader("Access_Token", accessToken);
     }
 
-    public void setHeaderRefreshToken(HttpServletResponse response, String refreshToken) {
-        response.setHeader("Refresh_Token", refreshToken);
-    }
 }

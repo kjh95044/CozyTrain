@@ -6,18 +6,22 @@ import lombok.ToString;
 import org.springframework.data.annotation.Id;
 import org.springframework.data.redis.core.RedisHash;
 
-@RedisHash(timeToLive = 604800)
 @Getter
 @ToString
+@RedisHash(timeToLive = 604800)
 public class RefreshToken {
 
     @Id
-    private String memberEmail;
     private String refreshToken;
+    private String memberId;
 
-    @Builder
-    public RefreshToken(String memberEmail, String refreshToken) {
-        this.memberEmail = memberEmail;
+    public RefreshToken(String memberId, String refreshToken) {
+        this.memberId = memberId;
         this.refreshToken = refreshToken;
+    }
+
+    public RefreshToken updateToken(String token) {
+        this.refreshToken = token;
+        return this;
     }
 }
