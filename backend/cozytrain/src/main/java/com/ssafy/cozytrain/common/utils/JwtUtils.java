@@ -58,7 +58,7 @@ public class JwtUtils {
     public String createToken(String nickname, String type) {
         Date date = new Date();
         long time = type.equals("Access") ? ACCESS_TIME : REFRESH_TIME;
-
+        log.info(nickname);
         return Jwts.builder()
                 .setSubject(nickname)
                 .setExpiration(new Date(date.getTime() + time))
