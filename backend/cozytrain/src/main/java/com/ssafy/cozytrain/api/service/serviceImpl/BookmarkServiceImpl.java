@@ -21,11 +21,10 @@ public class BookmarkServiceImpl implements BookmarkService {
 
     @Override
     @Transactional(rollbackFor = Exception.class)
-    public boolean saveBookmark(BookmarkDto bookmarkDto) {
-        // TODO: 로그인 완성되면, memberId 변경 로직
+    public boolean saveBookmark(BookmarkDto bookmarkDto, Long memberId) {
         BookmarkKey bookmarkKey = BookmarkKey.builder()
                 .elsId(bookmarkDto.getElsId())
-                .memberId(1L)
+                .memberId(memberId)
                 .build();
         Bookmark bookmark = Bookmark.builder().bookmarkKey(bookmarkKey).build();
         Bookmark saveBookmark = bookmarkRepository.save(bookmark);
@@ -35,8 +34,8 @@ public class BookmarkServiceImpl implements BookmarkService {
 
     @Override
     @Transactional(readOnly = true)
-    public List<BookmarkDto> getBookmark() {
-        List<Bookmark> bookmarkList = bookmarkRepository.findAllByBookmarkKeyMemberId(1L);
+    public List<BookmarkDto> getBookmark(Long memberId) {
+        List<Bookmark> bookmarkList = bookmarkRepository.findAllByBookmarkKeyMemberId(memberId);
         return bookmarkList.stream().map((item) -> {
                 return BookmarkDto.builder().elsId(item.getBookmarkKey().getElsId()).build();
             })
