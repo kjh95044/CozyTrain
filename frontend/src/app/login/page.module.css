@@ -1,15 +1,22 @@
+.container {
+  height: 100%;
+}
+
 .title {
   padding-top: 20%;
-  font-size: 34px;
+  font-size: 32px;
   font-weight: bold;
   text-align: center;
 }
 
-.kakaoLoginBtn {
-  width: 80%;
-  background-color: red;
+.logo {
+  padding-top: 8px;
 }
 
-.kakaoLoginBtn:hover {
-  cursor: pointer;
+.button_container {
+  display: flex;
+  height: 16%;
+  flex-direction: column;
+  justify-content: space-around;
+  margin-top: 16px;
 }
