@@ -1,0 +1,26 @@
+# Node.js 이미지로 사용
+FROM node:alpine as build
+
+# 작업 디렉토리를 /app으로 설정합니다
+WORKDIR /app
+
+# 컨테이너에 package.json와 package-lock.json 파일을 복사합니다
+COPY package*.json ./
+
+COPY . .
+
+# 새로운 독립적인 nginx 이미지를 생성합니다
+FROM nginx
+
+# 오픈할 포트를 지정합니다
+EXPOSE 3000
+
+# default.conf 파일을 /etc/nginx/conf.d/ 경로에 있는 default.conf에 복사합니다
+COPY ./nginx.conf /etc/nginx/conf.d
+
+# nextjs 빌드 결과물을 /usr/share/nginx/html에 복사합니다
+# COPY --from=build /app/out  /usr/share/nginx/html
+
+# Nginx를 실행합니다
+CMD ["nginx", "-g", "daemon off;"]
+# CMD ["npm", "start"]
