@@ -16,6 +16,7 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletResponse;
 import java.util.Optional;
 
@@ -42,20 +43,32 @@ public class MemberServiceImpl implements MemberService {
 
     @Override
     public LoginRes login(LoginReq loginReq, HttpServletResponse response) {
-        Member member = memberRepository.findByMemberLoginIdAndMemberPassword(loginReq.memberId, loginReq.memberPassword)
+        Member member = memberRepository.findByMemberLoginId(loginReq.memberId)
                 .orElseThrow(() -> new NotFoundException("Not Found User"));
+
+        if(!passwordEncoder.matches(loginReq.getMemberPassword(), member.getMemberPassword())) {
+            throw new NotFoundException("Not Found User");
+        }
 
         TokenDto tokenDto = jwtUtil.createAllToken(loginReq.getMemberId());
         Optional<RefreshToken> refreshToken = refreshTokenRepository.findById(tokenDto.getRefreshToken());
+
+        String cookieValue = null;
         if(refreshToken.isPresent()) {
             refreshTokenRepository.save(refreshToken.get().updateToken(tokenDto.getRefreshToken()));
+            cookieValue = refreshToken.get().getRefreshToken();
         }else {
             RefreshToken newToken = new RefreshToken(loginReq.memberId, tokenDto.getRefreshToken());
             refreshTokenRepository.save(newToken);
+            cookieValue = tokenDto.getRefreshToken();
         }
-
         setHeader(response, tokenDto);
-        // TODO: 쿠키에 refresh token 담기
+
+        String cookieName = "refreshToken";
+        Cookie cookie = new Cookie(cookieName, cookieValue);
+        cookie.setMaxAge(60 * 60 * 24 * 7);
+        cookie.setPath("/");
+
         return LoginRes.builder().member(member).build();
     }
 
