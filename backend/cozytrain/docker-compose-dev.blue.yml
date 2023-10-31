@@ -8,8 +8,14 @@ services:
         TZ: Asia/Seoul
     ports:
       - "8589:8080"
+    networks:
+      - backend-dev
     image: backend-dev-blue:latest
     environment:
       - TZ=Asia/Seoul
     container_name: backend-dev-blue
     stdin_open: true
+
+networks:
+  backend-dev:
+    external: true
