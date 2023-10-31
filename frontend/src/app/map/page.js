@@ -3,7 +3,10 @@
 import { useEffect, useRef } from "react";
 import styles from "./page.module.css";
 
+//import * as THREE from 'three';
 import Globe from 'globe.gl';
+
+import pretendard from '../../../public/assets/fonts/IBM Plex Sans KR Medium_Regular.json'
 
 export default function map() {
 
@@ -47,8 +50,9 @@ export default function map() {
         globe.globeImageUrl('assets/image/earth.jpg')
             .backgroundImageUrl('//unpkg.com/three-globe/example/img/night-sky.png')
             .labelText('label')
-            .labelSize(2)
-            .labelDotRadius(2)
+            .labelSize(1.5)
+            .labelDotRadius(2.2)
+            .labelTypeFace(pretendard)
             .labelColor(() => 'rgba(220,86,95,1)')
             .labelsData(continentArray, { lat: 'lat', lng: 'lng', label: 'label' });
 
@@ -56,6 +60,7 @@ export default function map() {
             globe;
         };
     }, []);
+
 
     return (
         <div className={styles.container}>
