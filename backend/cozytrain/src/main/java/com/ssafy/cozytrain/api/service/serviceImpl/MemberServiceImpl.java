@@ -105,6 +105,14 @@ public class MemberServiceImpl implements MemberService {
         return UpdateMemberRes.builder().memberImgUrl(url).build();
     }
 
+    @Override
+    public Boolean updateMemberName(UpdateMemberReq updateMemberReq, Member member) {
+        member.updateMemberName(updateMemberReq.getMemberName());
+        log.info(member.getMemberName());
+        memberRepository.save(member);
+        return true;
+    }
+
     private void setHeader(HttpServletResponse response, TokenDto tokenDto) {
         response.addHeader(JwtUtils.ACCESS_TOKEN, tokenDto.getAccessToken());
     }

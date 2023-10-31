@@ -42,10 +42,19 @@ public class MemberController {
 
     @PatchMapping("/image")
     @Operation(summary = "회원 사진 수정 API")
-    public ApiUtils.ApiResult<UpdateMemberRes> updateImg(@RequestHeader("Authorization") String header, @RequestParam(name = "image") MultipartFile file) throws IOException {
+    public ApiUtils.ApiResult<UpdateMemberRes> updateImage(@RequestHeader("Authorization") String header, @RequestParam(name = "image") MultipartFile file) throws IOException {
         String memberId = jwtUtils.getIdFromToken(header.substring(7));
         Member member = memberService.findByMemberLoginId(memberId)
                 .orElseThrow(() -> new NotFoundException("Not Found User"));
         return success(memberService.updateMemberImg(file, member));
+    }
+
+    @PatchMapping("/name")
+    @Operation(summary = "회원 이름 수정 API")
+    public ApiUtils.ApiResult<Boolean> updateName(@RequestHeader("Authorization") String header, @RequestBody UpdateMemberReq updateMemberReq) throws IOException {
+        String memberId = jwtUtils.getIdFromToken(header.substring(7));
+        Member member = memberService.findByMemberLoginId(memberId)
+                .orElseThrow(() -> new NotFoundException("Not Found User"));
+        return success(memberService.updateMemberName(updateMemberReq, member));
     }
 }

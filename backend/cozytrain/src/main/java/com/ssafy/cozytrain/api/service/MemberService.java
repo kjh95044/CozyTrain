@@ -14,4 +14,5 @@ public interface MemberService {
     Member findByMemberId(Long memberId);
     Optional<Member> findByMemberLoginId(String memberLoginId);
     UpdateMemberRes updateMemberImg(MultipartFile file, Member member) throws IOException;
+    Boolean updateMemberName(UpdateMemberReq updateMemberReq, Member member);
 }
