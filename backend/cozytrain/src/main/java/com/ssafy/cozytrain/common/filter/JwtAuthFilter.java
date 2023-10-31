@@ -1,10 +1,9 @@
 package com.ssafy.cozytrain.common.filter;
 
-import com.ssafy.cozytrain.common.exception.AccessTokenExpiredException;
+import com.ssafy.cozytrain.common.exception.TokenExpiredException;
 import com.ssafy.cozytrain.common.utils.JwtUtils;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.http.HttpStatus;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.web.filter.OncePerRequestFilter;
@@ -41,7 +40,7 @@ public class JwtAuthFilter extends OncePerRequestFilter {
                     setAuthentication(jwtUtil.getIdFromToken(newAccessToken));
                 }
                 else {
-                    throw new AccessTokenExpiredException("Access Token Expired");
+                    throw new TokenExpiredException("Refresh Token Expired");
                 }
             }
         }
