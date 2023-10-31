@@ -1,5 +1,11 @@
 package com.ssafy.cozytrain.api.dto;
 
-public class ReportDto {
+import lombok.Getter;
 
+
+public class ReportDto {
+    @Getter
+    public static class ReportDtoReq{
+        private HealthDto.HealthDtoReq health;
+    }
 }
