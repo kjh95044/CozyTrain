@@ -10,9 +10,12 @@ import io.swagger.v3.oas.annotations.Operation;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
 
 import javax.servlet.http.HttpServletResponse;
 import javax.validation.Valid;
+
+import java.io.IOException;
 
 import static com.ssafy.cozytrain.common.utils.ApiUtils.success;
 
@@ -37,11 +40,12 @@ public class MemberController {
         return success(memberService.login(loginReq, response));
     }
 
-//    @PatchMapping("/img")
-//    public ApiUtils.ApiResult<Boolean> updateImg(@RequestHeader("Authorization") String header) {
-//        String memberId = jwtUtils.getIdFromToken(header.substring(7));
-//        Member member = memberService.findByMemberLoginId(memberId)
-//                .orElseThrow(() -> new NotFoundException("Not Found User"));
-//        return success(memberService.updateMemberImg())
-//    }
+    @PatchMapping("/image")
+    @Operation(summary = "회원 사진 수정 API")
+    public ApiUtils.ApiResult<UpdateMemberRes> updateImg(@RequestHeader("Authorization") String header, @RequestParam(name = "image") MultipartFile file) throws IOException {
+        String memberId = jwtUtils.getIdFromToken(header.substring(7));
+        Member member = memberService.findByMemberLoginId(memberId)
+                .orElseThrow(() -> new NotFoundException("Not Found User"));
+        return success(memberService.updateMemberImg(file, member));
+    }
 }

@@ -15,6 +15,7 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import org.springframework.web.multipart.MultipartFile;
 
 import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletResponse;
@@ -89,18 +90,19 @@ public class MemberServiceImpl implements MemberService {
 
     @Override
     @Transactional(rollbackFor = Exception.class)
-    public Boolean updateMemberImg(UpdateMemberReq updateMemberReq, Member member) throws IOException {
+    public UpdateMemberRes updateMemberImg(MultipartFile file, Member member) throws IOException {
         if(member.getMemberImageUrl() != null) {
             s3Uploader.removeFile(member.getMemberImageName());
         }
 
-        String imgName = updateMemberReq.getMemberImg().getOriginalFilename();
+        String imgName = file.getOriginalFilename();
         String imgPath = "profile/" + member.getMemberId();
-        String url = s3Uploader.upload(updateMemberReq.getMemberImg(), imgPath, imgName);
+
+        String url = s3Uploader.upload(file, imgPath, imgName);
         member.updateImg(url, imgName);
 
         memberRepository.save(member);
-        return true;
+        return UpdateMemberRes.builder().memberImgUrl(url).build();
     }
 
     private void setHeader(HttpServletResponse response, TokenDto tokenDto) {

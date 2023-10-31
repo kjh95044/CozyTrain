@@ -2,6 +2,7 @@ package com.ssafy.cozytrain.api.service;
 
 import com.ssafy.cozytrain.api.dto.MemberDto.*;
 import com.ssafy.cozytrain.api.entity.Member;
+import org.springframework.web.multipart.MultipartFile;
 
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
@@ -12,5 +13,5 @@ public interface MemberService {
     LoginRes login(LoginReq loginReq, HttpServletResponse response);
     Member findByMemberId(Long memberId);
     Optional<Member> findByMemberLoginId(String memberLoginId);
-    Boolean updateMemberImg(UpdateMemberReq updateMemberReq, Member member) throws IOException;
+    UpdateMemberRes updateMemberImg(MultipartFile file, Member member) throws IOException;
 }

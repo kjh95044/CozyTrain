@@ -48,8 +48,12 @@ public class MemberDto {
     }
 
     @Getter
-    public static class UpdateMemberReq {
-        public String memberName;
-        public MultipartFile memberImg;
+    public static class UpdateMemberRes {
+        public String memberImgUrl;
+
+        @Builder
+        public UpdateMemberRes(String memberImgUrl) {
+            this.memberImgUrl = memberImgUrl;
+        }
     }
 }
