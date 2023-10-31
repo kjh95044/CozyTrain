@@ -26,10 +26,11 @@ public class Member {
     private String memberPassword;
 
     private String memberName;
-    private String memberAge;
 
     @Column(length = 200)
     private String memberImageUrl;
+    private String memberImageName;
+
     private LocalDateTime createdAt;
     private LocalDateTime updatedAt;
 
@@ -42,9 +43,16 @@ public class Member {
         this.memberLoginId = signupReq.getMemberId();
         this.memberPassword = signupReq.getMemberPassword();
         this.memberName = signupReq.getMemberName();
-        this.memberAge = signupReq.getMemberAge();
-//        this.memberImageUrl = signupReq.getMemberProfileImg();
         this.createdAt = LocalDateTime.now();
         this.updatedAt = LocalDateTime.now();
+    }
+
+    public void updateImg(String imgUrl, String imgName) {
+        this.memberImageUrl = imgUrl;
+        this.memberImageName = imgName;
+    }
+
+    public void updateMemberName(String memberName) {
+        this.memberName = memberName;
     }
 }

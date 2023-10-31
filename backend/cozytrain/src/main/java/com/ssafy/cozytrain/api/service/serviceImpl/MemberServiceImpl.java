@@ -9,6 +9,7 @@ import com.ssafy.cozytrain.api.repository.RefreshTokenRepository;
 import com.ssafy.cozytrain.api.service.MemberService;
 import com.ssafy.cozytrain.common.exception.NotFoundException;
 import com.ssafy.cozytrain.common.utils.JwtUtils;
+import com.ssafy.cozytrain.common.utils.S3Uploader;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.security.crypto.password.PasswordEncoder;
@@ -17,6 +18,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletResponse;
+import java.io.IOException;
 import java.util.Optional;
 
 @Slf4j
@@ -27,6 +29,7 @@ public class MemberServiceImpl implements MemberService {
     private final JwtUtils jwtUtil;
     private final PasswordEncoder passwordEncoder;
     private final RefreshTokenRepository refreshTokenRepository;
+    private final S3Uploader s3Uploader;
 
     @Override
     @Transactional(rollbackFor = Exception.class)
@@ -82,6 +85,22 @@ public class MemberServiceImpl implements MemberService {
     @Override
     public Optional<Member> findByMemberLoginId(String memberLoginId) {
         return memberRepository.findByMemberLoginId(memberLoginId);
+    }
+
+    @Override
+    @Transactional(rollbackFor = Exception.class)
+    public Boolean updateMemberImg(UpdateMemberReq updateMemberReq, Member member) throws IOException {
+        if(member.getMemberImageUrl() != null) {
+            s3Uploader.removeFile(member.getMemberImageName());
+        }
+
+        String imgName = updateMemberReq.getMemberImg().getOriginalFilename();
+        String imgPath = "profile/" + member.getMemberId();
+        String url = s3Uploader.upload(updateMemberReq.getMemberImg(), imgPath, imgName);
+        member.updateImg(url, imgName);
+
+        memberRepository.save(member);
+        return true;
     }
 
     private void setHeader(HttpServletResponse response, TokenDto tokenDto) {
