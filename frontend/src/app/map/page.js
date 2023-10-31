@@ -5,8 +5,6 @@ import styles from "./page.module.css";
 
 import Globe from 'globe.gl';
 
-
-
 export default function map() {
 
     const globalRef = useRef(null);
@@ -14,6 +12,7 @@ export default function map() {
     useEffect(() => {
         const globe = Globe()(globalRef.current);
         globe.globeImageUrl('assets/image/earth.jpg')
+        globe.backgroundImageUrl('assets/image/space.png')
         return () => {
             globe;
         };
