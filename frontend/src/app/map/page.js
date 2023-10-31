@@ -1,12 +1,12 @@
 'use client';
 
-import { useEffect, useRef } from "react";
+import { useEffect, useRef, useState } from "react";
 import styles from "./page.module.css";
 
 //import * as THREE from 'three';
 import Globe from 'globe.gl';
 
-import pretendard from '../../../public/assets/fonts/IBM Plex Sans KR Medium_Regular.json'
+import IBMRegular from '../../../public/assets/fonts/IBM_Regular.json'
 
 export default function map() {
 
@@ -52,7 +52,7 @@ export default function map() {
             .labelText('label')
             .labelSize(1.5)
             .labelDotRadius(2.2)
-            .labelTypeFace(pretendard)
+            .labelTypeFace(IBMRegular)
             .labelColor(() => 'rgba(220,86,95,1)')
             .labelsData(continentArray, { lat: 'lat', lng: 'lng', label: 'label' });
 
