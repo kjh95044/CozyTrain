@@ -48,6 +48,9 @@ dependencies {
     // Elastic search
     implementation 'org.springframework.boot:spring-boot-starter-data-elasticsearch'
     implementation group: 'org.elasticsearch.client', name: 'elasticsearch-rest-high-level-client', version: '7.16.2'
+
+    // s3
+    implementation 'org.springframework.cloud:spring-cloud-starter-aws:2.2.6.RELEASE'
 }
 
 tasks.named('test') {
