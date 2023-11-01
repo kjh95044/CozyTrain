@@ -66,13 +66,19 @@ export default function Map() {
 
         if (typeof window !== 'undefined') {
             const globe = Globe()(globalRef.current);
-            globe.globeImageUrl('images/earth.jpg')
+            globe.globeImageUrl('images/map/earth.jpg')
                 .backgroundImageUrl('//unpkg.com/three-globe/example/img/night-sky.png')
                 .labelText('label')
                 .labelSize(1.5)
                 .labelDotRadius(2.2)
                 .labelTypeFace(IBMRegular)
-                .labelColor(() => 'rgba(220,86,95,1)')
+                .labelColor((point) => {
+                    if(point.label === '아시아') {
+                        return 'rgba(220, 86, 95, 1)';
+                    } else {
+                        return 'rgba(142,142,142,1)';
+                    }
+                })
                 .onLabelClick(point => point.onLabelClick())
                 .labelsData(continentArray, { lat: 'lat', lng: 'lng', label: 'label' });
             return () => {
