@@ -66,7 +66,7 @@ export default function map() {
     useEffect(() => {
         if (typeof window !== 'undefined') {
             const globe = Globe()(globalRef.current);
-            globe.globeImageUrl('assets/image/earth.jpg')
+            globe.globeImageUrl('images/earth.jpg')
                 .backgroundImageUrl('//unpkg.com/three-globe/example/img/night-sky.png')
                 .labelText('label')
                 .labelSize(1.5)
