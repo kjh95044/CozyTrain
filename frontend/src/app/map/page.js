@@ -15,56 +15,59 @@ export default function Map() {
     const [clickContinent, setClickContinent] = useState("");
     const [clcikContinentEng, setClickContinentEng] = useState("");
 
-    const continentArray = [
-        {
-            lat: 42.13407,
-            lng: 120,
-            label: "아시아",
-            onLabelClick: () => {
-                setIsModalOpen(true);
-                setClickContinent("아시아");
-                setClickContinentEng("asia");
-            }
-        },
-        {
-            lat: 50.13407,
-            lng: 43.62981,
-            label: "유럽",
-            onLabelClick: () => {
-                setIsModalOpen(true);
-                setClickContinent("유럽으");
-                setClickContinentEng("europe");
-            }
-        },
-        {
-            lat: 7.13407,
-            lng: 21.62981,
-            label: "아프리카",
-            onLabelClick: () => { }
-        },
-        {
-            lat: -27,
-            lng: 135,
-            label: "오세아니아",
-            onLabelClick: () => { }
-        },
-        {
-            lat: -18,
-            lng: -55,
-            label: "남아메리카",
-            onLabelClick: () => { }
-        },
-        {
-            lat: 38.13407,
-            lng: -100,
-            label: "북아메리카",
-            onLabelClick: () => { }
-        },
-    ];
+
 
     const globalRef = useRef(null);
 
     useEffect(() => {
+        const continentArray = [
+            {
+                lat: 42.13407,
+                lng: 120,
+                label: "아시아",
+                onLabelClick: () => {
+                    setIsModalOpen(true);
+                    setClickContinent("아시아");
+                    setClickContinentEng("asia");
+                }
+            },
+            {
+                lat: 50.13407,
+                lng: 43.62981,
+                label: "유럽",
+                onLabelClick: () => {
+                    setIsModalOpen(true);
+                    setClickContinent("유럽으");
+                    setClickContinentEng("europe");
+                }
+            },
+            {
+                lat: 7.13407,
+                lng: 21.62981,
+                label: "아프리카",
+                onLabelClick: () => { }
+            },
+            {
+                lat: -27,
+                lng: 135,
+                label: "오세아니아",
+                onLabelClick: () => { }
+            },
+            {
+                lat: -18,
+                lng: -55,
+                label: "남아메리카",
+                onLabelClick: () => { }
+            },
+            {
+                lat: 38.13407,
+                lng: -100,
+                label: "북아메리카",
+                onLabelClick: () => { }
+            },
+        ];
+
+
         if (typeof window !== 'undefined') {
             const globe = Globe()(globalRef.current);
             globe.globeImageUrl('images/earth.jpg')
