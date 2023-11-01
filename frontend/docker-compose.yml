@@ -1,0 +1,11 @@
+version: "3"
+services:
+  frontend:
+    build:
+      dockerfile: Dockerfile # dockerfile이름
+      context: ./ # 도커파일 위치 명시
+    image: frontend
+    container_name: frontend
+    ports:
+      - 3000:80
+    stdin_open: true

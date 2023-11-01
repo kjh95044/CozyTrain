@@ -1,0 +1,22 @@
+.container {
+  height: 100%;
+}
+
+.title {
+  padding-top: 20%;
+  font-size: 32px;
+  font-weight: bold;
+  text-align: center;
+}
+
+.logo {
+  padding-top: 8px;
+}
+
+.button_container {
+  display: flex;
+  height: 16%;
+  flex-direction: column;
+  justify-content: space-around;
+  margin-top: 16px;
+}
