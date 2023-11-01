@@ -2,12 +2,12 @@
 
 import { useEffect, useRef, useState } from "react";
 import styles from "./page.module.css";
-import MapModal from "@/components/map/MapModal";
+import MapModal from "@/app/map/component/MapModal";
 //import * as THREE from 'three';
 import Globe from 'globe.gl';
 
 import IBMRegular from '../../../public/fonts/IBM_Regular.json'
-import MapCloseButton from "@/components/map/MapCloseButton";
+import MapCloseButton from "@/app/map/component/MapCloseButton";
 
 export default function Map() {
 
