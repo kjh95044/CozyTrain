@@ -35,11 +35,7 @@ export default function Map() {
                 lat: 50.13407,
                 lng: 43.62981,
                 label: "유럽",
-                onLabelClick: () => {
-                    setIsModalOpen(true);
-                    setClickContinent("유럽으");
-                    setClickContinentEng("europe");
-                }
+                onLabelClick: () => { }
             },
             {
                 lat: 7.13407,
