@@ -2,7 +2,7 @@
 
 import { useEffect, useRef, useState } from "react";
 import styles from "./page.module.css";
-
+import MapModal from "@/components/MapModal";
 //import * as THREE from 'three';
 import Globe from 'globe.gl';
 
