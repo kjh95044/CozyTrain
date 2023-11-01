@@ -3,7 +3,7 @@ import MapCloseButton from '../component/MapCloseButton';
 import styles from './page.module.css'
 
 
-export default function asia() {
+export default function Asia() {
     return (
         <div className={styles.container}>
             <MapCloseButton />
