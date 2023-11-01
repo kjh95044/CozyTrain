@@ -6,7 +6,7 @@ import MapModal from "@/components/MapModal";
 //import * as THREE from 'three';
 import Globe from 'globe.gl';
 
-import IBMRegular from '../../../public/assets/fonts/IBM_Regular.json'
+import IBMRegular from '../../../public/fonts/IBM_Regular.json'
 
 export default function map() {
 
@@ -64,19 +64,21 @@ export default function map() {
     const globalRef = useRef(null);
 
     useEffect(() => {
-        const globe = Globe()(globalRef.current);
-        globe.globeImageUrl('assets/image/earth.jpg')
-            .backgroundImageUrl('//unpkg.com/three-globe/example/img/night-sky.png')
-            .labelText('label')
-            .labelSize(1.5)
-            .labelDotRadius(2.2)
-            .labelTypeFace(IBMRegular)
-            .labelColor(() => 'rgba(220,86,95,1)')
-            .onLabelClick(point => point.onLabelClick())
-            .labelsData(continentArray, { lat: 'lat', lng: 'lng', label: 'label' });
-        return () => {
-            globe;
-        };
+        if (typeof window !== 'undefined') {
+            const globe = Globe()(globalRef.current);
+            globe.globeImageUrl('assets/image/earth.jpg')
+                .backgroundImageUrl('//unpkg.com/three-globe/example/img/night-sky.png')
+                .labelText('label')
+                .labelSize(1.5)
+                .labelDotRadius(2.2)
+                .labelTypeFace(IBMRegular)
+                .labelColor(() => 'rgba(220,86,95,1)')
+                .onLabelClick(point => point.onLabelClick())
+                .labelsData(continentArray, { lat: 'lat', lng: 'lng', label: 'label' });
+            return () => {
+                globe;
+            };
+        }
     }, []);
 
     const closeModal = () => {
