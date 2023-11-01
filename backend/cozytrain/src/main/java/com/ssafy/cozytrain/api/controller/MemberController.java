@@ -57,4 +57,13 @@ public class MemberController {
                 .orElseThrow(() -> new NotFoundException("Not Found User"));
         return success(memberService.updateMemberName(updateMemberReq, member));
     }
+
+    @DeleteMapping
+    @Operation(summary = "회원 탈퇴 API")
+    public ApiUtils.ApiResult<Boolean> deleteMember(@RequestHeader("Authorization") String header) {
+        String memberId = jwtUtils.getIdFromToken(header.substring(7));
+        Member member = memberService.findByMemberLoginId(memberId)
+                .orElseThrow(() -> new NotFoundException("Not Found User"));
+        return success(memberService.deleteMember(member));
+    }
 }

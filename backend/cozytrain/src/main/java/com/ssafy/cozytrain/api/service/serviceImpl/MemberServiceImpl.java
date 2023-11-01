@@ -6,6 +6,7 @@ import com.ssafy.cozytrain.api.entity.Member;
 import com.ssafy.cozytrain.api.entity.RefreshToken;
 import com.ssafy.cozytrain.api.repository.MemberRepository;
 import com.ssafy.cozytrain.api.repository.RefreshTokenRepository;
+import com.ssafy.cozytrain.api.service.BookmarkService;
 import com.ssafy.cozytrain.api.service.MemberService;
 import com.ssafy.cozytrain.common.exception.NotFoundException;
 import com.ssafy.cozytrain.common.utils.JwtUtils;
@@ -27,6 +28,7 @@ import java.util.Optional;
 @RequiredArgsConstructor
 public class MemberServiceImpl implements MemberService {
     private final MemberRepository memberRepository;
+    private final BookmarkService bookmarkService;
     private final JwtUtils jwtUtil;
     private final PasswordEncoder passwordEncoder;
     private final RefreshTokenRepository refreshTokenRepository;
@@ -110,6 +112,14 @@ public class MemberServiceImpl implements MemberService {
         member.updateMemberName(updateMemberReq.getMemberName());
         log.info(member.getMemberName());
         memberRepository.save(member);
+        return true;
+    }
+
+    @Override
+    @Transactional(rollbackFor = Exception.class)
+    public Boolean deleteMember(Member member) {
+        memberRepository.deleteById(member.getMemberId());
+        bookmarkService.deleteMemberBookmark(member);
         return true;
     }
 
