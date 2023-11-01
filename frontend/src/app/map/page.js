@@ -2,11 +2,12 @@
 
 import { useEffect, useRef, useState } from "react";
 import styles from "./page.module.css";
-import MapModal from "@/components/MapModal";
+import MapModal from "@/components/map/MapModal";
 //import * as THREE from 'three';
 import Globe from 'globe.gl';
 
 import IBMRegular from '../../../public/fonts/IBM_Regular.json'
+import MapCloseButton from "@/components/map/MapCloseButton";
 
 export default function map() {
 
@@ -88,6 +89,7 @@ export default function map() {
 
     return (
         <div className={styles.container}>
+            <MapCloseButton />
             {isModalOpen &&
                 <MapModal
                     text={`${clickContinent}로  이동하시겠습니까?`}

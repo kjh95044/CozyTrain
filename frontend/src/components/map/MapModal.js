@@ -1,6 +1,6 @@
 import styles from './MapModal.module.css'
-import ConfirmButton from './ConfirmButton'
-import CancelButton from './CancelButton'
+import ConfirmButton from '../ConfirmButton'
+import CancelButton from '../CancelButton'
 
 import Link from 'next/link'
 
