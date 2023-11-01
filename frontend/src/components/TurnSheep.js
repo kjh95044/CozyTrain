@@ -2,7 +2,7 @@
 
 import { useLottie } from "lottie-react";
 
-import TurnSheepLottie from "/public/lotties/sheep_stop.json";
+import TurnSheepLottie from "/public/lotties/turn-sheep.json";
 
 export default function TurnSheep() {
   const { View } = useLottie({

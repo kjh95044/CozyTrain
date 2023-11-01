@@ -1,9 +1,9 @@
 import Link from "next/link";
 import Image from "next/image";
 
-import setting from "public/icons/setting.png";
-import map from "public/icons/map.png";
-import checkList from "public/icons/check-list.png";
+import setting from "#/icons/setting.png";
+import map from "#/icons/map.png";
+import checkList from "#/icons/check-list.png";
 import styles from "./NavLeft.module.css";
 
 export default function NavLeft() {
