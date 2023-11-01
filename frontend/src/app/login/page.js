@@ -1,7 +1,7 @@
 import Link from "next/link";
 
 import Button from "@/components/Button";
-import TurnSheep from "@/components/TurnSheep";
+import TurnSheep from "@/components/Lottie/TurnSheep";
 import styles from "./page.module.css";
 
 export default function Login() {
