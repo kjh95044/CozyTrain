@@ -2,6 +2,7 @@ package com.ssafy.cozytrain.api.service.serviceImpl;
 
 import com.ssafy.cozytrain.api.dto.BookmarkDto;
 import com.ssafy.cozytrain.api.entity.Bookmark;
+import com.ssafy.cozytrain.api.entity.Member;
 import com.ssafy.cozytrain.api.entity.key.BookmarkKey;
 import com.ssafy.cozytrain.api.repository.BookmarkRepository;
 import com.ssafy.cozytrain.api.service.BookmarkService;
@@ -40,5 +41,10 @@ public class BookmarkServiceImpl implements BookmarkService {
                 return BookmarkDto.builder().elsId(item.getBookmarkKey().getElsId()).build();
             })
             .collect(Collectors.toList());
+    }
+
+    public Boolean deleteMemberBookmark(Member member) {
+        bookmarkRepository.deleteAllByBookmarkKeyMemberId(member.getMemberId());
+        return true;
     }
 }

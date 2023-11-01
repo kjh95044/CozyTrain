@@ -3,6 +3,7 @@ package com.ssafy.cozytrain.api.dto;
 import com.ssafy.cozytrain.api.entity.Member;
 import lombok.Builder;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 import org.springframework.web.multipart.MultipartFile;
 
 import javax.validation.constraints.NotNull;
@@ -48,8 +49,23 @@ public class MemberDto {
     }
 
     @Getter
+    public static class UpdateMemberRes {
+        public String memberImgUrl;
+
+        @Builder
+        public UpdateMemberRes(String memberImgUrl) {
+            this.memberImgUrl = memberImgUrl;
+        }
+    }
+
+    @Getter
+    @NoArgsConstructor
     public static class UpdateMemberReq {
         public String memberName;
-        public MultipartFile memberImg;
+
+        @Builder
+        public UpdateMemberReq(String memberName) {
+            this.memberName = memberName;
+        }
     }
 }

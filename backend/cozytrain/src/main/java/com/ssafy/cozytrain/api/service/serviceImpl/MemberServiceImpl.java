@@ -6,6 +6,7 @@ import com.ssafy.cozytrain.api.entity.Member;
 import com.ssafy.cozytrain.api.entity.RefreshToken;
 import com.ssafy.cozytrain.api.repository.MemberRepository;
 import com.ssafy.cozytrain.api.repository.RefreshTokenRepository;
+import com.ssafy.cozytrain.api.service.BookmarkService;
 import com.ssafy.cozytrain.api.service.MemberService;
 import com.ssafy.cozytrain.common.exception.NotFoundException;
 import com.ssafy.cozytrain.common.utils.JwtUtils;
@@ -15,6 +16,7 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import org.springframework.web.multipart.MultipartFile;
 
 import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletResponse;
@@ -26,6 +28,7 @@ import java.util.Optional;
 @RequiredArgsConstructor
 public class MemberServiceImpl implements MemberService {
     private final MemberRepository memberRepository;
+    private final BookmarkService bookmarkService;
     private final JwtUtils jwtUtil;
     private final PasswordEncoder passwordEncoder;
     private final RefreshTokenRepository refreshTokenRepository;
@@ -89,17 +92,34 @@ public class MemberServiceImpl implements MemberService {
 
     @Override
     @Transactional(rollbackFor = Exception.class)
-    public Boolean updateMemberImg(UpdateMemberReq updateMemberReq, Member member) throws IOException {
+    public UpdateMemberRes updateMemberImg(MultipartFile file, Member member) throws IOException {
         if(member.getMemberImageUrl() != null) {
             s3Uploader.removeFile(member.getMemberImageName());
         }
 
-        String imgName = updateMemberReq.getMemberImg().getOriginalFilename();
+        String imgName = file.getOriginalFilename();
         String imgPath = "profile/" + member.getMemberId();
-        String url = s3Uploader.upload(updateMemberReq.getMemberImg(), imgPath, imgName);
+
+        String url = s3Uploader.upload(file, imgPath, imgName);
         member.updateImg(url, imgName);
 
         memberRepository.save(member);
+        return UpdateMemberRes.builder().memberImgUrl(url).build();
+    }
+
+    @Override
+    public Boolean updateMemberName(UpdateMemberReq updateMemberReq, Member member) {
+        member.updateMemberName(updateMemberReq.getMemberName());
+        log.info(member.getMemberName());
+        memberRepository.save(member);
+        return true;
+    }
+
+    @Override
+    @Transactional(rollbackFor = Exception.class)
+    public Boolean deleteMember(Member member) {
+        memberRepository.deleteById(member.getMemberId());
+        bookmarkService.deleteMemberBookmark(member);
         return true;
     }
 
