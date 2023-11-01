@@ -89,6 +89,7 @@ export default function map() {
             {isModalOpen &&
                 <MapModal
                     text={`${clickContinent}로  이동하시겠습니까?`}
+                    moveContinent={clcikContinentEng}
                     onCloseModal={closeModal}
                 ></MapModal>
             }
