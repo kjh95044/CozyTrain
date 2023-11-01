@@ -12,9 +12,23 @@
 }
 
 .map_modal_text {
+    font-family: 'Pretendard';
     text-align: center;
     margin-top: 35px;
-    font-family: 'Pretendard';
     font-size: 20px;
     line-height: 18px;
+}
+
+.map_modal_btn {
+    margin-top: 20px;
+    text-align: center;
+}
+
+.map_modal_confirm_btn {
+    display: inline-block;
+}
+
+.map_modal_cancel_btn {
+    display: inline-block;
+    margin-left: 10px;
 }
