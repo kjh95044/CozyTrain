@@ -9,7 +9,7 @@ import Globe from 'globe.gl';
 import IBMRegular from '../../../public/fonts/IBM_Regular.json'
 import MapCloseButton from "@/components/map/MapCloseButton";
 
-export default function map() {
+export default function Map() {
 
     const [isModalOpen, setIsModalOpen] = useState(false);
     const [clickContinent, setClickContinent] = useState("");
