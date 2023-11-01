@@ -10,6 +10,8 @@ import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
+
 import static com.ssafy.cozytrain.common.utils.ApiUtils.success;
 
 @Slf4j
@@ -38,6 +40,13 @@ public class FriendController {
     @Operation(summary = "친구 삭제")
     public ApiUtils.ApiResult<Long> deleteFriend(@PathVariable Long friendId){
         return success(friendService.deleteFriend(friendId));
+    }
+
+    @GetMapping()
+    @Operation(summary = "친구 목록 불러오기")
+    public ApiUtils.ApiResult<List<FriendDto.FriendResDto>> getFriendList(/* @RequestHeader("Authorization") String header, */){
+        Long memberId = 1L;
+        return success(friendService.getFriendList(memberId));
     }
 
 }

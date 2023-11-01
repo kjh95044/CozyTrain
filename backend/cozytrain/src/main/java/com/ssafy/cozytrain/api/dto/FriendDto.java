@@ -32,4 +32,23 @@ public class FriendDto {
             this.friendId = friendId;
         }
     }
+
+    @Getter
+    @NoArgsConstructor
+    public static class FriendResDto{
+        @ApiParam(value = "친구요청 PK 값")
+        private Long friendId;
+        private Long memberId;
+        private String friendNickname;
+        private String profileImg;
+
+        @Builder
+
+        public FriendResDto(Long friendId, Long memberId, String friendNickname, String profileImg) {
+            this.friendId = friendId;
+            this.memberId = memberId;
+            this.friendNickname = friendNickname;
+            this.profileImg = profileImg;
+        }
+    }
 }

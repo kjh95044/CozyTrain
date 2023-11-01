@@ -13,6 +13,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.time.LocalDateTime;
+import java.util.List;
 
 @Service
 @Slf4j
@@ -63,5 +64,10 @@ public class FriendServiceImpl implements FriendService {
     @Override
     public Long deleteFriend(Long friendId) {
         return friendRepository.deleteByFriendId(friendId);
+    }
+
+    @Override
+    public List<FriendDto.FriendResDto> getFriendList(Long memberId) {
+        return friendRepository.getFriendList(memberId).orElseThrow(() -> new NotFoundException("친구가 없습니다"));
     }
 }
