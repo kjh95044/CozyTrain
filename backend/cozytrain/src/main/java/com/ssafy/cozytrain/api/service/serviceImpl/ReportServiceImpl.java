@@ -1,7 +1,6 @@
 package com.ssafy.cozytrain.api.service.serviceImpl;
 
 import com.ssafy.cozytrain.api.dto.HealthDto;
-import com.ssafy.cozytrain.api.dto.MemberDto;
 import com.ssafy.cozytrain.api.dto.ReportDto;
 import com.ssafy.cozytrain.api.dto.SleepStageDto;
 import com.ssafy.cozytrain.api.entity.Health;
@@ -30,7 +29,7 @@ public class ReportServiceImpl implements ReportService {
     private final SleepStageRepository sleepStageRepository;
     @Override
     @Transactional(rollbackFor = Exception.class)
-    public Report saveReport(ReportDto.ReportDtoReq reportDtoReq, Member member) {
+    public Long saveReport(ReportDto.ReportDtoReq reportDtoReq, Member member) {
 
         Report report = Report.builder()
                 .member(member)
@@ -46,20 +45,42 @@ public class ReportServiceImpl implements ReportService {
                 .sleepDuration(healthDtoReq.getSleepDuration())
                 .stressLevel(healthDtoReq.getStressLevel())
                 .steps(healthDtoReq.getSteps())
+                .report(report)
                 .build();
-
         healthRepository.save(health);
+
 
         for(SleepStageDto.SleepStageDtoReq sleepStageDtoReq : sleepStagesReq){
             SleepStage sleepStage = SleepStage.builder()
                     .stage(sleepStageDtoReq.getStage())
                     .startTime(sleepStageDtoReq.getStartTime())
                     .endTime(sleepStageDtoReq.getEndTime())
+                    .health(health)
                     .build();
             sleepStageRepository.save(sleepStage);
         }
 
-        return reportRepository.findById(reportId)
+        return reportId;
+    }
+
+    @Override
+    public ReportDto.ReportDtoRes getAnalyzedReport(Long reportId) {
+        Report report = reportRepository.findById(reportId)
                 .orElseThrow(() -> new NotFoundException("Not Found Report"));
+
+        Health health = healthRepository.findByReport(report)
+                .orElseThrow(() -> new NotFoundException("Not Found Health"));
+
+        List<SleepStage> sleepStages = sleepStageRepository.findAllByHealth(health);
+
+        log.info("요기 : " + sleepStages.toString());
+
+        // TODO: 수면 점수 계산해서 reportDtoRes 반환 해야함.
+        return null;
+    }
+
+    private int calculateSleepScore(){
+        int score = 0;
+        return score;
     }
 }

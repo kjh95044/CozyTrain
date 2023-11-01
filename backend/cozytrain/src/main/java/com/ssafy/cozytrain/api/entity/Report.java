@@ -19,6 +19,9 @@ public class Report {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long reportId;
 
+    @NotNull
+    private LocalDateTime sleepReportDate;
+
     @ManyToOne
     @JoinColumn(name = "member_id", referencedColumnName = "member_id")
     private Member member;
@@ -28,9 +31,6 @@ public class Report {
 
     @OneToOne(mappedBy = "report", cascade = CascadeType.ALL)
     private Health health;
-
-    @NotNull
-    private LocalDateTime sleepReportDate;
 
     @Builder
     public Report(Member member, LocalDateTime sleepReportDate) {
