@@ -1,0 +1,42 @@
+.letter {
+  position: absolute;
+  z-index: 1;
+  scale: 0;
+  left: 6%;
+  bottom: 4%;
+  transition: all 1.6s;
+}
+
+.arive {
+  scale: 1;
+  bottom: 36%;
+  animation: ease-in-out;
+}
+
+.shake {
+  animation: shake 0.5s infinite;
+}
+
+@keyframes shake {
+  0% {
+    transform: translate(0, 0);
+  }
+  10% {
+    transform: translate(-2px, -2px);
+  }
+  20% {
+    transform: translate(2px, 2px);
+  }
+  30% {
+    transform: translate(-2px, 2px);
+  }
+  40% {
+    transform: translate(2px, -2px);
+  }
+  50% {
+    transform: translate(0, 0);
+  }
+  100% {
+    transform: translate(0, 0);
+  }
+}
