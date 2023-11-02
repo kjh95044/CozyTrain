@@ -19,20 +19,20 @@ COPY package*.json ./
 COPY . .
 
 # 새로운 독립적인 nginx 이미지를 생성합니다
-FROM nginx
+# FROM nginx
 
 # 오픈할 포트를 지정합니다
 EXPOSE 3000
 
 # nginx 의 default.conf 를 삭제
-RUN rm /etc/nginx/conf.d/default.conf
+# RUN rm /etc/nginx/conf.d/default.conf
 
 # host pc 의 nginx.conf 를 아래 경로에 복사
-COPY ./nginx.conf /etc/nginx/conf.d
+# COPY ./nginx.conf /etc/nginx/conf.d
 
 # nextjs 빌드 결과물을 /usr/share/nginx/html에 복사합니다
 # COPY --from=build /app/out  /usr/share/nginx/html
 
 # Nginx를 실행합니다
-CMD ["nginx", "-g", "daemon off;"]
-# CMD ["npm", "start"]
+# CMD ["nginx", "-g", "daemon off;"]
+CMD ["npm", "start"]
