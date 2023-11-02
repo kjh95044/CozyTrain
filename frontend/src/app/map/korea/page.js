@@ -6,6 +6,9 @@ import { OrbitControls, Clone } from "@react-three/drei";
 import { useGLTF } from "@react-three/drei";
 
 import styles from "./page.module.css"
+import MapCloseButton from "../component/MapCloseButton";
+import MapAllButton from "../component/MapAllButton";
+import GlobeButton from "../component/GlobeButton";
 
 
 const Models = [
@@ -21,6 +24,11 @@ const Model = ({ url, scale }) => {
 export default function Korea() {
     return (
         <div className={styles.container}>
+            <GlobeButton />
+            <MapCloseButton />
+            <div className={styles.mapAllButton}>
+                <MapAllButton>대한민국</MapAllButton>
+            </div>
             <Canvas camera={{ position: [0, 0.1, -0.2], near: 0.03 }}>
                 <Suspense fallback={null}>
                     <Model url={Models[0].url} scale={0.16} />

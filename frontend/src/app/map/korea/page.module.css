@@ -4,3 +4,9 @@
     background-image: url('../../../../public/images/blue-sky.jpg');
     background-size: cover;
 }
+
+.mapAllButton {
+    position: absolute;
+    left: 140px;
+    top: 20px;
+}
