@@ -13,10 +13,22 @@
   padding-top: 8px;
 }
 
-.button_container {
+.signup_button {
+  position: fixed;
+  width: 100%;
+  bottom: 16%;
   display: flex;
   height: 16%;
   flex-direction: column;
   justify-content: space-around;
-  margin-top: 16px;
+}
+
+.signin_button {
+  position: fixed;
+  width: 100%;
+  bottom: 8%;
+  display: flex;
+  height: 16%;
+  flex-direction: column;
+  justify-content: space-around;
 }
