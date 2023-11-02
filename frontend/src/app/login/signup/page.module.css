@@ -70,7 +70,7 @@
   position: absolute;
   bottom: 0;
   height: 32px;
-  background-color: var(--primary);
+  background-color: var(--accent);
   color: white;
   border-radius: 10px;
   right: 0px;
