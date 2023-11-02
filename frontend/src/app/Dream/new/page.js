@@ -11,11 +11,14 @@ import styles from "./page.module.css";
 import NavBottom from "@/components/NavBottom";
 import { useState } from "react";
 import PrimaryButton from "@/components/button/PrimaryButton";
+import Link from "next/link";
 
-export default function Dream() {
-  const [dream, setDream] = useState("");
+export default function New() {
+  const [dream, setDream] = useState(0);
+  const [img, setImg] = useState();
   const dreams = ["돈/재물", "음식", "지인", "똥", "악몽", "기타"];
-  const images = [coin, food, friend, poo, nightmare, sheep];
+
+  const images2 = [coin, food, friend, poo, nightmare, sheep];
 
   return (
     <div className={styles.container}>
@@ -31,23 +34,28 @@ export default function Dream() {
             <div
               key={i}
               className={`${styles.btn_group} ${
-                dream === item ? styles.btn_click : ""
+                dream === i ? styles.btn_click : ""
               }`}
               onClick={() => {
-                setDream(item);
+                setDream(i);
+                setImg(images2[i]);
               }}
             >
               <Image
-                src={images[i]}
+                src={images2[i]}
                 alt="dream_img"
+                width={100}
+                height={100}
                 className={styles.btn_img}
               ></Image>
               {item}
             </div>
           ))}
         </div>
-        <div className={styles.next}>
-          <PrimaryButton>다음</PrimaryButton>
+        <div className={styles.next_btn}>
+          <Link href={`/dream/write?dream=${dream}`}>
+            <PrimaryButton>다음</PrimaryButton>
+          </Link>
         </div>
       </div>
       <NavBottom />
