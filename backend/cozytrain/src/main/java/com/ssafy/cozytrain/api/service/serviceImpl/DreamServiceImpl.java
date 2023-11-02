@@ -25,7 +25,7 @@ public class DreamServiceImpl implements DreamService {
 
     @Override
     @Transactional(readOnly = true)
-    public DreamDto.DreamDtoRes getDream(Long dreamId) {
+    public DreamDto.DreamDtoRes getDream(Long dreamId, Member member) {
         try {
             Dream dream = dreamRepository.findByDreamId(dreamId);
 
@@ -41,9 +41,8 @@ public class DreamServiceImpl implements DreamService {
 
     @Override
     @Transactional(readOnly = true)
-    public DreamDto.DreamDtoListRes getDreams() {
+    public DreamDto.DreamDtoListRes getDreams(Member member) {
         try {
-            Member member = memberService.findByMemberId(1L);
             List<Dream> allByMember = dreamRepository.findAllByMember(member);
 
             return DreamDto.DreamDtoListRes.builder().dreamList(allByMember).build();
@@ -54,10 +53,8 @@ public class DreamServiceImpl implements DreamService {
 
     @Override
     @Transactional(rollbackFor = Exception.class)
-    public boolean saveDream(DreamDto.DreamDtoReq dreamDtoReq) {
+    public boolean saveDream(DreamDto.DreamDtoReq dreamDtoReq, Member member) {
         try {
-            Member member = memberService.findByMemberId(1L);
-
             Dream dream = Dream.builder()
                     .dreamContent(dreamDtoReq.getDreamContent())
                     .dreamType(dreamDtoReq.getDreamType())
@@ -74,7 +71,7 @@ public class DreamServiceImpl implements DreamService {
 
     @Override
     @Transactional(rollbackFor = Exception.class)
-    public boolean updateDream(Long dreamId, DreamDto.DreamDtoReq dreamDtoReq) {
+    public boolean updateDream(Long dreamId, DreamDto.DreamDtoReq dreamDtoReq, Member member) {
         try {
             Dream dream = dreamRepository.findByDreamId(dreamId);
             dream.update(dreamDtoReq.getDreamContent(), dreamDtoReq.getDreamType());
@@ -89,7 +86,7 @@ public class DreamServiceImpl implements DreamService {
 
     @Override
     @Transactional(rollbackFor = Exception.class)
-    public boolean deleteDream(Long dreamId) {
+    public boolean deleteDream(Long dreamId, Member member) {
         try {
             dreamRepository.deleteById(dreamId);
             return true;

@@ -1,16 +1,17 @@
 package com.ssafy.cozytrain.api.service;
 
 import com.ssafy.cozytrain.api.dto.DreamDto;
+import com.ssafy.cozytrain.api.entity.Member;
 
 public interface DreamService {
 
-    DreamDto.DreamDtoRes getDream(Long dreamId);
+    DreamDto.DreamDtoRes getDream(Long dreamId, Member member);
 
-    DreamDto.DreamDtoListRes getDreams();
+    DreamDto.DreamDtoListRes getDreams(Member member);
 
-    boolean saveDream(DreamDto.DreamDtoReq dreamDtoReq);
+    boolean saveDream(DreamDto.DreamDtoReq dreamDtoReq, Member member);
 
-    boolean updateDream(Long dreamId, DreamDto.DreamDtoReq dreamDtoReq);
+    boolean updateDream(Long dreamId, DreamDto.DreamDtoReq dreamDtoReq, Member member);
 
-    boolean deleteDream(Long dreamId);
+    boolean deleteDream(Long dreamId, Member member);
 }
