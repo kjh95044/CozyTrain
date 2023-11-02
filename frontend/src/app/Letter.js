@@ -4,7 +4,7 @@ import { useEffect, useState } from "react";
 import Image from "next/image";
 import { useRouter } from "next/navigation";
 
-import CancelButton from "@/components/CancelButton";
+import CancelButton from "@/components/button/CancelButton";
 import Modal from "@/components/Modal";
 import letter from "#/images/letter.png";
 import styles from "./Letter.module.css";
@@ -28,15 +28,14 @@ export default function Letter() {
       }, 1600);
     }, 1000);
 
-    return () => {};
+    return () => { };
   }, []);
 
   return (
     <>
       <Image
-        className={`${styles.letter} ${showLetter ? styles.arive : ""} ${
-          shakeLetter ? styles.shake : ""
-        }`}
+        className={`${styles.letter} ${showLetter ? styles.arive : ""} ${shakeLetter ? styles.shake : ""
+          }`}
         src={letter}
         alt="편지"
         onClick={() => setShowModal(true)}

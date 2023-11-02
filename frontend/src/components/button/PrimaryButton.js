@@ -1,4 +1,4 @@
-import styles from "./ConfirmButton.module.css";
+import styles from "./PrimaryButton.module.css";
 
 export default function ConfirmButton(props) {
     return (
