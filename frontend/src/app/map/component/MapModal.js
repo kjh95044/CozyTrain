@@ -1,5 +1,5 @@
 import styles from './MapModal.module.css'
-import ConfirmButton from '../../../components/ConfirmButton'
+import ConfirmButton from '../../../components/button/PrimaryButton'
 import CancelButton from '../../../components/CancelButton'
 
 import Link from 'next/link'
@@ -10,7 +10,7 @@ export default function MapModal(props) {
         <div className={styles.container}>
             <div className={styles.map_modal_text}>{props.text}</div>
             <div className={styles.map_modal_btn}>
-                <Link href={`/map/${props.moveContinent}`}>
+                <Link href={`/map/${props.move}`}>
                     <div className={styles.map_modal_confirm_btn}>
                         <ConfirmButton children="확인"></ConfirmButton>
                     </div>

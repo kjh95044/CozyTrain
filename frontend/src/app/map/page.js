@@ -73,7 +73,7 @@ export default function Map() {
                 .labelDotRadius(2.2)
                 .labelTypeFace(IBMRegular)
                 .labelColor((point) => {
-                    if(point.label === '아시아') {
+                    if (point.label === '아시아') {
                         return 'rgba(220, 86, 95, 1)';
                     } else {
                         return 'rgba(142,142,142,1)';
@@ -98,7 +98,7 @@ export default function Map() {
             {isModalOpen &&
                 <MapModal
                     text={`${clickContinent}로  이동하시겠습니까?`}
-                    moveContinent={clcikContinentEng}
+                    move={clcikContinentEng}
                     onCloseModal={closeModal}
                 ></MapModal>
             }
