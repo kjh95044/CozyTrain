@@ -21,7 +21,7 @@ const Model = ({ url, scale }) => {
 export default function Korea() {
     return (
         <div className={styles.container}>
-            <Canvas camera={{ position: [0, 0.1, -0.2], near: 0.05 }}>
+            <Canvas camera={{ position: [0, 0.1, -0.2], near: 0.03 }}>
                 <Suspense fallback={null}>
                     <Model url={Models[0].url} scale={0.16} />
                     <ambientLight intensity={3} />
