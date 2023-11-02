@@ -25,7 +25,7 @@ public class DreamController {
     private final JwtUtils jwtUtils;
 
     @GetMapping("/{dreamId}")
-    @Operation(summary = "꿈 조회")
+    @Operation(summary = "꿈 조회", description = "dreamTye: { 0: 돈/재물, 1: 음식, 2: 지인, 3: 똥, 4: 악몽, 5: 기타 }")
     public ApiUtils.ApiResult<DreamDto.DreamDtoRes> getDream(@RequestHeader("Authorization") String header, @PathVariable Long dreamId) {
         String memberId = jwtUtils.getIdFromToken(header.substring(7));
         Member member = memberService.findByMemberLoginId(memberId)
@@ -34,7 +34,7 @@ public class DreamController {
     }
 
     @GetMapping
-    @Operation(summary = "꿈 전체 조회")
+    @Operation(summary = "꿈 전체 조회", description = "dreamTye: { 0: 돈/재물, 1: 음식, 2: 지인, 3: 똥, 4: 악몽, 5: 기타 }")
     public ApiUtils.ApiResult<DreamDto.DreamDtoListRes> getDreams(@RequestHeader("Authorization") String header) {
         String memberId = jwtUtils.getIdFromToken(header.substring(7));
         Member member = memberService.findByMemberLoginId(memberId)
@@ -43,7 +43,7 @@ public class DreamController {
     }
 
     @PostMapping
-    @Operation(summary = "꿈 등록")
+    @Operation(summary = "꿈 등록", description = "dreamTye: { 0: 돈/재물, 1: 음식, 2: 지인, 3: 똥, 4: 악몽, 5: 기타 }")
     public ApiUtils.ApiResult<Boolean> createDream(@RequestHeader("Authorization") String header, @RequestBody @Valid DreamDtoReq dreamDtoReq) {
         String memberId = jwtUtils.getIdFromToken(header.substring(7));
         Member member = memberService.findByMemberLoginId(memberId)
@@ -52,7 +52,7 @@ public class DreamController {
     }
 
     @PatchMapping("/{dreamId}")
-    @Operation(summary = "꿈 수정")
+    @Operation(summary = "꿈 수정", description = "dreamTye: { 0: 돈/재물, 1: 음식, 2: 지인, 3: 똥, 4: 악몽, 5: 기타 }")
     public ApiUtils.ApiResult<Boolean> updateDream(@RequestHeader("Authorization") String header, @PathVariable Long dreamId, @RequestBody @Valid DreamDtoReq dreamDtoReq) {
         String memberId = jwtUtils.getIdFromToken(header.substring(7));
         Member member = memberService.findByMemberLoginId(memberId)
@@ -61,7 +61,7 @@ public class DreamController {
     }
 
     @DeleteMapping("/{dreamId}")
-    @Operation(summary = "꿈 삭제", description = "0: 꿈, 1: 재물")
+    @Operation(summary = "꿈 삭제", description = "dreamTye: { 0: 돈/재물, 1: 음식, 2: 지인, 3: 똥, 4: 악몽, 5: 기타 }")
     public ApiUtils.ApiResult<Boolean> deleteDream(@RequestHeader("Authorization") String header, @PathVariable Long dreamId) {
         String memberId = jwtUtils.getIdFromToken(header.substring(7));
         Member member = memberService.findByMemberLoginId(memberId)
