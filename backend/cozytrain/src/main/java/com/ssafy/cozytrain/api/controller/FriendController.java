@@ -25,8 +25,8 @@ public class FriendController {
 
     @PostMapping
     @Operation(summary = "친구 요청")
-    public ApiUtils.ApiResult<Long> createFriend(/* @RequestHeader("Authorization") String header, */@RequestBody FriendDto.FriendReqDto friendReqDto){
-        Long memberId = 3L;
+    public ApiUtils.ApiResult<Long> createFriend(@RequestHeader("Authorization") String header, @RequestBody FriendDto.FriendReqDto friendReqDto){
+        String memberId = jwtUtils.getIdFromToken(header.substring(7));
         return success(friendService.createFriend(memberId, friendReqDto));
     }
 
@@ -44,15 +44,23 @@ public class FriendController {
 
     @GetMapping()
     @Operation(summary = "친구 목록 불러오기")
-    public ApiUtils.ApiResult<List<FriendDto.FriendResDto>> getFriendList(/* @RequestHeader("Authorization") String header, */){
-        Long memberId = 1L;
+    public ApiUtils.ApiResult<List<FriendDto.FriendResDto>> getFriendList(@RequestHeader("Authorization") String header){
+        String memberId = jwtUtils.getIdFromToken(header.substring(7));
         return success(friendService.getFriendList(memberId));
     }
 
     @GetMapping("/send-list")
     @Operation(summary = "보낸 친구 요청 목록 불러오기")
-    public ApiUtils.ApiResult<List<FriendDto.FriendResDto>> getSentRequestList(/* @RequestHeader("Authorization") String header, */){
-        Long memberId = 3L;
+    public ApiUtils.ApiResult<List<FriendDto.FriendResDto>> getSentRequestList(@RequestHeader("Authorization") String header){
+        String memberId = jwtUtils.getIdFromToken(header.substring(7));
         return success(friendService.getSentRequestList(memberId));
     }
+
+    @GetMapping("/received-list")
+    @Operation(summary = "받은 친구 요청 목록 불러오기")
+    public ApiUtils.ApiResult<List<FriendDto.FriendResDto>> getReceivedRequestList(@RequestHeader("Authorization") String header){
+        String memberId = jwtUtils.getIdFromToken(header.substring(7));
+        return success(friendService.getReceivedRequestList(memberId));
+    }
+
 }

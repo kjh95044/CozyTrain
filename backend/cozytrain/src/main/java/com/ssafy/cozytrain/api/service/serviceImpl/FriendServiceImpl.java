@@ -25,16 +25,17 @@ public class FriendServiceImpl implements FriendService {
 
     @Override
     @Transactional
-    public Long createFriend(Long memberId, FriendDto.FriendReqDto friendReqDto) {
+    public Long createFriend(String memberId, FriendDto.FriendReqDto friendReqDto) {
         Long friendId = friendReqDto.getMemberId();
+        Member member = memberRepository.findByMemberLoginId(memberId).orElseThrow(() -> new NotFoundException("Not Found User"));
 
         int friendType = 0;
-        Long memberFirstId = memberId;
+        Long memberFirstId = member.getMemberId();
         Long memberSecondId = friendId;
 
-        if(memberId>friendId){
+        if(member.getMemberId()>friendId){
             memberFirstId = friendId;
-            memberSecondId = memberId;
+            memberSecondId = member.getMemberId();
             friendType = 1;
         }
 
@@ -67,12 +68,20 @@ public class FriendServiceImpl implements FriendService {
     }
 
     @Override
-    public List<FriendDto.FriendResDto> getFriendList(Long memberId) {
-        return friendRepository.getFriendList(memberId).orElseThrow(() -> new NotFoundException("친구가 없습니다"));
+    public List<FriendDto.FriendResDto> getFriendList(String memberId) {
+        Member member = memberRepository.findByMemberLoginId(memberId).orElseThrow(() -> new NotFoundException("Not Found User"));
+        return friendRepository.getFriendList(member.getMemberId()).orElseThrow(() -> new NotFoundException("친구가 없습니다"));
     }
 
     @Override
-    public List<FriendDto.FriendResDto> getSentRequestList(Long memberId) {
-        return friendRepository.getSentRequestList(memberId).orElseThrow(() -> new NotFoundException("보낸 친구 요청이 없습니다"));
+    public List<FriendDto.FriendResDto> getSentRequestList(String memberId) {
+        Member member = memberRepository.findByMemberLoginId(memberId).orElseThrow(() -> new NotFoundException("Not Found User"));
+        return friendRepository.getSentRequestList(member.getMemberId()).orElseThrow(() -> new NotFoundException("보낸 친구 요청이 없습니다"));
+    }
+
+    @Override
+    public List<FriendDto.FriendResDto> getReceivedRequestList(String memberId) {
+        Member member = memberRepository.findByMemberLoginId(memberId).orElseThrow(() -> new NotFoundException("Not Found User"));
+        return friendRepository.getReceivedRequestList(member.getMemberId()).orElseThrow(() -> new NotFoundException("받은 친구 요청이 없습니다"));
     }
 }
