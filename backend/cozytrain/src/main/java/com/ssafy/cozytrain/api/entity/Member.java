@@ -40,6 +40,11 @@ public class Member {
     @OneToMany(mappedBy = "member", cascade = CascadeType.ALL)
     private List<Report> reports;
 
+    @OneToMany(mappedBy = "memberFirst")
+    private List<Friend> memberFirst;
+
+    @OneToMany(mappedBy = "memberSecond")
+    private List<Friend> memberSecond;
 
     @Builder
     public Member(MemberDto.SignupReq signupReq) {

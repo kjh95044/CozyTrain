@@ -66,4 +66,10 @@ public class MemberController {
                 .orElseThrow(() -> new NotFoundException("Not Found User"));
         return success(memberService.deleteMember(member));
     }
+
+    @GetMapping("/{loginId}")
+    @Operation(summary = "회원 아이디 중복 체크 API", description = "header에 token 필요 X")
+    public ApiUtils.ApiResult<Boolean> findMemberId(@PathVariable String loginId) {
+        return success(memberService.findMemberLoginId(loginId));
+    }
 }
