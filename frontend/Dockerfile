@@ -35,5 +35,6 @@ COPY ./nginx.conf /etc/nginx/conf.d
 
 # Nginx를 실행합니다
 CMD ["nginx", "-g", "daemon off;"]
-CMD ["npm", "start"]
+CMD ["node", "server.js"]
+# CMD ["npm", "start"]
 # CMD ["npm", "run", "dev"]
