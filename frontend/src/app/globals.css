@@ -1,8 +1,23 @@
 * {
+  box-sizing: border-box;
   text-decoration: none;
-  --primary: #ca4a51;
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  width: 100vw;
+  height: 100vh;
+}
+
+:root {
+  --primary: #f2afb6;
+  --secondary: #9bd8e6;
+  --accent: #ca4a51;
   --gray: #666666;
-  --shadow: 0 4px 6px 0 rgba(0, 0, 0, 0.1);
+  --shadow: 0 2px 4px 0 rgba(0, 0, 0, 0.1);
+  --shadow-lg: 0 4px 6px 0 rgba(0, 0, 0, 0.1);
   --text-xs: 12px;
   --text-sm: 14px;
   --text-lg: 28px;
@@ -11,20 +26,8 @@
   --text-3xl: 28px;
 }
 
-body {
-  box-sizing: border-box;
-  width: 100vw;
-  height: 100vh;
-  margin: 0;
-  padding: 0;
-}
-
-ul {
-  list-style: none;
-}
-
 @font-face {
-  font-family: 'Pretendard';
-  src: url('../../public/fonts/Pretendard-Medium.woff2') format('woff2');
+  font-family: "Pretendard";
+  src: url("../../public/fonts/Pretendard-Medium.woff2") format("woff2");
   font-display: block;
 }

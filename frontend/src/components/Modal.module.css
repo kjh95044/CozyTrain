@@ -1,0 +1,12 @@
+.modal_overlay {
+  position: fixed;
+  inset: 50%;
+  transform: translate(-50%, -50%);
+  height: 64%;
+  z-index: 2;
+  background-color: white;
+  width: 80%;
+  text-align: center;
+  border-radius: 8%;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
+}
