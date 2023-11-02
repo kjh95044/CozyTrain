@@ -40,7 +40,7 @@ public class FriendRepositoryImpl implements FriendRepositoryCustom{
                 .having(member.memberId.ne(memberId))
                 .orderBy(friend.updatedAt.desc())
                 .transform(groupBy(member.memberId).list(Projections.constructor(FriendDto.FriendResDto.class,
-                        friend.friendId, member.memberId, member.memberName, member.memberImageUrl, friend.updatedAt
+                        friend.friendId, member.memberId, member.memberLoginId , member.memberName, member.memberImageUrl, friend.updatedAt
                         )));
 
         return Optional.ofNullable(friendList);
@@ -54,7 +54,7 @@ public class FriendRepositoryImpl implements FriendRepositoryCustom{
                 .where(friend.friendType.eq(0).and(friend.memberFirst.memberId.eq(memberId)))
                 .orderBy(friend.updatedAt.desc())
                 .transform(groupBy(member.memberId).list(Projections.constructor(FriendDto.FriendResDto.class,
-                        friend.friendId, member.memberId, member.memberName, member.memberImageUrl, friend.updatedAt
+                        friend.friendId, member.memberId, member.memberLoginId , member.memberName, member.memberImageUrl, friend.updatedAt
                 )));
 
         List<FriendDto.FriendResDto> friendSendList2 = queryFactory
@@ -63,7 +63,7 @@ public class FriendRepositoryImpl implements FriendRepositoryCustom{
                 .where(friend.friendType.eq(1).and(friend.memberSecond.memberId.eq(memberId)))
                 .orderBy(friend.updatedAt.desc())
                 .transform(groupBy(member.memberId).list(Projections.constructor(FriendDto.FriendResDto.class,
-                        friend.friendId, member.memberId, member.memberName, member.memberImageUrl, friend.updatedAt
+                        friend.friendId, member.memberId, member.memberLoginId , member.memberName, member.memberImageUrl, friend.updatedAt
                 )));
 
         List<FriendDto.FriendResDto> friendSendList = Stream.concat(friendSendList1.stream(), friendSendList2.stream())
@@ -86,7 +86,7 @@ public class FriendRepositoryImpl implements FriendRepositoryCustom{
                 .where(friend.friendType.eq(1).and(friend.memberFirst.memberId.eq(memberId)))
                 .orderBy(friend.updatedAt.desc())
                 .transform(groupBy(member.memberId).list(Projections.constructor(FriendDto.FriendResDto.class,
-                        friend.friendId, member.memberId, member.memberName, member.memberImageUrl, friend.updatedAt
+                        friend.friendId, member.memberId, member.memberLoginId , member.memberName, member.memberImageUrl, friend.updatedAt
                 )));
 
         List<FriendDto.FriendResDto> friendReceivedList2 = queryFactory
@@ -95,7 +95,7 @@ public class FriendRepositoryImpl implements FriendRepositoryCustom{
                 .where(friend.friendType.eq(0).and(friend.memberSecond.memberId.eq(memberId)))
                 .orderBy(friend.updatedAt.desc())
                 .transform(groupBy(member.memberId).list(Projections.constructor(FriendDto.FriendResDto.class,
-                        friend.friendId, member.memberId, member.memberName, member.memberImageUrl, friend.updatedAt
+                        friend.friendId, member.memberId, member.memberLoginId , member.memberName, member.memberImageUrl, friend.updatedAt
                 )));
 
         List<FriendDto.FriendResDto> friendReceivedList = Stream.concat(friendReceivedList1.stream(), friendReceivedList2.stream())

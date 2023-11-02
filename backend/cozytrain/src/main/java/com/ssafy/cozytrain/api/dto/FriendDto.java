@@ -40,14 +40,16 @@ public class FriendDto {
         @ApiParam(value = "친구요청 PK 값")
         private Long friendId;
         private Long memberId;
+        private String friendLoginId;
         private String friendNickname;
         private String profileImg;
         private LocalDateTime updatedAt;
 
         @Builder
-        public FriendResDto(Long friendId, Long memberId, String friendNickname, String profileImg, LocalDateTime updatedAt) {
+        public FriendResDto(Long friendId, Long memberId, String friendLoginId, String friendNickname, String profileImg, LocalDateTime updatedAt) {
             this.friendId = friendId;
             this.memberId = memberId;
+            this.friendLoginId = friendLoginId;
             this.friendNickname = friendNickname;
             this.profileImg = profileImg;
             this.updatedAt = updatedAt;
