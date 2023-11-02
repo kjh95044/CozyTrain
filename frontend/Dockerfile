@@ -8,10 +8,10 @@ RUN mkdir /app
 WORKDIR /app
 
 # work dir 에 build 폴더 생성 /app/build
-RUN mkdir ./build
+RUN mkdir ./next
 
 # host pc의 현재경로의 build 폴더를 workdir 의 build 폴더로 복사
-ADD ./next ./build
+ADD ./next ./next
 
 # 컨테이너에 package.json와 package-lock.json 파일을 복사합니다
 COPY package*.json ./
@@ -35,6 +35,6 @@ COPY ./nginx.conf /etc/nginx/conf.d
 
 # Nginx를 실행합니다
 CMD ["nginx", "-g", "daemon off;"]
-CMD ["node", "server.js"]
+# CMD ["node", "server.js"]
 # CMD ["npm", "start"]
 # CMD ["npm", "run", "dev"]
