@@ -24,6 +24,12 @@ public class FriendServiceImpl implements FriendService {
     private final FriendRepository friendRepository;
 
     @Override
+    public List<FriendDto.FriendSearchResDto> searchFriend(String memberId, String friendLoginId) {
+        Member member = memberRepository.findByMemberLoginId(memberId).orElseThrow(() -> new NotFoundException("Not Found User"));
+        return friendRepository.searchFriend(member.getMemberId(), friendLoginId).orElseThrow(() -> new NotFoundException("검색한 친구가 없습니다"));
+    }
+
+    @Override
     @Transactional
     public Long createFriend(String memberId, FriendDto.FriendReqDto friendReqDto) {
         Long friendId = friendReqDto.getMemberId();
@@ -68,18 +74,21 @@ public class FriendServiceImpl implements FriendService {
     }
 
     @Override
+    @Transactional
     public List<FriendDto.FriendResDto> getFriendList(String memberId) {
         Member member = memberRepository.findByMemberLoginId(memberId).orElseThrow(() -> new NotFoundException("Not Found User"));
         return friendRepository.getFriendList(member.getMemberId()).orElseThrow(() -> new NotFoundException("친구가 없습니다"));
     }
 
     @Override
+    @Transactional
     public List<FriendDto.FriendResDto> getSentRequestList(String memberId) {
         Member member = memberRepository.findByMemberLoginId(memberId).orElseThrow(() -> new NotFoundException("Not Found User"));
         return friendRepository.getSentRequestList(member.getMemberId()).orElseThrow(() -> new NotFoundException("보낸 친구 요청이 없습니다"));
     }
 
     @Override
+    @Transactional
     public List<FriendDto.FriendResDto> getReceivedRequestList(String memberId) {
         Member member = memberRepository.findByMemberLoginId(memberId).orElseThrow(() -> new NotFoundException("Not Found User"));
         return friendRepository.getReceivedRequestList(member.getMemberId()).orElseThrow(() -> new NotFoundException("받은 친구 요청이 없습니다"));

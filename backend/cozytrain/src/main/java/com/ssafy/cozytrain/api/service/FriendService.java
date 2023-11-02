@@ -18,4 +18,6 @@ public interface FriendService {
     List<FriendDto.FriendResDto> getSentRequestList(String memberId);
 
     List<FriendDto.FriendResDto> getReceivedRequestList(String memberId);
+
+    List<FriendDto.FriendSearchResDto> searchFriend(String memberId, String friendLoginId);
 }

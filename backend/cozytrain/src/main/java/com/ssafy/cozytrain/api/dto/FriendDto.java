@@ -10,6 +10,25 @@ import java.time.LocalDateTime;
 
 public class FriendDto {
 
+    // 친구 검색 반환값 DTO
+    @Getter
+    @NoArgsConstructor
+    public static class FriendSearchResDto{
+        private Long memberId;
+        private String friendLoginId;
+        private String friendNickname;
+        private String profileImg;
+
+        @Builder
+        public FriendSearchResDto(Long memberId, String friendLoginId, String friendNickname, String profileImg) {
+            this.memberId = memberId;
+            this.friendLoginId = friendLoginId;
+            this.friendNickname = friendNickname;
+            this.profileImg = profileImg;
+        }
+    }
+
+    // 친구 요청 DTO
     @Getter
     @NoArgsConstructor
     public static class FriendReqDto{
@@ -22,6 +41,7 @@ public class FriendDto {
         }
     }
 
+    // 친구 요청 수락 DTO
     @Getter
     @NoArgsConstructor
     public static class FriendAcceptReqDto{
@@ -34,6 +54,7 @@ public class FriendDto {
         }
     }
 
+    // 친구 정보 반환값 DTO
     @Getter
     @NoArgsConstructor
     public static class FriendResDto{

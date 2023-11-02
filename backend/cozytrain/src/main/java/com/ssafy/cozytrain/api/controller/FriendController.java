@@ -23,6 +23,13 @@ public class FriendController {
     private final FriendService friendService;
     private final JwtUtils jwtUtils;
 
+    @GetMapping("/search")
+    @Operation(summary = "친구 검색")
+    public ApiUtils.ApiResult<List<FriendDto.FriendSearchResDto>> searchFriend(@RequestHeader("Authorization") String header, @RequestParam("friendLoginId") String friendLoginId){
+        String memberId = jwtUtils.getIdFromToken(header.substring(7));
+        return success(friendService.searchFriend(memberId, friendLoginId));
+    }
+
     @PostMapping
     @Operation(summary = "친구 요청")
     public ApiUtils.ApiResult<Long> createFriend(@RequestHeader("Authorization") String header, @RequestBody FriendDto.FriendReqDto friendReqDto){

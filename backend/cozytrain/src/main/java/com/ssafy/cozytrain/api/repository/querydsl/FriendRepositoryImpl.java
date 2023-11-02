@@ -1,8 +1,11 @@
 package com.ssafy.cozytrain.api.repository.querydsl;
 
 import com.querydsl.core.types.Projections;
+import com.querydsl.jpa.JPAExpressions;
 import com.querydsl.jpa.impl.JPAQueryFactory;
 import com.ssafy.cozytrain.api.dto.FriendDto;
+import com.ssafy.cozytrain.api.entity.QFriend;
+import com.ssafy.cozytrain.api.entity.QMember;
 import lombok.RequiredArgsConstructor;
 
 import java.util.Collections;
@@ -22,7 +25,33 @@ public class FriendRepositoryImpl implements FriendRepositoryCustom{
 
     private final JPAQueryFactory queryFactory;
 
-//    select *
+    @Override
+    public Optional<List<FriendDto.FriendSearchResDto>> searchFriend(Long memberId, String friendLoginId) {
+        QFriend subFriend1 = new QFriend("subFriend1");
+        QFriend subFriend2 = new QFriend("subFriend2");
+
+        List<FriendDto.FriendSearchResDto> friendList = queryFactory
+                .from(member)
+                .where(member.memberId.notIn(JPAExpressions
+                        .select(subFriend1.memberSecond.memberId)
+                        .from(subFriend1)
+                        .where(subFriend1.memberFirst.memberId.eq(memberId)))
+                        .and(member.memberId.notIn(JPAExpressions
+                                .select(subFriend2.memberFirst.memberId)
+                                .from(subFriend2)
+                                .where(subFriend2.memberSecond.memberId.eq(memberId))))
+                        .and(member.memberId.ne(memberId))
+                        .and(member.memberLoginId.contains(friendLoginId))
+                )
+                .orderBy(member.memberLoginId.desc())
+                .transform(groupBy(member.memberId).list(Projections.constructor(FriendDto.FriendSearchResDto.class,
+                        member.memberId, member.memberLoginId , member.memberName, member.memberImageUrl
+                )));
+
+        return Optional.ofNullable(friendList);
+    }
+
+    //    select *
 //    from friend f
 //    join member m
 //    on f.member_first_id=m.member_id or f.member_second_id=m.member_id
