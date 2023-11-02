@@ -20,13 +20,16 @@ public class CheckList {
     private LocalDate checkListDate;
     private LocalDateTime updatedAt;
 
-
     @OneToMany(mappedBy = "checkList", cascade = CascadeType.ALL)
     private List<CheckListItem> checkList;
 
     @ManyToOne
     @JoinColumn(name = "member_id", referencedColumnName = "member_id")
     private Member member;
+
+    @OneToOne
+    @JoinColumn(name = "report_id", referencedColumnName = "report_id")
+    private Report report;
 
     @Builder
     public CheckList(LocalDate checkListDate, LocalDateTime updatedAt, Member member) {

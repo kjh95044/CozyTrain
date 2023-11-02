@@ -37,6 +37,9 @@ public class Member {
     @OneToMany(mappedBy = "member", cascade = CascadeType.ALL)
     private List<CheckList> checkList;
 
+    @OneToMany(mappedBy = "member", cascade = CascadeType.ALL)
+    private List<Report> reports;
+
 
     @Builder
     public Member(MemberDto.SignupReq signupReq) {
