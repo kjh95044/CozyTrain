@@ -2,6 +2,7 @@ package com.ssafy.cozytrain.api.dto;
 
 import lombok.Builder;
 import lombok.Getter;
+import lombok.ToString;
 
 import java.time.LocalDateTime;
 
@@ -21,6 +22,7 @@ public class SleepStageDto {
     }
 
     @Getter
+    @ToString
     public static class SleepStageDtoRes {
         private int stage;
         private LocalDateTime startTime;

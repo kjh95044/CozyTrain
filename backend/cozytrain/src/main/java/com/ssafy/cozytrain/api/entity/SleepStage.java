@@ -1,5 +1,6 @@
 package com.ssafy.cozytrain.api.entity;
 
+import com.ssafy.cozytrain.api.dto.SleepStageDto;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -35,5 +36,11 @@ public class SleepStage {
         this.startTime = startTime;
         this. endTime = endTime;
         this.health = health;
+    }
+
+    public void updateSleepStage(SleepStageDto.SleepStageDtoReq sleepStage){
+        this.stage = sleepStage.getStage();
+        this.startTime = sleepStage.getStartTime();
+        this.endTime = sleepStage.getEndTime();
     }
 }

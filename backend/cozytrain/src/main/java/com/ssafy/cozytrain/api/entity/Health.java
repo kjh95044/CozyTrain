@@ -1,5 +1,6 @@
 package com.ssafy.cozytrain.api.entity;
 
+import com.ssafy.cozytrain.api.dto.HealthDto;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -32,10 +33,21 @@ public class Health {
     private Report report;
 
     @Builder
-    public Health(int stressLevel, int sleepDuration, int steps, Report report){
+    public Health(int stressLevel, int sleepDuration, int steps, int sleepScore, Report report){
         this.stressLevel = stressLevel;
         this.sleepDuration = sleepDuration;
         this.steps = steps;
+        this.sleepScore = sleepScore;
         this.report = report;
+    }
+
+    public void updateHealthData(HealthDto.HealthDtoReq health){
+        this.stressLevel = health.getStressLevel();
+        this.sleepDuration = health.getSleepDuration();
+        this.steps = health.getStressLevel();
+    }
+
+    public void insertSleepScore(int score){
+        this.sleepScore = score;
     }
 }

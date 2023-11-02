@@ -1,6 +1,7 @@
 package com.ssafy.cozytrain.api.dto;
 
 import com.ssafy.cozytrain.api.entity.CheckListItem;
+import com.ssafy.cozytrain.api.entity.Report;
 import com.ssafy.cozytrain.api.entity.SleepStage;
 import lombok.Builder;
 import lombok.Getter;
@@ -24,19 +25,20 @@ public class HealthDto {
             this.steps = steps;
         }
     }
-
     @Getter
     public static class HealthDtoRes {
         private int stressLevel;
         private int sleepDuration;
         private int steps;
+        private int sleepScore;
         private List<SleepStageDto.SleepStageDtoRes> sleepStages;
 
         @Builder
-        public HealthDtoRes(int stressLevel, int sleepDuration, int steps, List<SleepStage> sleepStages){
+        public HealthDtoRes(int stressLevel, int sleepDuration,int sleepScore, int steps, List<SleepStage> sleepStages){
             this.stressLevel = stressLevel;
             this.sleepDuration = sleepDuration;
             this.steps = steps;
+            this.sleepScore = sleepScore;
             this.sleepStages = sleepStages.stream().map(
                     sleepStage -> SleepStageDto.SleepStageDtoRes.builder()
                             .stage(sleepStage.getStage())

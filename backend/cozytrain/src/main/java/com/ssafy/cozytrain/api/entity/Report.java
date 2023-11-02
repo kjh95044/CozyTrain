@@ -19,8 +19,8 @@ public class Report {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long reportId;
 
-    @NotNull
-    private LocalDateTime sleepReportDate;
+    private LocalDate sleepReportDate;
+    private LocalDateTime updatedAt;
 
     @ManyToOne
     @JoinColumn(name = "member_id", referencedColumnName = "member_id")
@@ -33,8 +33,13 @@ public class Report {
     private Health health;
 
     @Builder
-    public Report(Member member, LocalDateTime sleepReportDate) {
+    public Report(Member member, LocalDate sleepReportDate, LocalDateTime updatedAt) {
         this.member = member;
         this.sleepReportDate = sleepReportDate;
+        this.updatedAt = updatedAt;
+    }
+
+    public void updateUpdatedAt(LocalDateTime dateTime){
+        this.updatedAt = dateTime;
     }
 }
