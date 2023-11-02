@@ -11,8 +11,8 @@ import java.util.Optional;
 public interface MemberService {
     Boolean signup(SignupReq signupReq);
     LoginRes login(LoginReq loginReq, HttpServletResponse response);
-    Member findByMemberId(Long memberId);
     Optional<Member> findByMemberLoginId(String memberLoginId);
+    Boolean findMemberLoginId(String memberLoginId);
     UpdateMemberRes updateMemberImg(MultipartFile file, Member member) throws IOException;
     Boolean updateMemberName(UpdateMemberReq updateMemberReq, Member member);
     Boolean deleteMember(Member member);
