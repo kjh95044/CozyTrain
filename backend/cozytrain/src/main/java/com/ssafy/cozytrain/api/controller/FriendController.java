@@ -49,4 +49,10 @@ public class FriendController {
         return success(friendService.getFriendList(memberId));
     }
 
+    @GetMapping("/send-list")
+    @Operation(summary = "보낸 친구 요청 목록 불러오기")
+    public ApiUtils.ApiResult<List<FriendDto.FriendResDto>> getSentRequestList(/* @RequestHeader("Authorization") String header, */){
+        Long memberId = 3L;
+        return success(friendService.getSentRequestList(memberId));
+    }
 }

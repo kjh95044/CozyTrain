@@ -6,6 +6,7 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 
 import javax.validation.constraints.NotNull;
+import java.time.LocalDateTime;
 
 public class FriendDto {
 
@@ -41,14 +42,15 @@ public class FriendDto {
         private Long memberId;
         private String friendNickname;
         private String profileImg;
+        private LocalDateTime updatedAt;
 
         @Builder
-
-        public FriendResDto(Long friendId, Long memberId, String friendNickname, String profileImg) {
+        public FriendResDto(Long friendId, Long memberId, String friendNickname, String profileImg, LocalDateTime updatedAt) {
             this.friendId = friendId;
             this.memberId = memberId;
             this.friendNickname = friendNickname;
             this.profileImg = profileImg;
+            this.updatedAt = updatedAt;
         }
     }
 }

@@ -70,4 +70,9 @@ public class FriendServiceImpl implements FriendService {
     public List<FriendDto.FriendResDto> getFriendList(Long memberId) {
         return friendRepository.getFriendList(memberId).orElseThrow(() -> new NotFoundException("친구가 없습니다"));
     }
+
+    @Override
+    public List<FriendDto.FriendResDto> getSentRequestList(Long memberId) {
+        return friendRepository.getSentRequestList(memberId).orElseThrow(() -> new NotFoundException("보낸 친구 요청이 없습니다"));
+    }
 }
