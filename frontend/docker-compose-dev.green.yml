@@ -4,33 +4,8 @@ services:
     build:
       dockerfile: Dockerfile # dockerfile이름
       context: ./ # 도커파일 위치 명시
-    image: frontend-dev
+    image: frontend-dev-green
     container_name: frontend-dev-green
     ports:
-      - 3001:80
+      - 3001:3000
     stdin_open: true
-# version: "3.7"
-
-# services:
-#   nginx:
-#     restart: always
-#     container_name: nginx
-#     build:
-#       context: ./
-#       dockerfile: Dockerfile
-#     ports:
-#       - "80:3001"
-#     networks:
-#       - frontend
-#   client:
-#     build:
-#       context: ./
-#       dockerfile: Dockerfile
-#     networks:
-#       - frontend
-#     ports:
-#       - "3001"
-
-# networks:
-#   frontend:
-#     driver: bridge
