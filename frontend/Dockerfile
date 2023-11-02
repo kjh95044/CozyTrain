@@ -30,7 +30,7 @@ COPY package*.json ./
 
 RUN npm install
 COPY . /app
-RUN npm run dev
+RUN npm start
 
 # # nginx 의 default.conf 를 삭제
 # RUN rm /etc/nginx/conf.d/default.conf
