@@ -4,6 +4,7 @@ import com.ssafy.cozytrain.api.entity.elastic.CaffeineCompleteDocument;
 import com.ssafy.cozytrain.api.entity.elastic.CaffeineDocument;
 import com.ssafy.cozytrain.api.repository.elastic.CaffeineCompleteRepository;
 import com.ssafy.cozytrain.api.repository.elastic.CaffeineRepository;
+import com.ssafy.cozytrain.common.exception.NotFoundException;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.data.domain.Page;
@@ -28,6 +29,11 @@ public class CaffeineServiceImpl implements CaffeineService {
     @Override
     public Page<CaffeineCompleteDocument> searchCaffeineComplete(String searchName, Pageable pageable) {
         return caffeineCompleteRepository.findByNameOrMade(searchName, searchName, pageable);
+    }
+
+    @Override
+    public CaffeineDocument getCaffeineInfo(String id) {
+        return caffeineRepository.findById(id).orElseThrow(() -> new NotFoundException("Not Found Id"));
     }
 
 }

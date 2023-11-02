@@ -39,4 +39,12 @@ public class CaffeineController {
         Page<CaffeineCompleteDocument> mediaList = caffeineService.searchCaffeineComplete(searchName, pageable);
         return success(mediaList);
     }
+
+    @Operation(summary = "카페인 음료 1개 조회")
+    @GetMapping("/search/drink")
+    public ApiUtils.ApiResult<CaffeineDocument> caffeineInfo(@RequestParam(name = "id") String id){
+        log.info(id);
+        return success(caffeineService.getCaffeineInfo(id));
+    }
+
 }
