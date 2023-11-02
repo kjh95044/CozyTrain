@@ -61,7 +61,7 @@ public class DreamController {
     }
 
     @DeleteMapping("/{dreamId}")
-    @Operation(summary = "꿈 삭제")
+    @Operation(summary = "꿈 삭제", description = "0: 꿈, 1: 재물")
     public ApiUtils.ApiResult<Boolean> deleteDream(@RequestHeader("Authorization") String header, @PathVariable Long dreamId) {
         String memberId = jwtUtils.getIdFromToken(header.substring(7));
         Member member = memberService.findByMemberLoginId(memberId)
