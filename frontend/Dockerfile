@@ -1,5 +1,5 @@
 # Node.js 이미지로 사용
-FROM node:alpine as build
+# FROM node:alpine as build
 
 # root 에 app 폴더를 생성
 # RUN mkdir /app
@@ -22,15 +22,15 @@ FROM node:alpine as build
 # FROM nginx
 
 # 오픈할 포트를 지정합니다
-EXPOSE 3000
+# EXPOSE 3000
 
-RUN mkdir /app
-WORKDIR /app
-COPY package*.json ./
+# RUN mkdir /app
+# WORKDIR /app
+# COPY package*.json ./
 
-RUN npm install
-COPY . /app
-CMD npm start
+# RUN npm install
+# COPY . /app
+# CMD npm start
 
 # # nginx 의 default.conf 를 삭제
 # RUN rm /etc/nginx/conf.d/default.conf
@@ -46,3 +46,13 @@ CMD npm start
 # CMD ["node", "server.js"]
 # CMD ["npm", "start"]
 # CMD ["npm", "run", "dev"]
+
+FROM node:18.16.0-alpine as builder
+WORKDIR /app
+COPY package.json ./
+RUN npm i
+COPY ./ ./
+RUN npm run build
+
+FROM nginx 
+COPY --from=builder /app/build /usr/share/nginx/html
