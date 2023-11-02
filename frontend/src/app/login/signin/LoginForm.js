@@ -27,12 +27,17 @@ export default function LoginForm() {
     })
       .then((resp) => resp.json())
       .then((data) => {
-        console.log(data);
+        const respData = data.response;
+
         document.cookie = `accessToken=${data.response.accessToken}`;
         document.cookie = `refreshToken=${data.response.refreshToken}`;
         document.cookie = `todayFirstLogin=false`;
 
-        login(data.response.memberName, data.response.memberProfileImg);
+        login(
+          respData.memberName,
+          respData.memberProfileImg,
+          respData.accessToken
+        );
 
         router.push("/");
       })
