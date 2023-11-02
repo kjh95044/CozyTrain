@@ -1,18 +1,15 @@
 .btn_container {
-  position: absolute;
-  bottom: 16px;
-  left: 50%;
-  transform: translateX(-50%);
-  width: 80%;
+  margin: auto;
+  width: 100%;
   display: flex;
-  justify-content: space-around;
+  justify-content: space-between;
 }
 
 .btn {
   background-color: white;
   border: none;
   border-radius: 10px;
-  width: 100px;
+  width: 48%;
   height: 36px;
   color: black;
   box-shadow: var(--shadow-lg);
@@ -22,7 +19,7 @@
   background-color: var(--primary);
   border: none;
   border-radius: 10px;
-  width: 100px;
+  width: 48%;
   height: 36px;
   color: white;
   box-shadow: var(--shadow-lg);
@@ -32,11 +29,9 @@
   position: relative;
   display: flex;
   justify-content: end;
-  padding-right: 8px;
-  padding-top: 8px;
 }
 
 .content {
   width: 100%;
-  padding: 16px;
+  height: 400px;
 }
