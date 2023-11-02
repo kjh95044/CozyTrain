@@ -15,7 +15,10 @@ FROM nginx
 # 오픈할 포트를 지정합니다
 EXPOSE 3000
 
-# default.conf 파일을 /etc/nginx/conf.d/ 경로에 있는 default.conf에 복사합니다
+# nginx 의 default.conf 를 삭제
+RUN rm /etc/nginx/conf.d/default.conf
+
+# host pc 의 nginx.conf 를 아래 경로에 복사
 COPY ./nginx.conf /etc/nginx/conf.d
 
 # nextjs 빌드 결과물을 /usr/share/nginx/html에 복사합니다
