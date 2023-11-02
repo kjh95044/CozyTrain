@@ -3,6 +3,7 @@
 import { useRouter } from "next/navigation";
 import { useState } from "react";
 
+import post from "@/services/use-post";
 import useStore from "@/store/useStore";
 import styles from "./LoginForm.module.css";
 
@@ -10,9 +11,8 @@ export default function LoginForm() {
   const [id, setId] = useState("");
   const [password, setPassword] = useState("");
   const router = useRouter();
-  const { login } = useStore();
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
 
     const formData = {
@@ -20,28 +20,38 @@ export default function LoginForm() {
       memberPassword: password,
     };
 
-    fetch("https://dev.cozytrain.com/api/member/login", {
-      method: "POST",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify(formData),
-    })
-      .then((resp) => resp.json())
-      .then((data) => {
-        const respData = data.response;
+    // fetch("https://dev.cozytrain.com/api/member/login", {
+    //   method: "POST",
+    //   headers: { "Content-Type": "application/json" },
+    //   body: JSON.stringify(formData),
+    // })
+    //   .then((resp) => resp.json())
+    //   .then((data) => {
+    //     const respData = data.response;
 
-        document.cookie = `accessToken=${data.response.accessToken}`;
-        document.cookie = `refreshToken=${data.response.refreshToken}`;
-        document.cookie = `todayFirstLogin=false`;
+    //     document.cookie = `accessToken=${data.response.accessToken}`;
+    //     document.cookie = `refreshToken=${data.response.refreshToken}`;
+    //     document.cookie = `todayFirstLogin=false`;
 
-        login(
-          respData.memberName,
-          respData.memberProfileImg,
-          respData.accessToken
-        );
+    //     login(
+    //       respData.memberName,
+    //       respData.memberProfileImg,
+    //       respData.accessToken
+    //     );
 
-        router.push("/");
-      })
-      .catch((error) => console.log(error));
+    //     router.push("/");
+    //   })
+    //   .catch((error) => console.log(error));
+
+    try {
+      const respData = await post("member/login", formData);
+
+      // router.push("/");
+    } catch (e) {
+      console.log("에러요" + e);
+    }
+
+    // router.push("/");
   };
 
   return (

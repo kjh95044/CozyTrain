@@ -1,12 +1,11 @@
-import useStore from "@/store/useStore";
+import getAccessToken from "@/utils/getAccessToken";
 
-export default async function Fetch(url, data) {
-  const { accessToken } = useStore();
+export default async function fetchGet(url, data) {
+  const accessToken = getAccessToken();
 
   try {
     const response = await fetch("https://dev.cozytrain.com/api/" + url, {
-      method: "POST",
-      body: JSON.stringify(data),
+      method: "GET",
       headers: {
         "Content-Type": "application/json",
         Authorization: `Bearer ${accessToken}`,
