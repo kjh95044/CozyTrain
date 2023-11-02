@@ -22,12 +22,14 @@ export default function NavBottom() {
   return (
     <ul className={styles.nav}>
       <Link
-        href={"/"}
-        className={pathName === "/" ? styles.nav_item_select : styles.nav_item}
+        href={"/train"}
+        className={
+          pathName === "/train" ? styles.nav_item_select : styles.nav_item
+        }
       >
         <Image
           className={styles.nav_icon}
-          src={pathName === "/" ? homeSelect : home}
+          src={pathName === "/train" ? homeSelect : home}
           alt="홈"
         />
         홈

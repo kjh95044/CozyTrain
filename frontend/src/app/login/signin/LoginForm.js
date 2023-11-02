@@ -27,8 +27,10 @@ export default function LoginForm() {
     })
       .then((resp) => resp.json())
       .then((data) => {
+        console.log(data);
         document.cookie = `accessToken=${data.response.accessToken}`;
         document.cookie = `refreshToken=${data.response.refreshToken}`;
+        document.cookie = `todayFirstLogin=false`;
 
         login(data.response.memberName, data.response.memberProfileImg);
 
@@ -59,9 +61,11 @@ export default function LoginForm() {
           onChange={(e) => setPassword(e.target.value)}
         />
       </div>
-      <button type="submit" onClick={handleSubmit}>
-        로그인
-      </button>
+      <div className={styles.button_container}>
+        <button className={styles.button} type="submit" onClick={handleSubmit}>
+          로그인
+        </button>
+      </div>
     </form>
   );
 }

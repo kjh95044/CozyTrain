@@ -7,6 +7,13 @@
   transition: all 1.6s;
 }
 
+.modal_btn {
+  position: absolute;
+  bottom: 10%;
+  left: 50%;
+  transform: translateX(-50%);
+}
+
 .arive {
   scale: 1;
   bottom: 36%;

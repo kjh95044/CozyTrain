@@ -16,10 +16,12 @@ export default function Login() {
         <TurnSheep />
       </div>
 
-      <div className={styles.button_container}>
+      <div className={styles.signup_button}>
         <Link href="login/signup">
           <Button>회원가입</Button>
         </Link>
+      </div>
+      <div className={styles.signin_button}>
         <Link href="login/signin">
           <Button>로그인</Button>
         </Link>
