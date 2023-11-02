@@ -1,6 +1,6 @@
 import Image from "next/image";
 import Link from "next/link";
-import CloseMap from "public/images/close-map.png"
+import CloseMap from "public/images/map/close-map.png"
 
 import styles from "./MapCloseButton.module.css"
 
