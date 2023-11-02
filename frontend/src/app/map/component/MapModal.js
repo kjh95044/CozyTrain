@@ -12,11 +12,11 @@ export default function MapModal(props) {
             <div className={styles.map_modal_btn}>
                 <Link href={`/map/${props.move}`}>
                     <div className={styles.map_modal_confirm_btn}>
-                        <ConfirmButton children="확인"></ConfirmButton>
+                        <ConfirmButton>확인</ConfirmButton>
                     </div>
                 </Link>
                 <div className={styles.map_modal_cancel_btn}>
-                    <CancelButton children="취소" onClick={props.onCloseModal}></CancelButton>
+                    <CancelButton onClick={props.onCloseModal}>취소</CancelButton>
                 </div>
             </div>
 
