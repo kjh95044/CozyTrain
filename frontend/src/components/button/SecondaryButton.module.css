@@ -1,9 +1,9 @@
-.button {
-  background-color: var(--primary);
+.container {
+  background-color: var(--secondary);
   border: none;
   border-radius: 10px;
-  width: 96px;
-  height: 40px;
+  width: 94px;
+  height: 48px;
   font-weight: bold;
   font-size: 18px;
   color: white;

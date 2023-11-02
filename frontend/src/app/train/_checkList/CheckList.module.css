@@ -1,0 +1,42 @@
+.btn_container {
+  position: absolute;
+  bottom: 16px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 80%;
+  display: flex;
+  justify-content: space-around;
+}
+
+.btn {
+  background-color: white;
+  border: none;
+  border-radius: 10px;
+  width: 100px;
+  height: 36px;
+  color: black;
+  box-shadow: var(--shadow-lg);
+}
+
+.btn_click {
+  background-color: var(--primary);
+  border: none;
+  border-radius: 10px;
+  width: 100px;
+  height: 36px;
+  color: white;
+  box-shadow: var(--shadow-lg);
+}
+
+.closeBtn {
+  position: relative;
+  display: flex;
+  justify-content: end;
+  padding-right: 8px;
+  padding-top: 8px;
+}
+
+.content {
+  width: 100%;
+  padding: 16px;
+}
