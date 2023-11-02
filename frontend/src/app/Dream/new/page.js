@@ -23,8 +23,31 @@ export default function Dream() {
         <b>꿈</b>
       </div>
       <div className={styles.note_container}>
+        <div className={styles.title}>
+          오늘의 <b>꿈</b>을 골라보세요
+        </div>
+        <div className={styles.grid}>
+          {dreams.map((item, i) => (
+            <div
+              key={i}
+              className={`${styles.btn_group} ${
+                dream === item ? styles.btn_click : ""
+              }`}
+              onClick={() => {
+                setDream(item);
+              }}
+            >
+              <Image
+                src={images[i]}
+                alt="dream_img"
+                className={styles.btn_img}
+              ></Image>
+              {item}
+            </div>
+          ))}
+        </div>
         <div className={styles.next}>
-          <PrimaryButton>오늘 꾼 꿈 작성하기</PrimaryButton>
+          <PrimaryButton>다음</PrimaryButton>
         </div>
       </div>
       <NavBottom />

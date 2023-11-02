@@ -1,0 +1,10 @@
+.container {
+  height: 100vh;
+  overflow: hidden;
+}
+
+.header {
+  text-align: center;
+  margin: 20px auto;
+  font-size: 28px;
+}
