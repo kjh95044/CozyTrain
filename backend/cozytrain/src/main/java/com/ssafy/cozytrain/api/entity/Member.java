@@ -4,11 +4,13 @@ import com.ssafy.cozytrain.api.dto.MemberDto;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
+import java.util.List;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
 import java.time.LocalDateTime;
 import java.util.List;
+
 
 @Entity
 @Getter
@@ -35,7 +37,7 @@ public class Member {
     private LocalDateTime updatedAt;
 
     @OneToMany(mappedBy = "member", cascade = CascadeType.ALL)
-    private List<CheckList> checkList;
+    private List<Dream> dream;
 
     @OneToMany(mappedBy = "member", cascade = CascadeType.ALL)
     private List<Report> reports;
