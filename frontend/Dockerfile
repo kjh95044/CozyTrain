@@ -51,11 +51,11 @@ FROM node:18.16.0-alpine as builder
 # root 에 app 폴더를 생성
 RUN mkdir /app
 WORKDIR /app
-RUN mkdir ./build
+# RUN mkdir ./build
 COPY package.json ./
 RUN npm i
 COPY ./ ./
 RUN npm run build
 
 FROM nginx 
-COPY --from=builder /app/build /usr/share/nginx/html
+COPY --from=builder /app/.next /usr/share/nginx/html
