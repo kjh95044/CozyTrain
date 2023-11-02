@@ -29,7 +29,7 @@ WORKDIR /app
 COPY package*.json ./
 
 RUN npm install
-COPY ./app
+COPY . /app
 RUN npm run dev
 
 # # nginx 의 default.conf 를 삭제
