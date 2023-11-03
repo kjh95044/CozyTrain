@@ -3,6 +3,7 @@ package com.ssafy.cozytrain.api.dto;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
+import lombok.ToString;
 
 import java.time.LocalDateTime;
 
@@ -10,6 +11,7 @@ public class MessageDto {
     // 메세지 요청 DTO
     @Getter
     @NoArgsConstructor
+    @ToString
     public static class MessageReqDto{
         private Long chatRoomId;
 
@@ -22,6 +24,7 @@ public class MessageDto {
     // 메세지 확인 응답 DTO
     @Getter
     @NoArgsConstructor
+    @ToString
     public static class MessageResDto{
         private Long messageId;
         private String messageUrl;
