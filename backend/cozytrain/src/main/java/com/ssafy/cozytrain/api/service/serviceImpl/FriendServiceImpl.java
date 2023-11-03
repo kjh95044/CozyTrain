@@ -25,15 +25,24 @@ public class FriendServiceImpl implements FriendService {
 
     @Override
     public List<FriendDto.FriendSearchResDto> searchFriend(String memberId, String friendLoginId) {
-        Member member = memberRepository.findByMemberLoginId(memberId).orElseThrow(() -> new NotFoundException("Not Found User"));
-        return friendRepository.searchFriend(member.getMemberId(), friendLoginId).orElseThrow(() -> new NotFoundException("검색한 친구가 없습니다"));
+        Member member = memberRepository.findByMemberLoginId(memberId).orElseThrow(() -> {
+            log.info("해당 User에 대한 정보를 찾지 못했습니다.");
+            return new NotFoundException("Not Found User");
+        });
+        return friendRepository.searchFriend(member.getMemberId(), friendLoginId).orElseThrow(() -> {
+            log.info("검색된 친구의 정보를 찾지 못했습니다.");
+            return new NotFoundException("검색한 친구가 없습니다");
+        });
     }
 
     @Override
     @Transactional
     public Long createFriend(String memberId, FriendDto.FriendReqDto friendReqDto) {
         Long friendId = friendReqDto.getMemberId();
-        Member member = memberRepository.findByMemberLoginId(memberId).orElseThrow(() -> new NotFoundException("Not Found User"));
+        Member member = memberRepository.findByMemberLoginId(memberId).orElseThrow(() -> {
+            log.info("해당 User에 대한 정보를 찾지 못했습니다.");
+            return  new NotFoundException("Not Found User");
+        });
 
         int friendType = 0;
         Long memberFirstId = member.getMemberId();
@@ -45,8 +54,14 @@ public class FriendServiceImpl implements FriendService {
             friendType = 1;
         }
 
-        Member firstMember = memberRepository.findByMemberId(memberFirstId).orElseThrow(() -> new NotFoundException("Not Found User"));
-        Member secondMember = memberRepository.findByMemberId(memberSecondId).orElseThrow(() -> new NotFoundException("Not Found User"));
+        Member firstMember = memberRepository.findByMemberId(memberFirstId).orElseThrow(() -> {
+            log.info("해당 User에 대한 정보를 찾지 못했습니다.");
+            return new NotFoundException("Not Found User");
+        });
+        Member secondMember = memberRepository.findByMemberId(memberSecondId).orElseThrow(() -> {
+            log.info("해당 User에 대한 정보를 찾지 못했습니다.");
+            return new NotFoundException("Not Found User");
+        });
 
 
         Friend friend = Friend.builder()
@@ -62,7 +77,10 @@ public class FriendServiceImpl implements FriendService {
 
     @Override
     public Long acceptFriend(FriendDto.FriendAcceptReqDto friendAcceptReqDto) {
-        Friend friend = friendRepository.findById(friendAcceptReqDto.getFriendId()).orElseThrow(() -> new NotFoundException("Not Found Friend"));
+        Friend friend = friendRepository.findById(friendAcceptReqDto.getFriendId()).orElseThrow(() -> {
+            log.info("해당 친구요청에 대한 정보를 찾지 못했습니다.");
+            return new NotFoundException("Not Found request Friend");
+        });
         friend.updateFriendType(2);
 
         return friendRepository.save(friend).getFriendId();
@@ -76,21 +94,39 @@ public class FriendServiceImpl implements FriendService {
     @Override
     @Transactional
     public List<FriendDto.FriendResDto> getFriendList(String memberId) {
-        Member member = memberRepository.findByMemberLoginId(memberId).orElseThrow(() -> new NotFoundException("Not Found User"));
-        return friendRepository.getFriendList(member.getMemberId()).orElseThrow(() -> new NotFoundException("친구가 없습니다"));
+        Member member = memberRepository.findByMemberLoginId(memberId).orElseThrow(() -> {
+            log.info("해당 User에 대한 정보를 찾지 못했습니다.");
+            return new NotFoundException("Not Found User");
+        });
+        return friendRepository.getFriendList(member.getMemberId()).orElseThrow(() -> {
+            log.info("친구 목록을 불러올 수 없습니다.");
+            return new NotFoundException("Not Found Friend List");
+        });
     }
 
     @Override
     @Transactional
     public List<FriendDto.FriendResDto> getSentRequestList(String memberId) {
-        Member member = memberRepository.findByMemberLoginId(memberId).orElseThrow(() -> new NotFoundException("Not Found User"));
-        return friendRepository.getSentRequestList(member.getMemberId()).orElseThrow(() -> new NotFoundException("보낸 친구 요청이 없습니다"));
+        Member member = memberRepository.findByMemberLoginId(memberId).orElseThrow(() -> {
+            log.info("해당 User에 대한 정보를 찾지 못했습니다.");
+            return new NotFoundException("Not Found User");
+        });
+        return friendRepository.getSentRequestList(member.getMemberId()).orElseThrow(() -> {
+            log.info("보낸 친구 요청 목록을 찾지 못했습니다.");
+            return new NotFoundException("Not Found Send Friend List");
+        });
     }
 
     @Override
     @Transactional
     public List<FriendDto.FriendResDto> getReceivedRequestList(String memberId) {
-        Member member = memberRepository.findByMemberLoginId(memberId).orElseThrow(() -> new NotFoundException("Not Found User"));
-        return friendRepository.getReceivedRequestList(member.getMemberId()).orElseThrow(() -> new NotFoundException("받은 친구 요청이 없습니다"));
+        Member member = memberRepository.findByMemberLoginId(memberId).orElseThrow(() -> {
+            log.info("해당 User에 대한 정보를 찾지 못했습니다.");
+            return new NotFoundException("Not Found User");
+        });
+        return friendRepository.getReceivedRequestList(member.getMemberId()).orElseThrow(() -> {
+            log.info("받은 친구 요청 목록을 찾지 못했습니다.");
+            return new NotFoundException("Not Found Received Friend List");
+        });
     }
 }
