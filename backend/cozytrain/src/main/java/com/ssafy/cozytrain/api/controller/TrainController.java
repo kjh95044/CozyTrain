@@ -24,15 +24,14 @@ public class TrainController {
     private final TrainService trainService;
     private final MemberService memberService;
     private final JwtUtils jwtUtils;
-//    @PostMapping
-//    @Operation(summary = "기차 생성")
-//    public ApiUtils.ApiResult<Long> createTrain(
-//            @RequestHeader("Authorization") String header,
-//            @RequestBody @Valid TrainDto.TrainDtoReq trainDtoReq) {
-//        String memberId = jwtUtils.getIdFromToken(header.substring(7));
-//        Member member = memberService.findByMemberLoginId(memberId)
-//                .orElseThrow(() -> new NotFoundException("Not Found User"));
-//
-//        return success(trainService.createTrain(trainDtoReq, member));
-//    }
+    @GetMapping("/cur-location-info")
+    @Operation(summary = "현재 기차 위치 정보 가져오기")
+    public ApiUtils.ApiResult<TrainDto.TrainCurInfoDto> getCurLocationInfo(
+            @RequestHeader("Authorization") String header) {
+        String memberId = jwtUtils.getIdFromToken(header.substring(7));
+        Member member = memberService.findByMemberLoginId(memberId)
+                .orElseThrow(() -> new NotFoundException("Not Found User"));
+
+        return success(trainService.getCurLocationInfo(member));
+    }
 }

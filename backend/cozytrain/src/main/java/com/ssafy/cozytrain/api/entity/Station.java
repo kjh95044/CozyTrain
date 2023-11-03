@@ -20,13 +20,16 @@ public class Station {
     private String region;
     private int regionNum;
 
-    @ManyToOne
-    @JoinColumn(name = "track_id", referencedColumnName = "track_id")
-    private Track track;
+    @OneToOne(mappedBy = "station")
+    private Train train;
 
     @OneToOne
     @JoinColumn(name = "country_id", referencedColumnName = "country_id")
     private Country country;
+
+    @ManyToOne
+    @JoinColumn(name = "track_id", referencedColumnName = "track_id")
+    private Track track;
 
     @Builder
     public Station(int dist, String continent, String region, int regionNum, Track track){
