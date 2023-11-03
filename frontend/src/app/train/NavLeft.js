@@ -55,7 +55,7 @@ export default function NavLeft() {
 
       {checkListModal && (
         <Modal onClick={handleModalClose}>
-          <CheckList onClick={handleCheckListClose} />
+          <CheckList onClick={handleModalClose} />
         </Modal>
       )}
     </div>
