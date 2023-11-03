@@ -15,12 +15,14 @@ public class DreamDto {
     @Getter
     @NoArgsConstructor
     public static class DreamDtoRes {
+        private Long dreamId;
         private LocalDate dreamDate;
         private Integer dreamType;
         private String dreamContent;
 
         @Builder
-        public DreamDtoRes(LocalDate dreamDate, Integer dreamType, String dreamContent) {
+        public DreamDtoRes(Long dreamId, LocalDate dreamDate, Integer dreamType, String dreamContent) {
+            this.dreamId = dreamId;
             this.dreamDate = dreamDate;
             this.dreamType = dreamType;
             this.dreamContent = dreamContent;
@@ -36,6 +38,7 @@ public class DreamDto {
         public DreamDtoListRes(List<Dream> dreamList) {
             this.dreamDtoResList = dreamList.stream().map((dream) -> {
                 return DreamDtoRes.builder()
+                        .dreamId(dream.getDreamId())
                         .dreamContent(dream.getDreamContent())
                         .dreamType(dream.getDreamType())
                         .dreamDate(dream.getDreamDate())

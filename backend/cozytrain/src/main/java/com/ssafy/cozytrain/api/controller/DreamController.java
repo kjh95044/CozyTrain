@@ -44,7 +44,7 @@ public class DreamController {
 
     @PostMapping
     @Operation(summary = "꿈 등록", description = "dreamType: { 0: 돈/재물, 1: 음식, 2: 지인, 3: 똥, 4: 악몽, 5: 기타 }")
-    public ApiUtils.ApiResult<Boolean> createDream(@RequestHeader("Authorization") String header, @RequestBody @Valid DreamDtoReq dreamDtoReq) {
+    public ApiUtils.ApiResult<DreamDto.DreamDtoRes> createDream(@RequestHeader("Authorization") String header, @RequestBody @Valid DreamDtoReq dreamDtoReq) {
         String memberId = jwtUtils.getIdFromToken(header.substring(7));
         Member member = memberService.findByMemberLoginId(memberId)
                 .orElseThrow(() -> new NotFoundException("Not Found User"));
