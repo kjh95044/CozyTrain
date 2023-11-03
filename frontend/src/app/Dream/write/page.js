@@ -8,6 +8,7 @@ import postFetch from "@/services/postFetch";
 import { useSearchParams } from "next/navigation";
 import { useState } from "react";
 import { useRouter } from "next/navigation";
+import Header from "@/components/Header";
 
 export default function Write() {
   const today = new Date();
@@ -42,9 +43,7 @@ export default function Write() {
 
   return (
     <div className={styles.container}>
-      <div className={styles.header}>
-        <b>꿈</b>
-      </div>
+      <Header>꿈</Header>
 
       <div className={styles.note_container}>
         <div className={styles.title}>
