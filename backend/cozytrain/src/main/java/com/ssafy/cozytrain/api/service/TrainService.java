@@ -7,4 +7,7 @@ import com.ssafy.cozytrain.api.entity.Train;
 public interface TrainService {
     Long createTrain(Member member);
     TrainDto.TrainCurInfoDto getCurLocationInfo(Member member);
+
+    Train getTrain(Member member);
+    void moveTrain(int sleepScore, Member member);
 }

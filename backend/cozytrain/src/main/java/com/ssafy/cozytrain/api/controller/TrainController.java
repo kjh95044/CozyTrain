@@ -12,7 +12,6 @@ import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.web.bind.annotation.*;
 
-import javax.validation.Valid;
 
 import static com.ssafy.cozytrain.common.utils.ApiUtils.success;
 
@@ -31,6 +30,19 @@ public class TrainController {
         String memberId = jwtUtils.getIdFromToken(header.substring(7));
         Member member = memberService.findByMemberLoginId(memberId)
                 .orElseThrow(() -> new NotFoundException("Not Found User"));
+
+        return success(trainService.getCurLocationInfo(member));
+    }
+
+    @GetMapping("/move")
+    @Operation(summary = "기차를 점수만큼 이동 시킵니다.")
+    public ApiUtils.ApiResult<TrainDto.TrainCurInfoDto> moveTrain(
+            @RequestHeader("Authorization") String header, @RequestParam("sleepScore") int sleepScore) {
+        String memberId = jwtUtils.getIdFromToken(header.substring(7));
+        Member member = memberService.findByMemberLoginId(memberId)
+                .orElseThrow(() -> new NotFoundException("Not Found User"));
+
+        trainService.moveTrain(sleepScore, member);
 
         return success(trainService.getCurLocationInfo(member));
     }

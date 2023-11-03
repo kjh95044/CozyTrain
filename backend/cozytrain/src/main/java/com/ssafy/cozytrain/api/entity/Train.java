@@ -45,6 +45,17 @@ public class Train {
         this.track = track;
     }
 
-    public void updateTrainCurDist(int trainCurDist){this.trainCurDist = trainCurDist;}
-    public void updateTrainEndDate(LocalDate endDate){this.endDate = endDate;}
+    public void updateTrainCurDist(int trainCurDist){
+        this.trainCurDist = trainCurDist;
+        this.updatedAt = LocalDateTime.now();
+    }
+    public void updateTrainEndDate(LocalDate endDate){
+        this.endDate = endDate;
+        this.updatedAt = LocalDateTime.now();
+    }
+
+    public void updateStation(Station station){
+        this.station = station;
+        this.updatedAt = LocalDateTime.now();
+    }
 }
