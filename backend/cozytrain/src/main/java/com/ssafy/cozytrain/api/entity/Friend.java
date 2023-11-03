@@ -50,4 +50,7 @@ public class Friend {
     public void updateFriendType(int friendType){
         this.friendType = friendType;
     }
+    public void updateUpdatedAt(){
+        this.updatedAt = LocalDateTime.now();
+    }
 }
