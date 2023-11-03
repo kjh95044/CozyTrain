@@ -47,9 +47,14 @@ public class MessageServiceImpl implements MessageService {
         String uploadImageUrl = s3Uploader.upload(mfile, memberId, uuid);
 
         // 데이터베이스 연동
-        Member member = memberRepository.findByMemberLoginId(memberId).orElseThrow(() -> new NotFoundException("Not Found User"));
-        ChatRoom chatRoom = chatRoomRepository.findById(messageReqDto.getChatRoomId()).orElseThrow(() -> new NotFoundException("해당 채팅방이 존재하지 않습니다."));
-
+        Member member = memberRepository.findByMemberLoginId(memberId).orElseThrow(() -> {
+            log.info("해당 User에 대한 정보를 찾지 못했습니다.");
+            return new NotFoundException("Not Found User");
+        });
+        ChatRoom chatRoom = chatRoomRepository.findById(messageReqDto.getChatRoomId()).orElseThrow(() -> {
+            log.info("해당 채팅방 정보를 찾지 못했습니다.");
+            return new NotFoundException("Not Found ChatRoom");
+        });
         Message message = Message.builder()
                 .messageUrl(uploadImageUrl)
                 .createdAt(LocalDateTime.now())
@@ -62,6 +67,9 @@ public class MessageServiceImpl implements MessageService {
 
     @Override
     public List<MessageDto.MessageResDto> getAllMessage(String memberId, Long chatRoomId) {
-        return messageRepository.getAllMessage(chatRoomId).orElseThrow(() -> new NotFoundException("메시지가 없습니다"));
+        return messageRepository.getAllMessage(chatRoomId).orElseThrow(() -> {
+            log.info("해당 음성메세지에 대한 정보를 찾지 못했습니다.");
+            return new NotFoundException("Not Found Message");
+        });
     }
 }
