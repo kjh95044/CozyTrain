@@ -28,8 +28,7 @@ export default function SingUp() {
     };
 
     fetchPost("member/signup", formData)
-      .then((resp) => {
-        console.log("로그인 성공, " + resp);
+      .then(() => {
         router.push("/login");
       })
       .catch((e) => console.log(e));

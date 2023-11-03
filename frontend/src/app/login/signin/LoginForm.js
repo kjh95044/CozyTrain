@@ -22,7 +22,8 @@ export default function LoginForm() {
     };
 
     try {
-      const respData = await postFetch("member/login", formData);
+      const data = await postFetch("member/login", formData);
+      const respData = data.response;
 
       document.cookie = `accessToken=${respData.accessToken}`;
       document.cookie = `refreshToken=${respData.refreshToken}`;
@@ -34,7 +35,6 @@ export default function LoginForm() {
         respData.accessToken
       );
 
-      console.log("로그인 성공, " + respData);
       router.push("/");
     } catch (e) {
       console.log(e);

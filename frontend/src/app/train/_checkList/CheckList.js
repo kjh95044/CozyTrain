@@ -21,10 +21,10 @@ export default function CheckList(props) {
   return (
     <div>
       <div className={styles.closeBtn}>
-        <CloseButton onClick={props.onClose} />
+        <CloseButton onClick={props.onClick} />
       </div>
       <div>
-        {isList ? "오늘 섭취한 음료입니다." : "오늘은 무엇을 마셨나요?"}
+        {isList ? "오늘 섭취한 <b>음료</b>입니다." : "오늘은 무엇을 마셨나요?"}
       </div>
 
       <div className={styles.content}>
