@@ -30,11 +30,11 @@ public class MessageController {
         return success(messageService.createMessage(memberId, file, messageReqDto));
     }
 
-    @GetMapping("/{chatRoomId}")
+    @GetMapping("/{friendMemberId}")
     @Operation(summary = "1대1 음성메시지 전체 확인 API")
-    public ApiUtils.ApiResult<List<MessageDto.MessageResDto>> getAllMessage(@RequestHeader("Authorization") String header, @PathVariable Long chatRoomId) {
+    public ApiUtils.ApiResult<List<MessageDto.MessageResDto>> getAllMessage(@RequestHeader("Authorization") String header, @PathVariable Long friendMemberId) {
         String memberId = jwtUtils.getIdFromToken(header.substring(7));
-        return success(messageService.getAllMessage(memberId, chatRoomId));
+        return success(messageService.getAllMessage(memberId, friendMemberId));
     }
 
     @DeleteMapping("/{messageId}")

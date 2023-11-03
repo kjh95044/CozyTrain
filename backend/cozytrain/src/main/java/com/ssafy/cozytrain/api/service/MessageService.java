@@ -9,7 +9,7 @@ import java.util.List;
 public interface MessageService {
     Long createMessage(String memberId, MultipartFile file, MessageDto.MessageReqDto messageReqDto) throws IOException;
 
-    List<MessageDto.MessageResDto> getAllMessage(String memberId, Long chatRoomId);
+    List<MessageDto.MessageResDto> getAllMessage(String memberId, Long friendMemberId);
 
     Long deleteMessage(Long messageId);
 }
