@@ -1,3 +1,5 @@
+"use client";
+import { useRouter } from "next/navigation";
 import styles from "./PrimaryButton.module.css";
 
 export default function PrimaryButton(props) {
