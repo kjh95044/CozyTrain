@@ -1,5 +1,5 @@
 import Letter from "./Letter";
-import AriveTrain from "@/components/lottie/AriveTrain";
+import AriveTrain from "@/components/Lottie/AriveTrain";
 
 export default function Home() {
   return (
