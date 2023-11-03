@@ -1,0 +1,40 @@
+.container {
+  height: 100vh;
+  overflow: hidden;
+  display: flex;
+  justify-content: center;
+}
+
+.header {
+  text-align: center;
+  margin: 20px auto;
+  font-size: 28px;
+}
+
+.note_container {
+  height: 400px;
+  position: absolute;
+  top: 44%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+}
+
+.preview {
+  margin-top: 20px;
+  display: flex;
+  justify-content: center;
+}
+
+.next_btn {
+  position: absolute;
+  bottom: 120px;
+  display: flex;
+  justify-content: center;
+}
+
+.next_txt {
+  color: white;
+  background: var(--primary);
+  padding: 16px;
+  border-radius: 12px;
+}
