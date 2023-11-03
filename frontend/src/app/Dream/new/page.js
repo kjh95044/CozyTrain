@@ -1,12 +1,12 @@
 "use client";
 
 import Image from "next/image";
-import coin from "/public/images/coin.svg";
-import food from "/public/images/cutlery.svg";
-import friend from "/public/images/friend.svg";
-import poo from "/public/images/poop.svg";
-import nightmare from "/public/images/nightmare.svg";
-import sheep from "/public/images/sheep.svg";
+import coin from "/public/images/0.svg";
+import food from "/public/images/1.svg";
+import friend from "/public/images/2.svg";
+import poo from "/public/images/3.svg";
+import nightmare from "/public/images/4.svg";
+import sheep from "/public/images/5.svg";
 import styles from "./page.module.css";
 import NavBottom from "@/components/NavBottom";
 import { useState } from "react";
