@@ -3,6 +3,7 @@
 import { useState } from "react";
 import { useRouter } from "next/navigation";
 
+import fetchPost from "@/services/postFetch";
 import Title from "../Title";
 import styles from "./page.module.css";
 
@@ -26,16 +27,12 @@ export default function SingUp() {
       memberName: username,
     };
 
-    fetch("https://dev.cozytrain.com/api/member/signup", {
-      method: "POST",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify(formData),
-    })
-      .then((resp) => resp.json())
-      .then(() => {
+    fetchPost("member/signup", formData)
+      .then((resp) => {
+        console.log("로그인 성공, " + resp);
         router.push("/login");
       })
-      .catch((error) => console.log(error));
+      .catch((e) => console.log(e));
   };
 
   return (

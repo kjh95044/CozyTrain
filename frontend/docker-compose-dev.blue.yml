@@ -4,8 +4,8 @@ services:
     build:
       dockerfile: Dockerfile # dockerfile이름
       context: ./ # 도커파일 위치 명시
-    image: frontend-dev
+    image: frontend-dev-blue
     container_name: frontend-dev-blue
     ports:
-      - 3000:80
+      - 3000:3000
     stdin_open: true

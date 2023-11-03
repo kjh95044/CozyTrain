@@ -1,12 +1,16 @@
 import getAccessToken from "@/utils/getAccessToken";
 
-export default async function fetchPost(url, data) {
+/**
+ *
+ * @param {string} url - URL
+ * @returns {Promise}
+ */
+export default async function Fetch(url) {
   const accessToken = getAccessToken();
 
   try {
-    const response = await fetch("https://dev.cozytrain.com/api/" + url, {
-      method: "POST",
-      body: JSON.stringify(data),
+    const response = await fetch(`https://dev.cozytrain.com/api/${url}`, {
+      method: "DELETE",
       headers: {
         "Content-Type": "application/json",
         Authorization: `Bearer ${accessToken}`,
@@ -18,7 +22,6 @@ export default async function fetchPost(url, data) {
     const responseData = await response.json();
     return responseData;
   } catch (error) {
-    console.error("Fetch error:", error);
     throw error;
   }
 }
