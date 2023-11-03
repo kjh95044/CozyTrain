@@ -1,9 +1,8 @@
 package com.ssafy.cozytrain.api.controller;
 
-import com.ssafy.cozytrain.api.dto.ReportDto;
+import com.ssafy.cozytrain.api.dto.TrainDto;
 import com.ssafy.cozytrain.api.entity.Member;
 import com.ssafy.cozytrain.api.service.MemberService;
-import com.ssafy.cozytrain.api.service.ReportService;
 import com.ssafy.cozytrain.api.service.TrainService;
 import com.ssafy.cozytrain.common.exception.NotFoundException;
 import com.ssafy.cozytrain.common.utils.ApiUtils;
@@ -25,10 +24,9 @@ public class TrainController {
     private final TrainService trainService;
     private final MemberService memberService;
     private final JwtUtils jwtUtils;
-
 //    @PostMapping
 //    @Operation(summary = "기차 생성")
-//    public ApiUtils.ApiResult<TrainDto.TrainDtoRes> createTrain(
+//    public ApiUtils.ApiResult<Long> createTrain(
 //            @RequestHeader("Authorization") String header,
 //            @RequestBody @Valid TrainDto.TrainDtoReq trainDtoReq) {
 //        String memberId = jwtUtils.getIdFromToken(header.substring(7));
