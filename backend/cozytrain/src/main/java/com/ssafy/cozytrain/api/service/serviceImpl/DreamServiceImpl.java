@@ -30,6 +30,7 @@ public class DreamServiceImpl implements DreamService {
             Dream dream = dreamRepository.findByDreamId(dreamId);
 
             return DreamDto.DreamDtoRes.builder()
+                    .dreamId(dream.getDreamId())
                     .dreamType(dream.getDreamType())
                     .dreamContent(dream.getDreamContent())
                     .dreamDate(dream.getDreamDate())
@@ -53,7 +54,7 @@ public class DreamServiceImpl implements DreamService {
 
     @Override
     @Transactional(rollbackFor = Exception.class)
-    public boolean saveDream(DreamDto.DreamDtoReq dreamDtoReq, Member member) {
+    public DreamDto.DreamDtoRes saveDream(DreamDto.DreamDtoReq dreamDtoReq, Member member) {
         try {
             Dream dream = Dream.builder()
                     .dreamContent(dreamDtoReq.getDreamContent())
@@ -63,9 +64,14 @@ public class DreamServiceImpl implements DreamService {
 
             Dream saved = dreamRepository.save(dream);
 
-            return saved != null;
+            return DreamDto.DreamDtoRes.builder()
+                    .dreamId(saved.getDreamId())
+                    .dreamType(saved.getDreamType())
+                    .dreamContent(saved.getDreamContent())
+                    .dreamDate(saved.getDreamDate())
+                    .build();
         } catch (Exception e) {
-            return false;
+            return null;
         }
     }
 
