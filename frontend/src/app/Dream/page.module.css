@@ -19,6 +19,12 @@
   transform: translate(-50%, -50%);
 }
 
+.preview {
+  margin-top: 20px;
+  display: flex;
+  justify-content: center;
+}
+
 .next_btn {
   position: absolute;
   bottom: 120px;
