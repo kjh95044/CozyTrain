@@ -1,11 +1,16 @@
-import useStore from "@/store/useStore";
+import getAccessToken from "@/utils/getAccessToken";
 
-export default async function Fetch(url, data) {
-  const { accessToken } = useStore();
+/**
+ *
+ * @param {string} url - URL
+ * @returns {Promise}
+ */
+export default async function Fetch(url) {
+  const accessToken = getAccessToken();
 
   try {
-    const response = await fetch("https://dev.cozytrain.com/api/" + url, {
-      method: "GET",
+    const response = await fetch(`https://dev.cozytrain.com/api/${url}`, {
+      method: "DELETE",
       headers: {
         "Content-Type": "application/json",
         Authorization: `Bearer ${accessToken}`,
@@ -17,7 +22,6 @@ export default async function Fetch(url, data) {
     const responseData = await response.json();
     return responseData;
   } catch (error) {
-    console.error("Fetch error:", error);
     throw error;
   }
 }

@@ -1,16 +1,22 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
+
+import useStore from "@/store/useStore";
 import CloseButton from "@/components/button/CloseButton";
 import SearchList from "./SearchList";
 import TodayList from "./TodayList";
 import styles from "./CheckList.module.css";
-import PrimaryButton from "@/components/button/PrimaryButton";
-import SecondaryButton from "@/components/button/SecondaryButton";
 
 export default function CheckList(props) {
+  const [serachData, setSearchData] = useState([]);
   const [isList, setIsList] = useState(false);
+  const { memberName } = useStore();
 
   const handleListTrue = () => setIsList(true);
   const handleListFalse = () => setIsList(false);
+
+  useEffect(() => {
+    console.log(memberName);
+  }, []);
 
   return (
     <div>

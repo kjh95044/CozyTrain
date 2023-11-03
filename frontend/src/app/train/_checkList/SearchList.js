@@ -1,12 +1,13 @@
 import { useState } from "react";
 
+import getFetch from "@/services/getFetch";
 import styles from "./SearchList.module.css";
 
 export default function SearchList() {
   const [value, setValue] = useState("");
 
-  const searchDrink = () => {
-    console.log(value);
+  const searchDrink = async () => {
+    const data = getFetch("caffeine/search", { searchName: value });
   };
 
   return (
