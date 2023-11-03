@@ -1,8 +1,10 @@
 package com.ssafy.cozytrain.api.service.serviceImpl;
 
 import com.ssafy.cozytrain.api.dto.FriendDto;
+import com.ssafy.cozytrain.api.entity.ChatRoom;
 import com.ssafy.cozytrain.api.entity.Friend;
 import com.ssafy.cozytrain.api.entity.Member;
+import com.ssafy.cozytrain.api.repository.ChatRoomRepository;
 import com.ssafy.cozytrain.api.repository.FriendRepository;
 import com.ssafy.cozytrain.api.repository.MemberRepository;
 import com.ssafy.cozytrain.api.service.FriendService;
@@ -22,6 +24,7 @@ public class FriendServiceImpl implements FriendService {
 
     private final MemberRepository memberRepository;
     private final FriendRepository friendRepository;
+    private final ChatRoomRepository chatRoomRepository;
 
     @Override
     public List<FriendDto.FriendSearchResDto> searchFriend(String memberId, String friendLoginId) {
@@ -76,14 +79,36 @@ public class FriendServiceImpl implements FriendService {
     }
 
     @Override
-    public Long acceptFriend(FriendDto.FriendAcceptReqDto friendAcceptReqDto) {
+    @Transactional
+    public Long acceptFriend(String memberId, FriendDto.FriendAcceptReqDto friendAcceptReqDto) {
+        Member member = memberRepository.findByMemberLoginId(memberId).orElseThrow(() -> {
+            log.info("해당 User에 대한 정보를 찾지 못했습니다.");
+            return new NotFoundException("Not Found User");
+        });
+
         Friend friend = friendRepository.findById(friendAcceptReqDto.getFriendId()).orElseThrow(() -> {
             log.info("해당 친구요청에 대한 정보를 찾지 못했습니다.");
             return new NotFoundException("Not Found request Friend");
         });
         friend.updateFriendType(2);
+        friend.updateUpdatedAt();
+        friendRepository.save(friend).getFriendId();
 
-        return friendRepository.save(friend).getFriendId();
+        Long friendId = friend.getMemberFirst().getMemberId();
+        if (friendId == member.getMemberId()){
+            friendId = friend.getMemberSecond().getMemberId();
+        }
+
+        Member memberSecond = memberRepository.findByMemberId(friendId).orElseThrow(() -> {
+            log.info("해당 User에 대한 정보를 찾지 못했습니다.");
+            return new NotFoundException("Not Found User");
+        });
+
+        ChatRoom chatRoom = ChatRoom.builder()
+                .memberFirst(member)
+                .memberSecond(memberSecond)
+                .build();
+        return chatRoomRepository.save(chatRoom).getChatRoomId();
     }
 
     @Override
