@@ -1,5 +1,6 @@
 "use client";
 
+import Header from "@/components/Header";
 import styles from "./page.module.css";
 import NavBottom from "@/components/NavBottom";
 import BackButton from "@/components/button/BackButton";
@@ -24,9 +25,7 @@ export default function Detail() {
 
   return (
     <div className={styles.container}>
-      <div className={styles.header}>
-        <b>꿈</b>
-      </div>
+      <Header>꿈</Header>
 
       {dream ? (
         <div className={styles.note_container}>

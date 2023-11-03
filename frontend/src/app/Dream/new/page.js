@@ -12,6 +12,7 @@ import NavBottom from "@/components/NavBottom";
 import { useState } from "react";
 import PrimaryButton from "@/components/button/PrimaryButton";
 import Link from "next/link";
+import Header from "@/components/Header";
 
 export default function New() {
   const [dream, setDream] = useState(0);
@@ -22,9 +23,7 @@ export default function New() {
 
   return (
     <div className={styles.container}>
-      <div className={styles.header}>
-        <b>꿈</b>
-      </div>
+      <Header>꿈</Header>
       <div className={styles.note_container}>
         <div className={styles.title}>
           오늘의 <b>꿈</b>을 골라보세요

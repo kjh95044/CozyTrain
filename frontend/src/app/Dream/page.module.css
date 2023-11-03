@@ -5,12 +5,6 @@
   justify-content: center;
 }
 
-.header {
-  text-align: center;
-  margin: 20px auto;
-  font-size: 28px;
-}
-
 .note_container {
   height: 400px;
   position: absolute;
