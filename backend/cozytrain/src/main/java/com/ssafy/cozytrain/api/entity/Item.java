@@ -11,6 +11,7 @@ import java.util.List;
 @NoArgsConstructor
 public class Item {
     @Id
+    @Column(name = "item_id")
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long itemId;
     private String itemName;

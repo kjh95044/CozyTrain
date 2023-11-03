@@ -10,6 +10,7 @@ import javax.persistence.*;
 @NoArgsConstructor
 public class ItemBox {
     @Id
+    @Column(name = "item_box_id")
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long itemBoxId;
 

@@ -11,6 +11,7 @@ import javax.persistence.*;
 public class ItemList {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "item_list_id")
     private Long itemListId;
 
     @ManyToOne

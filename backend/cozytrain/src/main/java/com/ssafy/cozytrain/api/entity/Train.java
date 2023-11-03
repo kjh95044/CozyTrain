@@ -15,9 +15,9 @@ import java.time.LocalDateTime;
 public class Train {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "train_id")
     private Long trainId;
     private int trainCurDist;
-    private int trainTotalDist;
     private LocalDate startDate;
     private LocalDate endDate;
     private LocalDateTime createdAt;
@@ -32,12 +32,12 @@ public class Train {
     private Track track;
 
     @Builder
-    public Train(int trainTotalDist, LocalDate startDate, LocalDateTime createdAt, Member member){
-        this.trainTotalDist = trainTotalDist;
+    public Train(LocalDate startDate, LocalDateTime createdAt, Member member, Track track){
         this.startDate = startDate;
         this.createdAt = createdAt;
         this.updatedAt = createdAt;
         this.member = member;
+        this.track = track;
     }
 
     public void updateTrainCurDist(int trainCurDist){this.trainCurDist = trainCurDist;}

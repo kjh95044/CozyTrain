@@ -13,23 +13,27 @@ import javax.persistence.*;
 public class Station {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "station_id")
     private Long stationId;
     private int dist;
     private String continent;
     private String region;
+    private int regionNum;
 
     @ManyToOne
     @JoinColumn(name = "track_id", referencedColumnName = "track_id")
     private Track track;
 
-    @OneToOne(mappedBy = "station", cascade = CascadeType.ALL)
+    @OneToOne
+    @JoinColumn(name = "country_id", referencedColumnName = "country_id")
     private Country country;
 
     @Builder
-    public Station(int dist, String continent, String region, Track track){
+    public Station(int dist, String continent, String region, int regionNum, Track track){
         this.dist = dist;
         this.continent = continent;
         this.region = region;
+        this.regionNum = regionNum;
         this.track = track;
     }
 }

@@ -1,6 +1,7 @@
 package com.ssafy.cozytrain.api.entity;
 
 import com.ssafy.cozytrain.api.service.TrainService;
+import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 
@@ -13,12 +14,12 @@ import java.util.List;
 public class Track {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long track_id;
+    @Column(name = "track_id")
+    private Long trackId;
 
     @OneToOne(mappedBy = "track")
     private Train train;
 
     @OneToMany(mappedBy = "track")
     private List<Station> stations;
-
 }

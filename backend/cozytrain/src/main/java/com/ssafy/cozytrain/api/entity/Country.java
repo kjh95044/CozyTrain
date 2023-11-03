@@ -14,11 +14,11 @@ import java.util.List;
 public class Country {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "country_id")
     private Long countryId;
     private String countryName;
 
-    @OneToOne
-    @JoinColumn(name = "station_id", referencedColumnName = "station_id")
+    @OneToOne(mappedBy = "country")
     private Station station;
 
     @OneToOne(mappedBy = "country")

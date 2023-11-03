@@ -8,6 +8,7 @@ import com.ssafy.cozytrain.api.repository.MemberRepository;
 import com.ssafy.cozytrain.api.repository.RefreshTokenRepository;
 import com.ssafy.cozytrain.api.service.BookmarkService;
 import com.ssafy.cozytrain.api.service.MemberService;
+import com.ssafy.cozytrain.api.service.TrainService;
 import com.ssafy.cozytrain.common.exception.NotFoundException;
 import com.ssafy.cozytrain.common.utils.JwtUtils;
 import com.ssafy.cozytrain.common.utils.S3Uploader;
@@ -33,6 +34,7 @@ public class MemberServiceImpl implements MemberService {
     private final PasswordEncoder passwordEncoder;
     private final RefreshTokenRepository refreshTokenRepository;
     private final S3Uploader s3Uploader;
+    private final TrainService trainService;
 
     @Override
     @Transactional(rollbackFor = Exception.class)
@@ -43,6 +45,8 @@ public class MemberServiceImpl implements MemberService {
         signupReq.update(passwordEncoder.encode(signupReq.getMemberPassword()));
         Member member = Member.builder().signupReq(signupReq).build();
         memberRepository.save(member);
+
+        trainService.createTrain(member);
         return true;
     }
 
