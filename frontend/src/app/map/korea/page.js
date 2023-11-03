@@ -29,12 +29,15 @@ export default function Korea() {
             <div className={styles.mapAllButton}>
                 <MapAllButton>대한민국</MapAllButton>
             </div>
-            <Canvas camera={{ position: [0, 0.1, -0.2], near: 0.03 }}>
+            <Canvas camera={{ position: [0, 0.06, -0.2], near: 0.038 }}>
                 <Suspense fallback={null}>
-                    <Model url={Models[0].url} scale={0.16} />
+                    <Model url={Models[0].url} scale={0.18} />
                     <ambientLight intensity={3} />
                 </Suspense>
-                <OrbitControls />
+                <OrbitControls
+                    enableRotate={true}
+                    enableZoom={false}
+                    maxPolarAngle={Math.PI / 2.5} />
             </Canvas>
         </div >
     )
