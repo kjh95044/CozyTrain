@@ -1,0 +1,13 @@
+.container {
+  position: absolute;
+  width: 100vw;
+  height: 100vh;
+  background: linear-gradient(rgba(219, 87, 96, 80%), #e7dbdb);
+  z-index: -2;
+}
+
+.cloud {
+  width: 100%;
+  height: 80%;
+  z-index: -1;
+}

@@ -1,0 +1,11 @@
+version: "3"
+services:
+  frontend:
+    build:
+      dockerfile: Dockerfile # dockerfile이름
+      context: ./ # 도커파일 위치 명시
+    image: frontend-prod-green
+    container_name: frontend-prod-green
+    ports:
+      - 3003:3000
+    stdin_open: true
