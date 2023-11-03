@@ -3,9 +3,11 @@
 import styles from "./page.module.css";
 import NavBottom from "@/components/NavBottom";
 import PrimaryButton from "@/components/button/PrimaryButton";
+import postFetch from "@/services/postFetch";
+
 import { useSearchParams } from "next/navigation";
 import { useState } from "react";
-import Fetch from "@/services/post";
+import { useRouter } from "next/navigation";
 
 export default function Wrtie() {
   const today = new Date();
@@ -18,6 +20,7 @@ export default function Wrtie() {
 
   let dreamType = useSearchParams().get("dream");
 
+  const router = useRouter();
   const [content, setContent] = useState("");
 
   const contentChange = (event) => {
@@ -30,7 +33,11 @@ export default function Wrtie() {
       dreamType: dreamType,
     };
 
-    const respData = await Fetch("dream", postData);
+    const respData = await postFetch("dream", postData);
+    console.log(respData);
+    if (respData.success) {
+      router.push("/dream");
+    }
   };
 
   return (
