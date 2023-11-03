@@ -66,8 +66,19 @@ public class MessageServiceImpl implements MessageService {
     }
 
     @Override
-    public List<MessageDto.MessageResDto> getAllMessage(String memberId, Long chatRoomId) {
-        return messageRepository.getAllMessage(chatRoomId).orElseThrow(() -> {
+    public List<MessageDto.MessageResDto> getAllMessage(String memberId, Long friendMemberId) {
+        Member member = memberRepository.findByMemberLoginId(memberId).orElseThrow(() -> {
+            log.info("해당 User에 대한 정보를 찾지 못했습니다.");
+            return new NotFoundException("Not Found User");
+        });
+        ChatRoom chatRoom = chatRoomRepository.findByMemberFirst_MemberIdAndMemberSecond_MemberIdOrMemberSecond_MemberIdAndMemberFirst_MemberId
+                (member.getMemberId(), friendMemberId, member.getMemberId(), friendMemberId)
+                .orElseThrow(() -> {
+                    log.info("해당 친구와의 채팅방 정보를 찾지 못했습니다.");
+                    return new NotFoundException("Not Found ChatRoom");
+                });
+
+        return messageRepository.getAllMessage(chatRoom.getChatRoomId()).orElseThrow(() -> {
             log.info("해당 음성메세지에 대한 정보를 찾지 못했습니다.");
             return new NotFoundException("Not Found Message");
         });
