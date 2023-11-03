@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.io.IOException;
+import java.util.List;
 
 import static com.ssafy.cozytrain.common.utils.ApiUtils.success;
 
@@ -27,5 +28,12 @@ public class MessageController {
     public ApiUtils.ApiResult<Long> createMessage(@RequestHeader("Authorization") String header, @RequestPart(value = "file") MultipartFile file, @RequestPart MessageDto.MessageReqDto messageReqDto) throws IOException {
         String memberId = jwtUtils.getIdFromToken(header.substring(7));
         return success(messageService.createMessage(memberId, file, messageReqDto));
+    }
+
+    @GetMapping("/{chatRoomId}")
+    @Operation(summary = "1대1 음성메시지 전체 확인 API")
+    public ApiUtils.ApiResult<List<MessageDto.MessageResDto>> getAllMessage(@RequestHeader("Authorization") String header, @PathVariable Long chatRoomId) {
+        String memberId = jwtUtils.getIdFromToken(header.substring(7));
+        return success(messageService.getAllMessage(memberId, chatRoomId));
     }
 }

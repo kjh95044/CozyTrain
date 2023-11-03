@@ -23,6 +23,7 @@ import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.time.LocalDateTime;
+import java.util.List;
 import java.util.Optional;
 import java.util.UUID;
 
@@ -67,6 +68,11 @@ public class MessageServiceImpl implements MessageService {
         return messageRepository.save(message).getMessageId();
     }
 
+    @Override
+    public List<MessageDto.MessageResDto> getAllMessage(String memberId, Long chatRoomId) {
+        return messageRepository.getAllMessage(chatRoomId).orElseThrow(() -> new NotFoundException("메시지가 없습니다"));
+    }
+
     // S3에 업로드
     private String putS3(File uploadFile, String fileName) {
         s3Client.putObject(
@@ -79,8 +85,13 @@ public class MessageServiceImpl implements MessageService {
     // MultipartFile to File
     private Optional<File> convert(MultipartFile file) throws  IOException {
         File convertFile = new File(file.getOriginalFilename());
-        file.transferTo(convertFile);
-        return Optional.ofNullable(convertFile);
+        if(convertFile.createNewFile()) {
+            try(FileOutputStream fos = new FileOutputStream(convertFile)) {
+                fos.write(file.getBytes());
+            }
+            return Optional.of(convertFile);
+        }
+        return Optional.empty();
     }
 
     private void removeNewFile(File targetFile) {
