@@ -10,4 +10,6 @@ public interface MessageService {
     Long createMessage(String memberId, MultipartFile file, MessageDto.MessageReqDto messageReqDto) throws IOException;
 
     List<MessageDto.MessageResDto> getAllMessage(String memberId, Long chatRoomId);
+
+    Long deleteMessage(Long messageId);
 }

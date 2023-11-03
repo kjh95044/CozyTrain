@@ -36,4 +36,10 @@ public class MessageController {
         String memberId = jwtUtils.getIdFromToken(header.substring(7));
         return success(messageService.getAllMessage(memberId, chatRoomId));
     }
+
+    @DeleteMapping("/{messageId}")
+    @Operation(summary = "음성메시지 삭제 API")
+    public ApiUtils.ApiResult<Long> deleteMessage(@PathVariable Long messageId) {
+        return success(messageService.deleteMessage(messageId));
+    }
 }

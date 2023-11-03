@@ -72,4 +72,10 @@ public class MessageServiceImpl implements MessageService {
             return new NotFoundException("Not Found Message");
         });
     }
+
+    @Override
+    @Transactional
+    public Long deleteMessage(Long messageId) {
+        return messageRepository.deleteByMessageId(messageId);
+    }
 }
