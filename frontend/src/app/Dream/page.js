@@ -10,6 +10,7 @@ import { useEffect, useState } from "react";
 import moment from "moment";
 import Image from "next/image";
 import Calendar from "react-calendar";
+import Header from "@/components/Header";
 
 export default function Dream() {
   const [dream, setDream] = useState([]);
@@ -70,9 +71,7 @@ export default function Dream() {
 
   return (
     <div className={styles.container}>
-      <div className={styles.header}>
-        <b>꿈</b>
-      </div>
+      <Header>꿈</Header>
       <div className={styles.note_container}>
         <Calendar
           locale="ko" //한글
