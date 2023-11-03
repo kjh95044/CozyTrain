@@ -9,7 +9,7 @@ import { useSearchParams } from "next/navigation";
 import { useState } from "react";
 import { useRouter } from "next/navigation";
 
-export default function Wrtie() {
+export default function Write() {
   const today = new Date();
   const year = today.getFullYear();
   const month = today.getMonth() + 1;
