@@ -46,8 +46,8 @@ public class Member {
     @OneToMany(mappedBy = "memberSecond")
     private List<Friend> memberSecond;
 
-    @OneToMany(mappedBy = "member", cascade = CascadeType.ALL)
-    private List<Train> trains;
+    @OneToOne(mappedBy = "member")
+    private Train train;
 
     @OneToMany(mappedBy = "member")
     private List<ItemBox> itemBoxes;

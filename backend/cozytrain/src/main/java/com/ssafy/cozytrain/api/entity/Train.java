@@ -3,12 +3,11 @@ package com.ssafy.cozytrain.api.entity;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
-import org.elasticsearch.monitor.os.OsStats;
 
 import javax.persistence.*;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
-import java.util.List;
+
 
 @Entity
 @Getter
@@ -24,12 +23,13 @@ public class Train {
     private LocalDateTime createdAt;
     private LocalDateTime updatedAt;
 
-    @ManyToOne
+    @OneToOne
     @JoinColumn(name = "member_id", referencedColumnName = "member_id")
     private Member member;
 
-    @OneToMany(mappedBy = "train")
-    private List<Station> stations;
+    @OneToOne
+    @JoinColumn(name = "track_id", referencedColumnName = "track_id")
+    private Track track;
 
     @Builder
     public Train(int trainTotalDist, LocalDate startDate, LocalDateTime createdAt, Member member){

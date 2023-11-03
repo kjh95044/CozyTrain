@@ -3,9 +3,9 @@ package com.ssafy.cozytrain.api.entity;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
-import lombok.extern.slf4j.Slf4j;
 
 import javax.persistence.*;
+
 
 @Entity
 @Getter
@@ -19,17 +19,17 @@ public class Station {
     private String region;
 
     @ManyToOne
-    @JoinColumn(name = "train_id", referencedColumnName = "train_id")
-    private Train train;
+    @JoinColumn(name = "track_id", referencedColumnName = "track_id")
+    private Track track;
 
     @OneToOne(mappedBy = "station", cascade = CascadeType.ALL)
     private Country country;
 
     @Builder
-    public Station(int dist, String continent, String region, Train train){
+    public Station(int dist, String continent, String region, Track track){
         this.dist = dist;
         this.continent = continent;
         this.region = region;
-        this.train = train;
+        this.track = track;
     }
 }
