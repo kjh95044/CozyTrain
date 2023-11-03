@@ -46,6 +46,15 @@ public class Member {
     @OneToMany(mappedBy = "memberSecond")
     private List<Friend> memberSecond;
 
+    @OneToMany(mappedBy = "member", cascade = CascadeType.ALL)
+    private List<Train> trains;
+
+    @OneToMany(mappedBy = "member")
+    private List<ItemBox> itemBoxes;
+
+    @OneToMany(mappedBy = "member")
+    private List<ItemList> itemLists;
+
     @Builder
     public Member(MemberDto.SignupReq signupReq) {
         this.memberLoginId = signupReq.getMemberId();
