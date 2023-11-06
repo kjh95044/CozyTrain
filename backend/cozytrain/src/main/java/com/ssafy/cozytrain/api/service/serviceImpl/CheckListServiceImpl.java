@@ -55,7 +55,6 @@ public class CheckListServiceImpl implements CheckListService {
 
     @Override
     public CheckListTodayRes checkListToday(Member member) {
-        // TODO: 로그인이 추가되면 member 로직 변경
         Optional<CheckList> isCheckList = isCheckList(member);
         if(!isCheckList.isPresent()) return null;
 
@@ -70,11 +69,12 @@ public class CheckListServiceImpl implements CheckListService {
     @Transactional(rollbackFor = Exception.class)
     public Integer checkListDelete(Long checkListItemId, Member member) {
         Integer res = checkListItemRepository.deleteByCheckListItemId(checkListItemId);
+        log.info(res+"");
+
         List<CheckListRes> checkListDtoList = checkListToday(member).getCheckListDtoList();
-        log.info(checkListDtoList.size()+"");
         if(checkListDtoList.isEmpty()) {
-            CheckList checkListItem = checkListRepository.findByCheckListDate(LocalDate.now());
-            checkListRepository.deleteByCheckListId(checkListItem.getCheckListId());
+            CheckList checkList = isCheckList(member).get();
+            checkListRepository.deleteByCheckListId(checkList.getCheckListId());
         }
         return res;
     }
