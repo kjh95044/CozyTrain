@@ -54,14 +54,14 @@ public class ReportController {
         return success(reportService.getTodayReport(member));
     }
 
-//    @GetMapping()
-//    @Operation(summary = "주간 레포트 가져오기")
-//    public ApiUtils.ApiResult<ReportDto.OneWeekReportDto> getReportWeek(
-//            @RequestHeader("Authorization") String header) {
-//        String memberId = jwtUtils.getIdFromToken(header.substring(7));
-//        Member member = memberService.findByMemberLoginId(memberId)
-//                .orElseThrow(() -> new NotFoundException("Not Found User"));
-//
-//        return success(reportService.getOneWeekReports(member));
-//    }
+    @GetMapping("week")
+    @Operation(summary = "주간 레포트 가져오기")
+    public ApiUtils.ApiResult<ReportDto.OneWeekReportDto> getReportWeek(
+            @RequestHeader("Authorization") String header) {
+        String memberId = jwtUtils.getIdFromToken(header.substring(7));
+        Member member = memberService.findByMemberLoginId(memberId)
+                .orElseThrow(() -> new NotFoundException("Not Found User"));
+
+        return success(reportService.getOneWeekReports(member));
+    }
 }
