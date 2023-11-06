@@ -39,8 +39,9 @@ public class FriendController {
 
     @PatchMapping
     @Operation(summary = "친구 요청 수락")
-    public ApiUtils.ApiResult<Long> acceptFriend(@RequestBody FriendDto.FriendAcceptReqDto friendAcceptReqDto){
-        return success(friendService.acceptFriend(friendAcceptReqDto));
+    public ApiUtils.ApiResult<Long> acceptFriend(@RequestHeader("Authorization") String header, @RequestBody FriendDto.FriendAcceptReqDto friendAcceptReqDto){
+        String memberId = jwtUtils.getIdFromToken(header.substring(7));
+        return success(friendService.acceptFriend(memberId, friendAcceptReqDto));
     }
 
     @DeleteMapping("/{friendId}")

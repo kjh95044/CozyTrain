@@ -1,5 +1,6 @@
 package com.ssafy.cozytrain.common.utils;
 
+import com.amazonaws.services.s3.AmazonS3;
 import com.amazonaws.services.s3.AmazonS3Client;
 import com.amazonaws.services.s3.model.CannedAccessControlList;
 import com.amazonaws.services.s3.model.DeleteObjectRequest;
@@ -23,7 +24,7 @@ import java.util.Optional;
 public class S3Uploader {
     private static final Logger logger = LoggerFactory.getLogger(S3Uploader.class);
 
-    private final AmazonS3Client amazonS3Client;
+    private final AmazonS3 s3Client;
 
     @Value("${cloud.aws.s3.bucket}")
     private String bucket;
@@ -43,11 +44,11 @@ public class S3Uploader {
     }
 
     private String putS3(File uploadFile, String fileName) {
-        amazonS3Client.putObject(
+        s3Client.putObject(
                 new PutObjectRequest(bucket, fileName, uploadFile)
                         .withCannedAcl(CannedAccessControlList.PublicRead)
         );
-        return amazonS3Client.getUrl(bucket, fileName).toString();
+        return s3Client.getUrl(bucket, fileName).toString();
     }
 
     private void removeNewFile(File targetFile) {
@@ -60,7 +61,7 @@ public class S3Uploader {
 
     public void removeFile(String fileName) {
         DeleteObjectRequest request = new DeleteObjectRequest(bucket, fileName);
-        amazonS3Client.deleteObject(request);
+        s3Client.deleteObject(request);
     }
 
     private Optional<File> convert(MultipartFile file) throws IOException {

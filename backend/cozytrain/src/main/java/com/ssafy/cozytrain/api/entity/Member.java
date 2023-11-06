@@ -43,10 +43,28 @@ public class Member {
     private List<Report> reports;
 
     @OneToMany(mappedBy = "memberFirst")
-    private List<Friend> memberFirst;
+    private List<Friend> friendMemberFirst;
 
     @OneToMany(mappedBy = "memberSecond")
-    private List<Friend> memberSecond;
+    private List<Friend> friendMemberSecond;
+
+    @OneToMany(mappedBy = "memberFirst")
+    private List<ChatRoom> chatMemberFirst;
+
+    @OneToMany(mappedBy = "memberSecond")
+    private List<ChatRoom> chatMemberSecond;
+
+    @OneToMany(mappedBy = "senderMember")
+    private List<Message> message;
+
+    @OneToOne(mappedBy = "member")
+    private Train train;
+
+    @OneToMany(mappedBy = "member")
+    private List<ItemBox> itemBoxes;
+
+    @OneToMany(mappedBy = "member")
+    private List<ItemList> itemLists;
 
     @Builder
     public Member(MemberDto.SignupReq signupReq) {

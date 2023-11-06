@@ -9,7 +9,7 @@ public interface DreamService {
 
     DreamDto.DreamDtoListRes getDreams(Member member);
 
-    boolean saveDream(DreamDto.DreamDtoReq dreamDtoReq, Member member);
+    DreamDto.DreamDtoRes saveDream(DreamDto.DreamDtoReq dreamDtoReq, Member member);
 
     boolean updateDream(Long dreamId, DreamDto.DreamDtoReq dreamDtoReq, Member member);
 
