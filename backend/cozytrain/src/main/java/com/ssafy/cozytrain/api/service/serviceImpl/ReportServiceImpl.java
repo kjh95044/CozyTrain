@@ -2,12 +2,15 @@ package com.ssafy.cozytrain.api.service.serviceImpl;
 
 import com.ssafy.cozytrain.api.dto.HealthDto;
 import com.ssafy.cozytrain.api.dto.ReportDto;
+import com.ssafy.cozytrain.api.dto.SleepDto;
 import com.ssafy.cozytrain.api.dto.SleepStageDto;
 import com.ssafy.cozytrain.api.entity.*;
 import com.ssafy.cozytrain.api.repository.HealthRepository;
 import com.ssafy.cozytrain.api.repository.ReportRepository;
 import com.ssafy.cozytrain.api.repository.SleepStageRepository;
+import com.ssafy.cozytrain.api.service.CheckListService;
 import com.ssafy.cozytrain.api.service.ReportService;
+import com.ssafy.cozytrain.api.service.elastic.CaffeineService;
 import com.ssafy.cozytrain.common.exception.NotFoundException;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -17,6 +20,8 @@ import org.springframework.transaction.annotation.Transactional;
 import java.time.Duration;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
+import java.time.temporal.ChronoUnit;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
@@ -27,6 +32,8 @@ public class ReportServiceImpl implements ReportService {
     private final ReportRepository reportRepository;
     private final HealthRepository healthRepository;
     private final SleepStageRepository sleepStageRepository;
+    private final CheckListService checkListService;
+    private final CaffeineService caffeineService;
     @Override
     @Transactional(rollbackFor = Exception.class)
     public Long saveReport(ReportDto.ReportDtoReq reportDtoReq, Member member) {
@@ -37,7 +44,7 @@ public class ReportServiceImpl implements ReportService {
             오늘의 report 가 이미 생성 되어 있으면 덮어 쓰기 한다.
          */
 
-        Optional<Report> todayReport = existsReportToday(member);
+        Optional<Report> todayReport = findReportToday(member);
         Report report;
         report = todayReport.orElseGet(() -> Report.builder()
                 .member(member)
@@ -93,9 +100,8 @@ public class ReportServiceImpl implements ReportService {
 
         return reportId;
     }
-
     @Override
-    public ReportDto.ReportDtoRes getAnalyzedReport(Long reportId) {
+    public ReportDto.ReportDtoRes insertHealthScore(Long reportId) {
         Report report = reportRepository.findById(reportId)
                 .orElseThrow(() -> new NotFoundException("Not Found Report"));
 
@@ -128,8 +134,70 @@ public class ReportServiceImpl implements ReportService {
     }
 
     @Override
-    public Optional<Report> existsReportToday(Member member) {
+    public Optional<Report> findReportToday(Member member) {
         return reportRepository.findByMemberAndSleepReportDate(member, LocalDate.now());
+    }
+
+    @Override
+    public ReportDto.ReportDtoRes getTodayReport(Member member) {
+        Report report = findReportToday(member)
+                .orElseThrow(() -> new NotFoundException("Not Found Report"));
+
+//        for(int caffeineId : checkListService.checkListToday(member).)
+//        caffeineService.getCaffeineInfo()
+
+        Health health = healthRepository.findByReport(report)
+                .orElseThrow(() -> new NotFoundException("Not Found Health"));
+
+        List<SleepStage> sleepStages = sleepStageRepository.findAllByHealth(health);
+
+        // TODO: 카페인 가져오는거 추가되면 수정 필요
+        int caffeine = 100;
+
+        return ReportDto.ReportDtoRes.builder()
+                .caffeine(caffeine)
+                .sleepDuration(health.getSleepDuration())
+                .steps(health.getSteps())
+                .sleepScore(health.getSleepScore())
+                .stressLevel(health.getStressLevel())
+                .sleepStages(sleepStages)
+                .build();
+    }
+
+    @Override
+    public ReportDto.OneWeekReportDto getOneWeekReports(Member member) {
+        List<Report> reports = reportRepository.findReportsForLastWeek(member);
+
+        ReportDto.OneWeekReportDto oneWeekReportDto;
+
+        List<SleepDto> sleeps = new ArrayList<>();
+        double weekSleepDurations = 0.0;
+        double weekSleepScores = 0.0;
+        int cnt = 0;
+
+        for(Report report : reports){
+            Health health = healthRepository.findByReport(report)
+                    .orElseThrow(() -> new NotFoundException("Not Found Health"));
+            weekSleepScores += health.getSleepScore();
+            weekSleepDurations += health.getSleepDuration();
+            cnt++;
+
+            sleeps.add(SleepDto.builder()
+                    .date(report.getSleepReportDate())
+                    .sleepDuration(health.getSleepDuration())
+                    .build());
+        }
+
+        double averageSleep = cnt != 0 ? weekSleepDurations / cnt : 0;
+        double averageSleepScore = cnt != 0 ? weekSleepScores / cnt : 0;
+
+        oneWeekReportDto = ReportDto.OneWeekReportDto.builder()
+                .averageSleep(averageSleep)
+                .averageSleepScore(averageSleepScore)
+                .sleeps(sleeps)
+                .build();
+
+        return oneWeekReportDto;
     }
 
     /*

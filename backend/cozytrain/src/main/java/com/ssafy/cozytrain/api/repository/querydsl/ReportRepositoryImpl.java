@@ -1,21 +1,21 @@
 package com.ssafy.cozytrain.api.repository.querydsl;
 
 import com.querydsl.core.types.Projections;
+import com.querydsl.core.types.dsl.BooleanExpression;
 import com.querydsl.jpa.impl.JPAQuery;
 import com.querydsl.jpa.impl.JPAQueryFactory;
 import com.ssafy.cozytrain.api.dto.HealthDto;
 import com.ssafy.cozytrain.api.dto.ReportDto;
 import com.ssafy.cozytrain.api.dto.SleepStageDto;
-import com.ssafy.cozytrain.api.entity.QHealth;
-import com.ssafy.cozytrain.api.entity.QReport;
-import com.ssafy.cozytrain.api.entity.QSleepStage;
-import com.ssafy.cozytrain.api.entity.SleepStage;
+import com.ssafy.cozytrain.api.entity.*;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 
 import static com.querydsl.core.group.GroupBy.groupBy;
 import static com.querydsl.core.group.GroupBy.list;
 
+import java.time.LocalDate;
+import java.time.temporal.ChronoUnit;
 import java.util.List;
 import java.util.Optional;
 
@@ -70,6 +70,21 @@ public class ReportRepositoryImpl implements ReportRepositoryCustom {
         log.debug("음?" + health.toString());
 
         return Optional.empty();
+    }
+
+    @Override
+    public List<Report> findReportsForLastWeek(Member member) {
+        QReport qReport = QReport.report;
+
+        LocalDate today = LocalDate.now();
+        LocalDate lastWeek = today.minus(1, ChronoUnit.WEEKS);
+
+        BooleanExpression predicate = qReport.member.eq(member)
+                .and(qReport.sleepReportDate.between(lastWeek, today));
+
+        return queryFactory.selectFrom(qReport)
+                .where(predicate)
+                .fetch();
     }
 
 //    @Override

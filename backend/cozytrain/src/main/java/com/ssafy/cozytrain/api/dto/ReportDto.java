@@ -6,7 +6,11 @@ import lombok.Builder;
 import lombok.Getter;
 import lombok.ToString;
 
+import java.time.DayOfWeek;
+import java.time.LocalDate;
+import java.time.format.TextStyle;
 import java.util.List;
+import java.util.Locale;
 import java.util.stream.Collectors;
 
 
@@ -42,4 +46,20 @@ public class ReportDto {
             this.caffeine = caffeine;
         }
     }
+
+    @Getter
+    @ToString
+    public static class OneWeekReportDto{
+        private double averageSleep;
+        private double averageSleepScore;
+        private List<SleepDto> sleeps;
+
+        @Builder
+        public OneWeekReportDto(double averageSleep, double averageSleepScore, List<SleepDto> sleeps){
+            this.averageSleep = averageSleep;
+            this.averageSleepScore = averageSleepScore;
+            this.sleeps = sleeps;
+        }
+    }
+
 }
