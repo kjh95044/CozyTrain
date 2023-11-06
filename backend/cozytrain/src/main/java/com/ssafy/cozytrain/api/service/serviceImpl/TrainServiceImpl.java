@@ -1,6 +1,7 @@
 package com.ssafy.cozytrain.api.service.serviceImpl;
 
 import com.ssafy.cozytrain.api.dto.TrainDto;
+import com.ssafy.cozytrain.api.dto.VisitDto;
 import com.ssafy.cozytrain.api.entity.Member;
 import com.ssafy.cozytrain.api.entity.Station;
 import com.ssafy.cozytrain.api.entity.Track;
@@ -12,12 +13,13 @@ import com.ssafy.cozytrain.api.service.TrainService;
 import com.ssafy.cozytrain.common.exception.NotFoundException;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import org.elasticsearch.monitor.os.OsStats;
 import org.springframework.stereotype.Service;
 
 import javax.transaction.Transactional;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Optional;
 
 @Slf4j
@@ -57,9 +59,9 @@ public class TrainServiceImpl implements TrainService {
 
         Station station = train.getStation();
 
-        if(station == null){
+        if (station == null) {
             throw new NotFoundException("Not Found Station, Station을 추가해주세요.");
-        }else {
+        } else {
             // 나라 : train.getStation().getCountry().getCountryName();
             return TrainDto.TrainCurInfoDto.builder()
                     .region(station.getRegion())
@@ -69,6 +71,7 @@ public class TrainServiceImpl implements TrainService {
                     .build();
         }
     }
+
     @Override
     public void moveTrain(int sleepScore, Member member) {
         Train train = getTrain(member);
@@ -80,21 +83,21 @@ public class TrainServiceImpl implements TrainService {
         dist += moveDist;
 
         // dist 가 300 이상이 되면 다음 지역으로 이동
-        if(dist >= DIST_BETWEEN_REGIONS){
+        if (dist >= DIST_BETWEEN_REGIONS) {
             dist -= DIST_BETWEEN_REGIONS;
             int stationsSize = train.getTrack().getStations().size();
             Long stationId = train.getStation().getStationId();
             log.info("기존 stationId는 : " + stationId);
 
-            if(train.getStation().getStationId() == stationsSize){
+            if (train.getStation().getStationId() == stationsSize) {
                 stationId = 1L;
-            }else {
+            } else {
                 stationId += 1L;
             }
             log.info("이동후 stationId는 : " + stationId);
 
             Station station = stationRepository.findById(stationId)
-                    .orElseThrow(()->{
+                    .orElseThrow(() -> {
                         log.error("moveTrain 함수내에서 station을 찾지 못했습니다.");
                         return new NotFoundException("Not Found Station");
                     });
@@ -103,10 +106,84 @@ public class TrainServiceImpl implements TrainService {
         train.updateTrainCurDist(dist);
         trainRepository.save(train);
     }
+
     @Override
-    public Train getTrain(Member member){
+    public List<VisitDto.ContinentDto> checkTrainVisitContinent(Member member) {
+        Train train = getTrain(member);
+
+        String[] continents = {"asia", "europe", "africa", "oceania", "north_america", "south_america"};
+
+        List<VisitDto.ContinentDto> continentDtoList = new ArrayList<>();
+        boolean foundContinent = false;
+
+        // 최근 방문 대륙이 나올때까지 순서대로 확인하고, 최근 대륙이 나오면 그 뒤로는 visit false
+        for (int i = 0; i < 6; i++) {
+            boolean visit = false;
+            if (!foundContinent) {
+                if (continents[i].equals(train.getStation().getContinent())) {
+                    foundContinent = true;
+                }
+                visit = true;
+            }
+
+            continentDtoList.add(VisitDto.ContinentDto
+                    .builder()
+                    .continent(continents[i])
+                    .visit(visit)
+                    .build());
+        }
+
+        return continentDtoList;
+    }
+
+    @Override
+    public List<VisitDto.CountryDto> checkTrainVisitCountry(String continent, Member member) {
+        Train train = getTrain(member);
+        List<VisitDto.CountryDto> countryDtoList = new ArrayList<>();
+        Station userStation = train.getStation();
+
+        boolean isFoundCountry = false;
+
+        for (Station station : train.getTrack().getStations()) {
+            boolean isAlreadyExists = false;
+            boolean visit = false;
+
+            // 해당 대륙 아니면 패스
+            if(!station.getContinent().equals(continent)) continue;
+
+            // 중복 체크
+            for (VisitDto.CountryDto existingCountry : countryDtoList) {
+                if (existingCountry.getCountry().equals(station.getCountry().getCountryName())) {
+                    isAlreadyExists = true;
+                    break;
+                }
+            }
+
+            // 해당 나라 방문 할때까지는 visit true, 나머지는 false
+            if (!isFoundCountry) {
+                if (station.getCountry().getCountryId().equals
+                        (userStation.getCountry().getCountryId())) {
+                    isFoundCountry = true;
+                }
+                visit = true;
+            }
+
+            if (!isAlreadyExists) {
+                countryDtoList.add(VisitDto.CountryDto.builder()
+                        .country(station.getCountry().getCountryName())
+                        .visit(visit)
+                        .build());
+            }
+
+        }
+
+        return countryDtoList;
+    }
+
+    @Override
+    public Train getTrain(Member member) {
         return trainRepository.findByMember(member).orElseThrow(
-                ()-> {
+                () -> {
                     log.error("Not Found Member Train");
                     return new NotFoundException("Not Found Member Train");
                 });
@@ -122,22 +199,22 @@ public class TrainServiceImpl implements TrainService {
     40~49	점수 * 1.0 (45점이면 45km)
      */
 
-    private static int sleepScoreToDist(int score){
+    private static int sleepScoreToDist(int score) {
         double distDouble = 0.0;
 
-        if(score>=40 && score<50){
+        if (score >= 40 && score < 50) {
             distDouble = score * 1.0;
-        }else if (score>=50 && score<60) {
+        } else if (score >= 50 && score < 60) {
             distDouble = score * 1.2;
-        }else if (score>=60 && score<70) {
+        } else if (score >= 60 && score < 70) {
             distDouble = score * 1.3;
-        }else if (score>=70 && score<80) {
+        } else if (score >= 70 && score < 80) {
             distDouble = score * 1.5;
-        }else if (score>=80 && score<90) {
+        } else if (score >= 80 && score < 90) {
             distDouble = score * 1.8;
-        }else if (score>=90 && score<100) {
+        } else if (score >= 90 && score < 100) {
             distDouble = score * 2.3;
-        }else if (score == 100){
+        } else if (score == 100) {
             distDouble = 300;
         }
 
@@ -152,10 +229,10 @@ public class TrainServiceImpl implements TrainService {
         4구역 [181-240]
         5구역 [241-299]
      */
-    private static int calculateArea(int dist){
+    private static int calculateArea(int dist) {
         int area = 0;
 
-        if(dist >0 && dist <=60){
+        if (dist > 0 && dist <= 60) {
             area = 1;
         } else if (dist > 60 && dist <= 120) {
             area = 2;
