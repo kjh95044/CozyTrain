@@ -18,10 +18,10 @@ public class CheckListDto {
 
         @ApiParam(value = "ELS ID 값")
         @NotNull(message = "elsId is not Null")
-        private Long elsId; // dataId
+        private String elsId; // dataId
 
         @Builder
-        public CheckListDtoReq(Long elsId) {
+        public CheckListDtoReq(String elsId) {
             this.elsId = elsId;
         }
     }
@@ -30,10 +30,10 @@ public class CheckListDto {
     @NoArgsConstructor
     public static class CheckListRes {
         private Long checkListId;
-        private Long elsId;
+        private String elsId;
 
         @Builder
-        public CheckListRes(Long checkListId, Long elsId) {
+        public CheckListRes(Long checkListId, String elsId) {
             this.checkListId = checkListId;
             this.elsId = elsId;
         }
