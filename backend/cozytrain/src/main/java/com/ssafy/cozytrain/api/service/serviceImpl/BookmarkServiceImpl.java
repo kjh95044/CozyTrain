@@ -43,8 +43,16 @@ public class BookmarkServiceImpl implements BookmarkService {
             .collect(Collectors.toList());
     }
 
+
     public Boolean deleteMemberBookmark(Member member) {
         bookmarkRepository.deleteAllByBookmarkKeyMemberId(member.getMemberId());
+        return true;
+    }
+
+    @Override
+    @Transactional
+    public Boolean deleteBookmark(Member member, String elsId) {
+        bookmarkRepository.deleteByBookmarkKeyMemberIdAndBookmarkKeyElsId(member.getMemberId(), elsId);
         return true;
     }
 }

@@ -43,4 +43,12 @@ public class BookmarkController {
         return success(bookmarkService.getBookmark(member.getMemberId()));
     }
 
+    @DeleteMapping("/{bookmarkId}")
+    @Operation(summary = "북마크 삭제")
+    public ApiUtils.ApiResult<Boolean> deleteBookmark(@RequestHeader("Authorization") String header, @PathVariable String bookmarkId){
+        String memberId = jwtUtils.getIdFromToken(header.substring(7));
+        Member member = memberService.findByMemberLoginId(memberId)
+                .orElseThrow(() -> new NotFoundException("Not Found User"));
+        return success(bookmarkService.deleteBookmark(member, bookmarkId));
+    }
 }

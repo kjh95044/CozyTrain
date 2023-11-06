@@ -9,4 +9,5 @@ public interface BookmarkService {
     boolean saveBookmark(BookmarkDto bookmarkDto, Long memberId);
     List<BookmarkDto> getBookmark(Long memberId);
     Boolean deleteMemberBookmark(Member member);
+    Boolean deleteBookmark(Member member, String elsId);
 }
