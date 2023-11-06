@@ -5,6 +5,7 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
+import java.util.List;
 
 
 @Entity
@@ -20,8 +21,8 @@ public class Station {
     private String region;
     private int regionNum;
 
-    @OneToOne(mappedBy = "station")
-    private Train train;
+    @OneToMany(mappedBy = "station")
+    private List<Train> trains;
 
     @OneToOne
     @JoinColumn(name = "country_id", referencedColumnName = "country_id")

@@ -24,7 +24,7 @@ public class Train {
     private LocalDate endDate;
     private LocalDateTime createdAt;
     private LocalDateTime updatedAt;
-    @OneToOne
+    @ManyToOne
     @JoinColumn(name = "station_id", referencedColumnName = "station_id")
     private Station station;
 
