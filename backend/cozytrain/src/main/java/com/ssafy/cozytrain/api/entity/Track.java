@@ -17,8 +17,8 @@ public class Track {
     @Column(name = "track_id")
     private Long trackId;
 
-    @OneToOne(mappedBy = "track")
-    private Train train;
+    @OneToMany(mappedBy = "track")
+    private List<Train> trains;
 
     @OneToMany(mappedBy = "track")
     private List<Station> stations;
