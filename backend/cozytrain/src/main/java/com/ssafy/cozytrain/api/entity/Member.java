@@ -57,6 +57,15 @@ public class Member {
     @OneToMany(mappedBy = "senderMember")
     private List<Message> message;
 
+    @OneToOne(mappedBy = "member")
+    private Train train;
+
+    @OneToMany(mappedBy = "member")
+    private List<ItemBox> itemBoxes;
+
+    @OneToMany(mappedBy = "member")
+    private List<ItemList> itemLists;
+
     @Builder
     public Member(MemberDto.SignupReq signupReq) {
         this.memberLoginId = signupReq.getMemberId();
