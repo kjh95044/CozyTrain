@@ -1,0 +1,38 @@
+.items {
+  display: flex;
+  flex-direction: column;
+  overflow-y: auto;
+  height: 80%;
+  gap: 8px;
+  margin-top: 8px;
+}
+
+.item {
+  display: flex;
+  position: relative;
+  padding-left: 8px;
+  align-items: center;
+}
+
+.radioBtn {
+  width: 20px;
+  height: 20px;
+  border: 1px solid var(--gray);
+  border-radius: 100%;
+}
+
+.radioBtnClick {
+  width: 12px;
+  height: 12px;
+  outline: 6px solid var(--gray);
+  border-radius: 100%;
+}
+
+.content {
+  padding-left: 8px;
+}
+
+.icon {
+  position: absolute;
+  right: 8px;
+}
