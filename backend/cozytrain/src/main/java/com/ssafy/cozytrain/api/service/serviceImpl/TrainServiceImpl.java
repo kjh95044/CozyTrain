@@ -36,12 +36,14 @@ public class TrainServiceImpl implements TrainService {
         Track track;
 
         track = trackFound.orElseGet(() -> trackRepository.save(new Track()));
+        Station station = stationRepository.findById(1L).orElseThrow(() -> new NotFoundException("Not Found Station"));
 
         Train train = Train.builder()
                 .createdAt(LocalDateTime.now())
                 .startDate(LocalDate.now())
                 .member(member)
                 .track(track)
+                .station(station)
                 .build();
 
         return trainRepository.save(train).getTrainId();

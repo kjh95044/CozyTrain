@@ -32,17 +32,18 @@ public class Train {
     @JoinColumn(name = "member_id", referencedColumnName = "member_id")
     private Member member;
 
-    @OneToOne
+    @ManyToOne
     @JoinColumn(name = "track_id", referencedColumnName = "track_id")
     private Track track;
 
     @Builder
-    public Train(LocalDate startDate, LocalDateTime createdAt, Member member, Track track){
+    public Train(LocalDate startDate, LocalDateTime createdAt, Member member, Track track, Station station){
         this.startDate = startDate;
         this.createdAt = createdAt;
         this.updatedAt = createdAt;
         this.member = member;
         this.track = track;
+        this.station = station;
     }
 
     public void updateTrainCurDist(int trainCurDist){
