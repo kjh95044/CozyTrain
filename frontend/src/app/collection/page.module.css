@@ -1,0 +1,27 @@
+.container {
+  height: 100vh;
+  overflow: hidden;
+  display: flex;
+  justify-content: center;
+}
+
+.button {
+  position: absolute;
+  right: 10px;
+  top: 10px;
+  width: 80px;
+  background: none;
+  border: none;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  font-size: 14px;
+}
+
+.note_container {
+  height: 400px;
+  position: absolute;
+  top: 44%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+}
