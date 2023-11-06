@@ -1,4 +1,4 @@
-import NoteBackground from "./NoteBackground";
+import NoteBackground from "../../components/NoteBackground";
 
 export default function Layout({ children }) {
   return (
