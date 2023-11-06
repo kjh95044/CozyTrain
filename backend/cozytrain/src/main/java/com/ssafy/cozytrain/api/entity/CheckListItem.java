@@ -13,14 +13,14 @@ public class CheckListItem {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long checkListItemId;
-    private Long elsId;
+    private String elsId;
 
     @ManyToOne
     @JoinColumn(name = "check_list_id", referencedColumnName = "check_list_id")
     private CheckList checkList;
 
     @Builder
-    public CheckListItem(Long elsId, CheckList checkList) {
+    public CheckListItem(String elsId, CheckList checkList) {
         this.elsId = elsId;
         this.checkList = checkList;
     }
