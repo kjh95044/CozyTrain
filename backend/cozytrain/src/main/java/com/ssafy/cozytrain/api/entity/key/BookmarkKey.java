@@ -11,11 +11,11 @@ import java.io.Serializable;
 @Embeddable
 @NoArgsConstructor
 public class BookmarkKey implements Serializable {
-    private Long elsId;
+    private String elsId;
     private Long memberId;
 
     @Builder
-    public BookmarkKey(Long elsId, Long memberId) {
+    public BookmarkKey(String elsId, Long memberId) {
         this.elsId = elsId;
         this.memberId = memberId;
     }
