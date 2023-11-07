@@ -2,6 +2,7 @@ package com.ssafy.cozytrain.api.controller;
 
 import com.ssafy.cozytrain.api.dto.BookmarkDto;
 import com.ssafy.cozytrain.api.entity.Member;
+import com.ssafy.cozytrain.api.entity.elastic.CaffeineDocument;
 import com.ssafy.cozytrain.api.service.BookmarkService;
 import com.ssafy.cozytrain.api.service.MemberService;
 import com.ssafy.cozytrain.common.exception.NotFoundException;
@@ -36,7 +37,7 @@ public class BookmarkController {
 
     @GetMapping
     @Operation(summary = "북마크 조회")
-    public ApiUtils.ApiResult<List<BookmarkDto>> createBookmark(@RequestHeader("Authorization") String header){
+    public ApiUtils.ApiResult<List<CaffeineDocument>> createBookmark(@RequestHeader("Authorization") String header){
         String memberId = jwtUtils.getIdFromToken(header.substring(7));
         Member member = memberService.findByMemberLoginId(memberId)
                 .orElseThrow(() -> new NotFoundException("Not Found User"));
