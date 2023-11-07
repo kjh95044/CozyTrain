@@ -3,6 +3,7 @@ package com.ssafy.cozytrain.api.entity;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
+import org.hibernate.mapping.ToOne;
 
 import javax.persistence.*;
 import java.util.List;
@@ -24,7 +25,11 @@ public class Station {
     @OneToMany(mappedBy = "station")
     private List<Train> trains;
 
-    @OneToOne
+//    @OneToOne
+//    @JoinColumn(name = "country_id", referencedColumnName = "country_id")
+//    private Country country;
+
+    @ManyToOne
     @JoinColumn(name = "country_id", referencedColumnName = "country_id")
     private Country country;
 

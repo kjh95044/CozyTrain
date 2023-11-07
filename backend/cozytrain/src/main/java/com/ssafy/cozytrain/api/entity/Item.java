@@ -16,11 +16,14 @@ public class Item {
     private Long itemId;
     private String itemName;
     private String itemImgUrl;
-    private String item_description;
+    private String itemDescription;
 
     @ManyToOne
     @JoinColumn(name = "country_id")
     private Country country;
+
+    @OneToMany(mappedBy = "station")
+    private List<Train> trains;
 
     @OneToMany(mappedBy = "item")
     private List<ItemList> itemList;
