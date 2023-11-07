@@ -18,14 +18,11 @@ public class Country {
     private Long countryId;
     private String countryName;
 
-//    @OneToOne(mappedBy = "country")
-//    private Station station;
+    @OneToMany(mappedBy = "country")
+    private List<ItemBox> itemBoxes;
 
     @OneToMany(mappedBy = "country")
     private List<Station> stations;
-
-    @OneToOne(mappedBy = "country")
-    private ItemBox itemBox;
 
     @OneToMany(mappedBy = "country")
     private List<Item> items;

@@ -2,13 +2,8 @@ package com.ssafy.cozytrain.api.service.serviceImpl;
 
 import com.ssafy.cozytrain.api.dto.TrainDto;
 import com.ssafy.cozytrain.api.dto.VisitDto;
-import com.ssafy.cozytrain.api.entity.Member;
-import com.ssafy.cozytrain.api.entity.Station;
-import com.ssafy.cozytrain.api.entity.Track;
-import com.ssafy.cozytrain.api.entity.Train;
-import com.ssafy.cozytrain.api.repository.StationRepository;
-import com.ssafy.cozytrain.api.repository.TrackRepository;
-import com.ssafy.cozytrain.api.repository.TrainRepository;
+import com.ssafy.cozytrain.api.entity.*;
+import com.ssafy.cozytrain.api.repository.*;
 import com.ssafy.cozytrain.api.service.TrainService;
 import com.ssafy.cozytrain.common.exception.NotFoundException;
 import lombok.RequiredArgsConstructor;
@@ -29,6 +24,7 @@ public class TrainServiceImpl implements TrainService {
     private final TrainRepository trainRepository;
     private final TrackRepository trackRepository;
     private final StationRepository stationRepository;
+    private final ItemBoxRepository itemBoxRepository;
     static final int DIST_BETWEEN_REGIONS = 300;
 
     @Transactional
@@ -83,28 +79,42 @@ public class TrainServiceImpl implements TrainService {
         dist += moveDist;
 
         // dist 가 300 이상이 되면 다음 지역으로 이동
+        // 새로운 지역에 도착하면 해당 나라의 뽑기권 획득
         if (dist >= DIST_BETWEEN_REGIONS) {
             dist -= DIST_BETWEEN_REGIONS;
-            int stationsSize = train.getTrack().getStations().size();
-            Long stationId = train.getStation().getStationId();
-            log.info("기존 stationId는 : " + stationId);
-
-            if (train.getStation().getStationId() == stationsSize) {
-                stationId = 1L;
-            } else {
-                stationId += 1L;
-            }
-            log.info("이동후 stationId는 : " + stationId);
-
-            Station station = stationRepository.findById(stationId)
-                    .orElseThrow(() -> {
-                        log.error("moveTrain 함수내에서 station을 찾지 못했습니다.");
-                        return new NotFoundException("Not Found Station");
-                    });
-            train.updateStation(station);
+            moveStation(train);
+            getReward(member, train.getStation().getCountry());
         }
         train.updateTrainCurDist(dist);
         trainRepository.save(train);
+    }
+
+    private void getReward(Member member, Country country) {
+        ItemBox itemBox = itemBoxRepository.save(ItemBox.builder()
+                .country(country)
+                .member(member)
+                .build());
+        log.info("Item Box 획득!!!!!!! "+ itemBox);
+    }
+
+    private void moveStation(Train train) {
+        int stationsSize = train.getTrack().getStations().size();
+        Long stationId = train.getStation().getStationId();
+        log.info("기존 stationId는 : " + stationId);
+
+        if (train.getStation().getStationId() == stationsSize) {
+            stationId = 1L;
+        } else {
+            stationId += 1L;
+        }
+        log.info("이동후 stationId는 : " + stationId);
+
+        Station station = stationRepository.findById(stationId)
+                .orElseThrow(() -> {
+                    log.error("moveTrain 함수내에서 station을 찾지 못했습니다.");
+                    return new NotFoundException("Not Found Station");
+                });
+        train.updateStation(station);
     }
 
     @Override
@@ -149,7 +159,7 @@ public class TrainServiceImpl implements TrainService {
             boolean visit = false;
 
             // 해당 대륙 아니면 패스
-            if(!station.getContinent().equals(continent)) continue;
+            if (!station.getContinent().equals(continent)) continue;
 
             // 중복 체크
             for (VisitDto.CountryDto existingCountry : countryDtoList) {

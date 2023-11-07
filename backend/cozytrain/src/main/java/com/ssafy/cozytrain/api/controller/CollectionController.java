@@ -32,4 +32,7 @@ public class CollectionController {
                 .orElseThrow(() -> new NotFoundException("Not Found User"));
         return success(collectionService.getCollection(member));
     }
+
+    // TODO: 2023-11-07 뽑기권 몇개인지 확인하는 API
+    // TODO: 2023-11-07 리워드 뽑기
 }
