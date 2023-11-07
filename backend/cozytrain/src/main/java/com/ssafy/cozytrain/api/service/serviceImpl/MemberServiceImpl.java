@@ -76,6 +76,8 @@ public class MemberServiceImpl implements MemberService {
         Cookie cookie = new Cookie(cookieName, cookieValue);
         cookie.setMaxAge(60 * 60 * 24 * 7);
         cookie.setPath("/");
+        cookie.setHttpOnly(true);
+
         response.addCookie(cookie);
 
         return LoginRes.builder()
