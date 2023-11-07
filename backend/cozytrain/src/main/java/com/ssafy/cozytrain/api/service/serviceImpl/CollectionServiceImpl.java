@@ -1,10 +1,10 @@
 package com.ssafy.cozytrain.api.service.serviceImpl;
 
 import com.ssafy.cozytrain.api.dto.CollectionDto;
-import com.ssafy.cozytrain.api.entity.Item;
-import com.ssafy.cozytrain.api.entity.ItemList;
-import com.ssafy.cozytrain.api.entity.Member;
-import com.ssafy.cozytrain.api.entity.Train;
+import com.ssafy.cozytrain.api.dto.ItemBoxDto;
+import com.ssafy.cozytrain.api.entity.*;
+import com.ssafy.cozytrain.api.repository.CountryRepository;
+import com.ssafy.cozytrain.api.repository.ItemBoxRepository;
 import com.ssafy.cozytrain.api.repository.ItemListRepository;
 import com.ssafy.cozytrain.api.repository.ItemRepository;
 import com.ssafy.cozytrain.api.service.CollectionService;
@@ -12,10 +12,12 @@ import com.ssafy.cozytrain.api.service.TrainService;
 import com.ssafy.cozytrain.common.exception.NotFoundException;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.aspectj.weaver.ast.Not;
 import org.springframework.stereotype.Service;
 
 import javax.transaction.Transactional;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 
 @Service
@@ -24,6 +26,8 @@ import java.util.List;
 public class CollectionServiceImpl implements CollectionService {
     private final ItemRepository itemRepository;
     private final ItemListRepository itemListRepository;
+    private final ItemBoxRepository itemBoxRepository;
+    private final CountryRepository countryRepository;
 
     @Transactional
     @Override
@@ -58,5 +62,31 @@ public class CollectionServiceImpl implements CollectionService {
         return CollectionDto.CollectionDtoRes.builder()
                 .items(itemsDto)
                 .build();
+    }
+
+    @Override
+    public List<ItemBoxDto.ItemBoxDtoRes> getMemberItemBoxes(Member member) {
+        List<ItemBoxDto.ItemBoxDtoRes> itemBoxDtoResList = new ArrayList<>();
+
+        List<ItemBox> itemBoxes = itemBoxRepository.findByMember(member);
+
+        HashMap<Long, Integer> map = new HashMap<>();
+
+        for (var itemBox : itemBoxes) {
+            long countryId = itemBox.getCountry().getCountryId();
+            map.put(countryId, map.getOrDefault(countryId, 0) + 1);
+        }
+
+        map.forEach(
+                (id, cnt) -> itemBoxDtoResList.add(ItemBoxDto.ItemBoxDtoRes.builder()
+                .country(countryRepository.findById(id)
+                        .orElseThrow(() -> new NotFoundException("Not Found Country, Country 추가를 요청하세요."))
+                        .getCountryName())
+                .countryId(id)
+                .cnt(cnt)
+                .build()));
+
+
+        return itemBoxDtoResList;
     }
 }
