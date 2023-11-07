@@ -111,8 +111,11 @@ public class ReportServiceImpl implements ReportService {
     private int getCaffeineTotal(Member member) {
         CheckListDto.CheckListTodayRes checkListTodayRes = checkListService.checkListToday(member);
 
-        int caffeine = 0;
+        if(checkListTodayRes == null) {
+            return 0;
+        }
 
+        int caffeine = 0;
         for (CheckListDto.CheckListRes item : checkListTodayRes.getCheckListDtoList()) {
             CaffeineDocument caffeineDocument = caffeineService.getCaffeineInfo(item.getElsId());
             String drinkType = caffeineDocument.getDrinkType();
