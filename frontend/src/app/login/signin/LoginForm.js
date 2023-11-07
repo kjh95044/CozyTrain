@@ -25,10 +25,7 @@ export default function LoginForm() {
       const data = await postFetch("member/login", formData);
       const respData = data.response;
 
-      console.log(respData);
-
       document.cookie = `accessToken=${respData.accessToken}`;
-      document.cookie = `refreshToken=${respData.refreshToken}`;
       document.cookie = `todayFirstLogin=false`;
 
       login(
