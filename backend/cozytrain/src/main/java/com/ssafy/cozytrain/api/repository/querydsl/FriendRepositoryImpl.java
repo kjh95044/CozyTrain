@@ -6,12 +6,11 @@ import com.querydsl.jpa.impl.JPAQueryFactory;
 import com.ssafy.cozytrain.api.dto.FriendDto;
 import com.ssafy.cozytrain.api.entity.QFriend;
 import com.ssafy.cozytrain.api.entity.QMember;
+import com.ssafy.cozytrain.api.entity.elastic.MemberCompleteDocument;
 import lombok.RequiredArgsConstructor;
+import org.springframework.data.domain.Page;
 
-import java.util.Collections;
-import java.util.Comparator;
-import java.util.List;
-import java.util.Optional;
+import java.util.*;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
@@ -26,11 +25,12 @@ public class FriendRepositoryImpl implements FriendRepositoryCustom{
     private final JPAQueryFactory queryFactory;
 
     @Override
-    public Optional<List<FriendDto.FriendSearchResDto>> searchFriend(Long memberId, String friendLoginId) {
+    public Optional<List<FriendDto.FriendSearchResDto>> searchFriend(Long memberId, List<String> friendLoginIdList) {
         QFriend subFriend1 = new QFriend("subFriend1");
         QFriend subFriend2 = new QFriend("subFriend2");
 
-        List<FriendDto.FriendSearchResDto> friendList = queryFactory
+        // 친구 요청을 보내거나 받은 사람 & 본인 제외
+        List<FriendDto.FriendSearchResDto> result = queryFactory
                 .from(member)
                 .where(member.memberId.notIn(JPAExpressions
                         .select(subFriend1.memberSecond.memberId)
@@ -41,14 +41,14 @@ public class FriendRepositoryImpl implements FriendRepositoryCustom{
                                 .from(subFriend2)
                                 .where(subFriend2.memberSecond.memberId.eq(memberId))))
                         .and(member.memberId.ne(memberId))
-                        .and(member.memberLoginId.contains(friendLoginId))
+                        .and(member.memberLoginId.in(friendLoginIdList))
                 )
                 .orderBy(member.memberLoginId.desc())
                 .transform(groupBy(member.memberId).list(Projections.constructor(FriendDto.FriendSearchResDto.class,
                         member.memberId, member.memberLoginId , member.memberName, member.memberImageUrl
                 )));
 
-        return Optional.ofNullable(friendList);
+        return Optional.ofNullable(result);
     }
 
     //    select *
