@@ -1,12 +1,24 @@
-.closeBtn {
+.userProfile {
   display: flex;
-  justify-content: end;
+  align-items: center;
+  height: 100px;
 }
 
-.title {
-  font-size: var(--text-lg);
-  font-weight: 600;
+.profileImg {
+  width: 36%;
 }
 
-.footer {
+.memberName {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  gap: 16px;
+  flex-grow: 1;
+  text-align: center;
+  height: 100%;
+}
+
+.content {
+  display: flex;
+  justify-content: space-around;
 }

@@ -23,11 +23,11 @@ export default function SearchResult(props) {
   };
 
   const createBookmark = async (elsId) => {
-    return await postFetch("bookmark", elsId);
+    await postFetch("bookmark", elsId);
   };
 
   const removeBookMark = async (elsId) => {
-    return await deleteFetch("bookmark/" + elsId);
+    await deleteFetch("bookmark/" + elsId);
   };
 
   const handleContentClick = (item) => {
