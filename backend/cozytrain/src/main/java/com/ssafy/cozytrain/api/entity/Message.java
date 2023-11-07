@@ -22,6 +22,9 @@ public class Message {
     @Column(name = "created_at")
     private LocalDateTime createdAt;
 
+    @Column(name = "is_read", columnDefinition = "INT DEFAULT 0")
+    private Integer isRead = 0;
+
     @ManyToOne
     @JoinColumn(name = "chat_room_id")
     private ChatRoom chatRoom;
@@ -31,11 +34,16 @@ public class Message {
     private Member senderMember;
 
     @Builder
-    public Message(Long messageId, String messageUrl, LocalDateTime createdAt, ChatRoom chatRoom, Member senderMember) {
+    public Message(Long messageId, String messageUrl, LocalDateTime createdAt, Integer isRead, ChatRoom chatRoom, Member senderMember) {
         this.messageId = messageId;
         this.messageUrl = messageUrl;
         this.createdAt = createdAt;
+        this.isRead = isRead;
         this.chatRoom = chatRoom;
         this.senderMember = senderMember;
+    }
+
+    public void updateIsRead(){
+        this.isRead = 1;
     }
 }

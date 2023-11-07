@@ -30,13 +30,15 @@ public class MessageDto {
         private String messageUrl;
         private LocalDateTime createdAt;
         private String senderLoginId;
+        private Integer idRead;
 
         @Builder
-        public MessageResDto(Long messageId, String messageUrl, LocalDateTime createdAt, String senderLoginId) {
+        public MessageResDto(Long messageId, String messageUrl, LocalDateTime createdAt, String senderLoginId, Integer idRead) {
             this.messageId = messageId;
             this.messageUrl = messageUrl;
             this.createdAt = createdAt;
             this.senderLoginId = senderLoginId;
+            this.idRead = idRead;
         }
     }
 }

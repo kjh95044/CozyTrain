@@ -66,6 +66,7 @@ public class MessageServiceImpl implements MessageService {
     }
 
     @Override
+    @Transactional
     public List<MessageDto.MessageResDto> getAllMessage(String memberId, Long friendMemberId) {
         Member member = memberRepository.findByMemberLoginId(memberId).orElseThrow(() -> {
             log.info("해당 User에 대한 정보를 찾지 못했습니다.");
@@ -78,10 +79,18 @@ public class MessageServiceImpl implements MessageService {
                     return new NotFoundException("Not Found ChatRoom");
                 });
 
-        return messageRepository.getAllMessage(chatRoom.getChatRoomId()).orElseThrow(() -> {
+        List<MessageDto.MessageResDto> messageList = messageRepository.getAllMessage(chatRoom.getChatRoomId()).orElseThrow(() -> {
             log.info("해당 음성메세지에 대한 정보를 찾지 못했습니다.");
             return new NotFoundException("Not Found Message");
         });
+
+        messageList.forEach(e ->{
+            Message message = messageRepository.findById(e.getMessageId()).orElseThrow(() -> new NotFoundException("Not Found Message"));
+            message.updateIsRead();
+            messageRepository.save(message);
+        });
+
+        return messageList;
     }
 
     @Override
