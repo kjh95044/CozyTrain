@@ -3,14 +3,17 @@ package com.ssafy.cozytrain.api.service.serviceImpl;
 import com.ssafy.cozytrain.api.dto.BookmarkDto;
 import com.ssafy.cozytrain.api.entity.Bookmark;
 import com.ssafy.cozytrain.api.entity.Member;
+import com.ssafy.cozytrain.api.entity.elastic.CaffeineDocument;
 import com.ssafy.cozytrain.api.entity.key.BookmarkKey;
 import com.ssafy.cozytrain.api.repository.BookmarkRepository;
 import com.ssafy.cozytrain.api.service.BookmarkService;
+import com.ssafy.cozytrain.api.service.elastic.CaffeineService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -19,7 +22,7 @@ import java.util.stream.Collectors;
 @RequiredArgsConstructor
 public class BookmarkServiceImpl implements BookmarkService {
     private final BookmarkRepository bookmarkRepository;
-
+    private final CaffeineService caffeineService;
     @Override
     @Transactional(rollbackFor = Exception.class)
     public boolean saveBookmark(BookmarkDto bookmarkDto, Long memberId) {
@@ -35,12 +38,17 @@ public class BookmarkServiceImpl implements BookmarkService {
 
     @Override
     @Transactional(readOnly = true)
-    public List<BookmarkDto> getBookmark(Long memberId) {
+    public List<CaffeineDocument> getBookmark(Long memberId) {
         List<Bookmark> bookmarkList = bookmarkRepository.findAllByBookmarkKeyMemberId(memberId);
+        log.info("member :  " + memberId);
+        log.info("bk: " + bookmarkList.get(0).toString());
+        List<CaffeineDocument> caffeineDocuments = new ArrayList<>();
         return bookmarkList.stream().map((item) -> {
-                return BookmarkDto.builder().elsId(item.getBookmarkKey().getElsId()).build();
-            })
-            .collect(Collectors.toList());
+            log.info("item: " + item.toString());
+                    log.info("caf: " + caffeineService.getCaffeineInfo(item.getBookmarkKey().getElsId()).toString());
+                    return CaffeineDocument.builder().caffeineDocument(caffeineService.getCaffeineInfo(item.getBookmarkKey().getElsId())).build();
+                })
+                .collect(Collectors.toList());
     }
 
 
