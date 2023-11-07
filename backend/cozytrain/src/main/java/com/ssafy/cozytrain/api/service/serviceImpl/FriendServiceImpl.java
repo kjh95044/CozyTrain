@@ -4,17 +4,21 @@ import com.ssafy.cozytrain.api.dto.FriendDto;
 import com.ssafy.cozytrain.api.entity.ChatRoom;
 import com.ssafy.cozytrain.api.entity.Friend;
 import com.ssafy.cozytrain.api.entity.Member;
+import com.ssafy.cozytrain.api.entity.elastic.MemberCompleteDocument;
 import com.ssafy.cozytrain.api.repository.ChatRoomRepository;
 import com.ssafy.cozytrain.api.repository.FriendRepository;
 import com.ssafy.cozytrain.api.repository.MemberRepository;
+import com.ssafy.cozytrain.api.repository.elastic.MemberCompleteRepository;
 import com.ssafy.cozytrain.api.service.FriendService;
 import com.ssafy.cozytrain.common.exception.NotFoundException;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.data.domain.Page;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.time.LocalDateTime;
+import java.util.ArrayList;
 import java.util.List;
 
 @Service
@@ -25,6 +29,7 @@ public class FriendServiceImpl implements FriendService {
     private final MemberRepository memberRepository;
     private final FriendRepository friendRepository;
     private final ChatRoomRepository chatRoomRepository;
+    private final MemberCompleteRepository memberCompleteRepository;
 
     @Override
     public List<FriendDto.FriendSearchResDto> searchFriend(String memberId, String friendLoginId) {
@@ -32,7 +37,15 @@ public class FriendServiceImpl implements FriendService {
             log.info("해당 User에 대한 정보를 찾지 못했습니다.");
             return new NotFoundException("Not Found User");
         });
-        return friendRepository.searchFriend(member.getMemberId(), friendLoginId).orElseThrow(() -> {
+
+        // elastic search를 이용하여 친구 로그인 ID들 받아오기
+        List<MemberCompleteDocument> friendList = memberCompleteRepository.findByMemberLoginId(friendLoginId);
+        List<String> friendLoginIdList = new ArrayList<>(); // LoginId만 따로 저장
+        friendList.forEach(e -> {
+            friendLoginIdList.add(e.getMemberLoginId());
+        });
+
+        return friendRepository.searchFriend(member.getMemberId(), friendLoginIdList).orElseThrow(() -> {
             log.info("검색된 친구의 정보를 찾지 못했습니다.");
             return new NotFoundException("검색한 친구가 없습니다");
         });
