@@ -1,3 +1,5 @@
+import { useState } from "react";
+
 import Search from "@/components/icons/Search";
 import styles from "./AutoSearchList.module.css";
 
@@ -6,7 +8,13 @@ export default function AutoSearchList(props) {
     <div className={styles.list}>
       {props.autoSearchValue.map((e, idx) => {
         return (
-          <div className={styles.item} key={idx}>
+          <div
+            className={styles.item}
+            key={idx}
+            onClick={(e) => {
+              props.searchDrink(e.target.textContent);
+            }}
+          >
             <div className={styles.icon}>
               <Search />
             </div>

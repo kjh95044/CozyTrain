@@ -1,5 +1,6 @@
 import { useState, useEffect } from "react";
 
+import getFetch from "@/services/getFetch";
 import useStore from "@/store/useStore";
 import CloseButton from "@/components/button/CloseButton";
 import SearchPage from "./_search/page";
@@ -13,10 +14,6 @@ export default function CheckList(props) {
 
   const handleListTrue = () => setIsList(true);
   const handleListFalse = () => setIsList(false);
-
-  useEffect(() => {
-    console.log(memberName);
-  }, []);
 
   return (
     <div>
@@ -40,7 +37,7 @@ export default function CheckList(props) {
           className={isList ? styles.btn : styles.btn_click}
           onClick={handleListFalse}
         >
-          추가
+          검색
         </button>
       </div>
     </div>

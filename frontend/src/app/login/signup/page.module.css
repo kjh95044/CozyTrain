@@ -35,6 +35,7 @@
   height: 32px;
   border: none;
   box-shadow: var(--shadow);
+  padding-left: 8px;
 }
 
 .input:focus {
@@ -77,4 +78,13 @@
   width: 40px;
   border: none;
   z-index: 1;
+}
+
+.textRed {
+  width: 80%;
+  color: red;
+}
+
+.possibleId {
+  color: blue;
 }

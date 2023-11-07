@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 
 import AutoSearchList from "./AutoSearchList";
 import SearchResult from "./SearchResult";
@@ -6,10 +6,11 @@ import Search from "@/components/icons/Search";
 import getFetch from "@/services/getFetch";
 import styles from "./page.module.css";
 
-export default function Page() {
+export default function Page(props) {
   const [data, setData] = useState([]);
   const [onAutoSearch, setOnAutoSearch] = useState(true);
   const [autoSearchValue, setAutoSearchValue] = useState([]);
+  const [bookMark, setBookMark] = useState([]);
 
   const handleAutoSearchValue = async (e) => {
     const resp = await getFetch("caffeine/search", {
@@ -27,15 +28,32 @@ export default function Page() {
     searchDrink(e.target.getElementsByTagName("input")[0].value);
   };
 
+  const handleAutoSearchSubmit = () => {
+    setTimeout(() => {
+      setOnAutoSearch(false);
+    }, 1);
+  };
+
   const searchDrink = async (e) => {
     const resp = await getFetch("caffeine/search", {
       searchName: e,
     });
 
-    console.log(resp.response);
-
     setData(resp.response.content);
   };
+
+  const getBookMark = async () => {
+    try {
+      const resp = await getFetch("bookmark");
+      setBookMark(resp.response);
+    } catch (error) {
+      console.error(error);
+    }
+  };
+
+  useEffect(() => {
+    getBookMark();
+  }, []);
 
   return (
     <>
@@ -44,9 +62,7 @@ export default function Page() {
         onFocus={() => {
           setOnAutoSearch(true);
         }}
-        onBlur={() => {
-          setOnAutoSearch(false);
-        }}
+        onBlur={handleAutoSearchSubmit}
       >
         <div className={styles.searchBar}>
           <form className={styles.form} onSubmit={handleSubmit}>
@@ -63,10 +79,20 @@ export default function Page() {
           </div>
         </div>
 
-        {onAutoSearch && <AutoSearchList autoSearchValue={autoSearchValue} />}
+        {onAutoSearch && (
+          <AutoSearchList
+            autoSearchValue={autoSearchValue}
+            handleAutoSearchSubmit={handleAutoSearchSubmit}
+            searchDrink={searchDrink}
+          />
+        )}
       </div>
 
-      <SearchResult items={data} />
+      <SearchResult
+        items={data}
+        bookMark={bookMark}
+        getBookMark={getBookMark}
+      />
     </>
   );
 }
