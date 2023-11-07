@@ -3,36 +3,39 @@
   flex-direction: column;
   overflow-y: auto;
   height: 80%;
-  gap: 8px;
-  margin-top: 8px;
+  margin-top: 16px;
 }
 
 .item {
   display: flex;
   position: relative;
-  padding-left: 8px;
   align-items: center;
-}
-
-.radioBtn {
-  width: 20px;
-  height: 20px;
-  border: 1px solid var(--gray);
-  border-radius: 100%;
-}
-
-.radioBtnClick {
-  width: 12px;
-  height: 12px;
-  outline: 6px solid var(--gray);
-  border-radius: 100%;
+  padding: 8px 0;
+  font-size: 16px;
 }
 
 .content {
-  padding-left: 8px;
+  width: 92%;
+  text-align: left;
 }
 
 .icon {
   position: absolute;
   right: 8px;
+}
+
+.detailContainer {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  padding-right: 4px;
+  margin-bottom: 8px;
+  align-items: center;
+  font-size: 14px;
+}
+
+.detailContent {
+  display: flex;
+  width: 100%;
+  justify-content: space-between;
 }

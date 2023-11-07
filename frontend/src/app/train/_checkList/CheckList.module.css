@@ -29,6 +29,7 @@
   position: relative;
   display: flex;
   justify-content: end;
+  transform: translate(10px, -10px);
 }
 
 .content {
