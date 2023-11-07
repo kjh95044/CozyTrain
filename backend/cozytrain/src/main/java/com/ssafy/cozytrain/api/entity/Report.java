@@ -21,6 +21,7 @@ public class Report {
 
     private LocalDate sleepReportDate;
     private LocalDateTime updatedAt;
+    private int caffeine;
 
     @ManyToOne
     @JoinColumn(name = "member_id", referencedColumnName = "member_id")
@@ -33,8 +34,9 @@ public class Report {
     private Health health;
 
     @Builder
-    public Report(Member member, LocalDate sleepReportDate, LocalDateTime updatedAt) {
+    public Report(Member member, int caffeine, LocalDate sleepReportDate, LocalDateTime updatedAt) {
         this.member = member;
+        this.caffeine = caffeine;
         this.sleepReportDate = sleepReportDate;
         this.updatedAt = updatedAt;
     }
