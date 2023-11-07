@@ -19,9 +19,32 @@
 }
 
 .note_container {
-  height: 400px;
+  height: 480px;
   position: absolute;
-  top: 44%;
+  top: 52%;
   left: 50%;
   transform: translate(-50%, -50%);
+}
+
+.scroll_container {
+  width: 90vw;
+  height: 100%;
+  overflow: auto;
+}
+
+.scroll_container::-webkit-scrollbar {
+  width: 0.5em;
+}
+
+.item_container {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+}
+
+.item {
+  width: calc(25% - 8px);
+  display: flex;
+  justify-content: center;
+  margin-bottom: 20px;
 }
