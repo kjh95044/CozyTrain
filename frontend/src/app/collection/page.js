@@ -52,13 +52,18 @@ export default function Collection() {
             {collection.length === 32 &&
               countrys.map((country, countryIdx) => (
                 <div key={countryIdx}>
-                  <h2>{country}</h2>
+                  <h3>{country}</h3>
                   <div className={styles.item_container}>
                     {collection
                       .slice(countryIdx * cnt, (countryIdx + 1) * cnt)
                       .map((item, i) => (
                         //country, itemDescription, ItemImgUrl, itemName, own
-                        <div key={i} className={styles.item}>
+                        <div
+                          key={i}
+                          className={`${styles.item_yes} ${
+                            item.own ? "" : styles.item_no
+                          }`}
+                        >
                           <Image
                             src={item.itemImgUrl}
                             alt="스티커"

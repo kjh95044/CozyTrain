@@ -42,9 +42,17 @@
   justify-content: space-between;
 }
 
-.item {
+.item_yes {
   width: calc(25% - 8px);
   display: flex;
   justify-content: center;
   margin-bottom: 20px;
+}
+
+.item_no {
+  width: calc(25% - 8px);
+  display: flex;
+  justify-content: center;
+  margin-bottom: 20px;
+  filter: brightness(0.1);
 }
