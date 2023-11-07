@@ -30,7 +30,7 @@ public class JwtUtils {
     private final RefreshTokenRepository refreshTokenRepository;
     private final MemberDetailServiceImpl memberDetailService;
 
-    private static final long ACCESS_TIME =  30 * 60 * 1000L;
+    private static final long ACCESS_TIME =  60 * 60 * 1000L;
     private static final long REFRESH_TIME = 14 * 24 * 60 * 60 * 1000L;
     public static final String ACCESS_TOKEN = "Access_Token";
     public static final String REFRESH_TOKEN = "Refresh_Token";
@@ -47,17 +47,18 @@ public class JwtUtils {
         key = Keys.hmacShaKeyFor(bytes);
     }
 
-    public String getHeaderToken(HttpServletRequest request, String type) {
+    public String getHeaderToken(HttpServletRequest request) {
         return request.getHeader(ACCESS_TOKEN);
     }
 
     public TokenDto createAllToken(String nickname) {
-        return new TokenDto(createToken(nickname, "Access"), createToken(nickname, "Refresh"));
+        return new TokenDto(createToken(nickname, ACCESS_TOKEN), createToken(nickname, REFRESH_TOKEN));
     }
 
     public String createToken(String nickname, String type) {
         Date date = new Date();
-        long time = type.equals("Access") ? ACCESS_TIME : REFRESH_TIME;
+        long time = type.equals(ACCESS_TOKEN) ? ACCESS_TIME : REFRESH_TIME;
+        log.info("time: " + time);
         log.info(nickname);
         return Jwts.builder()
                 .setSubject(nickname)
@@ -79,12 +80,16 @@ public class JwtUtils {
 
     public Boolean refreshTokenValidation(String token) {
         if(!tokenValidation(token)) return false;
+        log.info("토큰 1차 검증 성공");
+        String id = getIdFromToken(token);
+        log.info("id: " + id);
+        Optional<RefreshToken> refreshToken = refreshTokenRepository.findById(id);
 
-        Optional<RefreshToken> refreshToken = refreshTokenRepository.findById(getIdFromToken(token));
         return refreshToken.isPresent() && token.equals(refreshToken.get().getRefreshToken());
     }
 
     public Authentication createAuthentication(String userId) {
+        log.info("userId: " + userId);
         UserDetails userDetails = memberDetailService.loadUserByUsername(userId);
         return new UsernamePasswordAuthenticationToken(userDetails, "", userDetails.getAuthorities());
     }
@@ -94,7 +99,8 @@ public class JwtUtils {
     }
 
     public void setHeaderAccessToken(HttpServletResponse response, String accessToken) {
-        response.setHeader("Access_Token", accessToken);
+        log.info("setHeader");
+        response.setHeader(ACCESS_TOKEN, accessToken);
     }
 
 }

@@ -12,6 +12,7 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
+import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletResponse;
 import javax.validation.Valid;
 
@@ -39,6 +40,12 @@ public class MemberController {
     public ApiUtils.ApiResult<LoginRes> login(@RequestBody @Valid LoginReq loginReq, HttpServletResponse response) {
         return success(memberService.login(loginReq, response));
     }
+
+//    @PostMapping("/refresh")
+//    @Operation(summary = "access token 재발급 API")
+//    public ApiUtils.ApiResult<LoginRes> refreshTokenReissue(@CookieValue(value = "cookieName", required = false) Cookie cookie, HttpServletResponse response) {
+//        return success(memberService.login(loginReq, response));
+//    }
 
     @PatchMapping("/image")
     @Operation(summary = "회원 사진 수정 API")
