@@ -25,7 +25,7 @@ public class MessageRepositoryImpl implements MessageRepositoryCustom{
                 .where(message.chatRoom.chatRoomId.eq(chatRoomId))
                 .orderBy(message.createdAt.desc())
                 .transform(groupBy(message.messageId).list(Projections.constructor(MessageDto.MessageResDto.class,
-                        message.messageId, message.messageUrl, message.createdAt, member.memberLoginId)));
+                        message.messageId, message.messageUrl, message.createdAt, member.memberLoginId, message.isRead)));
         return Optional.ofNullable(messageList);
     }
 }
