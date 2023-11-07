@@ -1,5 +1,6 @@
 package com.ssafy.cozytrain.api.entity;
 
+import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 
@@ -21,4 +22,10 @@ public class ItemList {
     @ManyToOne
     @JoinColumn(name = "item_id", referencedColumnName = "item_id")
     private Item item;
+
+    @Builder
+    public ItemList(Member member, Item item){
+        this.member = member;
+        this.item = item;
+    }
 }

@@ -3,12 +3,14 @@ package com.ssafy.cozytrain.api.controller;
 import com.ssafy.cozytrain.api.dto.CollectionDto;
 import com.ssafy.cozytrain.api.dto.DreamDto;
 import com.ssafy.cozytrain.api.dto.ItemBoxDto;
+import com.ssafy.cozytrain.api.dto.ItemDto;
 import com.ssafy.cozytrain.api.entity.Member;
 import com.ssafy.cozytrain.api.service.CollectionService;
 import com.ssafy.cozytrain.api.service.MemberService;
 import com.ssafy.cozytrain.common.exception.NotFoundException;
 import com.ssafy.cozytrain.common.utils.ApiUtils;
 import com.ssafy.cozytrain.common.utils.JwtUtils;
+import io.swagger.annotations.ApiParam;
 import io.swagger.v3.oas.annotations.Operation;
 import lombok.NoArgsConstructor;
 import lombok.RequiredArgsConstructor;
@@ -45,5 +47,13 @@ public class CollectionController {
         return success(collectionService.getMemberItemBoxes(member));
     }
 
-    // TODO: 2023-11-07 리워드 뽑기
+    @GetMapping("/random/{country_id}")
+    @Operation(summary = "랜덤 뽑기", description = "어떤 아이템이 뽑혔는지 알려준다.")
+    public ApiUtils.ApiResult<ItemDto.ItemDtoRes> getRandomItem(@RequestHeader("Authorization") String header, @PathVariable(name = "country_id") @ApiParam(value = "뽑기권 조회시 countryId") Long countryId) {
+        String memberId = jwtUtils.getIdFromToken(header.substring(7));
+        Member member = memberService.findByMemberLoginId(memberId)
+                .orElseThrow(() -> new NotFoundException("Not Found User"));
+        return success(collectionService.getRandomItem(countryId, member));
+    }
+
 }

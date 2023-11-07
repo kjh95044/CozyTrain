@@ -2,6 +2,7 @@ package com.ssafy.cozytrain.api.service.serviceImpl;
 
 import com.ssafy.cozytrain.api.dto.CollectionDto;
 import com.ssafy.cozytrain.api.dto.ItemBoxDto;
+import com.ssafy.cozytrain.api.dto.ItemDto;
 import com.ssafy.cozytrain.api.entity.*;
 import com.ssafy.cozytrain.api.repository.CountryRepository;
 import com.ssafy.cozytrain.api.repository.ItemBoxRepository;
@@ -19,6 +20,7 @@ import javax.transaction.Transactional;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
+import java.util.Random;
 
 @Service
 @Slf4j
@@ -79,14 +81,41 @@ public class CollectionServiceImpl implements CollectionService {
 
         map.forEach(
                 (id, cnt) -> itemBoxDtoResList.add(ItemBoxDto.ItemBoxDtoRes.builder()
-                .country(countryRepository.findById(id)
-                        .orElseThrow(() -> new NotFoundException("Not Found Country, Country 추가를 요청하세요."))
-                        .getCountryName())
-                .countryId(id)
-                .cnt(cnt)
-                .build()));
+                        .country(countryRepository.findById(id)
+                                .orElseThrow(() -> new NotFoundException("Not Found Country, Country 추가를 요청하세요."))
+                                .getCountryName())
+                        .countryId(id)
+                        .cnt(cnt)
+                        .build()));
 
 
         return itemBoxDtoResList;
+    }
+
+    @Transactional
+    @Override
+    public ItemDto.ItemDtoRes getRandomItem(Long countryId, Member member) {
+        Country country = countryRepository.findById(countryId).orElseThrow(() -> new NotFoundException("Not Found Country"));
+        List<ItemBox> itemBoxes = itemBoxRepository.findItemBoxesByMemberAndCountry(member, country);
+        if(itemBoxes.isEmpty())
+            throw new NotFoundException("해당 뽑기권이 없습니다.");
+
+        List<Item> items = itemRepository.findByCountry(country);
+
+        Random random = new Random();
+        int randomIndex = random.nextInt(items.size());
+        Item item = items.get(randomIndex);
+
+        itemListRepository.save(ItemList.builder()
+                .item(item)
+                .member(member)
+                .build());
+
+        // 뽑기권 하나 제거
+        itemBoxRepository.delete(itemBoxes.get(0));
+
+        return ItemDto.ItemDtoRes.builder()
+                .item(item)
+                .build();
     }
 }
