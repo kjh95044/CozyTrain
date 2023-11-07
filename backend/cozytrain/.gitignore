@@ -44,4 +44,4 @@ application-prod.yml
 /src/main/generated
 
 ### log
-logback.xml
+#logback.xml
