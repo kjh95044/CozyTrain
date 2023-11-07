@@ -3,11 +3,13 @@ package com.ssafy.cozytrain.api.entity;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
+import lombok.ToString;
 
 import javax.persistence.*;
 
 @Entity
 @Getter
+@ToString
 @NoArgsConstructor
 public class ChatRoom {
 

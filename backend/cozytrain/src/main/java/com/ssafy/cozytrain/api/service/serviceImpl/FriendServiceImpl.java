@@ -8,6 +8,7 @@ import com.ssafy.cozytrain.api.entity.elastic.MemberCompleteDocument;
 import com.ssafy.cozytrain.api.repository.ChatRoomRepository;
 import com.ssafy.cozytrain.api.repository.FriendRepository;
 import com.ssafy.cozytrain.api.repository.MemberRepository;
+import com.ssafy.cozytrain.api.repository.MessageRepository;
 import com.ssafy.cozytrain.api.repository.elastic.MemberCompleteRepository;
 import com.ssafy.cozytrain.api.service.FriendService;
 import com.ssafy.cozytrain.common.exception.NotFoundException;
@@ -30,6 +31,7 @@ public class FriendServiceImpl implements FriendService {
     private final FriendRepository friendRepository;
     private final ChatRoomRepository chatRoomRepository;
     private final MemberCompleteRepository memberCompleteRepository;
+    private final MessageRepository messageRepository;
 
     @Override
     public List<FriendDto.FriendSearchResDto> searchFriend(String memberId, String friendLoginId) {
@@ -136,10 +138,24 @@ public class FriendServiceImpl implements FriendService {
             log.info("해당 User에 대한 정보를 찾지 못했습니다.");
             return new NotFoundException("Not Found User");
         });
-        return friendRepository.getFriendList(member.getMemberId()).orElseThrow(() -> {
+
+        List<FriendDto.FriendResDto> friendList = friendRepository.getFriendList(member.getMemberId()).orElseThrow(() -> {
             log.info("친구 목록을 불러올 수 없습니다.");
             return new NotFoundException("Not Found Friend List");
         });
+
+        friendList.forEach(e -> {
+            ChatRoom chatRoom = chatRoomRepository.findByMemberFirst_MemberIdAndMemberSecond_MemberIdOrMemberSecond_MemberIdAndMemberFirst_MemberId
+                            (member.getMemberId(), e.getMemberId(), member.getMemberId(), e.getMemberId())
+                    .orElseThrow(() -> {
+                        log.info("해당 친구와의 채팅방 정보를 찾지 못했습니다.");
+                        return new NotFoundException("Not Found ChatRoom");
+                    });
+            int noReadCo = messageRepository.countByChatRoom_ChatRoomIdAndSenderMember_MemberIdNotAndIsRead(chatRoom.getChatRoomId(), member.getMemberId(), 0);
+            e.setNoReadCo(noReadCo);
+        });
+
+        return friendList;
     }
 
     @Override

@@ -70,6 +70,7 @@ public class FriendDto {
         private String friendNickname;
         private String profileImg;
         private LocalDateTime updatedAt;
+        private Integer noReadCo;
 
         @Builder
         public FriendResDto(Long friendId, Long memberId, String friendLoginId, String friendNickname, String profileImg, LocalDateTime updatedAt) {
@@ -79,6 +80,10 @@ public class FriendDto {
             this.friendNickname = friendNickname;
             this.profileImg = profileImg;
             this.updatedAt = updatedAt;
+        }
+
+        public void setNoReadCo(Integer noReadCo){
+            this.noReadCo = noReadCo;
         }
     }
 }
