@@ -61,6 +61,7 @@ public class MemberServiceImpl implements MemberService {
 
         TokenDto tokenDto = jwtUtil.createAllToken(loginReq.getMemberId());
         Optional<RefreshToken> refreshToken = refreshTokenRepository.findById(loginReq.getMemberId());
+        jwtUtil.setHeaderAccessToken(response, tokenDto.getAccessToken());
 
         String cookieValue = null;
         RefreshToken newToken = new RefreshToken(loginReq.memberId, tokenDto.getRefreshToken());
@@ -70,17 +71,22 @@ public class MemberServiceImpl implements MemberService {
             cookieValue = tokenDto.getRefreshToken();
         }
         refreshTokenRepository.save(newToken);
-        setHeader(response, tokenDto);
 
         String cookieName = "refreshToken";
         Cookie cookie = new Cookie(cookieName, cookieValue);
         cookie.setMaxAge(60 * 60 * 24 * 7);
         cookie.setPath("/");
+        response.addCookie(cookie);
 
         return LoginRes.builder()
                 .member(member)
                 .accessToken(tokenDto.getAccessToken())
                 .refreshToken(cookieValue).build();
+    }
+
+    @Override
+    public RefreshTokenRes refreshTokenReissue(Cookie cookie) {
+        return null;
     }
 
     @Override
@@ -129,7 +135,4 @@ public class MemberServiceImpl implements MemberService {
         return true;
     }
 
-    private void setHeader(HttpServletResponse response, TokenDto tokenDto) {
-        response.addHeader(JwtUtils.ACCESS_TOKEN, tokenDto.getAccessToken());
-    }
 }

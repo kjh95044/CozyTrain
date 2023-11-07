@@ -49,6 +49,16 @@ public class MemberDto {
     }
 
     @Getter
+    public static class RefreshTokenRes {
+        private String accessToken;
+
+        @Builder
+        public RefreshTokenRes(String accessToken) {
+            this.accessToken = accessToken;
+        }
+    }
+
+    @Getter
     public static class UpdateMemberRes {
         public String memberImgUrl;
 
