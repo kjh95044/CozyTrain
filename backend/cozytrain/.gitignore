@@ -42,3 +42,6 @@ application-prod.yml
 
 ### Querydsl
 /src/main/generated
+
+### log
+logback.xml
