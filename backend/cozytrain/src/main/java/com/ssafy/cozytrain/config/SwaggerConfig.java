@@ -10,13 +10,18 @@ import springfox.documentation.service.Server;
 import springfox.documentation.spi.DocumentationType;
 import springfox.documentation.spring.web.plugins.Docket;
 
+import java.util.Arrays;
 import java.util.Collections;
 
 @Configuration
 public class SwaggerConfig {
     @Bean
     public Docket api() {
+        Server serverLocal = new Server("local", "http://localhost:8080", "for local usages", Collections.emptyList(), Collections.emptyList());
+        Server devServer = new Server("dev server", "https://dev.cozytrain.com", "for dev server usages", Collections.emptyList(), Collections.emptyList());
+
         return new Docket(DocumentationType.OAS_30)
+                .servers(serverLocal,devServer)
                 .apiInfo(apiInfo())
                 .select()
                 .apis(RequestHandlerSelectors.basePackage("com.ssafy.cozytrain"))
