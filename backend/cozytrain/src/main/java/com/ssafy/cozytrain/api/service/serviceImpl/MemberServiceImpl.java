@@ -14,6 +14,7 @@ import com.ssafy.cozytrain.common.utils.JwtUtils;
 import com.ssafy.cozytrain.common.utils.S3Uploader;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.http.ResponseCookie;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -72,13 +73,14 @@ public class MemberServiceImpl implements MemberService {
         }
         refreshTokenRepository.save(newToken);
 
-        String cookieName = "refreshToken";
-        Cookie cookie = new Cookie(cookieName, cookieValue);
-        cookie.setMaxAge(60 * 60 * 24 * 7);
-        cookie.setPath("/");
-        cookie.setHttpOnly(true);
-
-        response.addCookie(cookie);
+        ResponseCookie cookie = ResponseCookie.from("refreshToken", cookieValue)
+                .maxAge(7 * 24 * 60 * 60)
+                .path("/")
+                .secure(true)
+                .sameSite("None")
+                .httpOnly(true)
+                .build();
+        response.setHeader("Set-Cookie", cookie.toString());
 
         return LoginRes.builder()
                 .member(member)
