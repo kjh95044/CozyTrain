@@ -60,6 +60,7 @@ public class MessageServiceImpl implements MessageService {
                 .createdAt(LocalDateTime.now())
                 .chatRoom(chatRoom)
                 .senderMember(member)
+                .isRead(0)
                 .build();
 
         return messageRepository.save(message).getMessageId();
@@ -84,10 +85,17 @@ public class MessageServiceImpl implements MessageService {
             return new NotFoundException("Not Found Message");
         });
 
+        Member friendMember = memberRepository.findById(friendMemberId).orElseThrow(() -> {
+            log.info("해당 User에 대한 정보를 찾지 못했습니다.");
+            return new NotFoundException("Not Found User");
+        });
         messageList.forEach(e ->{
-            Message message = messageRepository.findById(e.getMessageId()).orElseThrow(() -> new NotFoundException("Not Found Message"));
-            message.updateIsRead();
-            messageRepository.save(message);
+            if (e.getSenderLoginId().equals(friendMember.getMemberLoginId())) {
+//                Message message = messageRepository.findByMessageIdAndSenderMember_MemberId(e.getMessageId(), friendMemberId);
+                Message message = messageRepository.findById(e.getMessageId()).orElseThrow(() -> new NotFoundException("Not Found Message"));
+                message.updateIsRead();
+                messageRepository.save(message);
+            }
         });
 
         return messageList;
