@@ -73,6 +73,7 @@ export default function Dream() {
       <Header>꿈</Header>
       <div className={styles.note_container}>
         <Calendar
+          className={styles.calendar}
           locale="ko" //한글
           onChange={onChange}
           value={today} //선택한 날짜
