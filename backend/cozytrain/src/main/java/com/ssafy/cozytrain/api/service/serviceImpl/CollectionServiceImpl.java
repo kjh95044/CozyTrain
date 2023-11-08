@@ -4,10 +4,7 @@ import com.ssafy.cozytrain.api.dto.CollectionDto;
 import com.ssafy.cozytrain.api.dto.ItemBoxDto;
 import com.ssafy.cozytrain.api.dto.ItemDto;
 import com.ssafy.cozytrain.api.entity.*;
-import com.ssafy.cozytrain.api.repository.CountryRepository;
-import com.ssafy.cozytrain.api.repository.ItemBoxRepository;
-import com.ssafy.cozytrain.api.repository.ItemListRepository;
-import com.ssafy.cozytrain.api.repository.ItemRepository;
+import com.ssafy.cozytrain.api.repository.*;
 import com.ssafy.cozytrain.api.service.CollectionService;
 import com.ssafy.cozytrain.api.service.TrainService;
 import com.ssafy.cozytrain.common.exception.NotFoundException;
@@ -17,10 +14,7 @@ import org.aspectj.weaver.ast.Not;
 import org.springframework.stereotype.Service;
 
 import javax.transaction.Transactional;
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Random;
+import java.util.*;
 
 @Service
 @Slf4j
@@ -30,6 +24,7 @@ public class CollectionServiceImpl implements CollectionService {
     private final ItemListRepository itemListRepository;
     private final ItemBoxRepository itemBoxRepository;
     private final CountryRepository countryRepository;
+    private final MemberRepository memberRepository;
 
     @Transactional
     @Override
@@ -107,16 +102,46 @@ public class CollectionServiceImpl implements CollectionService {
         int randomIndex = random.nextInt(items.size());
         Item item = items.get(randomIndex);
 
-        itemListRepository.save(ItemList.builder()
-                .item(item)
-                .member(member)
-                .build());
+        Optional<ItemList> findItem = itemListRepository.findItemListByMemberAndItem(member, item);
+
+        if(findItem.isEmpty()){
+            itemListRepository.save(ItemList.builder()
+                    .item(item)
+                    .member(member)
+                    .build());
+        }
 
         // 뽑기권 하나 제거
         itemBoxRepository.delete(itemBoxes.get(0));
 
         return ItemDto.ItemDtoRes.builder()
                 .item(item)
+                .build();
+    }
+
+    @Transactional
+    @Override
+    public Boolean updateMemberCollection(Long itemId, Member member) {
+        Item item = itemRepository.findById(itemId).orElseThrow(()-> new NotFoundException("Not Found Item"));
+        ItemList itemList = itemListRepository.findItemListByMemberAndItem(member, item).orElseThrow(
+                ()-> new NotFoundException("당신은 해당 아이템이 없습니다.")
+        );
+        member.updateMemberCollection(itemList);
+        memberRepository.save(member);
+
+        return true;
+    }
+
+    @Override
+    public ItemDto.ItemDtoRes getMemberCollection(Member member) {
+        ItemList itemList = member.getItem();
+        if(itemList == null){
+            throw new NotFoundException("대표 컬렉션이 없습니다.");
+        }
+        log.info(itemList.toString());
+
+        return ItemDto.ItemDtoRes.builder()
+                .item(itemList.getItem())
                 .build();
     }
 }

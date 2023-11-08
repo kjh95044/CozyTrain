@@ -5,6 +5,7 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
+import java.util.List;
 
 @Entity
 @Getter
@@ -22,6 +23,9 @@ public class ItemList {
     @ManyToOne
     @JoinColumn(name = "item_id", referencedColumnName = "item_id")
     private Item item;
+
+    @OneToMany(mappedBy = "item")
+    private List<Member> members;
 
     @Builder
     public ItemList(Member member, Item item){

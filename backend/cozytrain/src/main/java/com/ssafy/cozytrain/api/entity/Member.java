@@ -66,6 +66,10 @@ public class Member {
     @OneToMany(mappedBy = "member")
     private List<ItemList> itemLists;
 
+    @ManyToOne
+    @JoinColumn(name = "item_list_id", referencedColumnName = "item_list_id")
+    private ItemList item;
+
     @Builder
     public Member(MemberDto.SignupReq signupReq) {
         this.memberLoginId = signupReq.getMemberId();
@@ -83,5 +87,9 @@ public class Member {
 
     public void updateMemberName(String memberName) {
         this.memberName = memberName;
+    }
+
+    public void updateMemberCollection(ItemList item){
+        this.item = item;
     }
 }

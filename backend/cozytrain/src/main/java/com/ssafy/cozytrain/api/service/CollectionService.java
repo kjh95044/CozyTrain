@@ -11,4 +11,6 @@ public interface CollectionService {
     CollectionDto.CollectionDtoRes getCollection(Member member);
     List<ItemBoxDto.ItemBoxDtoRes> getMemberItemBoxes(Member member);
     ItemDto.ItemDtoRes getRandomItem(Long countryId, Member member);
+    Boolean updateMemberCollection(Long itemId, Member member);
+    ItemDto.ItemDtoRes getMemberCollection(Member member);
 }
