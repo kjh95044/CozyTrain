@@ -50,10 +50,21 @@ public class FriendServiceImpl implements FriendService {
             friendLoginIdList.add(e.getMemberLoginId());
         });
 
-        return friendRepository.searchFriend(member.getMemberId(), friendLoginIdList).orElseThrow(() -> {
+        List<FriendDto.FriendSearchResDto> friendAllList = friendRepository.searchFriend(member.getMemberId(), friendLoginIdList).orElseThrow(() -> {
             log.info("검색된 친구의 정보를 찾지 못했습니다.");
             return new NotFoundException("검색한 친구가 없습니다");
         });
+
+        friendAllList.forEach(e ->{
+            Member friendMember = memberRepository.findByMemberId(e.getMemberId()).orElseThrow(() -> {
+                log.info("해당 User에 대한 정보를 찾지 못했습니다.");
+                return new NotFoundException("Not Found User");
+            });
+            TrainDto.TrainCurInfoDto friendTrain = trainService.getCurLocationInfo(friendMember);
+            e.setTrainInfo(friendTrain);
+        });
+
+        return friendAllList;
     }
 
     @Override
@@ -154,6 +165,14 @@ public class FriendServiceImpl implements FriendService {
                         log.info("해당 친구와의 채팅방 정보를 찾지 못했습니다.");
                         return new NotFoundException("Not Found ChatRoom");
                     });
+
+            Member friendMember = memberRepository.findByMemberId(e.getMemberId()).orElseThrow(() -> {
+                log.info("해당 User에 대한 정보를 찾지 못했습니다.");
+                return new NotFoundException("Not Found User");
+            });
+            TrainDto.TrainCurInfoDto friendTrain = trainService.getCurLocationInfo(friendMember);
+            e.setTrainInfo(friendTrain);
+
             int noReadCo = messageRepository.countByChatRoom_ChatRoomIdAndSenderMember_MemberIdNotAndIsRead(chatRoom.getChatRoomId(), member.getMemberId(), 0);
             e.setNoReadCo(noReadCo);
         });
@@ -168,10 +187,22 @@ public class FriendServiceImpl implements FriendService {
             log.info("해당 User에 대한 정보를 찾지 못했습니다.");
             return new NotFoundException("Not Found User");
         });
-        return friendRepository.getSentRequestList(member.getMemberId()).orElseThrow(() -> {
+
+        List<FriendDto.FriendResDto> friendList = friendRepository.getSentRequestList(member.getMemberId()).orElseThrow(() -> {
             log.info("보낸 친구 요청 목록을 찾지 못했습니다.");
             return new NotFoundException("Not Found Send Friend List");
         });
+
+        friendList.forEach(e ->{
+            Member friendMember = memberRepository.findByMemberId(e.getMemberId()).orElseThrow(() -> {
+                log.info("해당 User에 대한 정보를 찾지 못했습니다.");
+                return new NotFoundException("Not Found User");
+            });
+            TrainDto.TrainCurInfoDto friendTrain = trainService.getCurLocationInfo(friendMember);
+            e.setTrainInfo(friendTrain);
+        });
+
+        return friendList;
     }
 
     @Override

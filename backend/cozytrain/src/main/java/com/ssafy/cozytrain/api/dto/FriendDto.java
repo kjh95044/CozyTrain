@@ -20,6 +20,7 @@ public class FriendDto {
         private String friendLoginId;
         private String friendNickname;
         private String profileImg;
+        private TrainDto.TrainCurInfoDto trainInfo;
 
         @Builder
         public FriendSearchResDto(Long memberId, String friendLoginId, String friendNickname, String profileImg) {
@@ -27,6 +28,20 @@ public class FriendDto {
             this.friendLoginId = friendLoginId;
             this.friendNickname = friendNickname;
             this.profileImg = profileImg;
+        }
+
+        @Builder
+        public FriendSearchResDto(Long memberId, String friendLoginId, String friendNickname, String profileImg, TrainDto.TrainCurInfoDto trainInfo) {
+            this.memberId = memberId;
+            this.friendLoginId = friendLoginId;
+            this.friendNickname = friendNickname;
+            this.profileImg = profileImg;
+            this.trainInfo = trainInfo;
+        }
+
+
+        public void setTrainInfo(TrainDto.TrainCurInfoDto trainInfo){
+            this.trainInfo = trainInfo;
         }
     }
 
