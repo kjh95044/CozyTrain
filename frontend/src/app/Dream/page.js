@@ -25,7 +25,6 @@ export default function Dream() {
   const getDreams = async () => {
     const data = await getFetch("dream");
     setDreams(data.response.dreamDtoResList);
-    console.log(data.response.dreamDtoResList);
   };
 
   useEffect(() => {

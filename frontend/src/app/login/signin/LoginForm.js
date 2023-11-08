@@ -26,7 +26,6 @@ export default function LoginForm() {
       const respData = data.response;
 
       document.cookie = `accessToken=${respData.accessToken}`;
-      document.cookie = `refreshToken=${respData.refreshToken}`;
       document.cookie = `todayFirstLogin=false`;
 
       login(
