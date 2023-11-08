@@ -15,7 +15,6 @@ export default function Detail() {
 
   const getDream = async () => {
     const data = await getFetch(`dream/${c.id}`);
-    console.log(data);
     setDream(data.response);
   };
 

@@ -1,9 +1,10 @@
 import { useState, useEffect } from "react";
 
+import getFetch from "@/services/getFetch";
 import useStore from "@/store/useStore";
 import CloseButton from "@/components/button/CloseButton";
-import SearchList from "./SearchList";
-import TodayList from "./TodayList";
+import SearchPage from "./_search/page";
+import TodayPage from "./_today/page";
 import styles from "./CheckList.module.css";
 
 export default function CheckList(props) {
@@ -14,21 +15,14 @@ export default function CheckList(props) {
   const handleListTrue = () => setIsList(true);
   const handleListFalse = () => setIsList(false);
 
-  useEffect(() => {
-    console.log(memberName);
-  }, []);
-
   return (
     <div>
       <div className={styles.closeBtn}>
         <CloseButton onClick={props.onClick} />
       </div>
-      <div>
-        {isList ? "오늘 섭취한 <b>음료</b>입니다." : "오늘은 무엇을 마셨나요?"}
-      </div>
 
       <div className={styles.content}>
-        {isList ? <TodayList /> : <SearchList />}
+        {isList ? <TodayPage /> : <SearchPage />}
       </div>
 
       <div className={styles.list}></div>
@@ -43,7 +37,7 @@ export default function CheckList(props) {
           className={isList ? styles.btn : styles.btn_click}
           onClick={handleListFalse}
         >
-          추가
+          검색
         </button>
       </div>
     </div>

@@ -1,5 +1,9 @@
 .container {
-  text-align: center;
-  margin: 20px auto;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  white-space: nowrap;
+  width: 100vw;
+  height: 40px;
   font-size: 28px;
 }
