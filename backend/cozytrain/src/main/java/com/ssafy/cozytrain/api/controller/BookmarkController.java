@@ -35,13 +35,22 @@ public class BookmarkController {
         return success(bookmarkService.saveBookmark(bookmarkDto, member.getMemberId()));
     }
 
-    @GetMapping
+    @GetMapping("/item")
     @Operation(summary = "북마크 조회")
     public ApiUtils.ApiResult<List<CaffeineDocument>> createBookmark(@RequestHeader("Authorization") String header){
         String memberId = jwtUtils.getIdFromToken(header.substring(7));
         Member member = memberService.findByMemberLoginId(memberId)
                 .orElseThrow(() -> new NotFoundException("Not Found User"));
         return success(bookmarkService.getBookmark(member.getMemberId()));
+    }
+
+    @GetMapping
+    @Operation(summary = "북마크 ELS ID 조회")
+    public ApiUtils.ApiResult<List<BookmarkDto>> createBookmarkDto(@RequestHeader("Authorization") String header){
+        String memberId = jwtUtils.getIdFromToken(header.substring(7));
+        Member member = memberService.findByMemberLoginId(memberId)
+                .orElseThrow(() -> new NotFoundException("Not Found User"));
+        return success(bookmarkService.getBookmarkDto(member.getMemberId()));
     }
 
     @DeleteMapping("/{bookmarkId}")

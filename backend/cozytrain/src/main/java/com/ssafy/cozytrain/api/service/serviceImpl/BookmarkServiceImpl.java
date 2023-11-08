@@ -51,6 +51,15 @@ public class BookmarkServiceImpl implements BookmarkService {
                 .collect(Collectors.toList());
     }
 
+    @Override
+    @Transactional(readOnly = true)
+    public List<BookmarkDto> getBookmarkDto(Long memberId) {
+        List<Bookmark> bookmarkList = bookmarkRepository.findAllByBookmarkKeyMemberId(memberId);
+        return bookmarkList.stream().map((item) -> {
+                    return BookmarkDto.builder().elsId(item.getBookmarkKey().getElsId()).build();
+                })
+                .collect(Collectors.toList());
+    }
 
     public Boolean deleteMemberBookmark(Member member) {
         bookmarkRepository.deleteAllByBookmarkKeyMemberId(member.getMemberId());
