@@ -4,21 +4,25 @@ import Image from "next/image";
 
 import profileImg from "#/images/profile-img.png";
 import DeleteAccout from "./DeleteAccout";
-import CloseButton from "@/components/button/CloseButton";
+import PrimaryButton from "@/components/button/PrimaryButton";
 import useStore from "@/store/useStore";
 import styles from "./page.module.css";
 
 export default function Page() {
   const [deleteAcount, setDeleteAcount] = useState(false);
-  const { memberName, memberProfileImg } = useStore();
+  const { memberName, memberProfileImg, region, dist, logout } = useStore();
   const router = useRouter();
 
   const handleLogoutBtn = () => {
+    document.cookie = "accessToken=; expires=Thu, 01 Jan 1970 00:00:00 UTC;";
+    logout();
     router.push("/login");
   };
 
+  console.log(dist);
+
   return (
-    <div>
+    <div className={styles.container}>
       <div className={styles.userProfile}>
         <Image
           className={styles.profileImg}
@@ -26,27 +30,24 @@ export default function Page() {
           alt="프로필 사진"
         />
         <div className={styles.memberName}>
-          <div>아이디: juwon</div>
           <div>닉네임: {memberName}</div>
         </div>
       </div>
       <div className={styles.userInfo}>
         <div className={styles.content}>
-          <div>총 이동 거리</div>
-          <div>126km</div>
+          <div className={styles.text}>총 이동 거리</div>
+          <div className={styles.text}>{dist}km</div>
         </div>
         <div className={styles.content}>
-          <div>총 이동 거리</div>
-          <div>126km</div>
-        </div>
-        <div className={styles.content}>
-          <div>총 이동 거리</div>
-          <div>126km</div>
+          <div className={styles.text}>현재 위치</div>
+          <div className={styles.text}>{region}</div>
         </div>
       </div>
       <div className={styles.footer}>
-        <div onClick={handleLogoutBtn}>로그아웃</div>
-        <div onClick={() => setDeleteAcount(true)}>회원탈퇴</div>
+        <PrimaryButton onClick={handleLogoutBtn}>로그아웃</PrimaryButton>
+        <PrimaryButton onClick={() => setDeleteAcount(true)}>
+          회원탈퇴
+        </PrimaryButton>
       </div>
 
       {deleteAcount && <DeleteAccout />}

@@ -26,13 +26,8 @@ export default function LoginForm() {
       const respData = data.response;
 
       document.cookie = `accessToken=${respData.accessToken}`;
-      document.cookie = `todayFirstLogin=false`;
 
-      login(
-        respData.memberName,
-        respData.memberProfileImg,
-        respData.accessToken
-      );
+      login(respData.memberName, respData.memberProfileImg);
 
       router.push("/");
     } catch (e) {

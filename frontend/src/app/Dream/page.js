@@ -18,7 +18,7 @@ export default function Dream() {
 
   // 캘린더 관련
   const [today, setToday] = useState(new Date()); // 현재 날짜
-  const [nowDate, onChange] = useState(today); //선택한 날짜
+  const [nowDate, onChange] = useState(today); // 선택한 날짜
   const monthOfActiveDate = moment(nowDate).format("YYYY-MM"); //보여지는 연도=월
   const [nowMonth, setNowMonth] = useState(monthOfActiveDate); //보여지는 달
 
