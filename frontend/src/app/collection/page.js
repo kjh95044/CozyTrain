@@ -28,21 +28,16 @@ export default function Collection() {
   const getCollection = async () => {
     const data = await getFetch("collection");
     setCollection(data.response.items);
-    console.log(data.response.items);
   };
 
   const getItemBox = async () => {
     const data = await getFetch("collection/item-boxes");
-    console.log(data.response);
     setItemBox(data.response);
   };
 
   const getGacha = async (i) => {
     const data = await getFetch(`collection/random/${i}`);
-    console.log(data.response);
     setGachaItem(data.response);
-    console.log(collection);
-    console.log(data.response);
 
     // 컬렉션 업데이트
     const foundItem = collection.find(
@@ -109,7 +104,6 @@ export default function Collection() {
             <div className={styles.modal}>
               {aftergacha ? (
                 <div>
-                  {console.log(gachaitem)}
                   <div className={styles.title}>{gachaitem.itemName}</div>
                   <Image
                     src={gachaitem.itemImgUrl}
