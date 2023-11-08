@@ -29,7 +29,7 @@ public class Member {
 
     private String memberName;
 
-    @Column(length = 200)
+    @Column(length = 255, columnDefinition = "VARCHAR(255) DEFAULT 'https://cozytrain.s3.ap-northeast-2.amazonaws.com/profile/profile.jpg'")
     private String memberImageUrl;
     private String memberImageName;
 
@@ -71,6 +71,7 @@ public class Member {
         this.memberLoginId = signupReq.getMemberId();
         this.memberPassword = signupReq.getMemberPassword();
         this.memberName = signupReq.getMemberName();
+        this.memberImageUrl = "https://cozytrain.s3.ap-northeast-2.amazonaws.com/profile/profile.jpg";
         this.createdAt = LocalDateTime.now();
         this.updatedAt = LocalDateTime.now();
     }

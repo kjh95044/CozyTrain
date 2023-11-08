@@ -21,7 +21,9 @@ import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.multipart.MultipartFile;
 
 import javax.servlet.http.Cookie;
+import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 import java.io.IOException;
 import java.util.Optional;
 
@@ -73,8 +75,9 @@ public class MemberServiceImpl implements MemberService {
         }
         refreshTokenRepository.save(newToken);
 
+        long maxAgeInSeconds = 14 * 24 * 60 * 60 * 1000L / 1000;
         ResponseCookie cookie = ResponseCookie.from("refreshToken", cookieValue)
-                .maxAge(7 * 24 * 60 * 60)
+                .maxAge(maxAgeInSeconds)
                 .path("/")
                 .secure(true)
                 .sameSite("None")
@@ -89,8 +92,13 @@ public class MemberServiceImpl implements MemberService {
     }
 
     @Override
-    public RefreshTokenRes refreshTokenReissue(Cookie cookie) {
-        return null;
+    public Integer logout(HttpServletRequest request, LogoutReq logoutReq) {
+        String cookieName = "refreshToken";
+        Cookie cookie = new Cookie(cookieName, null);
+        cookie.setMaxAge(0);
+        cookie.setPath("/");
+        refreshTokenRepository.deleteById(logoutReq.getMemberId());
+        return 1;
     }
 
     @Override
@@ -138,5 +146,6 @@ public class MemberServiceImpl implements MemberService {
         bookmarkService.deleteMemberBookmark(member);
         return true;
     }
+
 
 }

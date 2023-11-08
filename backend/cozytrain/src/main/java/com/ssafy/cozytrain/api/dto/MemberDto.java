@@ -33,6 +33,12 @@ public class MemberDto {
     }
 
     @Getter
+    public static class LogoutReq {
+        @NotNull
+        public String memberId;
+    }
+
+    @Getter
     public static class LoginRes {
         private String memberName;
         private String memberProfileImg;

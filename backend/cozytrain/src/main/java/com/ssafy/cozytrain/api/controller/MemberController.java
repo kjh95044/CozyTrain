@@ -13,7 +13,9 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
 import javax.servlet.http.Cookie;
+import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 import javax.validation.Valid;
 
 import java.io.IOException;
@@ -41,11 +43,11 @@ public class MemberController {
         return success(memberService.login(loginReq, response));
     }
 
-//    @PostMapping("/refresh")
-//    @Operation(summary = "access token 재발급 API")
-//    public ApiUtils.ApiResult<LoginRes> refreshTokenReissue(@CookieValue(value = "cookieName", required = false) Cookie cookie, HttpServletResponse response) {
-//        return success(memberService.login(loginReq, response));
-//    }
+    @PostMapping("/logout")
+    @Operation(summary = "로그아웃 API")
+    public ApiUtils.ApiResult<Integer> logout(HttpServletRequest request, @RequestBody @Valid LogoutReq logoutReq) {
+        return success(memberService.logout(request, logoutReq));
+    }
 
     @PatchMapping("/image")
     @Operation(summary = "회원 사진 수정 API")
