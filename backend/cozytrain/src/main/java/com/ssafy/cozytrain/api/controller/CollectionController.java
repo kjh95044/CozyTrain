@@ -56,4 +56,20 @@ public class CollectionController {
         return success(collectionService.getRandomItem(countryId, member));
     }
 
+    @GetMapping("/representative")
+    @Operation(summary = "회원 대표 컬랙션 가져오기")
+    public ApiUtils.ApiResult<ItemDto.ItemDtoRes> getMemberCollection(@RequestHeader("Authorization") String header){
+        String memberId = jwtUtils.getIdFromToken(header.substring(7));
+        Member member = memberService.findByMemberLoginId(memberId)
+                .orElseThrow(() -> new NotFoundException("Not Found User"));
+        return success(collectionService.getMemberCollection(member));
+    }
+    @PatchMapping("/representative/{itemId}")
+    @Operation(summary = "회원 대표 컬렉션 변경하기")
+    public ApiUtils.ApiResult<Boolean> updateMemberCollection(@RequestHeader("Authorization") String header, @PathVariable Long itemId){
+        String memberId = jwtUtils.getIdFromToken(header.substring(7));
+        Member member = memberService.findByMemberLoginId(memberId)
+                .orElseThrow(() -> new NotFoundException("Not Found User"));
+        return success(collectionService.updateMemberCollection(itemId, member));
+    }
 }
