@@ -20,6 +20,7 @@ export default function SearchResult(props) {
     else await createBookmark(elsId);
 
     props.getBookMark();
+    props.getBookmarkItem();
   };
 
   const createBookmark = async (elsId) => {

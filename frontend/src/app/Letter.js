@@ -4,7 +4,7 @@ import { useEffect, useState } from "react";
 import Image from "next/image";
 import { useRouter } from "next/navigation";
 
-import CancelButton from "@/components/button/CancelButton";
+import PrimaryButton from "@/components/button/PrimaryButton";
 import Modal from "@/components/Modal";
 import letter from "#/images/letter.png";
 import styles from "./Letter.module.css";
@@ -15,10 +15,6 @@ export default function Letter() {
   const [showModal, setShowModal] = useState(false);
   const router = useRouter();
 
-  const handleRedirect = () => {
-    router.push("/train");
-  };
-
   useEffect(() => {
     setTimeout(() => {
       setShowLetter(true);
@@ -27,26 +23,26 @@ export default function Letter() {
         setShakeLetter(true);
       }, 1600);
     }, 1000);
-
-    return () => { };
   }, []);
 
   return (
     <>
       <Image
-        className={`${styles.letter} ${showLetter ? styles.arive : ""} ${shakeLetter ? styles.shake : ""
-          }`}
+        className={`${styles.letter} ${showLetter ? styles.arive : ""} ${
+          shakeLetter ? styles.shake : ""
+        }`}
         src={letter}
         alt="편지"
         onClick={() => setShowModal(true)}
       />
 
       {showModal && (
-        <Modal>
-          수면 리포트 샬라샬라
-          <div className={styles.modal_btn}>
-            <CancelButton onClick={handleRedirect}>확인</CancelButton>
-          </div>
+        <Modal onClick={() => setShowModal(false)}>
+          <div>수면 리포트 샬라샬라</div>
+
+          <PrimaryButton onClick={() => router.push("/train")}>
+            확인
+          </PrimaryButton>
         </Modal>
       )}
     </>

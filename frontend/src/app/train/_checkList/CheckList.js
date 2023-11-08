@@ -1,16 +1,11 @@
-import { useState, useEffect } from "react";
+import { useState } from "react";
 
-import getFetch from "@/services/getFetch";
-import useStore from "@/store/useStore";
-import CloseButton from "@/components/button/CloseButton";
 import SearchPage from "./_search/page";
 import TodayPage from "./_today/page";
 import styles from "./CheckList.module.css";
 
 export default function CheckList() {
-  const [serachData, setSearchData] = useState([]);
   const [isList, setIsList] = useState(false);
-  const { memberName } = useStore();
 
   const handleListTrue = () => setIsList(true);
   const handleListFalse = () => setIsList(false);
