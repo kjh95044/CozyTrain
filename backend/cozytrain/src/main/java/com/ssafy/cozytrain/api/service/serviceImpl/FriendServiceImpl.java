@@ -1,6 +1,7 @@
 package com.ssafy.cozytrain.api.service.serviceImpl;
 
 import com.ssafy.cozytrain.api.dto.FriendDto;
+import com.ssafy.cozytrain.api.dto.TrainDto;
 import com.ssafy.cozytrain.api.entity.ChatRoom;
 import com.ssafy.cozytrain.api.entity.Friend;
 import com.ssafy.cozytrain.api.entity.Member;
@@ -11,6 +12,7 @@ import com.ssafy.cozytrain.api.repository.MemberRepository;
 import com.ssafy.cozytrain.api.repository.MessageRepository;
 import com.ssafy.cozytrain.api.repository.elastic.MemberCompleteRepository;
 import com.ssafy.cozytrain.api.service.FriendService;
+import com.ssafy.cozytrain.api.service.TrainService;
 import com.ssafy.cozytrain.common.exception.NotFoundException;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -32,6 +34,7 @@ public class FriendServiceImpl implements FriendService {
     private final ChatRoomRepository chatRoomRepository;
     private final MemberCompleteRepository memberCompleteRepository;
     private final MessageRepository messageRepository;
+    private final TrainService trainService;
 
     @Override
     public List<FriendDto.FriendSearchResDto> searchFriend(String memberId, String friendLoginId) {
@@ -178,9 +181,20 @@ public class FriendServiceImpl implements FriendService {
             log.info("해당 User에 대한 정보를 찾지 못했습니다.");
             return new NotFoundException("Not Found User");
         });
-        return friendRepository.getReceivedRequestList(member.getMemberId()).orElseThrow(() -> {
+        List<FriendDto.FriendResDto> friendList = friendRepository.getReceivedRequestList(member.getMemberId()).orElseThrow(() -> {
             log.info("받은 친구 요청 목록을 찾지 못했습니다.");
             return new NotFoundException("Not Found Received Friend List");
         });
+
+        friendList.forEach(e ->{
+            Member friendMember = memberRepository.findByMemberId(e.getMemberId()).orElseThrow(() -> {
+                log.info("해당 User에 대한 정보를 찾지 못했습니다.");
+                return new NotFoundException("Not Found User");
+            });
+            TrainDto.TrainCurInfoDto friendTrain = trainService.getCurLocationInfo(friendMember);
+            e.setTrainInfo(friendTrain);
+        });
+
+        return friendList;
     }
 }
