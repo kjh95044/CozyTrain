@@ -20,6 +20,7 @@ public class Station {
     private int dist;
     private String continent;
     private String region;
+    private String regionKor;
     private int regionNum;
 
     @OneToMany(mappedBy = "station")
@@ -38,10 +39,11 @@ public class Station {
     private Track track;
 
     @Builder
-    public Station(int dist, String continent, String region, int regionNum, Track track){
+    public Station(int dist, String continent, String region, String regionKor, int regionNum, Track track){
         this.dist = dist;
         this.continent = continent;
         this.region = region;
+        this.regionKor = regionKor;
         this.regionNum = regionNum;
         this.track = track;
     }

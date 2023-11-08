@@ -17,6 +17,7 @@ public class Country {
     @Column(name = "country_id")
     private Long countryId;
     private String countryName;
+    private String countryNameKor;
 
     @OneToMany(mappedBy = "country")
     private List<ItemBox> itemBoxes;

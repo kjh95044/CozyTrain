@@ -61,6 +61,8 @@ public class TrainServiceImpl implements TrainService {
             // 나라 : train.getStation().getCountry().getCountryName();
             return TrainDto.TrainCurInfoDto.builder()
                     .region(station.getRegion())
+                    .regionKor(station.getRegionKor())
+                    .countryKor(station.getCountry().getCountryNameKor())
                     .regionNum(station.getRegionNum())
                     .dist(train.getTrainCurDist())
                     .area(calculateArea(train.getTrainCurDist()))
