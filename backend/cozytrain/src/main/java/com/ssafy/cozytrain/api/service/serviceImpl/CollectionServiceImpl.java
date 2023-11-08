@@ -52,6 +52,7 @@ public class CollectionServiceImpl implements CollectionService {
             }
 
             itemsDto.add(CollectionDto.CollectionItemDto.builder()
+                    .itemId(item.getItemId())
                     .country(item.getCountry().getCountryName())
                     .isOwn(isOwn)
                     .itemDescription(item.getItemDescription())

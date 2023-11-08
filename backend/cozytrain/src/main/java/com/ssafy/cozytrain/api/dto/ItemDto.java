@@ -9,6 +9,7 @@ public class ItemDto {
 
     @Getter
     public static class ItemDtoRes{
+        private long itemId;
         private String itemName;
         private String itemImgUrl;
         private String itemDescription;
@@ -16,6 +17,7 @@ public class ItemDto {
 
         @Builder
         public ItemDtoRes(Item item){
+            this.itemId = item.getItemId();
             this.itemName = item.getItemName();
             this.itemImgUrl = item.getItemImgUrl();
             this. itemDescription = item.getItemDescription();

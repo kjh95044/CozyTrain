@@ -23,6 +23,7 @@ public class CollectionDto {
     @Getter
     @NoArgsConstructor
     public static class CollectionItemDto{
+        private long itemId;
         private String itemName;
         private String itemImgUrl;
         private String itemDescription;
@@ -30,7 +31,8 @@ public class CollectionDto {
         private boolean isOwn;
 
         @Builder
-        public CollectionItemDto(String itemName, String itemImgUrl, String itemDescription, String country, boolean isOwn){
+        public CollectionItemDto(long itemId, String itemName, String itemImgUrl, String itemDescription, String country, boolean isOwn){
+            this.itemId = itemId;
             this.itemName = itemName;
             this.itemImgUrl = itemImgUrl;
             this.itemDescription = itemDescription;
