@@ -3,14 +3,19 @@ import { create } from "zustand";
 const useStore = create((set) => ({
   memberName: null,
   memberProfileImg: null,
-  accessToken: null,
+  region: null,
+  dist: null,
 
-  login: (memberName, memberProfileImg, accessToken) => {
-    set({ memberName, memberProfileImg, accessToken });
+  login: (memberName, memberProfileImg) => {
+    set({ memberName, memberProfileImg });
   },
 
   logout: () => {
-    set({ memberName: null, memberProfileImg: null, accessToken: null });
+    set({ memberName: null, memberProfileImg: null });
+  },
+
+  setLocation: (region, dist) => {
+    set({ region, dist });
   },
 }));
 

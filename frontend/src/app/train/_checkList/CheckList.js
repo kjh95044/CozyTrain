@@ -7,7 +7,7 @@ import SearchPage from "./_search/page";
 import TodayPage from "./_today/page";
 import styles from "./CheckList.module.css";
 
-export default function CheckList(props) {
+export default function CheckList() {
   const [serachData, setSearchData] = useState([]);
   const [isList, setIsList] = useState(false);
   const { memberName } = useStore();
@@ -17,10 +17,6 @@ export default function CheckList(props) {
 
   return (
     <div>
-      <div className={styles.closeBtn}>
-        <CloseButton onClick={props.onClick} />
-      </div>
-
       <div className={styles.content}>
         {isList ? <TodayPage /> : <SearchPage />}
       </div>

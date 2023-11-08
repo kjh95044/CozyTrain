@@ -25,13 +25,6 @@
   box-shadow: var(--shadow-lg);
 }
 
-.closeBtn {
-  position: relative;
-  display: flex;
-  justify-content: end;
-  transform: translate(10px, -10px);
-}
-
 .content {
   width: 100%;
   height: 440px;

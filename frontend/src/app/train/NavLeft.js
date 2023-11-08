@@ -48,14 +48,14 @@ export default function NavLeft() {
       </div>
 
       {settingModal && (
-        <Modal onClick={handleModalClose}>
-          <Setting onClick={handleSettingClose} />
+        <Modal onClick={handleModalClose} title="설정">
+          <Setting />
         </Modal>
       )}
 
       {checkListModal && (
-        <Modal onClick={handleModalClose}>
-          <CheckList onClick={handleModalClose} />
+        <Modal onClick={handleModalClose} title="체크 리스트">
+          <CheckList />
         </Modal>
       )}
     </div>
