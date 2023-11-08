@@ -35,7 +35,6 @@ export default function Write() {
     };
 
     const respData = await postFetch("dream", postData);
-    console.log(respData);
     if (respData.success) {
       router.push("/dream");
     }
