@@ -8,10 +8,12 @@ import gacha from "/public/images/gacha.png";
 import { useState, useEffect } from "react";
 import Modal from "@/components/Modal";
 import getFetch from "@/services/getFetch";
+import patchFetch from "@/services/patchFetch";
 import PrimaryButton from "@/components/button/PrimaryButton";
 
 export default function Collection() {
   const [modal, setModal] = useState(false);
+  const [desmodal, setDesModal] = useState(false);
   const [aftergacha, setAfterGacha] = useState(false);
   const [collection, setCollection] = useState([]);
   const [itembox, setItemBox] = useState([]);
@@ -49,6 +51,14 @@ export default function Collection() {
     setAfterGacha(true);
   };
 
+  const selectItem = async () => {
+    const data = await patchFetch(
+      `collection/representative/${gachaitem.itemId}`
+    );
+    closeModal();
+    closeDesModal();
+  };
+
   const openModal = () => {
     setModal(true);
   };
@@ -59,6 +69,15 @@ export default function Collection() {
     setGachaItem([]);
   };
 
+  const openDesModal = (item) => {
+    console.log(item);
+    setGachaItem(item);
+    setDesModal(true);
+  };
+
+  const closeDesModal = () => {
+    setDesModal(false);
+  };
   return (
     <div className={styles.container}>
       <Header>
@@ -78,9 +97,13 @@ export default function Collection() {
                   {collection
                     .slice(countryIdx * cnt, (countryIdx + 1) * cnt)
                     .map((item, i) => (
-                      //country, itemDescription, ItemImgUrl, itemName, own
                       <div
                         key={i}
+                        onClick={() => {
+                          if (item.own) {
+                            openDesModal(item);
+                          }
+                        }}
                         className={`${styles.item_yes} ${
                           item.own ? "" : styles.item_no
                         }`}
@@ -98,6 +121,37 @@ export default function Collection() {
             ))}
         </div>
       </div>
+
+      {desmodal ? (
+        <div>
+          <Modal onClick={closeDesModal}>
+            <div className={styles.modal}>
+              <div>
+                <div className={styles.title}>{gachaitem.itemName}</div>
+                <Image
+                  src={gachaitem.itemImgUrl}
+                  alt="뽑기"
+                  width={120}
+                  height={120}
+                ></Image>
+                <div className={styles.description}>
+                  {gachaitem.itemDescription}
+                </div>
+                <PrimaryButton
+                  onClick={() => {
+                    selectItem(gachaitem);
+                  }}
+                >
+                  가지고 다니기
+                </PrimaryButton>
+              </div>
+            </div>
+          </Modal>
+        </div>
+      ) : (
+        ""
+      )}
+
       {modal ? (
         <div>
           <Modal onClick={closeModal}>
@@ -114,27 +168,33 @@ export default function Collection() {
                   <div className={styles.description}>
                     {gachaitem.itemDescription}
                   </div>
-                  <PrimaryButton onClick={() => {}}>
+                  <PrimaryButton
+                    onClick={() => {
+                      selectItem(gachaitem);
+                    }}
+                  >
                     가지고 다니기
                   </PrimaryButton>
                 </div>
               ) : (
                 <>
                   <div className={styles.title}>뽑기권</div>
-                  {itembox.map((country, i) => (
-                    <div key={i} className={styles.gacha_item}>
-                      <span className={styles.item_country}>
-                        {countrys[country.countryId - 1]} {country.cnt}개
-                      </span>
-                      <PrimaryButton
-                        onClick={() => {
-                          getGacha(country.countryId);
-                        }}
-                      >
-                        뽑기
-                      </PrimaryButton>
-                    </div>
-                  ))}
+                  {itembox.length == 0
+                    ? "뽑기권이 없습니다."
+                    : itembox.map((country, i) => (
+                        <div key={i} className={styles.gacha_item}>
+                          <span className={styles.item_country}>
+                            {countrys[country.countryId - 1]} {country.cnt}개
+                          </span>
+                          <PrimaryButton
+                            onClick={() => {
+                              getGacha(country.countryId);
+                            }}
+                          >
+                            뽑기
+                          </PrimaryButton>
+                        </div>
+                      ))}
                 </>
               )}
             </div>
