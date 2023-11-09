@@ -49,7 +49,7 @@ export default function Freind() {
             onClick={() => setLocation(2)}
           >
             {" "}
-            친구 목록
+            랭킹
           </button>
         </div>
         {location === 0 && <RequestFreind></RequestFreind>}
