@@ -61,14 +61,14 @@ export default function NavBottom() {
         꿈
       </Link>
       <Link
-        href={"/friend"}
+        href={"/train/friend"}
         className={
-          pathName === "/friend" ? styles.nav_item_select : styles.nav_item
+          pathName === "/train/friend" ? styles.nav_item_select : styles.nav_item
         }
       >
         <Image
           className={styles.nav_icon}
-          src={pathName === "/friend" ? friendSelect : friend}
+          src={pathName === "/train/friend" ? friendSelect : friend}
           alt="친구"
         />
         친구
