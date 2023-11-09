@@ -28,7 +28,7 @@ class MainActivity : AppCompatActivity() {
 
         webView.webViewClient = SslWebViewConnect()
         webView.webChromeClient = WebChromeClient()
-        webView.loadUrl(resources.getString(R.string.cozy_train_url))
+        webView.loadUrl(BuildConfig.COZY_TRAIN_URL)
     }
 
     override fun onBackPressed() { // 뒤로가기 기능 구현

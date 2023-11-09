@@ -1,6 +1,3 @@
 <resources>
     <string name="app_name">Cozy Train</string>
-    <string name="cozy_train_url">http://dev.cozytrain.com</string>
-<!--    <string name="cozy_train_url">https://google.com/</string>-->
-
 </resources>
