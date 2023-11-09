@@ -43,7 +43,7 @@ export default function Korea() {
             <div className={styles.mapAllButton}>
                 <MapAllButton>대한민국</MapAllButton>
             </div>
-            <Canvas camera={{ position: [0, 0.03, -0.2], near: 0.038, lookAt: [-0.133, -0.003, -0.017] }}>
+            <Canvas camera={{ position: [0, 0.03, -0.2], near: 0.038 }}>
                 <Suspense fallback={null}>
                     <Model
                         url={Models[0].url}
