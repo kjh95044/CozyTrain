@@ -1,0 +1,12 @@
+.modal {
+  position: absolute;
+  z-index: 2;
+  inset: 50%;
+  width: 240px;
+  padding: 12px 0;
+  background-color: var(--primary);
+  transform: translate(-50%, -50%);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
