@@ -39,9 +39,9 @@ export default function Page(props) {
     }, 1);
   };
 
-  const searchDrink = async (e) => {
+  const searchDrink = async (searchName) => {
     const resp = await getFetch("caffeine/search", {
-      searchName: e,
+      searchName,
     });
 
     setData(resp.response.content);
