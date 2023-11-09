@@ -19,15 +19,15 @@ export default function Page() {
     router.push("/login");
   };
 
-  console.log(dist);
-
   return (
     <div className={styles.container}>
       <div className={styles.userProfile}>
         <Image
           className={styles.profileImg}
-          src={profileImg}
+          src={memberProfileImg ? memberProfileImg : profileImg}
           alt="프로필 사진"
+          width={100}
+          height={100}
         />
         <div className={styles.memberName}>
           <div>닉네임: {memberName}</div>
