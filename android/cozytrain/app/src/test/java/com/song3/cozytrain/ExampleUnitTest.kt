@@ -1,4 +1,4 @@
-package com.example.cozytrain
+package com.song3.cozytrain
 
 import org.junit.Test
 

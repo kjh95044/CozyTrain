@@ -13,6 +13,5 @@ dependencyResolutionManagement {
     }
 }
 
-rootProject.name = "cozytrain"
-include(":app")
- 
+rootProject.name = "Cozy Train"
+include ':app'
