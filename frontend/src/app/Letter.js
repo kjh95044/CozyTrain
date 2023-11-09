@@ -2,7 +2,7 @@
 
 import { useEffect, useState } from "react";
 import Image from "next/image";
-import { useRouter } from "next/navigation";
+import Link from "next/link";
 
 import PrimaryButton from "@/components/button/PrimaryButton";
 import Modal from "@/components/Modal";
@@ -13,7 +13,6 @@ export default function Letter() {
   const [showLetter, setShowLetter] = useState(false);
   const [shakeLetter, setShakeLetter] = useState(false);
   const [showModal, setShowModal] = useState(false);
-  const router = useRouter();
 
   useEffect(() => {
     setTimeout(() => {
@@ -40,9 +39,9 @@ export default function Letter() {
         <Modal onClick={() => setShowModal(false)}>
           <div>수면 리포트 샬라샬라</div>
 
-          <PrimaryButton onClick={() => router.push("/train")}>
-            확인
-          </PrimaryButton>
+          <Link href={"/train"}>
+            <PrimaryButton>확인</PrimaryButton>
+          </Link>
         </Modal>
       )}
     </>

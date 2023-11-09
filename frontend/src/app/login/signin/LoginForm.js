@@ -3,9 +3,8 @@
 import { useRouter } from "next/navigation";
 import { useState } from "react";
 
-import getFetch from "@/services/getFetch";
 import useStore from "@/store/useStore";
-import postFetch from "@/services/postFetch";
+import loginFetch from "@/services/auth/loginFetch";
 import styles from "./LoginForm.module.css";
 
 export default function LoginForm() {
@@ -23,7 +22,7 @@ export default function LoginForm() {
     };
 
     try {
-      const data = await postFetch("member/login", formData);
+      const data = await loginFetch("member/login", formData);
       const respData = data.response;
 
       document.cookie = `accessToken=${respData.accessToken}`;

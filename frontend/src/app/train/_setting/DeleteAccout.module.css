@@ -1,12 +1,22 @@
 .modal {
-  position: absolute;
-  z-index: 2;
+  position: fixed;
+  z-index: 12;
   inset: 50%;
-  width: 240px;
-  padding: 12px 0;
-  background-color: var(--primary);
+  padding: 16px 0;
+  border-radius: 12px;
   transform: translate(-50%, -50%);
   display: flex;
+  width: 240px;
+  height: fit-content;
+  flex-direction: column;
   justify-content: center;
   align-items: center;
+  background-color: white;
+  gap: 12px;
+  box-shadow: var(--shadow-lg);
+}
+
+.btn {
+  display: flex;
+  gap: 20px;
 }

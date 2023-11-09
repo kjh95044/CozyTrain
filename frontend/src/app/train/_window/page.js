@@ -53,5 +53,7 @@ export default function Window() {
     getCurLocation();
   }, []);
 
-  return <Image src={region} alt="" className={styles.city}></Image>;
+  return region ? (
+    <Image src={region} alt="" className={styles.city}></Image>
+  ) : null;
 }

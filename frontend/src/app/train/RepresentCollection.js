@@ -19,15 +19,16 @@ export default function RepresentCollection() {
   };
 
   return (
-    <div className={styles.collection}>
+    <>
       {Object.keys(collection).length ? (
         <Image
+          className={styles.collection}
           src={collection.itemImgUrl}
           alt={collection.itemName}
           width={100}
           height={100}
         ></Image>
       ) : null}
-    </div>
+    </>
   );
 }

@@ -1,4 +1,6 @@
 export default function getAccessToken() {
+  console.log(document.cookie);
+
   const parts = document.cookie.split("; ");
 
   let accessToken = null;

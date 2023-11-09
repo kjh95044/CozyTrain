@@ -19,6 +19,10 @@ export default function Page() {
     router.push("/login");
   };
 
+  const handleDeleteAcountFalse = () => {
+    setDeleteAcount(false);
+  };
+
   return (
     <div className={styles.container}>
       <div className={styles.userProfile}>
@@ -50,7 +54,9 @@ export default function Page() {
         </PrimaryButton>
       </div>
 
-      {deleteAcount && <DeleteAccout />}
+      {deleteAcount && (
+        <DeleteAccout handleDeleteAcountFalse={handleDeleteAcountFalse} />
+      )}
     </div>
   );
 }
