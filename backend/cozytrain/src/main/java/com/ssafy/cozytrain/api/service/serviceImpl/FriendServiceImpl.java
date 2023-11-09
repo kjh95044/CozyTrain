@@ -16,12 +16,13 @@ import com.ssafy.cozytrain.api.service.TrainService;
 import com.ssafy.cozytrain.common.exception.NotFoundException;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.data.domain.Page;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.time.LocalDateTime;
 import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Comparator;
 import java.util.List;
 
 @Service
@@ -55,7 +56,7 @@ public class FriendServiceImpl implements FriendService {
             return new NotFoundException("검색한 친구가 없습니다");
         });
 
-        friendAllList.forEach(e ->{
+        friendAllList.forEach(e -> {
             Member friendMember = memberRepository.findByMemberId(e.getMemberId()).orElseThrow(() -> {
                 log.info("해당 User에 대한 정보를 찾지 못했습니다.");
                 return new NotFoundException("Not Found User");
@@ -73,14 +74,14 @@ public class FriendServiceImpl implements FriendService {
         Long friendId = friendReqDto.getMemberId();
         Member member = memberRepository.findByMemberLoginId(memberId).orElseThrow(() -> {
             log.info("해당 User에 대한 정보를 찾지 못했습니다.");
-            return  new NotFoundException("Not Found User");
+            return new NotFoundException("Not Found User");
         });
 
         int friendType = 0;
         Long memberFirstId = member.getMemberId();
         Long memberSecondId = friendId;
 
-        if(member.getMemberId()>friendId){
+        if (member.getMemberId() > friendId) {
             memberFirstId = friendId;
             memberSecondId = member.getMemberId();
             friendType = 1;
@@ -124,7 +125,7 @@ public class FriendServiceImpl implements FriendService {
         friendRepository.save(friend).getFriendId();
 
         Long friendId = friend.getMemberFirst().getMemberId();
-        if (friendId == member.getMemberId()){
+        if (friendId == member.getMemberId()) {
             friendId = friend.getMemberSecond().getMemberId();
         }
 
@@ -177,6 +178,13 @@ public class FriendServiceImpl implements FriendService {
             e.setNoReadCo(noReadCo);
         });
 
+        Collections.sort(friendList, new Comparator<FriendDto.FriendResDto>() {
+            @Override
+            public int compare(FriendDto.FriendResDto o1, FriendDto.FriendResDto o2) {
+                return o2.getTrainInfo().getDist() - o1.getTrainInfo().getDist();
+            }
+        });
+
         return friendList;
     }
 
@@ -193,7 +201,7 @@ public class FriendServiceImpl implements FriendService {
             return new NotFoundException("Not Found Send Friend List");
         });
 
-        friendList.forEach(e ->{
+        friendList.forEach(e -> {
             Member friendMember = memberRepository.findByMemberId(e.getMemberId()).orElseThrow(() -> {
                 log.info("해당 User에 대한 정보를 찾지 못했습니다.");
                 return new NotFoundException("Not Found User");
@@ -217,7 +225,7 @@ public class FriendServiceImpl implements FriendService {
             return new NotFoundException("Not Found Received Friend List");
         });
 
-        friendList.forEach(e ->{
+        friendList.forEach(e -> {
             Member friendMember = memberRepository.findByMemberId(e.getMemberId()).orElseThrow(() -> {
                 log.info("해당 User에 대한 정보를 찾지 못했습니다.");
                 return new NotFoundException("Not Found User");
