@@ -3,6 +3,7 @@
 import Image from "next/image";
 import { useState } from "react";
 
+import Weekly from "./Weekly";
 import Daily from "./Daily";
 import styles from "./page.module.css";
 import graph from "#/images/graph.png";
@@ -23,6 +24,7 @@ export default function Report() {
       </div>
 
       {isDaily && <Daily></Daily>}
+      {!isDaily && <Weekly></Weekly>}
 
       <NavBottom />
     </div>

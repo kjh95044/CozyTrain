@@ -1,10 +1,10 @@
-import { useState, useEffect } from "react";
+import { useState } from "react";
 
-import SleepTime from "./_componets/SleepTime";
-import SelectDate from "./_componets/SelectDate";
 import getFetch from "@/services/getFetch";
-import Score from "./_componets/Score";
-import Stage from "./_componets/Stage";
+import SleepTime from "./_components/SleepTime";
+import SelectDate from "./_components/SelectDate";
+import Score from "./_components/Score";
+import Stage from "./_components/Stage";
 
 export default function Daily() {
   // const [report, setReport] = useState({});
