@@ -2,8 +2,8 @@
 
 import { useState } from "react";
 import { useRouter } from "next/navigation";
-
-import loginFetch from "@/services/auth/loginFetch";
+import getFetch from "@/services/auth/getFetch";
+import postFetch from "@/services/auth/postFetch";
 import Title from "../Title";
 import styles from "./page.module.css";
 
@@ -18,8 +18,7 @@ export default function SingUp() {
 
   const CheckDuplicateId = async (e) => {
     e.preventDefault();
-    const response = await fetch(`https://dev.cozytrain.com/api/member/${id}`);
-    const resp = await response.json();
+    const resp = await getFetch(`member/${id}`);
 
     if (resp.response) setIsDuplicateId(1);
     else setIsDuplicateId(2);
@@ -45,7 +44,7 @@ export default function SingUp() {
       memberName: username,
     };
 
-    loginFetch("member/signup", formData)
+    postFetch("member/signup", formData)
       .then(() => {
         router.push("/login");
       })

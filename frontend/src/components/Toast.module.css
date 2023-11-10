@@ -1,10 +1,8 @@
 .toast {
   position: fixed;
-  padding: 8px 8px;
-  background-color: var(--accent);
+  background-color: transparent;
   left: 50%;
-  bottom: 12%;
+  top: 50%;
   transform: translateX(-50%);
-  border-radius: 10px;
   z-index: 10;
 }
