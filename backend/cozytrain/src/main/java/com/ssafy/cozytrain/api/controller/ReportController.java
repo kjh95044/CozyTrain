@@ -4,6 +4,7 @@ import com.ssafy.cozytrain.api.dto.ReportDto;
 import com.ssafy.cozytrain.api.entity.Member;
 import com.ssafy.cozytrain.api.service.MemberService;
 import com.ssafy.cozytrain.api.service.ReportService;
+import com.ssafy.cozytrain.api.service.TrainService;
 import com.ssafy.cozytrain.common.exception.NotFoundException;
 import com.ssafy.cozytrain.common.utils.ApiUtils;
 import com.ssafy.cozytrain.common.utils.JwtUtils;
@@ -25,6 +26,7 @@ import static com.ssafy.cozytrain.common.utils.ApiUtils.success;
 @RequiredArgsConstructor
 public class ReportController {
     private final ReportService reportService;
+    private final TrainService trainService;
     private final MemberService memberService;
     private final JwtUtils jwtUtils;
 
@@ -37,8 +39,9 @@ public class ReportController {
         Member member = memberService.findByMemberLoginId(memberId)
                 .orElseThrow(() -> new NotFoundException("Not Found User"));
         Long reportId = reportService.saveReport(reportDtoReq, member);
-
-        return success(reportService.insertHealthScore(reportId));
+        var report = reportService.insertHealthScore(reportId);
+        trainService.moveTrain(report.getSleepScore(),member);
+        return success(report);
     }
 
     @GetMapping()

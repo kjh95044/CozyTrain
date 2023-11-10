@@ -9,6 +9,7 @@ import com.ssafy.cozytrain.api.repository.SleepStageRepository;
 import com.ssafy.cozytrain.api.service.CheckListService;
 import com.ssafy.cozytrain.api.service.ReportService;
 import com.ssafy.cozytrain.api.service.elastic.CaffeineService;
+import com.ssafy.cozytrain.common.exception.FoundException;
 import com.ssafy.cozytrain.common.exception.NotFoundException;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -58,8 +59,9 @@ public class ReportServiceImpl implements ReportService {
 
         Health health;
         if (todayReport.isPresent()) {
-            health = healthRepository.findByReport(report).orElseThrow(() -> new NotFoundException("Not Found Health"));
-            health.updateHealthData(healthDtoReq);
+            throw new FoundException("오늘의 리포트가 이미 생성되었습니다.");
+//            health = healthRepository.findByReport(report).orElseThrow(() -> new NotFoundException("Not Found Health"));
+//            health.updateHealthData(healthDtoReq);
         } else {
             health = Health.builder()
                     .sleepDuration(healthDtoReq.getSleepDuration())
@@ -176,7 +178,6 @@ public class ReportServiceImpl implements ReportService {
 //                    .build();
         // 오늘 리포트 querydsl
         ReportDto.ReportDtoCommon reportCommonToday = reportRepository.findReportByDate(member, LocalDate.now());
-        log.info(reportCommonToday.toString());
 
         // 평균 리포트
         List<ReportDto.ReportDtoCommon> reports = reportRepository.findReportsByMember(member);
