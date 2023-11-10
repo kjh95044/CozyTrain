@@ -90,7 +90,7 @@ public class MessageServiceImpl implements MessageService {
             return new NotFoundException("Not Found User");
         });
         messageList.forEach(e ->{
-            if (e.getSenderLoginId().equals(friendMember.getMemberLoginId())) {
+            if (e.getSenderMemberId().equals(friendMember.getMemberId())) {
 //                Message message = messageRepository.findByMessageIdAndSenderMember_MemberId(e.getMessageId(), friendMemberId);
                 Message message = messageRepository.findById(e.getMessageId()).orElseThrow(() -> new NotFoundException("Not Found Message"));
                 message.updateIsRead();
