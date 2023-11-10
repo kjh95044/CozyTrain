@@ -1,6 +1,6 @@
 "use client";
 
-import { use, useState } from "react";
+import { useState } from "react";
 import { useRouter } from "next/navigation";
 
 import getPetch from "@/services/getFetch";
@@ -16,10 +16,6 @@ export default function SingUp() {
   const [username, setUsername] = useState("");
   const [emptyInput, setEmptyInput] = useState(false);
   const router = useRouter();
-
-  // const handleIdCheckBtnClick = () => {
-  //   CheckDuplicateId;
-  // };
 
   const CheckDuplicateId = async (e) => {
     e.preventDefault();
@@ -50,7 +46,7 @@ export default function SingUp() {
       memberName: username,
     };
 
-    fetchPost("member/signup", formData)
+    postFetch("member/signup", formData)
       .then(() => {
         router.push("/login");
       })

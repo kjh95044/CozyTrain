@@ -1,6 +1,7 @@
 import Image from "next/image";
 import { useState } from "react";
 
+import Check from "@/components/Lottie/Check";
 import Toast from "@/components/Toast";
 import PrimaryButton from "@/components/button/PrimaryButton";
 import deleteFetch from "@/services/deleteFetch";
@@ -97,7 +98,11 @@ export default function SearchResult(props) {
         );
       })}
 
-      {showToast && <Toast>추가 완료!</Toast>}
+      {showToast && (
+        <Toast>
+          <Check />
+        </Toast>
+      )}
     </div>
   );
 }
