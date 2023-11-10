@@ -1,5 +1,7 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 
+import Empty from "./_components/Empty";
+import formatDate from "@/utils/formatDate";
 import getFetch from "@/services/getFetch";
 import SleepTime from "./_components/SleepTime";
 import SelectDate from "./_components/SelectDate";
@@ -7,20 +9,22 @@ import Score from "./_components/Score";
 import Stage from "./_components/Stage";
 
 export default function Daily() {
-  // const [report, setReport] = useState({});
+  const [report, setReport] = useState({});
   const [date, setDate] = useState(new Date());
 
   const getReport = async () => {
-    const resp = await getFetch("report");
-
-    console.log(resp);
-
-    // setReport(resp.response);
+    const formattedDate = formatDate(date);
+    try {
+      const resp = await getFetch(`report/${formattedDate}`);
+      setReport(resp.response);
+    } catch {
+      setReport({});
+    }
   };
 
-  // useEffect(() => {
-  //   getReport();
-  // }, []);
+  useEffect(() => {
+    getReport();
+  }, [date]);
 
   const setDatePrev = () => {
     const newDate = new Date(date);
@@ -45,9 +49,16 @@ export default function Daily() {
         setDatePrev={setDatePrev}
         setDateNext={setDateNext}
       ></SelectDate>
-      <SleepTime></SleepTime>
-      <Score></Score>
-      <Stage></Stage>
+
+      {report.date ? (
+        <>
+          <SleepTime report={report}></SleepTime>
+          <Score report={report}></Score>
+          <Stage></Stage>
+        </>
+      ) : (
+        <Empty />
+      )}
     </>
   );
 }

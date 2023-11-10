@@ -3,13 +3,13 @@ import Image from "next/image";
 import train from "#/icons/train64.png";
 import styles from "./Score.module.css";
 
-export default function Score() {
+export default function Score({ report }) {
   return (
     <div className={styles.layout}>
-      <div>점수: 67점</div>
+      <div>점수: {report.sleepScore}점</div>
       <div className={styles.width}>
         <div className={styles.score}>
-          이동 거리: 67km
+          이동 거리: {report.steps}km
           <Image className={styles.train} src={train} alt="기차"></Image>
         </div>
       </div>
