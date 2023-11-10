@@ -1,32 +1,55 @@
 'use client'
 
 import { Canvas } from "@react-three/fiber";
-import { Suspense, useRef, useEffect } from "react";
+import { Suspense, useRef, useEffect, useState } from "react";
 import { OrbitControls, Clone } from "@react-three/drei";
 import { useGLTF } from "@react-three/drei";
-
-import * as THREE from 'three';
 
 import styles from "./page.module.css"
 import MapCloseButton from "../component/MapCloseButton";
 import MapAllButton from "../component/MapAllButton";
 import GlobeButton from "../component/GlobeButton";
 
-
-const Models = [
-    { name: "ground", url: "/models/korea-ground.glb", position: [0, 0, 0], rotation: [0, 0, 0] },
-    { name: "train", url: "/models/red-train.glb", position: [-0.133, -0.003, -0.017], rotation: [0, 0, 0] }
-]
-
-const Model = ({ url, scale, position, rotation }) => {
-    const { scene } = useGLTF(url);
-    scene.scale.set(scale, scale, scale);
-    scene.position.set(position[0], position[1], position[2])
-    scene.rotation.set(rotation[0], rotation[1], rotation[2])
-    return <Clone object={scene} />;
-}
+import getFetch from "@/services/getFetch"
+import positionData from "public/json/position.json"
 
 export default function Korea() {
+
+    const [curPosition, setCurPosition] = useState([]);
+    const [curRotation, setCurRotation] = useState([]);
+
+    const getTrainLocation = async () => {
+        const data = await getFetch("train/cur-location-info")
+        const curRegionNum = data.response.regionNum;
+        const curArea = data.response.area;
+        const curCountry = data.response.countryKor;
+
+        if (curCountry !== '한국') {
+            setCurPosition([
+                -0.132,
+                -0.003,
+                -0.07
+            ]);
+            setCurRotation([
+                0,
+                -0.1,
+                0
+            ]);
+        }
+        else {
+            const foundPositionData = findPosition(curRegionNum, curArea);
+            if (foundPositionData) {
+                setCurPosition(foundPositionData.position);
+                setCurRotation(foundPositionData.rotation);
+            }
+        }
+    }
+
+    const findPosition = (regionNum, area) => {
+        return positionData.find((data) =>
+            data.regionNum === regionNum && data.area === area
+        );
+    }
 
     const group = useRef();
 
@@ -34,7 +57,22 @@ export default function Korea() {
         if (group.current) {
             controls.current.target.copy(group.current.position);
         }
+
+        getTrainLocation();
     }, []);
+
+    const Models = [
+        { name: "ground", url: "/models/korea-ground.glb", position: [0, 0, 0], rotation: [0, 0, 0] },
+        { name: "train", url: "/models/red-train.glb", position: curPosition, rotation: curRotation }
+    ]
+
+    const Model = ({ url, scale, position, rotation }) => {
+        const { scene } = useGLTF(url);
+        scene.scale.set(scale, scale, scale);
+        scene.position.set(position[0], position[1], position[2])
+        scene.rotation.set(rotation[0], rotation[1], rotation[2])
+        return <Clone object={scene} />;
+    }
 
     return (
         <div className={styles.container}>
