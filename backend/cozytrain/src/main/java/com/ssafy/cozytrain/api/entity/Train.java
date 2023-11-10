@@ -24,7 +24,7 @@ public class Train {
     private LocalDate endDate;
     private LocalDateTime createdAt;
     private LocalDateTime updatedAt;
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "station_id", referencedColumnName = "station_id")
     private Station station;
 
@@ -32,7 +32,7 @@ public class Train {
     @JoinColumn(name = "member_id", referencedColumnName = "member_id")
     private Member member;
 
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "track_id", referencedColumnName = "track_id")
     private Track track;
 

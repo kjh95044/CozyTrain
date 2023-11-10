@@ -30,11 +30,11 @@ public class Station {
 //    @JoinColumn(name = "country_id", referencedColumnName = "country_id")
 //    private Country country;
 
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "country_id", referencedColumnName = "country_id")
     private Country country;
 
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "track_id", referencedColumnName = "track_id")
     private Track track;
 
