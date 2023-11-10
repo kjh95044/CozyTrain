@@ -1,5 +1,6 @@
 import Link from "next/link";
 
+import Name from "./Name";
 import Button from "@/components/button/Button";
 import TurnSheep from "@/components/Lottie/TurnSheep";
 import styles from "./page.module.css";
@@ -11,6 +12,7 @@ export default function Login() {
         <div>칙칙</div>
         <div>포근포근</div>
       </div>
+      {/* <Name /> */}
 
       <div className={styles.logo}>
         <TurnSheep />
