@@ -71,17 +71,6 @@ public class ReportServiceImpl implements ReportService {
 
         healthRepository.save(health);
 
-//        List<SleepStage> sleepStages;
-//        if(todayReport.isPresent()){
-//            sleepStages = sleepStageRepository.findAllByHealth(health);
-//            for(SleepStage sleepStage : sleepStages){
-//                sleepStage.updateSleepStage();
-//            }
-//        }
-//        else{
-//
-//        }
-
         // TODO: 2023-11-02 수면 정보는 현재 이미 만들어져 있으면 덮어쓰기 안되게 되어 있다.
 
         for (SleepStageDto.SleepStageDtoReq sleepStageDtoReq : sleepStagesReq) {
@@ -111,7 +100,7 @@ public class ReportServiceImpl implements ReportService {
     private int getCaffeineTotal(Member member) {
         CheckListDto.CheckListTodayRes checkListTodayRes = checkListService.checkListToday(member);
 
-        if(checkListTodayRes == null) {
+        if (checkListTodayRes == null) {
             return 0;
         }
 
@@ -140,7 +129,7 @@ public class ReportServiceImpl implements ReportService {
     }
 
     @Override
-    public ReportDto.ReportDtoRes insertHealthScore(Long reportId) {
+    public ReportDto.ReportDtoCommon insertHealthScore(Long reportId) {
         Report report = reportRepository.findById(reportId)
                 .orElseThrow(() -> new NotFoundException("Not Found Report"));
 
@@ -153,12 +142,10 @@ public class ReportServiceImpl implements ReportService {
 
         healthRepository.save(health);
 
-        ReportDto.ReportDtoRes rp = ReportDto.ReportDtoRes.builder()
+        ReportDto.ReportDtoCommon rp = ReportDto.ReportDtoCommon.builder()
+                .date(report.getSleepReportDate())
                 .caffeine(report.getCaffeine())
-                .sleepDuration(health.getSleepDuration())
-                .steps(health.getSteps())
-                .sleepScore(health.getSleepScore())
-                .stressLevel(health.getStressLevel())
+                .health(health)
                 .sleepStages(sleepStages)
                 .build();
 
@@ -174,29 +161,58 @@ public class ReportServiceImpl implements ReportService {
 
     @Override
     public ReportDto.ReportDtoRes getTodayReport(Member member) {
-        Report report = findReportToday(member)
-                .orElseThrow(() -> new NotFoundException("Not Found Report"));
+        // 오늘 리포트 기존방식
+//        Report todayReport = findReportToday(member)
+//                .orElseThrow(() -> new NotFoundException("Not Found Report"));
+//        Health todayHealth = healthRepository.findByReport(todayReport)
+//                .orElseThrow(() -> new NotFoundException("Not Found Health"));
+//        List<SleepStage> sleepStages = sleepStageRepository.findAllByHealth(todayHealth);
+//
+//        ReportDto.ReportDtoCommon reportCommonToday =
+//                ReportDto.ReportDtoCommon.builder()
+//                    .caffeine(todayReport.getCaffeine())
+//                    .health(todayHealth)
+//                    .sleepStages(sleepStages)
+//                    .build();
+        // 오늘 리포트 querydsl
+        ReportDto.ReportDtoCommon reportCommonToday = reportRepository.findReportByDate(member, LocalDate.now());
+        log.info(reportCommonToday.toString());
 
-        Health health = healthRepository.findByReport(report)
-                .orElseThrow(() -> new NotFoundException("Not Found Health"));
+        // 평균 리포트
+        List<ReportDto.ReportDtoCommon> reports = reportRepository.findReportsByMember(member);
+        ReportDto.ReportDtoAverage averageReport = ReportDto.ReportDtoAverage.builder().build();
 
-        List<SleepStage> sleepStages = sleepStageRepository.findAllByHealth(health);
+        if (!reports.isEmpty()) {
+            double averageSleepScore = reports.stream().mapToDouble(ReportDto.ReportDtoCommon::getSleepScore).average().orElse(0);
+            double averageSleepDuration = reports.stream().mapToDouble(ReportDto.ReportDtoCommon::getSleepDuration).average().orElse(0);
+            double averageStressLevel = reports.stream().mapToDouble(ReportDto.ReportDtoCommon::getStressLevel).average().orElse(0);
+            double averageSteps = reports.stream().mapToDouble(ReportDto.ReportDtoCommon::getSteps).average().orElse(0);
+            double averageCaffeine = reports.stream().mapToDouble(ReportDto.ReportDtoCommon::getCaffeine).average().orElse(0);
+
+            averageReport = ReportDto.ReportDtoAverage.builder()
+                    .sleepScore(averageSleepScore)
+                    .sleepDuration(averageSleepDuration)
+                    .stressLevel(averageStressLevel)
+                    .steps(averageSteps)
+                    .caffeine(averageCaffeine)
+                    .build();
+        }
+
+        // 최근 리포트
+        ReportDto.ReportDtoCommon recentReport = reportRepository.findReportInfoRecent(member);
 
         return ReportDto.ReportDtoRes.builder()
-                .caffeine(report.getCaffeine())
-                .sleepDuration(health.getSleepDuration())
-                .steps(health.getSteps())
-                .sleepScore(health.getSleepScore())
-                .stressLevel(health.getStressLevel())
-                .sleepStages(sleepStages)
+                .todayReport(reportCommonToday)
+                .averageReport(averageReport)
+                .recentReport(recentReport)
                 .build();
     }
 
     @Override
-    public ReportDto.OneWeekReportDto getOneWeekReports(Member member) {
+    public ReportDto.ReportDtoByDate getOneWeekReports(Member member) {
         List<Report> reports = reportRepository.findReportsForLastWeek(member);
 
-        ReportDto.OneWeekReportDto oneWeekReportDto;
+        ReportDto.ReportDtoByDate oneWeekReportDto;
 
         List<SleepDto> sleeps = new ArrayList<>();
         double weekSleepDurations = 0.0;
@@ -219,13 +235,57 @@ public class ReportServiceImpl implements ReportService {
         double averageSleep = cnt != 0 ? weekSleepDurations / cnt : 0;
         double averageSleepScore = cnt != 0 ? weekSleepScores / cnt : 0;
 
-        oneWeekReportDto = ReportDto.OneWeekReportDto.builder()
+        oneWeekReportDto = ReportDto.ReportDtoByDate.builder()
                 .averageSleep(averageSleep)
                 .averageSleepScore(averageSleepScore)
                 .sleeps(sleeps)
+                .totalDate(7)
                 .build();
 
         return oneWeekReportDto;
+    }
+
+    @Override
+    public ReportDto.ReportDtoByDate getReportsByDates(Member member, LocalDate startDate, LocalDate endDate) {
+        List<Report> reports = reportRepository.findReportsByDate(member, startDate, endDate);
+
+        ReportDto.ReportDtoByDate reportDtoByDate;
+
+        List<SleepDto> sleeps = new ArrayList<>();
+        double sleepDurations = 0.0;
+        double sleepScores = 0.0;
+        int cnt = 0;
+
+        for (Report report : reports) {
+            Health health = healthRepository.findByReport(report)
+                    .orElseThrow(() -> new NotFoundException("Not Found Health"));
+            sleepScores += health.getSleepScore();
+            sleepDurations += health.getSleepDuration();
+            cnt++;
+
+            sleeps.add(SleepDto.builder()
+                    .date(report.getSleepReportDate())
+                    .sleepDuration(health.getSleepDuration())
+                    .build());
+        }
+
+        double averageSleep = cnt != 0 ? sleepDurations / cnt : 0;
+        double averageSleepScore = cnt != 0 ? sleepScores / cnt : 0;
+        long total = ChronoUnit.DAYS.between(startDate, endDate);
+
+        reportDtoByDate = ReportDto.ReportDtoByDate.builder()
+                .averageSleep(averageSleep)
+                .averageSleepScore(averageSleepScore)
+                .sleeps(sleeps)
+                .totalDate(total)
+                .build();
+
+        return reportDtoByDate;
+    }
+
+    @Override
+    public ReportDto.ReportDtoCommon getReportByDate(Member member, LocalDate date) {
+        return reportRepository.findReportByDate(member, date);
     }
 
     /*
@@ -239,7 +299,6 @@ public class ReportServiceImpl implements ReportService {
         } else {
             score = 20;
         }
-
 
         for (var sleepStage : sleepStages) {
             int stage = sleepStage.getStage();

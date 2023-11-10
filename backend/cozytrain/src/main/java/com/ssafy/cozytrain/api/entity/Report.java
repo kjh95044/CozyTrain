@@ -23,7 +23,7 @@ public class Report {
     private LocalDateTime updatedAt;
     private int caffeine;
 
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "member_id", referencedColumnName = "member_id")
     private Member member;
 
