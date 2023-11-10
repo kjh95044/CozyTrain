@@ -5,8 +5,6 @@ import { Suspense, useRef, useEffect, useState } from "react";
 import { OrbitControls, Clone } from "@react-three/drei";
 import { useGLTF } from "@react-three/drei";
 
-import * as THREE from 'three';
-
 import styles from "./page.module.css"
 import MapCloseButton from "../component/MapCloseButton";
 import MapAllButton from "../component/MapAllButton";
@@ -24,15 +22,27 @@ export default function Korea() {
         const data = await getFetch("train/cur-location-info")
         const curRegionNum = data.response.regionNum;
         const curArea = data.response.area;
+        const curCountry = data.response.countryKor;
 
-        const foundPositionData = findPosition(curRegionNum, curArea);
-        if (foundPositionData) {
-            setCurPosition(foundPositionData.position);
-            setCurRotation(foundPositionData.rotation);
+        if (curCountry !== '한국') {
+            setCurPosition([
+                -0.132,
+                -0.003,
+                -0.07
+            ]);
+            setCurRotation([
+                0,
+                -0.1,
+                0
+            ]);
         }
-
-        console.log(foundPositionData.position);
-        console.log(foundPositionData.rotation);
+        else {
+            const foundPositionData = findPosition(curRegionNum, curArea);
+            if (foundPositionData) {
+                setCurPosition(foundPositionData.position);
+                setCurRotation(foundPositionData.rotation);
+            }
+        }
     }
 
     const findPosition = (regionNum, area) => {
