@@ -86,6 +86,7 @@ public class FriendDto {
         private String profileImg;
         private LocalDateTime updatedAt;
         private Integer noReadCo;
+        private Long chatRoomId;
         private TrainDto.TrainCurInfoDto trainInfo;
 
         @Builder
@@ -99,7 +100,7 @@ public class FriendDto {
         }
 
         @Builder
-        public FriendResDto(Long friendId, Long memberId, String friendLoginId, String friendNickname, String profileImg, LocalDateTime updatedAt, Integer noReadCo, TrainDto.TrainCurInfoDto trainInfo) {
+        public FriendResDto(Long friendId, Long memberId, String friendLoginId, String friendNickname, String profileImg, LocalDateTime updatedAt, Integer noReadCo, Long chatRoomId, TrainDto.TrainCurInfoDto trainInfo) {
             this.friendId = friendId;
             this.memberId = memberId;
             this.friendLoginId = friendLoginId;
@@ -107,12 +108,17 @@ public class FriendDto {
             this.profileImg = profileImg;
             this.updatedAt = updatedAt;
             this.noReadCo = noReadCo;
+            this.chatRoomId = chatRoomId;
             this.trainInfo = trainInfo;
         }
 
 
         public void setNoReadCo(Integer noReadCo){
             this.noReadCo = noReadCo;
+        }
+
+        public void setChatRoomId(Long chatRoomId){
+            this.chatRoomId = chatRoomId;
         }
 
         public void setTrainInfo(TrainDto.TrainCurInfoDto trainInfo){

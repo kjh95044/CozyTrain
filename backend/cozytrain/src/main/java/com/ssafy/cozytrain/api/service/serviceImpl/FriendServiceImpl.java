@@ -166,6 +166,7 @@ public class FriendServiceImpl implements FriendService {
                         log.info("해당 친구와의 채팅방 정보를 찾지 못했습니다.");
                         return new NotFoundException("Not Found ChatRoom");
                     });
+            e.setChatRoomId(chatRoom.getChatRoomId());
 
             Member friendMember = memberRepository.findByMemberId(e.getMemberId()).orElseThrow(() -> {
                 log.info("해당 User에 대한 정보를 찾지 못했습니다.");
