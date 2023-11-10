@@ -71,7 +71,9 @@ export default function Asia() {
                     onCloseModal={closeModal}>
                 </MapModal>
             }
-            <MapAllButton />
+            <div className={styles.mapAllButton}>
+                <MapAllButton>전체 보기</MapAllButton>
+            </div>
         </div>
     );
 }
