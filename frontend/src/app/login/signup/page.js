@@ -3,22 +3,41 @@
 import { useState } from "react";
 import { useRouter } from "next/navigation";
 
+import loginFetch from "@/services/auth/loginFetch";
 import Title from "../Title";
 import styles from "./page.module.css";
 
 export default function SingUp() {
   const [id, setId] = useState("");
+  const [isDuplicateId, setIsDuplicateId] = useState(0);
   const [password, setPassword] = useState("");
   const [passwordCheck, setPasswordCheck] = useState("");
   const [username, setUsername] = useState("");
+  const [emptyInput, setEmptyInput] = useState(false);
   const router = useRouter();
 
-  const CheckDuplicateId = (e) => {
+  const CheckDuplicateId = async (e) => {
     e.preventDefault();
+    const response = await fetch(`https://dev.cozytrain.com/api/member/${id}`);
+    const resp = await response.json();
+
+    if (resp.response) setIsDuplicateId(1);
+    else setIsDuplicateId(2);
   };
 
   const handleSubmit = (e) => {
     e.preventDefault();
+
+    if (
+      !id ||
+      !password ||
+      !passwordCheck ||
+      !username ||
+      password !== passwordCheck
+    ) {
+      setEmptyInput(true);
+      return;
+    }
 
     const formData = {
       memberId: id,
@@ -26,16 +45,11 @@ export default function SingUp() {
       memberName: username,
     };
 
-    fetch("https://dev.cozytrain.com/api/member/signup", {
-      method: "POST",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify(formData),
-    })
-      .then((resp) => resp.json())
+    loginFetch("member/signup", formData)
       .then(() => {
         router.push("/login");
       })
-      .catch((error) => console.log(error));
+      .catch((e) => console.log(e));
   };
 
   return (
@@ -56,6 +70,13 @@ export default function SingUp() {
             확인
           </button>
         </div>
+        {isDuplicateId == "1" ? (
+          <div className={styles.textRed}>이미 존재하는 아이디입니다.</div>
+        ) : isDuplicateId == "2" ? (
+          <div className={styles.possibleId}>사용 가능한 아이디입니다.</div>
+        ) : (
+          ""
+        )}
         <div className={styles.input_content}>
           <label htmlFor="password">비밀번호</label>
           <input
@@ -77,6 +98,13 @@ export default function SingUp() {
             onChange={(e) => setPasswordCheck(e.target.value)}
           />
         </div>
+
+        {password !== passwordCheck ? (
+          <div className={styles.textRed}>비밀번호가 일치하지 않습니다.</div>
+        ) : (
+          ""
+        )}
+
         <div className={styles.input_content}>
           <label htmlFor="username">닉네임</label>
           <input
@@ -88,6 +116,13 @@ export default function SingUp() {
             onChange={(e) => setUsername(e.target.value)}
           />
         </div>
+
+        <div className={styles.textRed}>
+          {emptyInput && !id && <p>아이디를 입력해주세요.</p>}
+          {emptyInput && !password && <p>비밀번호를 입력해주세요.</p>}
+          {emptyInput && !username && <p>닉네임을 입력해주세요.</p>}
+        </div>
+
         <div className={styles.button_container}>
           <button
             className={styles.button}
