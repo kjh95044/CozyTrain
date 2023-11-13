@@ -27,6 +27,8 @@ export default function LoginForm() {
 
       document.cookie = `accessToken=${respData.accessToken}`;
 
+      onLoginSuccess(respData.accessToken);
+
       login(respData.memberName, respData.memberProfileImg);
 
       router.push("/");
@@ -34,6 +36,10 @@ export default function LoginForm() {
       console.log(e);
     }
   };
+
+  function onLoginSuccess(accessToken) {
+    Android.onLoginSuccess(accessToken);
+  }
 
   return (
     <form className={styles.input_container}>
