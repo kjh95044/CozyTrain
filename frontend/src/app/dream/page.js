@@ -111,7 +111,7 @@ export default function Dream() {
                   </Link>
                 </div>
               ) : (
-                <p>꿈을 꾸지 않은 날입니다💤</p>
+                <p className={styles.empty}>꿈을 꾸지 않은 날입니다💤</p>
               )}
             </div>
           )}
