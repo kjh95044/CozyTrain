@@ -14,6 +14,7 @@ import lombok.extern.slf4j.Slf4j;
 import static com.ssafy.cozytrain.api.entity.QHealth.health;
 import static com.ssafy.cozytrain.api.entity.QReport.report;
 import static com.ssafy.cozytrain.api.entity.QSleepStage.sleepStage;
+import static com.ssafy.cozytrain.api.entity.QTrain.train;
 import static com.querydsl.core.group.GroupBy.groupBy;
 import static com.querydsl.core.group.GroupBy.list;
 
@@ -36,6 +37,7 @@ public class ReportRepositoryImpl implements ReportRepositoryCustom {
                 .join(report).on(health.report.eq(report))
                 .join(report.member).on(report.member.eq(member))
                 .leftJoin(sleepStage).on(sleepStage.health.eq(health))
+                .join(train).on(train.member.eq(member))
                 .where(report.member.eq(member))
                 .transform(
                         groupBy(report.reportId).list(
@@ -49,7 +51,8 @@ public class ReportRepositoryImpl implements ReportRepositoryCustom {
                                                 sleepStage.stage,
                                                 sleepStage.startTime,
                                                 sleepStage.endTime
-                                        ))
+                                        )),
+                                        train.moveDist
                                 )
                         )
                 );
@@ -89,8 +92,10 @@ public class ReportRepositoryImpl implements ReportRepositoryCustom {
                 .rightJoin(report).on(health.report.eq(report))
                 .leftJoin(report.member).on(report.member.eq(member))
                 .leftJoin(sleepStage).on(sleepStage.health.eq(health))
+                .join(train).on(train.member.eq(member))
                 .where(report.sleepReportDate.ne(LocalDate.now())
-                        .and(report.member.eq(member)))
+                        .and(report.member.eq(member))
+                )
                 .orderBy(report.sleepReportDate.desc())
                 .transform(
                         groupBy(report.reportId).list(
@@ -104,7 +109,8 @@ public class ReportRepositoryImpl implements ReportRepositoryCustom {
                                                 sleepStage.stage,
                                                 sleepStage.startTime,
                                                 sleepStage.endTime
-                                        ))
+                                        )),
+                                        train.moveDist
                                 )
                         )
                 );
@@ -120,6 +126,7 @@ public class ReportRepositoryImpl implements ReportRepositoryCustom {
                 .rightJoin(report).on(health.report.eq(report))
                 .leftJoin(report.member).on(report.member.eq(member))
                 .leftJoin(sleepStage).on(sleepStage.health.eq(health))
+                .join(train).on(train.member.eq(member))
                 .where(report.sleepReportDate.eq(date)
                         .and(report.member.eq(member)))
                 .transform(
@@ -134,7 +141,8 @@ public class ReportRepositoryImpl implements ReportRepositoryCustom {
                                                 sleepStage.stage,
                                                 sleepStage.startTime,
                                                 sleepStage.endTime
-                                        ))
+                                        )),
+                                        train.moveDist
                                 )
                         )
                 );

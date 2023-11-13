@@ -179,6 +179,7 @@ public class ReportServiceImpl implements ReportService {
         // 오늘 리포트 querydsl
         ReportDto.ReportDtoCommon reportCommonToday = reportRepository.findReportByDate(member, LocalDate.now());
 
+
         // 평균 리포트
         List<ReportDto.ReportDtoCommon> reports = reportRepository.findReportsByMember(member);
         ReportDto.ReportDtoAverage averageReport = ReportDto.ReportDtoAverage.builder().build();

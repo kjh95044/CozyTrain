@@ -87,7 +87,7 @@ public class TrainServiceImpl implements TrainService {
             moveStation(train);
             getReward(member, train.getStation().getCountry());
         }
-        train.updateTrainCurDist(dist);
+        train.updateTrainCurDist(dist, moveDist);
         trainRepository.save(train);
     }
 

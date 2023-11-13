@@ -31,8 +31,9 @@ public class ReportDto {
         private int stressLevel;
         private int steps;
         private int caffeine;
+        private int moveDist;
         @Builder
-        public ReportDtoCommon(LocalDate date, Health health, int caffeine, List<SleepStage> sleepStages){
+        public ReportDtoCommon(LocalDate date, Health health, int caffeine, List<SleepStage> sleepStages, int moveDist){
             this.date = date;
             this.sleepScore = health.getSleepScore();
             this.sleepStages = sleepStages.stream().map(
@@ -46,6 +47,7 @@ public class ReportDto {
             this.steps = health.getSteps();
             this.stressLevel = health.getStressLevel();
             this.caffeine = caffeine;
+            this.moveDist = moveDist;
         }
         @Builder
         public ReportDtoCommon(LocalDate date, int sleepScore, List<SleepStage> sleepStages, int sleepDuration, int stressLevel, int steps, int caffeine){
