@@ -35,10 +35,12 @@ public class ReportController {
     public ApiUtils.ApiResult<ReportDto.ReportDtoCommon> createReport(
             @RequestHeader("Authorization") String header,
             @RequestBody @Valid ReportDto.ReportDtoReq reportDtoReq) {
+        log.info("health: " + reportDtoReq.getHealth().toString());
         String memberId = jwtUtils.getIdFromToken(header.substring(7));
         Member member = memberService.findByMemberLoginId(memberId)
                 .orElseThrow(() -> new NotFoundException("Not Found User"));
         Long reportId = reportService.saveReport(reportDtoReq, member);
+
         var report = reportService.insertHealthScore(reportId);
         trainService.moveTrain(report.getSleepScore(),member);
         return success(report);
