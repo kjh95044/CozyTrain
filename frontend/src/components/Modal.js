@@ -1,19 +1,33 @@
 "use client";
 
+import CloseButton from "./button/CloseButton";
 import styles from "./Modal.module.css";
 
-const BackDrop = (props) => {
-  return <div></div>;
+const BackDrop = ({ onClose }) => {
+  return <div className={styles.backdrop} onClick={onClose}></div>;
 };
 
-const ModalOverlay = (props) => {
-  return <div className={styles.modal_overlay}>{props.children}</div>;
+const Overlay = (props) => {
+  return (
+    <div className={styles.overlay}>
+      <div className={styles.title}>
+        {props.title}
+        <div className={styles.closeBtn}>
+          <CloseButton onClick={props.onClick} />
+        </div>
+      </div>
+      {props.children}
+    </div>
+  );
 };
 
 export default function Modal(props) {
   return (
     <>
-      <ModalOverlay>{props.children}</ModalOverlay>
+      <Overlay onClick={props.onClick} title={props.title}>
+        {props.children}
+      </Overlay>
+      <BackDrop onClose={props.onClick} />
     </>
   );
 }

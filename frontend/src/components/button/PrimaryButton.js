@@ -1,9 +1,9 @@
 import styles from "./PrimaryButton.module.css";
 
-export default function ConfirmButton(props) {
-    return (
-        <button className={styles.container}>
-            {props.children}
-        </button>
-    );
+export default function PrimaryButton(props) {
+  return (
+    <button className={styles.button} onClick={props.onClick}>
+      {props.children}
+    </button>
+  );
 }

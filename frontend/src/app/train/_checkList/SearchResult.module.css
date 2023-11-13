@@ -1,0 +1,17 @@
+.item {
+  display: flex;
+}
+
+.radioBtn {
+  width: 20px;
+  height: 20px;
+  border: 6px solid var(--gray);
+  border-radius: 100%;
+}
+
+.radioBtnClick {
+  width: 12px;
+  height: 12px;
+  outline: 6px solid gray;
+  border-radius: 100%;
+}

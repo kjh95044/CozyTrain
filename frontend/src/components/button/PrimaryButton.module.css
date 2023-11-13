@@ -1,10 +1,8 @@
-.container {
-    background-color: #F2AFB6;
-    border: none;
-    border-radius: 15px;
-    width: 110px;
-    height: 50px;
-    font-weight: 600;
-    font-size: 18px;
-    color: #ffffff;
+.button {
+  background-color: var(--primary);
+  border: none;
+  border-radius: 16px;
+  padding: 8px 16px;
+  color: white;
+  box-shadow: var(--shadow);
 }

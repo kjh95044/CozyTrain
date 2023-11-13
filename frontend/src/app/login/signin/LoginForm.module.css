@@ -34,6 +34,7 @@
   height: 32px;
   border: none;
   box-shadow: var(--shadow);
+  padding-left: 8px;
 }
 
 .input:focus {

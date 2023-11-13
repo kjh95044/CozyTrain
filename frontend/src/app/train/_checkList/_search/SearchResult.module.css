@@ -1,0 +1,41 @@
+.items {
+  display: flex;
+  flex-direction: column;
+  overflow-y: auto;
+  height: 80%;
+  margin-top: 16px;
+}
+
+.item {
+  display: flex;
+  position: relative;
+  align-items: center;
+  padding: 8px 0;
+  font-size: 16px;
+}
+
+.content {
+  width: 92%;
+  text-align: left;
+}
+
+.icon {
+  position: absolute;
+  right: 8px;
+}
+
+.detailContainer {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  padding-right: 4px;
+  margin-bottom: 8px;
+  align-items: center;
+  font-size: 14px;
+}
+
+.detailContent {
+  display: flex;
+  width: 100%;
+  justify-content: space-between;
+}
