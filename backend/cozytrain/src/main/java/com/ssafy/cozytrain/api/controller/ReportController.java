@@ -1,5 +1,6 @@
 package com.ssafy.cozytrain.api.controller;
 
+import com.ssafy.cozytrain.api.dto.HealthDto;
 import com.ssafy.cozytrain.api.dto.ReportDto;
 import com.ssafy.cozytrain.api.entity.Member;
 import com.ssafy.cozytrain.api.service.MemberService;
@@ -34,12 +35,12 @@ public class ReportController {
     @Operation(summary = "레포트 생성")
     public ApiUtils.ApiResult<ReportDto.ReportDtoCommon> createReport(
             @RequestHeader("Authorization") String header,
-            @RequestBody @Valid ReportDto.ReportDtoReq reportDtoReq) {
-        log.info("health: " + reportDtoReq.getHealth().toString());
+            @RequestBody @Valid HealthDto.HealthDtoReq health) {
+        log.info("health: " + health.toString());
         String memberId = jwtUtils.getIdFromToken(header.substring(7));
         Member member = memberService.findByMemberLoginId(memberId)
                 .orElseThrow(() -> new NotFoundException("Not Found User"));
-        Long reportId = reportService.saveReport(reportDtoReq, member);
+        Long reportId = reportService.saveReport(health, member);
 
         var report = reportService.insertHealthScore(reportId);
         trainService.moveTrain(report.getSleepScore(),member);

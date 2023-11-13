@@ -36,9 +36,8 @@ public class ReportServiceImpl implements ReportService {
 
     @Override
     @Transactional(rollbackFor = Exception.class)
-    public Long saveReport(ReportDto.ReportDtoReq reportDtoReq, Member member) {
-        HealthDto.HealthDtoReq healthDtoReq = reportDtoReq.getHealth();
-        List<SleepStageDto.SleepStageDtoReq> sleepStagesReq = healthDtoReq.getSleepStages();
+    public Long saveReport(HealthDto.HealthDtoReq healthDto, Member member) {
+        List<SleepStageDto.SleepStageDtoReq> sleepStagesReq = healthDto.getSleepStages();
 
         /*
             오늘의 report 가 이미 생성 되어 있으면 덮어 쓰기 한다.
@@ -64,9 +63,9 @@ public class ReportServiceImpl implements ReportService {
 //            health.updateHealthData(healthDtoReq);
         } else {
             health = Health.builder()
-                    .sleepDuration(healthDtoReq.getSleepDuration())
-                    .stressLevel(healthDtoReq.getStressLevel())
-                    .steps(healthDtoReq.getSteps())
+                    .sleepDuration(healthDto.getSleepDuration())
+                    .stressLevel(healthDto.getStressLevel())
+                    .steps(healthDto.getSteps())
                     .report(report)
                     .build();
         }
