@@ -5,7 +5,6 @@ data class UserDataResponse(
     val timestamps: Timestamps?
 ) {
     data class Timestamps(
-        val heartRate: Long?,
         val sleep: Long?,
         val steps: Long?,
     )

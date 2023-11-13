@@ -35,10 +35,7 @@ import song.sam.cozytrain.ui.healthconnect.viewmodel.StepsViewModel
 @Composable
 fun DrawHealthConnectSubscreen(
     viewModelData1: ViewModelData<out Record>,
-    viewModelData2: ViewModelData<out Record>,
-    viewModelData3: ViewModelData<out Record>,
-    onDisplayData: LazyListScope.() -> Unit,
-    onError: (Throwable?) -> Unit = {}
+    viewModelData2: ViewModelData<out Record>
 ) {
     var flag by remember { mutableStateOf(false) }
 
@@ -51,7 +48,7 @@ fun DrawHealthConnectSubscreen(
     Log.d("걸음수 ㅋㅋ", "${stepVMD} ${stepVMD.data}")
     Log.d("수면 단계 ㅋㅋ", "${sleepsessionVMD}   ${sleepsessionVMD.data}")
 
-    if (viewModelData1.uiState == UiState.Success || viewModelData3.uiState == UiState.Success) {
+    if (viewModelData1.uiState == UiState.Success) {
         flag = false
         Log.d("성공", "인데 왜 화면이 안 뜨지")
 
@@ -97,8 +94,6 @@ fun DrawHealthConnectSubscreen(
         TextButton(onClick = {
             Log.d("??","??")
             viewModelData1.onRequestPermissions(viewModelData1.permissions + viewModelData2.permissions)
-//            viewModelData2.onRequestPermissions(viewModelData2.permissions)
-//            viewModelData3.onRequestPermissions(viewModelData3.permissions)
         }) {
             Text("권한 허용")
         }

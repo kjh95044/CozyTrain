@@ -12,7 +12,6 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
-import song.sam.cozytrain.ui.healthconnect.component.generateHeartRateDummyData
 import song.sam.cozytrain.ui.theme.BienestarEmocionalTheme
 import song.sam.cozytrain.utils.formatDateTime
 import java.time.Instant
@@ -72,28 +71,5 @@ fun SeriesDateTimeHeading(
             text = textToDisplay,
             textAlign = TextAlign.Center
         )
-    }
-}
-
-
-@Preview(
-    showBackground = true,
-    group = "Light Theme"
-)
-@Composable
-fun SeriesDateTimeHeadingPreview() {
-    BienestarEmocionalTheme {
-        Surface {
-            LazyColumn()
-            {
-                val data = generateHeartRateDummyData()
-                seriesDateTimeHeading(
-                    start = data.startTime,
-                    startZoneOffset = data.startZoneOffset,
-                    end = data.endTime,
-                    endZoneOffset = data.endZoneOffset
-                )
-            }
-        }
     }
 }

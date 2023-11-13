@@ -6,9 +6,6 @@ import com.ramcosta.composedestinations.annotation.RootNavGraph
 import com.ramcosta.composedestinations.navigation.DestinationsNavigator
 import song.sam.cozytrain.ui.screens.destinations.MyDataScreenDestination
 
-/**
- * Root screen of DestinationsNavigator
- */
 @RootNavGraph(start = true)
 @Destination
 @Composable
