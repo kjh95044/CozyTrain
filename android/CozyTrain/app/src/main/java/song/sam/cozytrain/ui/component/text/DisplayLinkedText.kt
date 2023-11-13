@@ -1,0 +1,61 @@
+package song.sam.cozytrain.ui.component.text
+
+import androidx.compose.foundation.layout.padding
+import androidx.compose.material3.Card
+import androidx.compose.material3.MaterialTheme
+import androidx.compose.runtime.Composable
+import androidx.compose.ui.Modifier
+import androidx.compose.ui.platform.LocalContext
+import androidx.compose.ui.res.stringArrayResource
+import androidx.compose.ui.text.SpanStyle
+import androidx.compose.ui.tooling.preview.Preview
+import androidx.compose.ui.unit.dp
+import song.sam.cozytrain.R
+import song.sam.cozytrain.ui.theme.BienestarEmocionalTheme
+import song.sam.cozytrain.utils.openDial
+
+@Composable
+fun DisplayHighLonelinessGuideline() {
+    val context = LocalContext.current
+    val pieces = stringArrayResource(id = R.array.high_loneliness_advice_body)
+
+    LinkText(
+        data = listOf(
+            LinkTextData(text = pieces[0]),
+            LinkTextData(
+                text = pieces[1],
+                tag = "red_cross_number",
+                annotation = "+34900107917",
+                onClick = { openDial(context, it.item) },
+            ),
+            LinkTextData(text = pieces[2]),
+        ),
+        textStyle = MaterialTheme.typography.bodyMedium,
+        normalTextSpanStyle = SpanStyle(color = MaterialTheme.colorScheme.onSurface),
+        clickableTextSpanStyle = SpanStyle(color = MaterialTheme.colorScheme.tertiary),
+    )
+}
+
+@Preview
+@Composable
+fun DisplayHighLonelinessGuildelinePreview() {
+    BienestarEmocionalTheme()
+    {
+        Card(modifier = Modifier.padding(16.dp))
+        {
+            DisplayHighLonelinessGuideline()
+        }
+    }
+}
+
+@Preview
+@Composable
+fun DisplayHighLonelinessGuildelinePreviewDarkTheme() {
+    BienestarEmocionalTheme()
+    {
+        Card(modifier = Modifier.padding(16.dp))
+        {
+            DisplayHighLonelinessGuideline()
+        }
+    }
+}
