@@ -1,6 +1,8 @@
 package song.sam.cozytrain.ui.component
 
+import android.annotation.SuppressLint
 import android.util.Log
+import android.webkit.JavascriptInterface
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.fillMaxSize
@@ -25,6 +27,7 @@ import song.sam.cozytrain.ui.healthconnect.UiState
 import song.sam.cozytrain.ui.healthconnect.viewmodel.SleepSessionViewModel
 import song.sam.cozytrain.ui.healthconnect.viewmodel.StepsViewModel
 
+@SuppressLint("JavascriptInterface")
 @Composable
 fun DrawHealthConnectSubscreen(
     viewModelData1: ViewModelData<out Record>,
@@ -41,12 +44,12 @@ fun DrawHealthConnectSubscreen(
     val sleepsessionViewModel: SleepSessionViewModel = hiltViewModel()
     val sleepsessionVMD: ViewModelData<SleepSessionData> = sleepsessionViewModel.getViewModelData()
 
-    Log.d("11", "${stepVMD}   ${stepVMD.data}")
-    Log.d("22", "${sleepsessionVMD}   ${sleepsessionVMD.data}")
+    Log.d("걸음수 ㅋㅋ", "${stepVMD} ${stepVMD.data}")
+    Log.d("수면 단계 ㅋㅋ", "${sleepsessionVMD}   ${sleepsessionVMD.data}")
 
     if (viewModelData1.uiState == UiState.Success || viewModelData3.uiState == UiState.Success) {
-         flag = false
-         Log.d("성공", "인데 왜 화면이 안 뜨지")
+        flag = false
+        Log.d("성공", "인데 왜 화면이 안 뜨지")
 
         val webViewState =
             rememberWebViewState(
@@ -71,37 +74,15 @@ fun DrawHealthConnectSubscreen(
                             javaScriptCanOpenWindowsAutomatically = false
                         }
                     }
+                    webView.addJavascriptInterface(AndroidBridge(), "AndroidBridge");
+//                    webView.evaluateJavascript(
+//                        "(function() {return window.document.cookie; })();"
+//                    ) { result ->
+//                        Log.d("ㅋㅋ 쿠키", result)
+//                    }
                 }
             )
         }
-//        val context = LocalContext.current
-//        val webview = remember {
-//            WebView(context).apply {
-//                    settings.javaScriptEnabled = true
-//                    webViewClient = WebViewClient()
-//                    loadUrl("https://dev.cozytrain.com")
-//                }
-//        }
-//        AndroidView(
-//            modifier = Modifier.fillMaxSize(),
-//            factory = { context ->
-//                webview
-//            }
-//        )
-
-//         AndroidView(
-//             factory = { context ->
-//                 WebView(context).apply {
-//                     settings.javaScriptEnabled = true
-//                     webViewClient = SslWebViewConnect()
-//                     webChromeClient = WebChromeClient()
-//                 }
-//             },
-//             update = { webView ->
-//                 webView.loadUrl("https://dev.cozytrain.com")
-//             },
-//             modifier = Modifier.fillMaxSize()
-//         )
     }
     else {
         flag = true
@@ -117,5 +98,13 @@ fun DrawHealthConnectSubscreen(
         }) {
             Text("권한 허용")
         }
+    }
+
+}
+
+class AndroidBridge {
+    @JavascriptInterface
+    fun onLoginSuccess(accessToken: String) {
+        Log.d("ㅋㅋ 내가 만든 쿠키", "AccessToken: $accessToken")
     }
 }
