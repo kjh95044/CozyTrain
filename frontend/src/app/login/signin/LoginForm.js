@@ -32,12 +32,18 @@ export default function LoginForm() {
         document.cookie = `refreshToken=${data.response.refreshToken}`;
         document.cookie = `todayFirstLogin=false`;
 
+        onLoginSuccess(data.response.accessToken);
+
         login(data.response.memberName, data.response.memberProfileImg);
 
         router.push("/");
       })
       .catch((error) => console.log(error));
   };
+
+  function onLoginSuccess(accessToken) {
+    Android.onLoginSuccess(accessToken);
+  }
 
   return (
     <form className={styles.input_container}>
