@@ -4,6 +4,8 @@
   list-style: none;
   margin: 0;
   padding: 0;
+
+  font-family: "Dovemayo_gothic";
 }
 
 body {
@@ -32,8 +34,14 @@ body::-webkit-scrollbar {
   --text-3xl: 28px;
 }
 
+/* @font-face {
+  font-family: "SKYBORI";
+  font-weight: normal;
+  src: url("../../public/fonts/SKYBORI.ttf") format("truetype");
+} */
+
 @font-face {
-  font-family: "Pretendard";
-  src: url("../../public/fonts/Pretendard-Medium.woff2") format("woff2");
-  font-display: block;
+  font-family: "Dovemayo_gothic";
+  font-weight: normal;
+  src: url("../../public/fonts/Dovemayo_gothic.ttf") format("truetype");
 }
