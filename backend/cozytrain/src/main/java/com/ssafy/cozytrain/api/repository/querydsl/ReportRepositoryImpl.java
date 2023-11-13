@@ -45,7 +45,7 @@ public class ReportRepositoryImpl implements ReportRepositoryCustom {
                                                 health.stressLevel, health.sleepDuration, health.steps, health.sleepScore
                                         ),
                                         report.caffeine,
-                                        Projections.list(Projections.constructor(SleepStage.class,
+                                        list(Projections.constructor(SleepStage.class,
                                                 sleepStage.stage,
                                                 sleepStage.startTime,
                                                 sleepStage.endTime
@@ -86,13 +86,12 @@ public class ReportRepositoryImpl implements ReportRepositoryCustom {
     public ReportDto.ReportDtoCommon findReportInfoRecent(Member member) {
         List<ReportDto.ReportDtoCommon> reportDto = queryFactory
                 .from(health)
-                .join(report).on(health.report.eq(report))
-                .join(report.member).on(report.member.eq(member))
+                .rightJoin(report).on(health.report.eq(report))
+                .leftJoin(report.member).on(report.member.eq(member))
                 .leftJoin(sleepStage).on(sleepStage.health.eq(health))
                 .where(report.sleepReportDate.ne(LocalDate.now())
                         .and(report.member.eq(member)))
                 .orderBy(report.sleepReportDate.desc())
-                .limit(1)
                 .transform(
                         groupBy(report.reportId).list(
                                 Projections.constructor(ReportDto.ReportDtoCommon.class,
@@ -101,7 +100,7 @@ public class ReportRepositoryImpl implements ReportRepositoryCustom {
                                                 health.stressLevel, health.sleepDuration, health.steps, health.sleepScore
                                         ),
                                         report.caffeine,
-                                        Projections.list(Projections.constructor(SleepStage.class,
+                                        list(Projections.constructor(SleepStage.class,
                                                 sleepStage.stage,
                                                 sleepStage.startTime,
                                                 sleepStage.endTime
@@ -118,8 +117,8 @@ public class ReportRepositoryImpl implements ReportRepositoryCustom {
     public ReportDto.ReportDtoCommon findReportByDate(Member member, LocalDate date) {
         List<ReportDto.ReportDtoCommon> reports = queryFactory
                 .from(health)
-                .join(report).on(health.report.eq(report))
-                .join(report.member).on(report.member.eq(member))
+                .rightJoin(report).on(health.report.eq(report))
+                .leftJoin(report.member).on(report.member.eq(member))
                 .leftJoin(sleepStage).on(sleepStage.health.eq(health))
                 .where(report.sleepReportDate.eq(date)
                         .and(report.member.eq(member)))
@@ -131,7 +130,7 @@ public class ReportRepositoryImpl implements ReportRepositoryCustom {
                                                 health.stressLevel, health.sleepDuration, health.steps, health.sleepScore
                                         ),
                                         report.caffeine,
-                                        Projections.list(Projections.constructor(SleepStage.class,
+                                        list(Projections.constructor(SleepStage.class,
                                                 sleepStage.stage,
                                                 sleepStage.startTime,
                                                 sleepStage.endTime
