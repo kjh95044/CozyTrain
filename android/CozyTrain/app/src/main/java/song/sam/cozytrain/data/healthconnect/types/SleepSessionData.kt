@@ -20,4 +20,9 @@ data class SleepSessionData(
     val duration: Duration?,
     val stages: List<SleepStageRecord> = listOf(),
     override val metadata: Metadata = Metadata()
-) : Record
+
+) : Record {
+    override fun toString(): String {
+        return "SleepSessionData(uid='$uid', startTime=$startTime, startZoneOffset=$startZoneOffset, endTime=$endTime, endZoneOffset=$endZoneOffset, duration=$duration, stages=$stages, metadata=$metadata)"
+    }
+}

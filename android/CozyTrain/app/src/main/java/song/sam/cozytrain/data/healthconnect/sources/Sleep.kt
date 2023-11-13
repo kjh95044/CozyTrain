@@ -91,5 +91,10 @@ class Sleep @Inject constructor(
         Log.d("sessions.toList", "${sessions.toList()}")
         return sessions.toList()
     }
+
+    override fun toString(): String {
+        return "Sleep(healthConnectClient=$healthConnectClient, logTag='$logTag', readPermissions=$readPermissions)"
+    }
+
 }
 

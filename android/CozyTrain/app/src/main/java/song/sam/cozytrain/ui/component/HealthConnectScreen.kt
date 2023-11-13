@@ -13,6 +13,7 @@ import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
+import androidx.health.connect.client.HealthConnectClient
 import androidx.health.connect.client.records.Record
 import androidx.health.connect.client.records.StepsRecord
 import androidx.hilt.navigation.compose.hiltViewModel
@@ -20,8 +21,11 @@ import com.google.accompanist.web.AccompanistWebChromeClient
 import com.google.accompanist.web.AccompanistWebViewClient
 import com.google.accompanist.web.WebView
 import com.google.accompanist.web.rememberWebViewState
+import song.sam.cozytrain.BuildConfig
+import song.sam.cozytrain.data.healthconnect.HealthConnectSource
 import song.sam.cozytrain.data.healthconnect.types.SleepSessionData
 import song.sam.cozytrain.ui.healthconnect.UiState
+import song.sam.cozytrain.ui.healthconnect.viewmodel.HealthConnectViewModel
 import song.sam.cozytrain.ui.healthconnect.viewmodel.SleepSessionViewModel
 import song.sam.cozytrain.ui.healthconnect.viewmodel.StepsViewModel
 
@@ -33,8 +37,8 @@ fun DrawHealthConnectSubscreen(
     onDisplayData: LazyListScope.() -> Unit,
     onError: (Throwable?) -> Unit = {}
 ) {
-
     var flag by remember { mutableStateOf(false) }
+
     val stepViewModel: StepsViewModel = hiltViewModel()
     val stepVMD: ViewModelData<StepsRecord> = stepViewModel.getViewModelData()
 
@@ -43,14 +47,14 @@ fun DrawHealthConnectSubscreen(
 
     Log.d("11", "${stepVMD}   ${stepVMD.data}")
     Log.d("22", "${sleepsessionVMD}   ${sleepsessionVMD.data}")
-
-    if (viewModelData1.uiState == UiState.Success || viewModelData3.uiState == UiState.Success) {
+    
+    if (viewModelData1.uiState == UiState.Success || viewModelData2.uiState == UiState.Success) {
          flag = false
          Log.d("성공", "인데 왜 화면이 안 뜨지")
 
         val webViewState =
             rememberWebViewState(
-                url = "https://dev.cozytrain.com",
+                url = BuildConfig.COZY_TRAIN_URL,
             )
         var webViewClient = AccompanistWebViewClient()
         var webChromeClient = AccompanistWebChromeClient()
@@ -74,34 +78,6 @@ fun DrawHealthConnectSubscreen(
                 }
             )
         }
-//        val context = LocalContext.current
-//        val webview = remember {
-//            WebView(context).apply {
-//                    settings.javaScriptEnabled = true
-//                    webViewClient = WebViewClient()
-//                    loadUrl("https://dev.cozytrain.com")
-//                }
-//        }
-//        AndroidView(
-//            modifier = Modifier.fillMaxSize(),
-//            factory = { context ->
-//                webview
-//            }
-//        )
-
-//         AndroidView(
-//             factory = { context ->
-//                 WebView(context).apply {
-//                     settings.javaScriptEnabled = true
-//                     webViewClient = SslWebViewConnect()
-//                     webChromeClient = WebChromeClient()
-//                 }
-//             },
-//             update = { webView ->
-//                 webView.loadUrl("https://dev.cozytrain.com")
-//             },
-//             modifier = Modifier.fillMaxSize()
-//         )
     }
     else {
         flag = true
@@ -111,8 +87,8 @@ fun DrawHealthConnectSubscreen(
         Text("칙칙 포근포근 서비스를 이용하기 위해서는 삼성헬스 정보가 필요합니다. \n 권한을 허용해주세요.")
         TextButton(onClick = {
             Log.d("??","??")
-            viewModelData1.onRequestPermissions(viewModelData1.permissions)
-            viewModelData2.onRequestPermissions(viewModelData2.permissions)
+            viewModelData1.onRequestPermissions(viewModelData1.permissions + viewModelData2.permissions)
+//            viewModelData2.onRequestPermissions(viewModelData2.permissions)
 //            viewModelData3.onRequestPermissions(viewModelData3.permissions)
         }) {
             Text("권한 허용")

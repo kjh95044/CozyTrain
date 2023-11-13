@@ -31,4 +31,10 @@ class HeartRate @Inject constructor(
         val items = healthConnectClient.readRecords(request)
         return items.records
     }
+
+    override fun toString(): String {
+        return "HeartRate(healthConnectClient=$healthConnectClient, readPermissions=$readPermissions)"
+    }
+
+
 }
