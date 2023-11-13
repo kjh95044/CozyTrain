@@ -2,8 +2,10 @@ package song.sam.cozytrain.model
 
 import androidx.health.connect.client.records.SleepStageRecord
 import com.google.gson.annotations.SerializedName
+import java.time.Instant
 import java.time.LocalDateTime
 import java.time.ZoneId
+import java.time.format.DateTimeFormatter
 
 data class dreamData (
     @SerializedName("dreamContent")
@@ -13,10 +15,6 @@ data class dreamData (
     val dreamType: Int
 )
 
-data class HealthData(
-    @SerializedName("health")
-    val health: Health
-)
 
 data class Health(
     @SerializedName("sleepDuration")
@@ -34,21 +32,25 @@ data class Health(
 
 data class SleepStage(
     @SerializedName("endTime")
-    val endTime: LocalDateTime,
+    val endTime: String,
 
     @SerializedName("stage")
     val stage: Int,
 
     @SerializedName("startTime")
-    val startTime: LocalDateTime
+    val startTime: String
 )
 
-fun convertSleepStageToSleepStages(sleepStageRecords: List<SleepStageRecord>) : List<SleepStage> {
+fun convertSleepStageToSleepStages(sleepStageRecords: List<SleepStageRecord>): List<SleepStage> {
     return sleepStageRecords.map {
         SleepStage(
-            endTime = it.endTime.atZone(ZoneId.systemDefault()).toLocalDateTime(),
+            endTime = convertInstantToLocalDateTime(it.endTime).format(DateTimeFormatter.ofPattern("yyyy-MM-dd'T'HH:mm:ss")),
             stage = it.stage,
-            startTime = it.startTime.atZone(ZoneId.systemDefault()).toLocalDateTime()
+            startTime = convertInstantToLocalDateTime(it.startTime).format(DateTimeFormatter.ofPattern("yyyy-MM-dd'T'HH:mm:ss"))
         )
     }
+}
+
+fun convertInstantToLocalDateTime(instant: Instant): LocalDateTime {
+    return LocalDateTime.ofInstant(instant, ZoneId.systemDefault())
 }

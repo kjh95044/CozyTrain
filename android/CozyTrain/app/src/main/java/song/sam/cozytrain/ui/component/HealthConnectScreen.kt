@@ -29,7 +29,6 @@ import song.sam.cozytrain.BuildConfig
 import song.sam.cozytrain.data.healthconnect.HealthConnectSource
 import song.sam.cozytrain.data.healthconnect.types.SleepSessionData
 import song.sam.cozytrain.model.Health
-import song.sam.cozytrain.model.HealthData
 import song.sam.cozytrain.model.HealthDataResponse
 import song.sam.cozytrain.model.SleepStage
 import song.sam.cozytrain.model.convertSleepStageToSleepStages
@@ -69,6 +68,14 @@ fun DrawHealthConnectSubscreen(
         var sleepDuration = parseDuration(sleepsessionVMD.data[0].duration.toString())
 
         var sleepStages = convertSleepStageToSleepStages(sleepsessionVMD.data[0].stages)
+
+//        var sleepStages: List<SleepStage> = listOf(
+//            SleepStage(
+//                endTime = LocalDateTime.parse("2023-11-13T01:21"),
+//                stage = 1,
+//                startTime = LocalDateTime.parse("2023-11-13T01:21")
+//            )
+//        )
 
         var dreamContent = "테스트 ㅋㅋ"
         var dreamType = 0
@@ -128,7 +135,7 @@ fun postDreamData(dreamContent: String, dreamType: Int) {
     )
 
     val requestParams = dream
-    Log.d("요청 ㅋㅋ ", requestParams.toString())
+    Log.d("요청 ㅋㅋ ", requestParams.toString().substring(300))
 
     RetrofitService.instance.postDreamData(requestParams)
         .enqueue(object : retrofit2.Callback<HealthDataResponse> {
@@ -156,15 +163,15 @@ fun postHealthData(sleepDuration: Int, sleepStages: List<SleepStage>, steps: Int
     )
 
     /* Retrofit을 통한 수면 시간 저장 구현 */
-    val requestParams = HealthData(health = health)
+    val requestParams = health
 
     Log.d("요청 ㅋㅋ ", requestParams.toString())
 
 
-    Log.d("요청11 ㅋㅋ ", requestParams.health.sleepDuration.toString())
-    Log.d("요청22 ㅋㅋ ", requestParams.health.sleepStages.toString())
-    Log.d("요청33 ㅋㅋ ", requestParams.health.steps.toString())
-    Log.d("요청44 ㅋㅋ ", requestParams.health.stressLevel.toString())
+//    Log.d("요청11 ㅋㅋ ", requestParams.health.sleepDuration.toString())
+//    Log.d("요청22 ㅋㅋ ", requestParams.health.sleepStages.toString())
+//    Log.d("요청33 ㅋㅋ ", requestParams.health.steps.toString())
+//    Log.d("요청44 ㅋㅋ ", requestParams.health.stressLevel.toString())
 
     RetrofitService.instance.postHealthData(requestParams)
         .enqueue(object : retrofit2.Callback<HealthDataResponse> {

@@ -29,7 +29,7 @@ abstract class HealthConnectSource<T : Record>(
      */
     suspend fun readSource(): List<T> {
         val end: ZonedDateTime = ZonedDateTime.now()
-        val start: ZonedDateTime = end.minusDays(2)
+        val start: ZonedDateTime = end.minusDays(1)
         return readSource(start, end)
     }
 
