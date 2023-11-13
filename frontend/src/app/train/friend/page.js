@@ -9,7 +9,7 @@ import RequestFreind from "./_content/RequestFriend";
 import FriendList from "./_content/FriendList";
 import AddFriend from "./_content/AddFriend";
 
-export default function Freind() {
+export default function Friend() {
   const [location, setLocation] = useState(0);
 
   return (
