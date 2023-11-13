@@ -32,4 +32,10 @@ class Steps @Inject constructor(
         Log.d("Steps readSource", "${stepsItems.records}")
         return stepsItems.records
     }
+
+    override fun toString(): String {
+        return "Steps(healthConnectClient=$healthConnectClient, readPermissions=$readPermissions)"
+    }
+
+
 }
