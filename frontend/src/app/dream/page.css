@@ -6,9 +6,9 @@
 
 /* 상단 연도/월 표시 글자 */
 .react-calendar__navigation__label > span {
-  font-size: 16px;
   font-weight: bold;
   color: black;
+  font-size: 20px;
 }
 
 /* 오늘 날짜 색 변경 */
@@ -31,6 +31,7 @@
   text-align: center;
   color: black;
   margin: auto 0;
+  font-size: 14px;
 }
 
 /* 일 글자 없애기! */

@@ -32,3 +32,8 @@
   padding: 16px;
   border-radius: 12px;
 }
+
+.empty {
+  margin-top: 40px;
+  font-size: 16px;
+}
