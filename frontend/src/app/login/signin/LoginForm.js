@@ -38,7 +38,9 @@ export default function LoginForm() {
   };
 
   function onLoginSuccess(accessToken) {
-    Android.onLoginSuccess(accessToken);
+    if (window.AndroidBridge) {
+      window.AndroidBridge.onLoginSuccess(accessToken);
+    }
   }
 
   return (
