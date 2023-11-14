@@ -5,6 +5,7 @@ import com.ssafy.cozytrain.api.entity.Report;
 import com.ssafy.cozytrain.api.entity.SleepStage;
 import lombok.Builder;
 import lombok.Getter;
+import lombok.ToString;
 
 import java.util.List;
 import java.util.stream.Collectors;
@@ -12,6 +13,7 @@ import java.util.stream.Collectors;
 public class HealthDto {
 
     @Getter
+    @ToString
     public static class HealthDtoReq {
         private int stressLevel;
         private int sleepDuration;
