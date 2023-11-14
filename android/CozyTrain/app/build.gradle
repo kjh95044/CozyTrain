@@ -178,4 +178,15 @@ dependencies {
 
     implementation "com.google.accompanist:accompanist-webview:0.24.13-rc"
 
+    // Data store
+    implementation "androidx.datastore:datastore-preferences:1.1.0-alpha06"
+    implementation "androidx.datastore:datastore-preferences-core:1.1.0-alpha06"
+
+    //Kotlin Coroutines
+    implementation 'org.jetbrains.kotlinx:kotlinx-coroutines-core:1.7.3'
+    implementation 'org.jetbrains.kotlinx:kotlinx-coroutines-android:1.7.3'
+
+    //GIF
+    implementation("io.coil-kt:coil-compose:2.2.2")
+    implementation("io.coil-kt:coil-gif:2.2.2")
 }
