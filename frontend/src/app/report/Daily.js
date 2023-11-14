@@ -6,7 +6,7 @@ import getFetch from "@/services/getFetch";
 import SleepTime from "./_components/SleepTime";
 import SelectDate from "./_components/SelectDate";
 import Score from "./_components/Score";
-import Chart from "./_components/Chart";
+// import Chart from "./_components/Chart";
 
 export default function Daily() {
   const [report, setReport] = useState({});
@@ -56,7 +56,7 @@ export default function Daily() {
         <>
           <SleepTime report={report}></SleepTime>
           <Score report={report}></Score>
-          <Chart sleepStages={report.sleepStages}></Chart>
+          {/* <Chart sleepStages={report.sleepStages}></Chart> */}
         </>
       ) : (
         <Empty />
