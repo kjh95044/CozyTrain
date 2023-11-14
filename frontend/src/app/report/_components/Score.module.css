@@ -14,15 +14,21 @@
   background-color: var(--primary);
 }
 
-.moveDist {
-  position: absolute;
-  width: 120px;
-  height: fit-content;
-  inset: 50%;
-  transform: translate(-50%, -50%);
+.calc {
+  display: flex;
+  justify-content: space-between;
+  margin: 4px;
 }
 
 .score {
+  font-size: 18px;
+}
+
+.moveDist {
+  font-size: 18px;
+}
+
+.train_move {
   display: flex;
   align-items: center;
   width: 80%;
@@ -43,12 +49,25 @@
   transform: scaleX(-1);
 }
 
+.health_data {
+  display: flex;
+}
+
 .health {
   display: flex;
   flex-direction: column;
   gap: 4px;
+  flex: 1;
+  line-height: 32px;
+}
+
+.lottie {
+  display: flex;
+  justify-content: center;
+  flex: 1;
 }
 
 .content {
-  margin-top: 16px;
+  line-height: 32px;
+  margin-bottom: 12px;
 }
