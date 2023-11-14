@@ -6,7 +6,6 @@ import getFetch from "@/services/getFetch";
 import SleepTime from "./_components/SleepTime";
 import SelectDate from "./_components/SelectDate";
 import Score from "./_components/Score";
-import Stage from "./_components/Stage";
 import Chart from "./_components/Chart";
 
 export default function Daily() {
