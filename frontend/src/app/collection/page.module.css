@@ -84,3 +84,11 @@
 .description {
   margin: 16px 0;
 }
+
+.gift {
+  position: absolute;
+  top: 50%;
+  z-index: 1000;
+  transform: translateY(-50%);
+  left: 0;
+}
