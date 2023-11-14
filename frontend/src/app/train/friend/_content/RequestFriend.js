@@ -6,11 +6,12 @@ import SecondaryButton from "@/components/button/SecondaryButton";
 import styles from "./RequestFriend.module.css";
 import getFetch from "@/services/getFetch";
 import patchFetch from "@/services/patchFetch";
+import deleteFetch from "@/services/deleteFetch";
 
 export default function RequestFreind() {
   const [friendRequest, setFriendRequest] = useState([]);
-
   const [sendRequest, setSendRequest] = useState([]);
+
   useEffect(() => {
     getFriendReq();
     sendFriendReq();
@@ -18,12 +19,13 @@ export default function RequestFreind() {
 
   const getFriendReq = async () => {
     const data = await getFetch("friend/received-list");
+    console.log("get: " + data.response);
     setFriendRequest(data.response);
   };
 
   const sendFriendReq = async () => {
     const data = await getFetch("friend/send-list");
-    console.log(data.response);
+    console.log("send: " + data.response);
     setSendRequest(data.response);
   };
 
@@ -32,10 +34,21 @@ export default function RequestFreind() {
     try {
       const data = await patchFetch("friend", { friendId });
       console.log(data);
+      getFriendReq();
     } catch (e) {
       console.log(e);
     }
-    sendFriendReq();
+  };
+
+  const deleteFriendReq = async (friendId) => {
+    console.log(friendId);
+    try {
+      const data = await deleteFetch("friend", { friendId });
+      console.log(data);
+      sendFriendReq();
+    } catch (e) {
+      console.log(e);
+    }
   };
 
   return (
@@ -58,7 +71,7 @@ export default function RequestFreind() {
                 <div className={styles.fontWrap}>
                   <div className={styles.boldFont}>위치&nbsp;</div>
                   <div>
-                    {request.trainInfo.countryKor} &nbsp;
+                    {request.trainInfo.countryKor}&nbsp;
                     {request.trainInfo.regionKor}
                   </div>
                 </div>
@@ -89,12 +102,16 @@ export default function RequestFreind() {
                 <div className={styles.fontWrap}>
                   <div className={styles.boldFont}>위치&nbsp;</div>
                   <div>
-                    {request.trainInfo.countryKor} &nbsp;
+                    {request.trainInfo.countryKor}&nbsp;
                     {request.trainInfo.regionKor}
                   </div>
                 </div>
               </div>
-              <SecondaryButton>취소</SecondaryButton>
+              <SecondaryButton
+                onClick={() => deleteFriendReq(request.friendId)}
+              >
+                취소
+              </SecondaryButton>
             </div>
           </div>
         );

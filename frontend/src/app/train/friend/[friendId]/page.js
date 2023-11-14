@@ -123,7 +123,6 @@ export default function Message() {
 
     multipartPostFetch("message", formData)
       .then(() => {
-        alert("메시지 전송");
         messageListReq();
       })
       .catch((e) => console.log(e));
