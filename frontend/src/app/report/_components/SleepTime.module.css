@@ -1,0 +1,21 @@
+.layout {
+  padding: 0 16px;
+  margin-top: 24px;
+}
+
+.time {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.container {
+  display: flex;
+  justify-content: space-between;
+}
+
+.content {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}

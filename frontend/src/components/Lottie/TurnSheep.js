@@ -9,5 +9,17 @@ export default function TurnSheep() {
     animationData: TurnSheepLottie,
   });
 
-  return <>{View}</>;
+  return (
+    <div
+      style={{
+        height: "52%",
+        width: "100%",
+        position: "fixed",
+        inset: "50%",
+        transform: "translate(-50%, -48%)",
+      }}
+    >
+      {View}
+    </div>
+  );
 }

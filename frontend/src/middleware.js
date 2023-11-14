@@ -1,15 +1,13 @@
 import { NextResponse } from "next/server";
 
 export default function Middleware(request) {
-  // if (!request.cookies.has("accessToken")) {
-  //   return NextResponse.redirect("http://localhost:3000/login");
-  // }
-  // if (request.cookies.get("todayFirstLogin").value === "true") {
-  //   return NextResponse.redirect("http://localhost:3000/train");
-  // }
+  // if (!request.cookies.has("refreshToken")) {
+  if (!request.cookies.has("id")) {
+    return NextResponse.redirect("http://localhost:3000/login");
+  }
 }
 
-// 미들웨어가 실행될 URL설정
+// 미들웨어 실행될 URL
 export const config = {
   matcher: "/",
 };

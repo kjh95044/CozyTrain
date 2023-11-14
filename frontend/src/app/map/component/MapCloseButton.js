@@ -6,7 +6,7 @@ import styles from "./MapCloseButton.module.css"
 
 export default function MapCloseButton() {
     return (
-        <Link href="/home">
+        <Link href="/train">
             <button className={styles.container}>
                 <Image src={CloseMap} alt="지도 닫기" />
             </button>

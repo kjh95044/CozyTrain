@@ -8,7 +8,6 @@ import getAccessToken from "@/utils/getAccessToken";
  */
 export default async function Fetch(url, params = {}) {
   const accessToken = getAccessToken();
-
   const queryParams = new URLSearchParams(params).toString();
 
   try {
@@ -26,8 +25,8 @@ export default async function Fetch(url, params = {}) {
     );
 
     if (!response.ok) throw new Error(`HTTP error! Status: ${response.status}`);
-
     const responseData = await response.json();
+
     return responseData;
   } catch (error) {
     throw error;

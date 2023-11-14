@@ -1,10 +1,9 @@
 "use client";
 
-import { use, useState } from "react";
+import { useState } from "react";
 import { useRouter } from "next/navigation";
-
-import getPetch from "@/services/getFetch";
-import fetchPost from "@/services/postFetch";
+import getFetch from "@/services/auth/getFetch";
+import postFetch from "@/services/auth/postFetch";
 import Title from "../Title";
 import styles from "./page.module.css";
 
@@ -17,14 +16,9 @@ export default function SingUp() {
   const [emptyInput, setEmptyInput] = useState(false);
   const router = useRouter();
 
-  // const handleIdCheckBtnClick = () => {
-  //   CheckDuplicateId;
-  // };
-
   const CheckDuplicateId = async (e) => {
     e.preventDefault();
-    const resp = await getPetch(`member/${id}`);
-    console.log(resp);
+    const resp = await getFetch(`member/${id}`);
 
     if (resp.response) setIsDuplicateId(1);
     else setIsDuplicateId(2);
@@ -50,7 +44,7 @@ export default function SingUp() {
       memberName: username,
     };
 
-    fetchPost("member/signup", formData)
+    postFetch("member/signup", formData)
       .then(() => {
         router.push("/login");
       })

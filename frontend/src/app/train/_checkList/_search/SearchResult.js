@@ -1,6 +1,7 @@
 import Image from "next/image";
 import { useState } from "react";
 
+import Check from "@/components/Lottie/Check";
 import Toast from "@/components/Toast";
 import PrimaryButton from "@/components/button/PrimaryButton";
 import deleteFetch from "@/services/deleteFetch";
@@ -20,14 +21,15 @@ export default function SearchResult(props) {
     else await createBookmark(elsId);
 
     props.getBookMark();
+    props.getBookmarkItem();
   };
 
   const createBookmark = async (elsId) => {
-    return await postFetch("bookmark", elsId);
+    await postFetch("bookmark", elsId);
   };
 
   const removeBookMark = async (elsId) => {
-    return await deleteFetch("bookmark/" + elsId);
+    await deleteFetch("bookmark/" + elsId);
   };
 
   const handleContentClick = (item) => {
@@ -96,7 +98,11 @@ export default function SearchResult(props) {
         );
       })}
 
-      {showToast && <Toast>추가 완료!</Toast>}
+      {showToast && (
+        <Toast>
+          <Check />
+        </Toast>
+      )}
     </div>
   );
 }

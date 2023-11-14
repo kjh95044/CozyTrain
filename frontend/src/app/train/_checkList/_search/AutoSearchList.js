@@ -1,5 +1,3 @@
-import { useState } from "react";
-
 import Search from "@/components/icons/Search";
 import styles from "./AutoSearchList.module.css";
 

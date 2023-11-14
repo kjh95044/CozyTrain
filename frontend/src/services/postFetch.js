@@ -6,7 +6,7 @@ import getAccessToken from "@/utils/getAccessToken";
  * @param {Object} data - Body
  * @returns {Promise}
  */
-export default async function fetchPost(url, data) {
+export default async function fetchPost(url, data, type = "application/json") {
   const accessToken = getAccessToken();
 
   try {
@@ -14,7 +14,7 @@ export default async function fetchPost(url, data) {
       method: "POST",
       body: JSON.stringify(data),
       headers: {
-        "Content-Type": "application/json",
+        "Content-Type": type,
         Authorization: `Bearer ${accessToken}`,
       },
     });

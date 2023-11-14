@@ -11,6 +11,8 @@ export default function Page(props) {
   const [onAutoSearch, setOnAutoSearch] = useState(true);
   const [autoSearchValue, setAutoSearchValue] = useState([]);
   const [bookMark, setBookMark] = useState([]);
+  const [bookMarkItem, setBookmarkItem] = useState([]);
+  const [isSearched, setIsSearched] = useState(false);
 
   const handleAutoSearchValue = async (e) => {
     const resp = await getFetch("caffeine/search", {
@@ -25,18 +27,21 @@ export default function Page(props) {
   const handleSubmit = async (e) => {
     e.preventDefault();
 
+    setIsSearched(true);
     searchDrink(e.target.getElementsByTagName("input")[0].value);
   };
 
   const handleAutoSearchSubmit = () => {
+    setIsSearched(true);
+
     setTimeout(() => {
       setOnAutoSearch(false);
     }, 1);
   };
 
-  const searchDrink = async (e) => {
+  const searchDrink = async (searchName) => {
     const resp = await getFetch("caffeine/search", {
-      searchName: e,
+      searchName,
     });
 
     setData(resp.response.content);
@@ -45,14 +50,25 @@ export default function Page(props) {
   const getBookMark = async () => {
     try {
       const resp = await getFetch("bookmark");
+
       setBookMark(resp.response);
     } catch (error) {
       console.error(error);
     }
   };
 
+  const getBookmarkItem = async () => {
+    try {
+      const resp = await getFetch("bookmark/item");
+      setBookmarkItem(resp.response);
+    } catch {
+      setBookmarkItem([]);
+    }
+  };
+
   useEffect(() => {
     getBookMark();
+    getBookmarkItem();
   }, []);
 
   return (
@@ -89,9 +105,10 @@ export default function Page(props) {
       </div>
 
       <SearchResult
-        items={data}
+        items={isSearched ? data : bookMarkItem}
         bookMark={bookMark}
         getBookMark={getBookMark}
+        getBookmarkItem={getBookmarkItem}
       />
     </>
   );
