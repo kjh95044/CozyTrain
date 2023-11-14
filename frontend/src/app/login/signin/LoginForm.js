@@ -24,8 +24,13 @@ export default function LoginForm() {
     try {
       const data = await loginFetch("member/login", formData);
       const respData = data.response;
+      let date = new Date();
+      date.setTime(date.getTime() + 14 * 24 * 60 * 60 * 1000);
+      const expiresDate = date.toGMTString();
 
-      document.cookie = `accessToken=${respData.accessToken}`;
+      document.cookie = `accessToken=${respData.accessToken}; path=/`;
+      document.cookie = `id=${id}; expires=${expiresDate}; path=/`;
+      document.cookie = `pw=${password}; expires=${expiresDate}; path=/`;
 
       onLoginSuccess(respData.accessToken);
 
