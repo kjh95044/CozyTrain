@@ -49,9 +49,9 @@ export default function FriendList() {
                     #{index + 1} {request.friendNickname}
                   </div>
                   <div className={styles.fontWrap}>
-                    <div className={styles.boldFont}>위치&nbsp;</div>
+                    <div className={styles.boldFont}>위치&nbsp;&nbsp;</div>
                     <div>
-                      {request.trainInfo.countryKor} &nbsp;
+                      {request.trainInfo.countryKor} {""}
                       {request.trainInfo.regionKor}
                     </div>
                   </div>
