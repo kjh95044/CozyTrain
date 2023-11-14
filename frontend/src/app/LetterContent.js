@@ -38,7 +38,7 @@ export default function LetterContent() {
   };
 
   return (
-    <div className={styles.modal}>
+    <div>
       <div className={styles.title}>11월 14일 리포트</div>
       {!isLoading && report.date && (
         <>
