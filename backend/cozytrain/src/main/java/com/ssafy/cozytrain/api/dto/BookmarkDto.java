@@ -13,5 +13,5 @@ import javax.validation.constraints.NotNull;
 @NoArgsConstructor
 public class BookmarkDto {
     @NotNull(message = "elsId is not Null")
-    private Long elsId;
+    private String elsId;
 }
