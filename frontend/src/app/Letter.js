@@ -49,6 +49,8 @@ export default function Letter() {
       document.cookie = `id=${memberId}; expires=${expiresDate}; path=/`;
       document.cookie = `pw=${memberPassword}; expires=${expiresDate}; path=/`;
 
+      onLoginSuccess(respData.accessToken);
+
       login(respData.memberName, respData.memberProfileImg);
     } catch (e) {
       console.log(e);
@@ -66,6 +68,12 @@ export default function Letter() {
       }, 1600);
     }, 1000);
   }, []);
+
+  function onLoginSuccess(accessToken) {
+    if (window.AndroidBridge) {
+      window.AndroidBridge.onLoginSuccess(accessToken);
+    }
+  }
 
   return (
     <>

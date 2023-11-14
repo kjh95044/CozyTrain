@@ -1,0 +1,15 @@
+version: '3.3'
+services:
+  backend-prod:
+    build:
+      dockerfile: Dockerfile # dockerfile이름
+      context: ./
+      args:
+        TZ: Asia/Seoul
+    ports:
+      - "8689:8080"
+    image: backend-prod-blue:latest
+    environment:
+      - TZ=Asia/Seoul
+    container_name: backend-prod-blue
+    stdin_open: true
