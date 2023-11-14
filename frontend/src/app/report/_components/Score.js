@@ -92,14 +92,13 @@ export default function Score(props) {
       <div className={styles.health_data}>
         <div className={styles.health}>
           <div>
-            카페인 섭취량: {props.report.caffeine}mg({caffeineDiff})
+            카페인 섭취량: {props.report.caffeine}mg ({caffeineDiff})
           </div>
           <div>
-            걸음 수: {props.report.steps}걸음(
-            {stepsDiff})
+            걸음수: {props.report.steps}걸음 ({stepsDiff})
           </div>
           <div>
-            스트레스 지수: {props.report.stressLevel}점({stressLevelDiff})
+            스트레스 지수: {props.report.stressLevel}점 ({stressLevelDiff})
           </div>
         </div>
         <div className={styles.lottie}>
