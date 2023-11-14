@@ -5,7 +5,7 @@ import { useState, useEffect, useRef, useLayoutEffect } from "react";
 import { useRouter, useSearchParams, usePathname } from "next/navigation";
 
 import Background from "@/components/Background";
-import Header from "@/components/Header";
+import Header from "./Title";
 import getFetch from "@/services/getFetch";
 import multipartPostFetch from "@/services/friend/multipartPostFetch";
 
