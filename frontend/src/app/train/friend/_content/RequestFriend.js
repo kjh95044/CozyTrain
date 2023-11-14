@@ -43,7 +43,7 @@ export default function RequestFreind() {
   const deleteFriendReq = async (friendId) => {
     console.log(friendId);
     try {
-      const data = await deleteFetch("friend", { friendId });
+      const data = await deleteFetch("friend/" + friendId);
       console.log(data);
       sendFriendReq();
     } catch (e) {
