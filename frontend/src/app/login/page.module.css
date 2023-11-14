@@ -10,7 +10,8 @@
 }
 
 .logo {
-  padding-top: 8px;
+  position: absolute;
+  top: 24%;
 }
 
 .signup_button {

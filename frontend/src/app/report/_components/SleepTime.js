@@ -58,7 +58,8 @@ export default function SleepTime(props) {
         <div className={styles.content}>
           <div>취침 시간</div>
           <div className={styles.time}>
-            <Image src={moon} alt="달"></Image>11 : 53
+            <Image src={moon} alt="달"></Image>
+            {bedTime}
           </div>
         </div>
 

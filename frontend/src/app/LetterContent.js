@@ -3,8 +3,8 @@ import { useState, useEffect } from "react";
 import getFetch from "@/services/getFetch";
 import styles from "./LetterContent.module.css";
 import SleepTime from "./report/_components/SleepTime";
-import Score from "./Score";
 import Empty from "./report/_components/Empty";
+import Score from "./report/_components/Score";
 import Walking from "@/components/Lottie/Walking";
 import Coffee from "@/components/Lottie/Coffee";
 import Meditation from "@/components/Lottie/Meditation";
@@ -38,7 +38,7 @@ export default function LetterContent() {
   };
 
   return (
-    <div className={styles.modal}>
+    <div>
       <div className={styles.title}>11월 14일 리포트</div>
       {!isLoading && report.date && (
         <>
