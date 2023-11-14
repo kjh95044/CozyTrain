@@ -29,7 +29,6 @@
 }
 
 .middleContainer {
-  width: 325px;
   height: 91px;
   background-color: #ffffff;
   border-radius: 10px;
@@ -48,12 +47,17 @@
 .profileContainer {
   display: flex;
   margin: 20px 13px;
-  justify-content: space-around;
+  justify-content: space-between;
   width: 100%;
+}
+
+.profileContainerLeft {
+  display: flex;
 }
 
 .profile {
   height: 50px;
   width: 50px;
   border-radius: 49px;
+  margin-right: 20px;
 }
