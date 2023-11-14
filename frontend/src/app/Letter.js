@@ -45,8 +45,8 @@ export default function Letter() {
       const expiresDate = date.toGMTString();
 
       document.cookie = `accessToken=${respData.accessToken}; path=/`;
-      document.cookie = `id=${id}; expires=${expiresDate}; path=/`;
-      document.cookie = `pw=${password}; expires=${expiresDate}; path=/`;
+      document.cookie = `id=${memberId}; expires=${expiresDate}; path=/`;
+      document.cookie = `pw=${memberPassword}; expires=${expiresDate}; path=/`;
 
       onLoginSuccess(respData.accessToken);
 
@@ -77,9 +77,10 @@ export default function Letter() {
   return (
     <>
       <Image
-        className={`${styles.letter} ${showLetter ? styles.arive : ""} ${shakeLetter ? styles.shake : ""
-          }`}
-         src={letter}
+        className={`${styles.letter} ${showLetter ? styles.arive : ""} ${
+          shakeLetter ? styles.shake : ""
+        }`}
+        src={letter}
         alt="편지"
         onClick={() => setShowModal(true)}
       />
