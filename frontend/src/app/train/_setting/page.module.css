@@ -16,6 +16,7 @@
   gap: 16px;
   flex-grow: 1;
   height: 100%;
+  font-size: 20px;
 }
 
 .userInfo {
