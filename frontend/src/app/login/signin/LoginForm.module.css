@@ -59,7 +59,7 @@
 .button_container {
   position: fixed;
   width: 100%;
-  bottom: 8%;
+  bottom: 4%;
   display: flex;
   height: 16%;
   flex-direction: column;

@@ -1,0 +1,64 @@
+.topFont {
+  font-size: 18px;
+  font-weight: 400;
+  margin-top: 35px;
+}
+
+.boldFont {
+  font-weight: bold;
+}
+
+.fontWrap {
+  display: flex;
+}
+
+.primaryHeaderButton {
+  width: 99px;
+  height: 49px;
+  border-radius: 10px;
+  border: none;
+  background: var(--mandy-200, #f8d3d6);
+}
+
+.secondaryHeaderButton {
+  width: 99px;
+  height: 49px;
+  border-radius: 10px;
+  border: none;
+  background: #fff;
+}
+
+.middleContainer {
+  height: 91px;
+  background-color: #ffffff;
+  border-radius: 10px;
+  border: 1px solid #cecece;
+  display: flex;
+  margin-top: 9px;
+  flex-direction: row;
+}
+
+.fontContainer {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  line-height: 24px;
+}
+
+.profileContainer {
+  display: flex;
+  margin: 20px 13px;
+  justify-content: space-between;
+  width: 100%;
+}
+
+.profileContainerLeft {
+  display: flex;
+}
+
+.profile {
+  height: 50px;
+  width: 50px;
+  border-radius: 49px;
+  margin-right: 20px;
+}

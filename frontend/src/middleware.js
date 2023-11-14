@@ -1,7 +1,8 @@
 import { NextResponse } from "next/server";
 
 export default function Middleware(request) {
-  if (!request.cookies.has("accessToken")) {
+  // if (!request.cookies.has("refreshToken")) {
+  if (!request.cookies.has("id")) {
     return NextResponse.redirect("http://localhost:3000/login");
   }
 }

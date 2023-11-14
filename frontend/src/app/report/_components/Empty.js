@@ -10,7 +10,7 @@ export default function Empty() {
         alignItems: "center",
         flexDirection: "column",
         position: "absolute",
-        top: "22%",
+        top: "16%",
         gap: "12px",
       }}
     >

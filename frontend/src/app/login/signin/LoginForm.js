@@ -24,10 +24,13 @@ export default function LoginForm() {
     try {
       const data = await loginFetch("member/login", formData);
       const respData = data.response;
+      let date = new Date();
+      date.setTime(date.getTime() + 14 * 24 * 60 * 60 * 1000);
+      const expiresDate = date.toGMTString();
 
-      document.cookie = `accessToken=${respData.accessToken}`;
-
-      onLoginSuccess(respData.accessToken);
+      document.cookie = `accessToken=${respData.accessToken}; path=/`;
+      document.cookie = `id=${id}; expires=${expiresDate}; path=/`;
+      document.cookie = `pw=${password}; expires=${expiresDate}; path=/`;
 
       login(respData.memberName, respData.memberProfileImg);
 
@@ -36,12 +39,6 @@ export default function LoginForm() {
       console.log(e);
     }
   };
-
-  function onLoginSuccess(accessToken) {
-    if (window.AndroidBridge) {
-      window.AndroidBridge.onLoginSuccess(accessToken);
-    }
-  }
 
   return (
     <form className={styles.input_container}>

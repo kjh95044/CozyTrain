@@ -9,5 +9,5 @@ export default function TurnSheep() {
     animationData: check,
   });
 
-  return <div style={{ width: "200px" }}>{View}</div>;
+  return <div style={{ width: "240px" }}>{View}</div>;
 }

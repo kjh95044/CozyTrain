@@ -2,40 +2,22 @@ package song.sam.cozytrain.ui.theme
 
 import androidx.compose.material3.Typography
 
-// Set of Material typography styles to start with
-
 private val defaultTypography = Typography()
 
 val Typography = Typography(
-    displayLarge = defaultTypography.displayLarge.copy(fontFamily = Quicksand),
-    displayMedium = defaultTypography.displayMedium.copy(fontFamily = Quicksand),
-    displaySmall = defaultTypography.displaySmall.copy(fontFamily = Quicksand),
-    headlineLarge = defaultTypography.headlineLarge.copy(fontFamily = Quicksand),
-    headlineMedium = defaultTypography.headlineMedium.copy(fontFamily = Quicksand),
-    headlineSmall = defaultTypography.headlineSmall.copy(fontFamily = Quicksand),
-    titleLarge = defaultTypography.titleLarge.copy(fontFamily = Quicksand),
-    titleMedium = defaultTypography.titleMedium.copy(fontFamily = Quicksand),
-    titleSmall = defaultTypography.titleSmall.copy(fontFamily = Quicksand),
-    bodyLarge = defaultTypography.bodyLarge.copy(fontFamily = Quicksand),
-    bodyMedium = defaultTypography.bodyMedium.copy(fontFamily = Quicksand),
-    bodySmall = defaultTypography.bodySmall.copy(fontFamily = Quicksand),
-    labelLarge = defaultTypography.labelLarge.copy(fontFamily = Quicksand),
-    labelMedium = defaultTypography.labelMedium.copy(fontFamily = Quicksand),
-    labelSmall = defaultTypography.labelSmall.copy(fontFamily = Quicksand),
-    /* Other default text styles to override
-    titleLarge = TextStyle(
-        fontFamily = FontFamily.Default,
-        fontWeight = FontWeight.Normal,
-        fontSize = 22.sp,
-        lineHeight = 28.sp,
-        letterSpacing = 0.sp
-    ),
-    labelSmall = TextStyle(
-        fontFamily = FontFamily.Default,
-        fontWeight = FontWeight.Medium,
-        fontSize = 11.sp,
-        lineHeight = 16.sp,
-        letterSpacing = 0.5.sp
-    )
-    */
+    displayLarge = defaultTypography.displayLarge.copy(fontFamily = Dovemayo_gothic),
+    displayMedium = defaultTypography.displayMedium.copy(fontFamily = Dovemayo_gothic),
+    displaySmall = defaultTypography.displaySmall.copy(fontFamily = Dovemayo_gothic),
+    headlineLarge = defaultTypography.headlineLarge.copy(fontFamily = Dovemayo_gothic),
+    headlineMedium = defaultTypography.headlineMedium.copy(fontFamily = Dovemayo_gothic),
+    headlineSmall = defaultTypography.headlineSmall.copy(fontFamily = Dovemayo_gothic),
+    titleLarge = defaultTypography.titleLarge.copy(fontFamily = Dovemayo_gothic),
+    titleMedium = defaultTypography.titleMedium.copy(fontFamily = Dovemayo_gothic),
+    titleSmall = defaultTypography.titleSmall.copy(fontFamily = Dovemayo_gothic),
+    bodyLarge = defaultTypography.bodyLarge.copy(fontFamily = Dovemayo_gothic),
+    bodyMedium = defaultTypography.bodyMedium.copy(fontFamily = Dovemayo_gothic),
+    bodySmall = defaultTypography.bodySmall.copy(fontFamily = Dovemayo_gothic),
+    labelLarge = defaultTypography.labelLarge.copy(fontFamily = Dovemayo_gothic),
+    labelMedium = defaultTypography.labelMedium.copy(fontFamily = Dovemayo_gothic),
+    labelSmall = defaultTypography.labelSmall.copy(fontFamily = Dovemayo_gothic),
 )

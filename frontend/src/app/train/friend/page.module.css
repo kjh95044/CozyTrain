@@ -1,0 +1,30 @@
+.topContainer {
+  margin: 18px;
+}
+
+.buttonContainer {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+}
+
+.primaryHeaderButton {
+  flex: 1;
+  height: 49px;
+  border-radius: 10px;
+  border: none;
+  background: var(--mandy-200, #f8d3d6);
+  font-size: 18px;
+  margin: 0 6px;
+}
+
+.secondaryHeaderButton {
+  flex: 1;
+  width: 99px;
+  height: 49px;
+  border-radius: 10px;
+  border: none;
+  background: #fff;
+  font-size: 18px;
+  margin: 0 6px;
+}

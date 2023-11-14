@@ -1,0 +1,21 @@
+version: '3.3'
+services:
+  backend-dev:
+    build:
+      dockerfile: Dockerfile # dockerfile이름
+      context: ./
+      args:
+        TZ: Asia/Seoul
+    ports:
+      - "8599:8080"
+    networks:
+      - backend-dev
+    image: backend-dev-green:latest
+    environment:
+      - TZ=Asia/Seoul
+    container_name: backend-dev-green
+    stdin_open: true
+
+networks:
+  backend-dev:
+    external: true
