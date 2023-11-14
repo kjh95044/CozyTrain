@@ -17,31 +17,18 @@ export default function Korea() {
 
     const [curPosition, setCurPosition] = useState([]);
     const [curRotation, setCurRotation] = useState([]);
+    const [curCountry, setCurCountry] = useState("");
 
     const getTrainLocation = async () => {
         const data = await getFetch("train/cur-location-info")
         const curRegionNum = data.response.regionNum;
         const curArea = data.response.area;
-        const curCountry = data.response.countryKor;
+        setCurCountry(data.response.countryKor);
 
-        if (curCountry !== '태국') {
-            setCurPosition([
-                -0.132,
-                -0.003,
-                -0.07
-            ]);
-            setCurRotation([
-                0,
-                -0.1,
-                0
-            ]);
-        }
-        else {
-            const foundPositionData = findPosition(curRegionNum, curArea);
-            if (foundPositionData) {
-                setCurPosition(foundPositionData.position);
-                setCurRotation(foundPositionData.rotation);
-            }
+        const foundPositionData = findPosition(curRegionNum, curArea);
+        if (foundPositionData) {
+            setCurPosition(foundPositionData.position);
+            setCurRotation(foundPositionData.rotation);
         }
     }
 
@@ -89,13 +76,15 @@ export default function Korea() {
                         position={[Models[0].position[0], Models[0].position[1], Models[0].position[2]]}
                         rotation={[Models[0].rotation[0], Models[0].rotation[1], Models[0].rotation[2]]}
                     />
-                    <group ref={group}>
-                        <Model
-                            url={Models[1].url}
-                            scale={0.0003}
-                            position={[Models[1].position[0], Models[1].position[1], Models[1].position[2]]}
-                            rotation={[Models[1].rotation[0], Models[1].rotation[1], Models[1].rotation[2]]} />
-                    </group>
+                    {curCountry === '태국' && (
+                        <group ref={group}>
+                            <Model
+                                url={Models[1].url}
+                                scale={0.0003}
+                                position={[Models[1].position[0], Models[1].position[1], Models[1].position[2]]}
+                                rotation={[Models[1].rotation[0], Models[1].rotation[1], Models[1].rotation[2]]} />
+                        </group>
+                    )}
                     <ambientLight intensity={3} />
                 </Suspense>
                 <OrbitControls
