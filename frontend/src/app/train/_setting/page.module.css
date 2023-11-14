@@ -1,0 +1,12 @@
+.closeBtn {
+  display: flex;
+  justify-content: end;
+}
+
+.title {
+  font-size: var(--text-lg);
+  font-weight: 600;
+}
+
+.footer {
+}

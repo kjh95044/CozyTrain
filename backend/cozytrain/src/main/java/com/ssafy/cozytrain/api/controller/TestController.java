@@ -25,6 +25,6 @@ public class TestController {
 
     @GetMapping("check")
     public ApiUtils.ApiResult<String> testCheck(){
-        return success("check");
+        return success("check(수정)");
     }
 }

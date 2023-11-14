@@ -1,5 +1,6 @@
 package com.ssafy.cozytrain.common.handler;
 import com.ssafy.cozytrain.common.exception.NotFoundException;
+import com.ssafy.cozytrain.common.exception.AccessTokenExpiredException;
 import com.ssafy.cozytrain.common.utils.ApiUtils;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpStatus;
@@ -31,4 +32,12 @@ public class GlobalExceptionHandler {
         return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(error(e.getBindingResult().getAllErrors().get(0).getDefaultMessage(), HttpStatus.BAD_REQUEST));
     }
 
+    @ExceptionHandler({
+            AccessTokenExpiredException.class
+    })
+    public ResponseEntity<ApiUtils.ApiResult<?>> handleTokenException(AccessTokenExpiredException e) {
+        log.info("err: " + e.getMessage());
+
+        return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body(error(e, HttpStatus.UNAUTHORIZED));
+    }
 }
