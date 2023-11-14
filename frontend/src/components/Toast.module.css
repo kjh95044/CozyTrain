@@ -2,7 +2,7 @@
   position: fixed;
   background-color: transparent;
   left: 50%;
-  top: 50%;
+  top: 30%;
   transform: translateX(-50%);
   z-index: 10;
 }
