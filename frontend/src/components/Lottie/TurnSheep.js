@@ -12,11 +12,11 @@ export default function TurnSheep() {
   return (
     <div
       style={{
-        height: "52%",
-        width: "100%",
-        position: "fixed",
-        inset: "50%",
-        transform: "translate(-50%, -48%)",
+        height: "50%",
+        // width: "100%",
+        // position: "fixed",
+        // inset: "50%",
+        // transform: "translate(-50%, -48%)",
       }}
     >
       {View}
