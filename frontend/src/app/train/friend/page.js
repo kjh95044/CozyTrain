@@ -26,8 +26,7 @@ export default function Friend() {
             }
             onClick={() => setLocation(0)}
           >
-            {" "}
-            요청 목록{" "}
+            요청 목록
           </button>
           <button
             className={
@@ -37,7 +36,6 @@ export default function Friend() {
             }
             onClick={() => setLocation(1)}
           >
-            {" "}
             친구 추가
           </button>
           <button
@@ -48,7 +46,6 @@ export default function Friend() {
             }
             onClick={() => setLocation(2)}
           >
-            {" "}
             랭킹
           </button>
         </div>

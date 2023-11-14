@@ -5,16 +5,16 @@
 }
 
 .inputBox {
-  width: 241px;
+  flex: 4;
   height: 37px;
   border-radius: 10px;
   border: 1px solid #cecece;
   padding-left: 10px;
+  margin-right: 20px;
 }
 
 .buttonBox {
-  width: 70px;
-  height: 32px;
+  flex: 1.2;
   border-radius: 15px;
   border: none;
 }
