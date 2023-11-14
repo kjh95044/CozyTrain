@@ -39,6 +39,14 @@ export default function Message() {
   const [analyser, setAnalyser] = useState();
   const [audioUrl, setAudioUrl] = useState();
 
+  const options = {
+    month: "2-digit",
+    day: "2-digit",
+    hour: "numeric",
+    minute: "numeric",
+    hour12: true,
+  };
+
   useEffect(() => {
     messageListReq();
   }, []);
@@ -163,14 +171,10 @@ export default function Message() {
                             alt="사운드"
                           />
                         </div>
-                        <div>
-                          {new Date(message.createdAt).toLocaleTimeString(
+                        <div className={styles.date}>
+                          {new Date(message.createdAt).toLocaleString(
                             "ko-KR",
-                            {
-                              hour: "numeric",
-                              minute: "numeric",
-                              hour12: false,
-                            }
+                            options
                           )}
                         </div>
                       </div>
@@ -192,14 +196,10 @@ export default function Message() {
                             alt="사운드"
                           />
                         </div>
-                        <div>
-                          {new Date(message.createdAt).toLocaleTimeString(
+                        <div className={styles.date}>
+                          {new Date(message.createdAt).toLocaleString(
                             "ko-KR",
-                            {
-                              hour: "numeric",
-                              minute: "numeric",
-                              hour12: false,
-                            }
+                            options
                           )}
                         </div>
                       </div>
