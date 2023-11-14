@@ -8,5 +8,5 @@ export default function Coffee() {
     animationData: coffee,
   });
 
-  return <div style={{ width: "60%" }}>{View}</div>;
+  return <div style={{ width: "80%" }}>{View}</div>;
 }
