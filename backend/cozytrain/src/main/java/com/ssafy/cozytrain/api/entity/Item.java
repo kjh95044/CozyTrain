@@ -18,7 +18,7 @@ public class Item {
     private String itemImgUrl;
     private String itemDescription;
 
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "country_id")
     private Country country;
 

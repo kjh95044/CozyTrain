@@ -19,11 +19,11 @@ public class ItemBox {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long itemBoxId;
 
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "country_id")
     private Country country;
 
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "member_id", referencedColumnName = "member_id")
     private Member member;
 

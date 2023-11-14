@@ -41,6 +41,14 @@ public class Health {
         this.report = report;
     }
 
+    @Builder
+    public Health(int stressLevel, int sleepDuration, int steps, int sleepScore){
+        this.stressLevel = stressLevel;
+        this.sleepDuration = sleepDuration;
+        this.steps = steps;
+        this.sleepScore = sleepScore;
+    }
+
     public void updateHealthData(HealthDto.HealthDtoReq health){
         this.stressLevel = health.getStressLevel();
         this.sleepDuration = health.getSleepDuration();

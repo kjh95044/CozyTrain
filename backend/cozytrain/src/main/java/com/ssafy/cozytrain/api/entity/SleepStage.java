@@ -26,7 +26,7 @@ public class SleepStage {
     @NotNull
     private LocalDateTime endTime;
 
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "health_id", referencedColumnName = "health_id")
     private Health health;
 
@@ -36,6 +36,13 @@ public class SleepStage {
         this.startTime = startTime;
         this. endTime = endTime;
         this.health = health;
+    }
+
+    @Builder
+    public SleepStage(int stage, LocalDateTime startTime, LocalDateTime endTime){
+        this.stage = stage;
+        this.startTime = startTime;
+        this. endTime = endTime;
     }
 
     public void updateSleepStage(SleepStageDto.SleepStageDtoReq sleepStage){

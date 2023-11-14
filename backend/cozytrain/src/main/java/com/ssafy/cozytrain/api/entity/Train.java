@@ -20,11 +20,12 @@ public class Train {
     @Column(name = "train_id")
     private Long trainId;
     private int trainCurDist;
+    private int moveDist;
     private LocalDate startDate;
     private LocalDate endDate;
     private LocalDateTime createdAt;
     private LocalDateTime updatedAt;
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "station_id", referencedColumnName = "station_id")
     private Station station;
 
@@ -32,7 +33,7 @@ public class Train {
     @JoinColumn(name = "member_id", referencedColumnName = "member_id")
     private Member member;
 
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "track_id", referencedColumnName = "track_id")
     private Track track;
 
@@ -46,8 +47,9 @@ public class Train {
         this.station = station;
     }
 
-    public void updateTrainCurDist(int trainCurDist){
+    public void updateTrainCurDist(int trainCurDist, int moveDist){
         this.trainCurDist = trainCurDist;
+        this.moveDist = moveDist;
         this.updatedAt = LocalDateTime.now();
     }
     public void updateTrainEndDate(LocalDate endDate){
