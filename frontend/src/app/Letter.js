@@ -10,6 +10,7 @@ import PrimaryButton from "@/components/button/PrimaryButton";
 import Modal from "@/components/Modal";
 import letter from "#/images/letter.png";
 import styles from "./Letter.module.css";
+import LetterContent from "./LetterContent";
 
 export default function Letter() {
   const [showLetter, setShowLetter] = useState(false);
@@ -19,6 +20,7 @@ export default function Letter() {
 
   const getUserInfo = async () => {
     const cookies = document.cookie.split("; ");
+
     let memberId;
     let memberPassword;
     cookies.forEach((cookie) => {
@@ -44,8 +46,10 @@ export default function Letter() {
       const expiresDate = date.toGMTString();
 
       document.cookie = `accessToken=${respData.accessToken}; path=/`;
-      document.cookie = `id=${id}; expires=${expiresDate}; path=/`;
-      document.cookie = `pw=${password}; expires=${expiresDate}; path=/`;
+      document.cookie = `id=${memberId}; expires=${expiresDate}; path=/`;
+      document.cookie = `pw=${memberPassword}; expires=${expiresDate}; path=/`;
+
+      onLoginSuccess(respData.accessToken);
 
       login(respData.memberName, respData.memberProfileImg);
     } catch (e) {
@@ -65,6 +69,12 @@ export default function Letter() {
     }, 1000);
   }, []);
 
+  function onLoginSuccess(accessToken) {
+    if (window.AndroidBridge) {
+      window.AndroidBridge.onLoginSuccess(accessToken);
+    }
+  }
+
   return (
     <>
       <Image
@@ -78,7 +88,7 @@ export default function Letter() {
 
       {showModal && (
         <Modal onClick={() => setShowModal(false)}>
-          <div>수면 리포트 샬라샬라</div>
+          <LetterContent></LetterContent>
 
           <Link href={"/train"}>
             <PrimaryButton>확인</PrimaryButton>
