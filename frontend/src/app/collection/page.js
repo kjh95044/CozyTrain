@@ -1,5 +1,6 @@
 "use client";
 
+import Gift from "@/components/Lottie/Gift";
 import styles from "./page.module.css";
 import NavBottom from "@/components/NavBottom";
 import Image from "next/image";
@@ -18,6 +19,7 @@ export default function Collection() {
   const [collection, setCollection] = useState([]);
   const [itembox, setItemBox] = useState([]);
   const [gachaitem, setGachaItem] = useState([]);
+  const [gift, setGift] = useState(false);
 
   const countrys = ["한국", "일본", "태국", "중국"];
   const cnt = 8;
@@ -48,7 +50,12 @@ export default function Collection() {
     if (foundItem) {
       foundItem.own = true;
     }
-    setAfterGacha(true);
+
+    setGift(true);
+    setTimeout(() => {
+      setGift(false);
+      setAfterGacha(true);
+    }, 2800);
   };
 
   const selectItem = async () => {
@@ -70,7 +77,6 @@ export default function Collection() {
   };
 
   const openDesModal = (item) => {
-    console.log(item);
     setGachaItem(item);
     setDesModal(true);
   };
@@ -195,6 +201,12 @@ export default function Collection() {
                           </PrimaryButton>
                         </div>
                       ))}
+
+                  {gift && (
+                    <div className={styles.gift}>
+                      <Gift></Gift>
+                    </div>
+                  )}
                 </>
               )}
             </div>
