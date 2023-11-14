@@ -18,6 +18,7 @@ class StepsViewModel @Inject constructor(
     override fun getViewModelData(): ViewModelData<StepsRecord> {
         val data by elements
         val onPermissionsResult = { readData(steps) }
+//        val hasPermission = init(steps)
 
         val permissionsLauncher =
             rememberLauncherForActivityResult(permissionLauncher) { onPermissionsResult() }
@@ -28,6 +29,7 @@ class StepsViewModel @Inject constructor(
             permissions = steps.readPermissions,
             onPermissionsResult = onPermissionsResult,
             onRequestPermissions = { values -> permissionsLauncher.launch(values) },
+//            hasPermission = hasPermission
         )
     }
 }

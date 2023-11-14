@@ -5,12 +5,14 @@ import androidx.datastore.core.DataStore
 import androidx.datastore.preferences.core.Preferences
 import androidx.datastore.preferences.core.booleanPreferencesKey
 import androidx.datastore.preferences.core.edit
+import androidx.datastore.preferences.core.stringPreferencesKey
 import androidx.datastore.preferences.preferencesDataStore
 import androidx.lifecycle.ViewModel
 import dagger.hilt.android.lifecycle.HiltViewModel
 import dagger.hilt.android.qualifiers.ApplicationContext
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.map
+import java.time.LocalDate
 import javax.inject.Inject
 
 @HiltViewModel
@@ -22,6 +24,7 @@ class UserDataViewModel @Inject constructor(
         name = "data"
     )
     private val permissionKey = booleanPreferencesKey("permission")
+    private val submissionDate = stringPreferencesKey("submissionDate")
 
     // 데이터를 저장하는 함수
     suspend fun savePermission(permission: Boolean) {
@@ -36,4 +39,14 @@ class UserDataViewModel @Inject constructor(
             preferences[permissionKey]
         }
 
+    suspend fun saveSubmissionDate(submissionDate: String) {
+        context.dataStore.edit { preferences ->
+            preferences[this.submissionDate] = submissionDate
+        }
+    }
+
+    val submissionDateFlow: Flow<String?> = context.dataStore.data
+        .map { preferences ->
+            preferences[submissionDate]
+        }
 }

@@ -24,6 +24,7 @@ android {
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
 
         buildConfigField "String", "COZY_TRAIN_URL", properties['cozy_train_url']
+        buildConfigField "String", "COZY_TRAIN_SERVER_BASE_URL", properties['cozy_train_server_base_url']
     }
 
     buildTypes {

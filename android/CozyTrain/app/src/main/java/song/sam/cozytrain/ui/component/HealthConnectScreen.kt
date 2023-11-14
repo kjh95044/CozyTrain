@@ -45,11 +45,18 @@ import androidx.compose.foundation.Image
 import androidx.compose.foundation.layout.IntrinsicSize
 import androidx.compose.foundation.layout.width
 import androidx.compose.ui.unit.sp
+import androidx.health.connect.client.records.SleepStageRecord
 import coil.ImageLoader
 import coil.compose.rememberAsyncImagePainter
 import coil.decode.GifDecoder
 import coil.decode.ImageDecoderDecoder
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.GlobalScope
+import kotlinx.coroutines.launch
 import song.sam.cozytrain.R
+import java.time.LocalDate
+import java.time.LocalDateTime
 
 @SuppressLint("JavascriptInterface")
 @Composable
@@ -58,43 +65,47 @@ fun DrawHealthConnectSubscreen(
     viewModelData2: ViewModelData<out Record>,
     userModelData: UserDataViewModel,
 ) {
+    val uiState1 = viewModelData1.uiState
+    val uiState2 = viewModelData2.uiState
 
-    val isPermission by userModelData.permissionFlow.collectAsState(initial = false)
-
-    LaunchedEffect(viewModelData1.uiState,viewModelData2.uiState) {
-        if (viewModelData1.uiState == UiState.Success && viewModelData2.uiState == UiState.Success ) {
-            userModelData.savePermission(true)
+    LaunchedEffect(uiState1, uiState2) {
+        if (uiState1 is UiState.Uninitialized) {
+            viewModelData1.onRequestPermissions(viewModelData1.permissions)
+        }
+        if (uiState2 is UiState.Uninitialized) {
+            viewModelData2.onRequestPermissions(viewModelData2.permissions)
         }
     }
+    val checkIsSentToday = checkIsSentToday(userModelData = userModelData)
 
-    val stepViewModel: StepsViewModel = hiltViewModel()
-    val stepVMD: ViewModelData<StepsRecord> = stepViewModel.getViewModelData()
+    if (uiState1 !is UiState.Uninitialized && uiState2 !is UiState.Uninitialized) {
+        val stepViewModel: StepsViewModel = hiltViewModel()
+        val stepVMD: ViewModelData<StepsRecord> = stepViewModel.getViewModelData()
 
-    val sleepsessionViewModel: SleepSessionViewModel = hiltViewModel()
-    val sleepsessionVMD: ViewModelData<SleepSessionData> = sleepsessionViewModel.getViewModelData()
+        val sleepsessionViewModel: SleepSessionViewModel = hiltViewModel()
+        val sleepsessionVMD: ViewModelData<SleepSessionData> =
+            sleepsessionViewModel.getViewModelData()
 
-    Log.d("걸음수 ㅋㅋ", "${stepVMD} ${stepVMD.data}")
-    Log.d("수면 단계 ㅋㅋ", "${sleepsessionVMD}   ${sleepsessionVMD.data}")
+        Log.d("걸음수 ㅋㅋ", "${stepVMD} ${stepVMD.data}")
+        Log.d("수면 단계 ㅋㅋ", "${sleepsessionVMD}   ${sleepsessionVMD.data}")
 
-    if (isPermission == true ) { /*|| viewModelData2.uiState == UiState.Success */
         Log.d("성공", "인데 왜 화면이 안 뜨지")
 
-        var steps = stepVMD.data[0].count.toInt()
-        var sleepDuration = parseDuration(sleepsessionVMD.data[0].duration.toString())
-
-        var sleepStages = convertSleepStageToSleepStages(sleepsessionVMD.data[0].stages)
+        val steps = stepVMD.data[0].count.toInt()
+        val sleepDuration = parseDuration(sleepsessionVMD.data[0].duration.toString())
+        val sleepStages = convertSleepStageToSleepStages(sleepsessionVMD.data[0].stages)
 
         val webViewState =
             rememberWebViewState(
                 url = BuildConfig.COZY_TRAIN_URL,
             )
-        var webViewClient = AccompanistWebViewClient()
-        var webChromeClient = AccompanistWebChromeClient()
+        val webViewClient = AccompanistWebViewClient()
+        val webChromeClient = AccompanistWebChromeClient()
         Box(
             modifier = Modifier
                 .fillMaxSize()
                 .background(color = androidx.compose.ui.graphics.Color.Black)
-        ){
+        ) {
             WebView(
                 state = webViewState,
                 client = webViewClient,
@@ -108,21 +119,23 @@ fun DrawHealthConnectSubscreen(
                         }
                     }
                     webView.addJavascriptInterface(AndroidBridge {
-//                                                                 postDreamData(dreamContent, dreamType)
-                        postHealthData(sleepDuration, sleepStages, steps)
+                        if (!checkIsSentToday && LocalDateTime.now().hour>=4) {
+                            postHealthData(sleepDuration, sleepStages, steps, userModelData = userModelData)
+                        }
                     }, "AndroidBridge");
                 }
             )
         }
     }
-    else {
+
+    if (uiState1 is UiState.NotEnoughPermissions || uiState2 is UiState.NotEnoughPermissions) {
         Column(
             modifier = Modifier
                 .fillMaxSize()
                 .padding(horizontal = 8.dp),
             verticalArrangement = Arrangement.Center,
             horizontalAlignment = Alignment.CenterHorizontally
-        ){
+        ) {
 
             val imageLoader = ImageLoader.Builder(LocalContext.current)
                 .components {
@@ -159,14 +172,27 @@ fun DrawHealthConnectSubscreen(
 //                    .background(color = androidx.compose.ui.graphics.Color.Magenta),
 
             ) {
-                Text(text="권한 허용",
-                    fontSize = 20.sp)
+                Text(
+                    text = "권한 허용",
+                    fontSize = 20.sp
+                )
             }
         }
     }
 }
 
-fun postHealthData(sleepDuration: Int, sleepStages: List<SleepStage>, steps: Int) {
+@Composable
+fun checkIsSentToday(userModelData: UserDataViewModel): Boolean {
+    val submissionDate by userModelData.submissionDateFlow.collectAsState("None")
+    return submissionDate.equals(LocalDate.now().toString())
+}
+
+fun postHealthData(
+    sleepDuration: Int,
+    sleepStages: List<SleepStage>,
+    steps: Int,
+    userModelData: UserDataViewModel
+) {
 
     val health = Health(
         sleepDuration = sleepDuration,
@@ -187,6 +213,10 @@ fun postHealthData(sleepDuration: Int, sleepStages: List<SleepStage>, steps: Int
                 response: Response<HealthDataResponse>
             ) {
                 Log.d("ㅋㅋ 성공", response.toString())
+
+                CoroutineScope(Dispatchers.Default).launch {
+                    userModelData.saveSubmissionDate(LocalDate.now().toString())
+                }
             }
 
             override fun onFailure(call: Call<HealthDataResponse>, t: Throwable) {
@@ -196,9 +226,9 @@ fun postHealthData(sleepDuration: Int, sleepStages: List<SleepStage>, steps: Int
         })
 }
 
-class AndroidBridge (
+class AndroidBridge(
     private val onAuthTokenSet: () -> Unit
-){
+) {
     @JavascriptInterface
     fun onLoginSuccess(accessToken: String) {
         Log.d("ㅋㅋ 내가 만든 쿠키", "AccessToken: $accessToken")
