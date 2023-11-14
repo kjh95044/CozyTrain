@@ -5,23 +5,15 @@ import styles from "./LetterContent.module.css";
 import SleepTime from "./report/_components/SleepTime";
 import Empty from "./report/_components/Empty";
 import Score from "./report/_components/Score";
-import Walking from "@/components/Lottie/Walking";
-import Coffee from "@/components/Lottie/Coffee";
-import Meditation from "@/components/Lottie/Meditation";
 
 export default function LetterContent() {
   const [averageReport, setAverageReport] = useState({});
   const [isLoading, setIsLoading] = useState(true);
   const [report, setReport] = useState({});
-  const [factor, setFactor] = useState(null);
 
   useEffect(() => {
     getReport();
   }, []);
-
-  const handleSetFactor = (idx) => {
-    setFactor(idx);
-  };
 
   const getReport = async () => {
     try {
@@ -43,16 +35,7 @@ export default function LetterContent() {
       {!isLoading && report.date && (
         <>
           <SleepTime report={report}></SleepTime>
-          <Score
-            report={report}
-            averageReport={averageReport}
-            handleSetFactor={handleSetFactor}
-          ></Score>
-          <div className={styles.lottie}>
-            {factor === 0 && <Coffee></Coffee>}
-            {factor === 1 && <Walking></Walking>}
-            {factor === 2 && <Meditation></Meditation>}
-          </div>
+          <Score report={report} averageReport={averageReport}></Score>
         </>
       )}
 
