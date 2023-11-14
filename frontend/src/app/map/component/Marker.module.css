@@ -1,0 +1,20 @@
+.markerVisited {
+    position: absolute;
+    background-repeat: no-repeat;
+    background-color: transparent;
+    width: 20px;
+    height: 20px;
+    border: none;
+    background-image: url('../../../../public/images/map/visited.png');
+
+}
+
+.markerNotVisited {
+    position: absolute;
+    background-repeat: no-repeat;
+    background-color: transparent;
+    width: 20px;
+    height: 20px;
+    border: none;
+    background-image: url('../../../../public/images/map/not-visited.png');
+}

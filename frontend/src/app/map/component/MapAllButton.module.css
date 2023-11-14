@@ -1,0 +1,12 @@
+.container {
+    width: 137px;
+    height: 60px;
+    background-color: #ffffff;
+    border-radius: 20px;
+    filter: drop-shadow(0px 4px 4px rgba(0, 0, 0, 0.25));
+    border: none;
+    font-family: 'Pretendard';
+    font-style: normal;
+    font-weight: 700;
+    font-size: 18px;
+}

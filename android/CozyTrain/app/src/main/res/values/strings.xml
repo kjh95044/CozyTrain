@@ -1,0 +1,61 @@
+<resources xmlns:tools="http://schemas.android.com/tools" tools:ignore = "typos">
+    <string name="app_name">Help me...</string>
+
+    <!-- Available data -->
+    <string name="sleep">수면</string>
+    <string name="heart_rate">심박수</string>
+    <string name="steps">걸음수</string>
+
+    <!-- Notifications -->
+    <string name="new_daily_morning_round_available_title">Cuestionario de mañana</string>
+    <string name="new_daily_night_round_available_title">Cuestionario de noche</string>
+    <string name="new_one_off_round_available_title">Cuestionario puntual</string>
+    <string name="new_daily_morning_round_available_content">¡Hola! Está disponible el cuestionario de mañana de hoy. Pulse para realizarlo.</string>
+    <string name="new_daily_night_round_available_content">¡Hola! Está disponible el cuestionario de noche de hoy. Pulse para realizarlo.</string>
+    <string name="new_one_off_round_available_content">¡Hola! Está disponible un nuevo cuestionario puntual. Pulse para realizarlo.</string>
+    <string name="uploading">Subiendo datos</string>
+    <string name="uploading_in_progress">Subida de datos en progreso</string>
+
+    <!-- Levels -->
+    <string name="minimal">Minimo</string>
+    <string name="mild">Leve</string>
+    <string name="moderate">Moderado</string>
+    <string name="moderately_severe">Moderadamente severa</string>
+    <string name="severe">Severa</string>
+    <string name="low">Bajo</string>
+    <string name="high">Alto</string>
+
+    <string name="duration">기간</string>
+    <string name="sleep_stages">수면 단계:</string>
+    <string name="no_data_to_display">표시할 데이터가 없습니다.</string>
+    <string name="request_permissions">권한 허용</string>
+    <string name="unknown_display" translatable="false">--</string>
+
+    <!-- Decode health connect -->
+    <string name="unknown">알 수 없음</string>
+    <string name="awake">깨어 있음</string>
+    <string name="sleeping">자는 중</string>
+    <string name="out_of_bed">침대 밖</string>
+    <string name="light">얕은 수면</string>
+    <string name="deep">깊은 수면</string>
+    <string name="rem" translatable="false">렘 수면</string>
+
+    <!-- Permission -->
+    <string name="permission_screen_label">권한</string>
+    <string name="permission_screen_description">애플리케이션 권한</string>
+    <string name="permission_granted">권한을 허용했습니다. Android 설정 화면에서 변경할 수 있습니다.</string>
+    <string name="permission_health_connect">헬스 커넥트에 허용한 권한</string>
+    <string name="permission_intro"> 저의 앱을 이용하기 위해서는 다음과 같은 권한이 필요합니다.</string>
+    <string name="permission_health_connect_description"> 헬스 커넥트 권한을 확인해주세요.</string>
+
+    <string name="bpm">ppm</string>
+    <string name="title">제목</string>
+    <string name="notes">기록</string>
+    <string name="day">일</string>
+    <string name="week">주</string>
+    <string name="month">월</string>
+
+
+    <string name="Title" translatable="false">Title</string>
+    <string name="_0_kb" translatable="false">0 Kb</string>
+</resources>

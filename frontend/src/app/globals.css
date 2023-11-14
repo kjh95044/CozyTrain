@@ -1,6 +1,47 @@
-body {
+* {
   box-sizing: border-box;
+  text-decoration: none;
+  list-style: none;
   margin: 0;
+  padding: 0;
+
+  font-family: "Dovemayo_gothic";
+}
+
+body {
+  position: fixed;
+  width: 100vw;
+  height: 100vh;
   overflow: hidden;
-  touch-action: none;
+}
+
+body::-webkit-scrollbar {
+  display: none;
+}
+
+:root {
+  --primary: #f2afb6;
+  --secondary: #9bd8e6;
+  --accent: #ca4a51;
+  --gray: #666666;
+  --shadow: 0 2px 4px 0 rgba(0, 0, 0, 0.1);
+  --shadow-lg: 0 4px 6px 0 rgba(0, 0, 0, 0.1);
+  --text-xs: 12px;
+  --text-sm: 14px;
+  --text-lg: 28px;
+  --text-xl: 20px;
+  --text-2xl: 24px;
+  --text-3xl: 28px;
+}
+
+/* @font-face {
+  font-family: "SKYBORI";
+  font-weight: normal;
+  src: url("../../public/fonts/SKYBORI.ttf") format("truetype");
+} */
+
+@font-face {
+  font-family: "Dovemayo_gothic";
+  font-weight: normal;
+  src: url("../../public/fonts/Dovemayo_gothic.ttf") format("truetype");
 }
