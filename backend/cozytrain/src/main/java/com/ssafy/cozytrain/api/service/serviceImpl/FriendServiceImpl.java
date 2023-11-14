@@ -142,6 +142,7 @@ public class FriendServiceImpl implements FriendService {
     }
 
     @Override
+    @Transactional
     public Long deleteFriend(Long friendId) {
         return friendRepository.deleteByFriendId(friendId);
     }
