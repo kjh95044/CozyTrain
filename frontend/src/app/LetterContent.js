@@ -30,7 +30,7 @@ export default function LetterContent() {
   };
 
   return (
-    <div>
+    <div className={styles.container}>
       <div className={styles.title}>11월 14일 리포트</div>
       {!isLoading && report.date && (
         <>
