@@ -32,8 +32,6 @@ export default function LoginForm() {
       document.cookie = `id=${id}; expires=${expiresDate}; path=/`;
       document.cookie = `pw=${password}; expires=${expiresDate}; path=/`;
 
-      onLoginSuccess(respData.accessToken);
-
       login(respData.memberName, respData.memberProfileImg);
 
       router.push("/");
@@ -41,12 +39,6 @@ export default function LoginForm() {
       console.log(e);
     }
   };
-
-  function onLoginSuccess(accessToken) {
-    if (window.AndroidBridge) {
-      window.AndroidBridge.onLoginSuccess(accessToken);
-    }
-  }
 
   return (
     <form className={styles.input_container}>

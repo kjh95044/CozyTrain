@@ -10,6 +10,7 @@ import PrimaryButton from "@/components/button/PrimaryButton";
 import Modal from "@/components/Modal";
 import letter from "#/images/letter.png";
 import styles from "./Letter.module.css";
+import getAccessToken from "@/utils/getAccessToken";
 
 export default function Letter() {
   const [showLetter, setShowLetter] = useState(false);
@@ -47,6 +48,8 @@ export default function Letter() {
       document.cookie = `id=${id}; expires=${expiresDate}; path=/`;
       document.cookie = `pw=${password}; expires=${expiresDate}; path=/`;
 
+      onLoginSuccess(respData.accessToken);
+
       login(respData.memberName, respData.memberProfileImg);
     } catch (e) {
       console.log(e);
@@ -65,13 +68,18 @@ export default function Letter() {
     }, 1000);
   }, []);
 
+  function onLoginSuccess(accessToken) {
+    if (window.AndroidBridge) {
+      window.AndroidBridge.onLoginSuccess(accessToken);
+    }
+  }
+
   return (
     <>
       <Image
-        className={`${styles.letter} ${showLetter ? styles.arive : ""} ${
-          shakeLetter ? styles.shake : ""
-        }`}
-        src={letter}
+        className={`${styles.letter} ${showLetter ? styles.arive : ""} ${shakeLetter ? styles.shake : ""
+          }`}
+         src={letter}
         alt="편지"
         onClick={() => setShowModal(true)}
       />
