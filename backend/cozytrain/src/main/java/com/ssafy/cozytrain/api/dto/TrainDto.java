@@ -15,6 +15,7 @@ public class TrainDto {
     @Getter
     public static class TrainCurInfoDto{
         private final String region;
+        private final String country;
         private final String regionKor;
         private final String countryKor;
         private final int regionNum;
@@ -23,8 +24,9 @@ public class TrainDto {
         private final int totalDist;
 
         @Builder
-        public TrainCurInfoDto(String region, String regionKor, String countryKor, int regionNum, int dist, int area, int totalDist){
+        public TrainCurInfoDto(String region, String country, String regionKor, String countryKor, int regionNum, int dist, int area, int totalDist){
             this.region = region;
+            this.country = country;
             this.regionKor = regionKor;
             this.countryKor = countryKor;
             this.regionNum = regionNum;

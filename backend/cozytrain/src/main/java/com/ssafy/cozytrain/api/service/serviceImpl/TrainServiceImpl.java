@@ -60,9 +60,10 @@ public class TrainServiceImpl implements TrainService {
         if (station == null) {
             throw new NotFoundException("Not Found Station, Station을 추가해주세요.");
         } else {
-            // 나라 : train.getStation().getCountry().getCountryName();
+            ;
             return TrainDto.TrainCurInfoDto.builder()
                     .region(station.getRegion())
+                    .country(station.getCountry().getCountryName())
                     .regionKor(station.getRegionKor())
                     .countryKor(station.getCountry().getCountryNameKor())
                     .regionNum(station.getRegionNum())
