@@ -10,7 +10,7 @@ export default function LetterContent() {
   const [averageReport, setAverageReport] = useState({});
   const [isLoading, setIsLoading] = useState(true);
   const [report, setReport] = useState({});
-  const [date, setDate] = useState([]);
+  const [date, setDate] = useState(new Date());
 
   useEffect(() => {
     getReport();
@@ -20,7 +20,6 @@ export default function LetterContent() {
     try {
       const resp = await getFetch(`report`);
 
-      setDate(resp.response.todayReport.date.split("-"));
       setReport(resp.response.todayReport);
       setAverageReport(resp.response.averageReport);
     } catch (e) {
@@ -34,7 +33,7 @@ export default function LetterContent() {
   return (
     <div className={styles.container}>
       <div className={styles.title}>
-        {date[1]}월 {date[2]}일 리포트
+        {date.getMonth() + 1}월 {date.getDate()}일 리포트
       </div>
       {!isLoading && report.date && (
         <>
