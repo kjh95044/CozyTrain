@@ -65,8 +65,7 @@ export default function Korea() {
         { name: "train", url: "/models/red-train.glb", position: curPosition, rotation: curRotation },
         { name: "flag", url: "/models/japan-flag.glb", position: [0, 0.1, 0], rotation: [0, 0, 0]},
         { name: "sapporo", url: "/models/sapporo.glb", position: [-0.098,-0.001,-0.03], rotation: [0,3.1,0]},
-        { name: "tokyo", url: "/models/sapporo.glb", position: [-0.098,-0.001,-0.03], rotation: [0,3.1,0]}
-
+        { name: "tokyo", url: "/models/tokyo.glb", position: [0.01,-0.003,0.095], rotation: [0,-5.4,0]}
     ]
 
     const Model = ({ url, scale, position, rotation, title, text }) => {
@@ -143,19 +142,19 @@ export default function Korea() {
                         삿포로 눈축제는 세계적으로 유명한 축제 중 하나로 손꼽힙니다.`}
                     />
                     <Model
-                        url={Models[3].url}
-                        scale={0.004}
-                        position={[Models[3].position[0], Models[3].position[1], Models[3].position[2]]}
-                        rotation={[Models[3].rotation[0], Models[3].rotation[1], Models[3].rotation[2]]}
-                        title="🍣삿포로🍡 - 눈"
-                        text={`삿포로는 일본의 홋카이도 지방에 위치한 도시로, 
-                        자연의 아름다움과 도시의 현대성이 조화롭게 어우러져 있습니다. 
+                        url={Models[4].url}
+                        scale={0.0003}
+                        position={[Models[4].position[0], Models[4].position[1], Models[4].position[2]]}
+                        rotation={[Models[4].rotation[0], Models[4].rotation[1], Models[4].rotation[2]]}
+                        title="🍣도쿄🍡 - 도쿄 타워"
+                        text={`도쿄는 일본의 수도이자 최대 도시로, 
+                        현대성과 전통이 조화롭게 어우러진 도시입니다. 
                         
-                        주변에는 푸른 바다와 높은 산봉우리가 
-                        인상적으로 펼쳐져 있어 자연 감각을 느낄 수 있습니다. 
+                        고츠쿠지 신사와 아사쿠사 신사 같은 전통적인 명소부터, 
+                        긴 은하수대로 유명한 신주쿠, 히브야 신주쿠 등 
+                        현대적이고 번화한 상업 지역까지 다양한 얼굴을 갖추고 있습니다. 
                         
-                        특히 겨울에는 눈으로 덮인 풍경이 아름다움을 더해주며, 
-                        삿포로 눈축제는 세계적으로 유명한 축제 중 하나로 손꼽힙니다.`}
+                        높은 건물들과 현대적인 도로망은 도쿄가 세계적인 도시로서의 역할을 두드러지게 합니다. `}
                     />
                     <Model
                         url={Models[0].url}
