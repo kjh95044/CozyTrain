@@ -21,6 +21,7 @@ export default function Korea() {
     const [curPosition, setCurPosition] = useState([]);
     const [curRotation, setCurRotation] = useState([]);
     const [curCountry, setCurCountry] = useState("");
+    const [curRegion, setCurRegion] = useState("");
 
     // 모델 클릭 여부 상태
     const [showModal, setShowModal] = useState(false);
@@ -34,6 +35,7 @@ export default function Korea() {
         const curRegionNum = data.response.regionNum;
         const curArea = data.response.area;
         setCurCountry(data.response.countryKor);
+        setCurRegion(data.response.regionKor);
 
         const foundPositionData = findPosition(curRegionNum, curArea);
         if (foundPositionData) {
@@ -111,6 +113,13 @@ export default function Korea() {
                                 scale={0.0003}
                                 position={[Models[1].position[0], Models[1].position[1], Models[1].position[2]]}
                                 rotation={[Models[1].rotation[0], Models[1].rotation[1], Models[1].rotation[2]]}
+                                title="칙칙 포근포근 🚂"
+                                text={`칙칙 ... 💤
+                                포근포근 ... 💤
+                                
+                                열차는 지금 ${curCountry} ${curRegion}에서 달리고 있습니다!
+                                (｡･∀･)ﾉﾞ
+                                `}
                             />
                         </group>
                     )}
