@@ -10,6 +10,7 @@ import MapCloseButton from "../component/MapCloseButton";
 import MapAllButton from "../component/MapAllButton";
 import GlobeButton from "../component/GlobeButton";
 import Modal from "@/components/Modal";
+import ExplainModal from "../component/ExplainModal"
 
 import getFetch from "@/services/getFetch"
 import positionData from "public/json/position.json"
@@ -22,9 +23,10 @@ export default function Korea() {
 
     // 모델 클릭 여부 상태
     const [showModal, setShowModal] = useState(false);
-    
     const [modalTitle, setModalTitle] = useState("");
     const [modalText, setModalText] = useState("");
+
+    const [loading, setLoading] = useState(true);
 
     const getTrainLocation = async () => {
         const data = await getFetch("train/cur-location-info")
@@ -53,10 +55,6 @@ export default function Korea() {
         }
 
         getTrainLocation();
-
-        setShowModal(true);
-        setModalText(`건물과 국기를 클릭해보세요!
-        설명을 볼 수 있어요 ( •̀ ω •́ )✧`)
     }, []);
 
     const Models = [
@@ -73,6 +71,12 @@ export default function Korea() {
         scene.scale.set(scale, scale, scale);
         scene.position.set(position[0], position[1], position[2])
         scene.rotation.set(rotation[0], rotation[1], rotation[2])
+
+        useEffect(() => {
+            setTimeout(() => {
+                setLoading(false);
+            }, 1500)
+        }, [scene])
 
         
         const handleClick = () => {
@@ -202,6 +206,14 @@ export default function Korea() {
                 </Modal>
                 </>
             )}
+            {loading && (
+                <>
+                <ExplainModal>
+                </ExplainModal>
+                </>
+            )
+
+            }
         </div >
     )
 }
