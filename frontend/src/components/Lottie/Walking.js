@@ -8,5 +8,5 @@ export default function Walking() {
     animationData: walking,
   });
 
-  return <div style={{ width: "60%" }}>{View}</div>;
+  return <div style={{ width: "80%" }}>{View}</div>;
 }
