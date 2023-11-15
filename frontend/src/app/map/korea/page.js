@@ -15,12 +15,14 @@ import ExplainModal from "../component/ExplainModal"
 
 import getFetch from "@/services/getFetch"
 import positionData from "public/json/position.json"
+import MapModal from "../component/MapModal";
 
 export default function Korea() {
 
     const [curPosition, setCurPosition] = useState([]);
     const [curRotation, setCurRotation] = useState([]);
     const [curCountry, setCurCountry] = useState("");
+    const [curCountryEng, setCurCountryEng] = useState("");
     const [curRegion, setCurRegion] = useState("");
 
     // 모델 클릭 여부 상태
@@ -30,12 +32,21 @@ export default function Korea() {
 
     const [loading, setLoading] = useState(true);
 
+    // 기차 위치한 나라와 현재 나라가 같은 지 비교
+    const [isTrain, setIsTrain] = useState(false);
+    const [showTrainModal, setShowTrainModal] = useState(false);
+
     const getTrainLocation = async () => {
         const data = await getFetch("train/cur-location-info")
         const curRegionNum = data.response.regionNum;
         const curArea = data.response.area;
         setCurCountry(data.response.countryKor);
+        setCurCountryEng(data.response.country);
         setCurRegion(data.response.regionKor);
+
+        if(data.response.countryKor === '한국') {
+            setIsTrain(true)
+        }
 
         const foundPositionData = findPosition(curRegionNum, curArea);
         if (foundPositionData) {
@@ -99,14 +110,14 @@ export default function Korea() {
     return (
         <div className={styles.container}>
             <GlobeButton />
-            <TrainButton />
+            <TrainButton onClick={() => setShowTrainModal(true)} />
             <MapCloseButton />
             <div className={styles.mapAllButton}>
                 <MapAllButton>대한민국</MapAllButton>
             </div>
             <Canvas camera={{ position: [0, 0.03, -0.2], near: 0.038 }}>
                 <Suspense fallback={null}>
-                    {curCountry === '한국' && (
+                    {isTrain && (
                         <group ref={group}>
                             <Model
                                 url={Models[1].url}
@@ -215,6 +226,35 @@ export default function Korea() {
                             </div>
                     </div>
                 </Modal>
+                </>
+            )}
+            {showTrainModal && (
+                <>
+                {!isTrain ? (
+                    <MapModal
+                        onCloseModal={() => setShowTrainModal(false)}
+                        text={`기차는 현재 ${curCountry} ${curRegion}에 있습니다. 
+                        이동하시겠습니까?`}
+                        move={curCountryEng}
+                    >       
+                    </MapModal>
+                ) :
+                (
+                    <Modal onClick={() => setShowTrainModal(false)} >
+                        <div>
+                            <div className={styles.modalTitle}>
+                                칙칙 포근포근 🚂
+                            </div>
+                                <div className={styles.modalText}>
+                                    칙칙 ... 💤 <br/>
+                                    포근포근 ... 💤 <br/>
+                                    <br/>
+                                    열차는 지금 {curCountry} {curRegion}에서 달리고 있습니다! <br/>
+                                    (｡･∀･)ﾉﾞ <br/>
+                                </div>
+                        </div>
+                    </Modal>
+                )}
                 </>
             )}
             {loading && (

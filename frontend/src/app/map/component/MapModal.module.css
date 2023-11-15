@@ -16,8 +16,8 @@
 .map_modal_text {
   text-align: center;
   margin-top: 10px;
-  font-size: 20px;
-  line-height: 18px;
+  font-size: 18px;
+  white-space: pre-line;
 }
 
 .map_modal_btn {
