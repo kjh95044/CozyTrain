@@ -10,6 +10,7 @@ export default function LetterContent() {
   const [averageReport, setAverageReport] = useState({});
   const [isLoading, setIsLoading] = useState(true);
   const [report, setReport] = useState({});
+  const [date, setDate] = useState(new Date());
 
   useEffect(() => {
     getReport();
@@ -31,7 +32,9 @@ export default function LetterContent() {
 
   return (
     <div className={styles.container}>
-      <div className={styles.title}>11월 14일 리포트</div>
+      <div className={styles.title}>
+        {date.getMonth() + 1}월 {date.getDate()}일 리포트
+      </div>
       {!isLoading && report.date && (
         <>
           <SleepTime report={report}></SleepTime>

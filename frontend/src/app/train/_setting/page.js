@@ -15,6 +15,8 @@ export default function Page() {
 
   const handleLogoutBtn = () => {
     document.cookie = "accessToken=; expires=Thu, 01 Jan 1970 00:00:00 UTC;";
+    document.cookie = "id=; expires=Thu, 01 Jan 1970 00:00:00 UTC;";
+    document.cookie = "pw=; expires=Thu, 01 Jan 1970 00:00:00 UTC;";
     logout();
     router.push("/login");
   };

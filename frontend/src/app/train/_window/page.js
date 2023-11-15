@@ -9,7 +9,7 @@ import china from "#/images/city/china.jpg";
 import jeju from "#/images/city/jeju.png";
 import seoul from "#/images/city/seoul.jpg";
 import tokyo from "#/images/city/tokyo.jpg";
-import sapporo from "#/images/city/sapporo.png";
+import sapporo from "#/images/city/sapporo.jpg";
 import busan from "#/images/city/busan.jpg";
 import osaka from "#/images/city/osaka.png";
 import styles from "./page.module.css";

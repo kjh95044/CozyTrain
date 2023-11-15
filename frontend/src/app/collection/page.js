@@ -37,6 +37,7 @@ export default function Collection() {
   const getItemBox = async () => {
     const data = await getFetch("collection/item-boxes");
     setItemBox(data.response);
+    console.log(data.response);
   };
 
   const getGacha = async (i) => {
@@ -52,6 +53,7 @@ export default function Collection() {
     }
 
     setGift(true);
+    getItemBox();
     setTimeout(() => {
       setGift(false);
       setAfterGacha(true);

@@ -46,26 +46,28 @@ export default function AddFriend() {
         return (
           <div className={styles.middleContainer} key={index}>
             <div className={styles.profileContainer}>
-              <Image
-                src={friend.profileImg}
-                width={50}
-                height={50}
-                className={styles.profile}
-                alt="프로필사진"
-              />
-              <div className={styles.fontContainer}>
-                <div>{friend.friendNickname}</div>
-                <div className={styles.fontWrap}>
-                  <div className={styles.boldFont}>위치&nbsp;</div>
-                  <div>
-                    {friend.trainInfo.countryKor} &nbsp;
-                    {friend.trainInfo.regionKor}
+              <div className={styles.profileContainerLeft}>
+                <Image
+                  src={friend.profileImg}
+                  width={50}
+                  height={50}
+                  className={styles.profile}
+                  alt="프로필사진"
+                />
+                <div className={styles.fontContainer}>
+                  <div>{friend.friendNickname}</div>
+                  <div className={styles.fontWrap}>
+                    <div className={styles.boldFont}>위치&nbsp;</div>
+                    <div>
+                      {friend.trainInfo.countryKor} &nbsp;
+                      {friend.trainInfo.regionKor}
+                    </div>
                   </div>
                 </div>
               </div>
-              <div onClick={() => handleSubmit(friend.memberId)}>
-                <PrimaryButton> 요청</PrimaryButton>
-              </div>
+              <PrimaryButton onClick={() => handleSubmit(friend.memberId)}>
+                요청
+              </PrimaryButton>
             </div>
           </div>
         );
