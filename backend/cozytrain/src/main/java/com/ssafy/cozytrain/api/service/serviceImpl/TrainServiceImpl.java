@@ -4,6 +4,7 @@ import com.ssafy.cozytrain.api.dto.TrainDto;
 import com.ssafy.cozytrain.api.dto.VisitDto;
 import com.ssafy.cozytrain.api.entity.*;
 import com.ssafy.cozytrain.api.repository.*;
+import com.ssafy.cozytrain.api.service.ReportService;
 import com.ssafy.cozytrain.api.service.TrainService;
 import com.ssafy.cozytrain.common.exception.NotFoundException;
 import lombok.RequiredArgsConstructor;
@@ -25,6 +26,7 @@ public class TrainServiceImpl implements TrainService {
     private final TrackRepository trackRepository;
     private final StationRepository stationRepository;
     private final ItemBoxRepository itemBoxRepository;
+    private final ReportRepository reportRepository;
     static final int DIST_BETWEEN_REGIONS = 300;
 
     @Transactional
@@ -66,12 +68,14 @@ public class TrainServiceImpl implements TrainService {
                     .regionNum(station.getRegionNum())
                     .dist(train.getTrainCurDist())
                     .area(calculateArea(train.getTrainCurDist()))
+                    .totalDist(station.getStationId().intValue() * 300 + train.getTrainCurDist())
                     .build();
         }
     }
 
+    @Transactional
     @Override
-    public void moveTrain(int sleepScore, Member member) {
+    public void moveTrain(int sleepScore, Member member, Report report) {
         Train train = getTrain(member);
         log.info("유저의 기차 가져오기 : " + train.toString());
 
@@ -87,7 +91,9 @@ public class TrainServiceImpl implements TrainService {
             moveStation(train);
             getReward(member, train.getStation().getCountry());
         }
-        train.updateTrainCurDist(dist, moveDist);
+        train.updateTrainCurDist(dist);
+        report.updateMoveDist(moveDist);
+        reportRepository.save(report);
         trainRepository.save(train);
     }
 

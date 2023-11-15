@@ -52,7 +52,7 @@ public class ReportRepositoryImpl implements ReportRepositoryCustom {
                                                 sleepStage.startTime,
                                                 sleepStage.endTime
                                         )),
-                                        train.moveDist
+                                        report.moveDist
                                 )
                         )
                 );
@@ -110,7 +110,7 @@ public class ReportRepositoryImpl implements ReportRepositoryCustom {
                                                 sleepStage.startTime,
                                                 sleepStage.endTime
                                         )),
-                                        train.moveDist
+                                        report.moveDist
                                 )
                         )
                 );
@@ -142,7 +142,7 @@ public class ReportRepositoryImpl implements ReportRepositoryCustom {
                                                 sleepStage.startTime,
                                                 sleepStage.endTime
                                         )),
-                                        train.moveDist
+                                        report.moveDist
                                 )
                         )
                 );

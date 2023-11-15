@@ -20,7 +20,6 @@ public class Train {
     @Column(name = "train_id")
     private Long trainId;
     private int trainCurDist;
-    private int moveDist;
     private LocalDate startDate;
     private LocalDate endDate;
     private LocalDateTime createdAt;
@@ -47,9 +46,8 @@ public class Train {
         this.station = station;
     }
 
-    public void updateTrainCurDist(int trainCurDist, int moveDist){
+    public void updateTrainCurDist(int trainCurDist){
         this.trainCurDist = trainCurDist;
-        this.moveDist = moveDist;
         this.updatedAt = LocalDateTime.now();
     }
     public void updateTrainEndDate(LocalDate endDate){
