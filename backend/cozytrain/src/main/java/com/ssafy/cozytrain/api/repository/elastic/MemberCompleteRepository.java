@@ -11,4 +11,5 @@ import java.util.List;
 @Repository
 public interface MemberCompleteRepository extends ElasticsearchRepository<MemberCompleteDocument, String> {
     List<MemberCompleteDocument> findByMemberLoginId(String friendLoginId);
+    List<MemberCompleteDocument> findByMemberName(String friendLoginId);
 }

@@ -41,9 +41,9 @@ public class FriendRepositoryImpl implements FriendRepositoryCustom{
                                 .from(subFriend2)
                                 .where(subFriend2.memberSecond.memberId.eq(memberId))))
                         .and(member.memberId.ne(memberId))
-                        .and(member.memberLoginId.in(friendLoginIdList))
+                        .and(member.memberName.in(friendLoginIdList))
                 )
-                .orderBy(member.memberLoginId.desc())
+                .orderBy(member.memberName.desc())
                 .transform(groupBy(member.memberId).list(Projections.constructor(FriendDto.FriendSearchResDto.class,
                         member.memberId, member.memberLoginId , member.memberName, member.memberImageUrl
                 )));

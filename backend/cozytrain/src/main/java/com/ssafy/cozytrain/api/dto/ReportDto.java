@@ -77,11 +77,11 @@ public class ReportDto {
 
         @Builder
         public ReportDtoAverage(double sleepScore, double sleepDuration, double stressLevel, double steps, double caffeine){
-            this.sleepScore = sleepScore;
-            this.sleepDuration = sleepDuration;
-            this.stressLevel = stressLevel;
-            this.steps = steps;
-            this.caffeine = caffeine;
+            this.sleepScore = Math.round(sleepScore * 100)/100.0;
+            this.sleepDuration = Math.round(sleepDuration * 100)/100.0;
+            this.stressLevel = Math.round(stressLevel * 100)/100.0;
+            this.steps = Math.round(steps * 100)/100.0;
+            this.caffeine = Math.round(caffeine * 100)/100.0;
         }
     }
     @Getter
@@ -109,8 +109,8 @@ public class ReportDto {
 
         @Builder
         public ReportDtoByDate(double averageSleep, double averageSleepScore, List<SleepDto> sleeps, long totalDate){
-            this.averageSleep = averageSleep;
-            this.averageSleepScore = averageSleepScore;
+            this.averageSleep = Math.round(averageSleep * 100)/100.0;
+            this.averageSleepScore = Math.round(averageSleepScore * 100)/100.0;;
             this.sleeps = sleeps;
             this.totalDate = totalDate;
         }

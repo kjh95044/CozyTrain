@@ -45,10 +45,10 @@ public class FriendServiceImpl implements FriendService {
         });
 
         // elastic search를 이용하여 친구 로그인 ID들 받아오기
-        List<MemberCompleteDocument> friendList = memberCompleteRepository.findByMemberLoginId(friendLoginId);
+        List<MemberCompleteDocument> friendList = memberCompleteRepository.findByMemberName(friendLoginId);
         List<String> friendLoginIdList = new ArrayList<>(); // LoginId만 따로 저장
         friendList.forEach(e -> {
-            friendLoginIdList.add(e.getMemberLoginId());
+            friendLoginIdList.add(e.getMemberName());
         });
 
         List<FriendDto.FriendSearchResDto> friendAllList = friendRepository.searchFriend(member.getMemberId(), friendLoginIdList).orElseThrow(() -> {
@@ -142,6 +142,7 @@ public class FriendServiceImpl implements FriendService {
     }
 
     @Override
+    @Transactional
     public Long deleteFriend(Long friendId) {
         return friendRepository.deleteByFriendId(friendId);
     }
@@ -182,7 +183,7 @@ public class FriendServiceImpl implements FriendService {
         Collections.sort(friendList, new Comparator<FriendDto.FriendResDto>() {
             @Override
             public int compare(FriendDto.FriendResDto o1, FriendDto.FriendResDto o2) {
-                return o2.getTrainInfo().getDist() - o1.getTrainInfo().getDist();
+                return o2.getTrainInfo().getTotalDist()- o1.getTrainInfo().getTotalDist();
             }
         });
 

@@ -3,7 +3,9 @@ package com.ssafy.cozytrain.api.controller;
 import com.ssafy.cozytrain.api.dto.TrainDto;
 import com.ssafy.cozytrain.api.dto.VisitDto;
 import com.ssafy.cozytrain.api.entity.Member;
+import com.ssafy.cozytrain.api.entity.Report;
 import com.ssafy.cozytrain.api.service.MemberService;
+import com.ssafy.cozytrain.api.service.ReportService;
 import com.ssafy.cozytrain.api.service.TrainService;
 import com.ssafy.cozytrain.common.exception.NotFoundException;
 import com.ssafy.cozytrain.common.utils.ApiUtils;
@@ -27,6 +29,7 @@ import static com.ssafy.cozytrain.common.utils.ApiUtils.success;
 public class TrainController {
     private final TrainService trainService;
     private final MemberService memberService;
+    private final ReportService reportService;
     private final JwtUtils jwtUtils;
     @GetMapping("/cur-location-info")
     @Operation(summary = "현재 기차 위치 정보 가져오기")
@@ -47,8 +50,9 @@ public class TrainController {
         Member member = memberService.findByMemberLoginId(memberId)
                 .orElseThrow(() -> new NotFoundException("Not Found User"));
 
-        trainService.moveTrain(sleepScore, member);
+        Report report = reportService.findReportToday(member).orElseThrow(()-> new NotFoundException("오늘의 리포트가 없습니다."));
 
+        trainService.moveTrain(sleepScore, member, report);
         return success(trainService.getCurLocationInfo(member));
     }
 

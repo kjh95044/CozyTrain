@@ -36,7 +36,7 @@ public class ReportServiceImpl implements ReportService {
 
     @Override
     @Transactional(rollbackFor = Exception.class)
-    public Long saveReport(HealthDto.HealthDtoReq healthDto, Member member) {
+    public Report saveReport(HealthDto.HealthDtoReq healthDto, Member member) {
         List<SleepStageDto.SleepStageDtoReq> sleepStagesReq = healthDto.getSleepStages();
 
         /*
@@ -54,7 +54,7 @@ public class ReportServiceImpl implements ReportService {
                 .build());
 
         report.updateUpdatedAt(LocalDateTime.now());
-        Long reportId = reportRepository.save(report).getReportId();
+        Report reportResult = reportRepository.save(report);
 
         Health health;
         if (todayReport.isPresent()) {
@@ -89,7 +89,7 @@ public class ReportServiceImpl implements ReportService {
             }
         }
 
-        return reportId;
+        return reportResult;
     }
 
     /*
@@ -287,6 +287,66 @@ public class ReportServiceImpl implements ReportService {
     @Override
     public ReportDto.ReportDtoCommon getReportByDate(Member member, LocalDate date) {
         return reportRepository.findReportByDate(member, date);
+    }
+
+    @Transactional
+    @Override
+    public Long deleteReport(Long reportId) {
+        return reportRepository.deleteByReportId(reportId);
+    }
+
+    @Transactional
+    @Override
+    public Report saveReportByDate(HealthDto.HealthDtoReq healthDto, Member member, LocalDate reportDate) {
+        List<SleepStageDto.SleepStageDtoReq> sleepStagesReq = healthDto.getSleepStages();
+
+        Optional<Report> reportByDate = reportRepository.findByMemberAndSleepReportDate(member, reportDate);
+        Report report;
+        int caffeine = getCaffeineTotal(member);
+
+        report = reportByDate.orElseGet(() -> Report.builder()
+                .member(member)
+                .caffeine(caffeine)
+                .sleepReportDate(reportDate)
+                .build());
+
+        report.updateUpdatedAt(LocalDateTime.now());
+        Report reportResult = reportRepository.save(report);
+
+        Health health;
+        if (reportByDate.isPresent()) {
+            throw new FoundException("리포트가 이미 생성 되어 있습니다.");
+//            health = healthRepository.findByReport(report).orElseThrow(() -> new NotFoundException("Not Found Health"));
+//            health.updateHealthData(healthDtoReq);
+        } else {
+            health = Health.builder()
+                    .sleepDuration(healthDto.getSleepDuration())
+                    .stressLevel(healthDto.getStressLevel())
+                    .steps(healthDto.getSteps())
+                    .report(report)
+                    .build();
+        }
+
+        healthRepository.save(health);
+
+        // TODO: 2023-11-02 수면 정보는 현재 이미 만들어져 있으면 덮어쓰기 안되게 되어 있다.
+
+        for (SleepStageDto.SleepStageDtoReq sleepStageDtoReq : sleepStagesReq) {
+            SleepStage sleepStage;
+            if (reportByDate.isPresent()) {
+
+            } else {
+                sleepStage = SleepStage.builder()
+                        .stage(sleepStageDtoReq.getStage())
+                        .startTime(sleepStageDtoReq.getStartTime())
+                        .endTime(sleepStageDtoReq.getEndTime())
+                        .health(health)
+                        .build();
+                sleepStageRepository.save(sleepStage);
+            }
+        }
+
+        return reportResult;
     }
 
     /*

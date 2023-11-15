@@ -3,6 +3,7 @@ package com.ssafy.cozytrain.api.controller;
 import com.ssafy.cozytrain.api.dto.HealthDto;
 import com.ssafy.cozytrain.api.dto.ReportDto;
 import com.ssafy.cozytrain.api.entity.Member;
+import com.ssafy.cozytrain.api.entity.Report;
 import com.ssafy.cozytrain.api.service.MemberService;
 import com.ssafy.cozytrain.api.service.ReportService;
 import com.ssafy.cozytrain.api.service.TrainService;
@@ -40,11 +41,27 @@ public class ReportController {
         String memberId = jwtUtils.getIdFromToken(header.substring(7));
         Member member = memberService.findByMemberLoginId(memberId)
                 .orElseThrow(() -> new NotFoundException("Not Found User"));
-        Long reportId = reportService.saveReport(health, member);
+        Report report = reportService.saveReport(health, member);
 
-        var report = reportService.insertHealthScore(reportId);
-        trainService.moveTrain(report.getSleepScore(),member);
-        return success(report);
+        var reportDtoCommon = reportService.insertHealthScore(report.getReportId());
+        trainService.moveTrain(reportDtoCommon.getSleepScore(),member, report);
+        return success(reportDtoCommon);
+    }
+
+    @PostMapping("{reportDate}")
+    @Operation(summary = "레포트 생성 (더미 데이터 생성용)")
+    public ApiUtils.ApiResult<ReportDto.ReportDtoCommon> createReportByDate(
+            @RequestHeader("Authorization") String header,
+            @RequestBody @Valid HealthDto.HealthDtoReq health, @PathVariable @DateTimeFormat(pattern = "yyyy-MM-dd") LocalDate reportDate) {
+
+        String memberId = jwtUtils.getIdFromToken(header.substring(7));
+        Member member = memberService.findByMemberLoginId(memberId)
+                .orElseThrow(() -> new NotFoundException("Not Found User"));
+        Report report = reportService.saveReportByDate(health, member, reportDate);
+
+        var reportDtoCommon = reportService.insertHealthScore(report.getReportId());
+        trainService.moveTrain(reportDtoCommon.getSleepScore(),member, report);
+        return success(reportDtoCommon);
     }
 
     @GetMapping()
@@ -92,5 +109,11 @@ public class ReportController {
                 .orElseThrow(() -> new NotFoundException("Not Found User"));
 
         return success(reportService.getReportByDate(member, date));
+    }
+
+    @DeleteMapping("/{reportId}")
+    @Operation(summary = "리포트 삭제 API")
+    public ApiUtils.ApiResult<Long> deleteMessage(@PathVariable Long reportId) {
+        return success(reportService.deleteReport(reportId));
     }
 }

@@ -22,6 +22,7 @@ public class Report {
     private LocalDate sleepReportDate;
     private LocalDateTime updatedAt;
     private int caffeine;
+    private int moveDist;
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "member_id", referencedColumnName = "member_id")
@@ -44,4 +45,5 @@ public class Report {
     public void updateUpdatedAt(LocalDateTime dateTime){
         this.updatedAt = dateTime;
     }
+    public void updateMoveDist(int moveDist) { this.moveDist = moveDist; }
 }
