@@ -15,6 +15,6 @@ import java.util.Optional;
 @Repository
 public interface ReportRepository extends JpaRepository<Report, Long>, ReportRepositoryCustom {
     Optional<Report> findByMemberAndSleepReportDate(Member member, LocalDate date);
-
+    Long deleteByReportId(Long reportId);
 }
 

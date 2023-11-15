@@ -16,4 +16,6 @@ public interface ReportService {
     ReportDto.ReportDtoByDate getOneWeekReports(Member member);
     ReportDto.ReportDtoByDate getReportsByDates(Member member, LocalDate startDate, LocalDate endDate);
     ReportDto.ReportDtoCommon getReportByDate(Member member, LocalDate date);
+    Long deleteReport(Long reportId);
+    Report saveReportByDate(HealthDto.HealthDtoReq health, Member member, LocalDate reportDate);
 }

@@ -48,6 +48,22 @@ public class ReportController {
         return success(reportDtoCommon);
     }
 
+    @PostMapping("{reportDate}")
+    @Operation(summary = "레포트 생성 (더미 데이터 생성용)")
+    public ApiUtils.ApiResult<ReportDto.ReportDtoCommon> createReportByDate(
+            @RequestHeader("Authorization") String header,
+            @RequestBody @Valid HealthDto.HealthDtoReq health, @PathVariable @DateTimeFormat(pattern = "yyyy-MM-dd") LocalDate reportDate) {
+
+        String memberId = jwtUtils.getIdFromToken(header.substring(7));
+        Member member = memberService.findByMemberLoginId(memberId)
+                .orElseThrow(() -> new NotFoundException("Not Found User"));
+        Report report = reportService.saveReportByDate(health, member, reportDate);
+
+        var reportDtoCommon = reportService.insertHealthScore(report.getReportId());
+        trainService.moveTrain(reportDtoCommon.getSleepScore(),member, report);
+        return success(reportDtoCommon);
+    }
+
     @GetMapping()
     @Operation(summary = "오늘 레포트 가져오기")
     public ApiUtils.ApiResult<ReportDto.ReportDtoRes> getReportToday(
@@ -93,5 +109,11 @@ public class ReportController {
                 .orElseThrow(() -> new NotFoundException("Not Found User"));
 
         return success(reportService.getReportByDate(member, date));
+    }
+
+    @DeleteMapping("/{reportId}")
+    @Operation(summary = "리포트 삭제 API")
+    public ApiUtils.ApiResult<Long> deleteMessage(@PathVariable Long reportId) {
+        return success(reportService.deleteReport(reportId));
     }
 }
