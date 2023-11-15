@@ -29,8 +29,6 @@ export default function Daily() {
     const formattedDate = formatDate(date);
     try {
       const resp = await getFetch(`report/${formattedDate}`);
-
-      console.log(resp.response);
       setReport(resp.response);
     } catch {
       setReport({});
