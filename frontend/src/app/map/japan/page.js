@@ -75,6 +75,12 @@ export default function Korea() {
         scene.position.set(position[0], position[1], position[2])
         scene.rotation.set(rotation[0], rotation[1], rotation[2])
 
+        useEffect(() => {
+            setTimeout(() => {
+                setLoading(false);
+            }, 1500)
+        }, [scene])
+
         const handleClick = () => {
             if(url !== Models[0].url) {
                 setShowModal(true);
@@ -88,6 +94,7 @@ export default function Korea() {
     return (
         <div className={styles.container}>
             <GlobeButton />
+            <TrainButton/>
             <MapCloseButton />
             <div className={styles.mapAllButton}>
                 <MapAllButton>일본</MapAllButton>
@@ -201,6 +208,13 @@ export default function Korea() {
                 </Modal>
                 </>
             )}
+            {loading && (
+                <>
+                <ExplainModal>
+                </ExplainModal>
+                </>
+            )
+            }
         </div >
     )
 }
