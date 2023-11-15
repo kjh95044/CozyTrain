@@ -45,10 +45,10 @@ public class FriendServiceImpl implements FriendService {
         });
 
         // elastic search를 이용하여 친구 로그인 ID들 받아오기
-        List<MemberCompleteDocument> friendList = memberCompleteRepository.findByMemberLoginId(friendLoginId);
+        List<MemberCompleteDocument> friendList = memberCompleteRepository.findByMemberName(friendLoginId);
         List<String> friendLoginIdList = new ArrayList<>(); // LoginId만 따로 저장
         friendList.forEach(e -> {
-            friendLoginIdList.add(e.getMemberLoginId());
+            friendLoginIdList.add(e.getMemberName());
         });
 
         List<FriendDto.FriendSearchResDto> friendAllList = friendRepository.searchFriend(member.getMemberId(), friendLoginIdList).orElseThrow(() -> {
