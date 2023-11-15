@@ -69,7 +69,7 @@ export default function Korea() {
         { name: "jeju", url: "/models/jeju.glb", position: [0.065, 0, -0.098], rotation: [0, 0.3, 0]}
     ]
 
-    const Model = ({ url, scale, position, rotation, onClick, title, text }) => {
+    const Model = ({ url, scale, position, rotation, title, text }) => {
         const { scene } = useGLTF(url);
         scene.scale.set(scale, scale, scale);
         scene.position.set(position[0], position[1], position[2])
