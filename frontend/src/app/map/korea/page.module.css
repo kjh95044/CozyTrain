@@ -11,3 +11,15 @@
     left: 140px;
     top: 10px;
 }
+
+.modalTitle {
+    font-size: larger;
+    font-weight: bold;
+    margin-top: 10px;
+}
+
+.modalText {
+    white-space: pre-line;
+    margin-top: 10px;
+    margin-bottom: 10px;
+}
