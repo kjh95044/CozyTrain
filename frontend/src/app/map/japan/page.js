@@ -61,11 +61,12 @@ export default function Korea() {
     }, []);
 
     const Models = [
-        { name: "ground", url: "/models/japan-ground1.glb", position: [0, 0, 0], rotation: [0, 0, 0] },
+        { name: "ground", url: "/models/japan-ground.glb", position: [0, 0, 0], rotation: [0, 0, 0] },
         { name: "train", url: "/models/red-train.glb", position: curPosition, rotation: curRotation },
         { name: "flag", url: "/models/japan-flag.glb", position: [0, 0.1, 0], rotation: [0, 0, 0]},
         { name: "sapporo", url: "/models/sapporo.glb", position: [-0.098,-0.001,-0.03], rotation: [0,3.1,0]},
-        { name: "tokyo", url: "/models/tokyo.glb", position: [0.01,-0.003,0.095], rotation: [0,-5.4,0]}
+        { name: "tokyo", url: "/models/tokyo.glb", position: [0.01,-0.003,0.095], rotation: [0,-5.4,0]},
+        { name: "osaka", url: "/models/osaka.glb", position: [0.068, -0.002, -0.107], rotation: [0, 1.16, 0] },
     ]
 
     const Model = ({ url, scale, position, rotation, title, text }) => {
@@ -155,6 +156,21 @@ export default function Korea() {
                         현대적이고 번화한 상업 지역까지 다양한 얼굴을 갖추고 있습니다. 
                         
                         높은 건물들과 현대적인 도로망은 도쿄가 세계적인 도시로서의 역할을 두드러지게 합니다. `}
+                    />
+                    <Model
+                        url={Models[5].url}
+                        scale={0.01}
+                        position={[Models[5].position[0], Models[5].position[1], Models[5].position[2]]}
+                        rotation={[Models[5].rotation[0], Models[5].rotation[1], Models[5].rotation[2]]}
+                        title="🍣오사카🍡 - 애니메이션 캐릭터"
+                        text={`오사카는 일본의 중부에 위치한 경제와 문화의 중심지로, 
+                        다양한 역사적 명소와 현대적인 도시 풍경을 자랑합니다. 
+                        
+                        도톤보리 같은 관광명소는 전통과 현대의 만남을 보여주며, 
+                        오사카의 길거리 음식 문화는 국내외에서 많은 이들에게 사랑받고 있습니다. 
+                        
+                        또한, 많은 애니메이션 매장과 카페가 모여 있어 
+                        애니메이션 팬들에게 인기를 끌고 있습니다.`}
                     />
                     <Model
                         url={Models[0].url}
