@@ -63,11 +63,19 @@ export default function Score(props) {
     }
   }, [props]);
 
+  const formatScore = (score) => {
+    if (score > 0) {
+      return `+${score}`;
+    }
+
+    return score;
+  };
+
   return (
     <div className={styles.layout}>
-      {console.log(moveDist)}
       <div>
-        점수: {props.report.sleepScore}점({scoreDiff})
+        점수: {props.report.sleepScore}점(최근 평균과 비교:{" "}
+        {formatScore(scoreDiff)})
       </div>
       <div className={styles.width}>
         <div className={styles.score} style={{ width: `${moveDist}%` }}>
@@ -80,27 +88,36 @@ export default function Score(props) {
 
       <div className={styles.health}>
         <div>
-          카페인 섭취량: {props.report.caffeine}mg({caffeineDiff})
+          카페인 섭취량: {props.report.caffeine}mg({formatScore(caffeineDiff)})
         </div>
         <div>
           걸음 수: {props.report.steps}걸음(
-          {stepsDiff})
+          {formatScore(stepsDiff)})
         </div>
         <div>
-          스트레스 지수: {props.report.stressLevel}점({stressLevelDiff})
+          스트레스 지수: {props.report.stressLevel}%(
+          {formatScore(stressLevelDiff)})
         </div>
       </div>
 
       <div className={styles.content}>
-        <p>다른 날과 비교하여 {keyFactor}에 가장 큰 변화가 있었습니다.</p>
+        <p className={styles.p}>
+          다른 날과 비교하여 {keyFactor}에 가장 큰 변화가 있었습니다.
+        </p>
         {keyFactor === "카페인 섭취" && (
-          <p>잠자기 6시간 전에는 카페인 섭취를 최소화 하는것이 좋아요:)</p>
+          <p className={styles.p}>
+            잠자기 6시간 전에는 카페인 섭취를 최소화 하는것이 좋아요:)
+          </p>
         )}
         {keyFactor === "걸음 수" && (
-          <p>낮 시간의 야외 활동은 수면에 도움이 됩니다:)</p>
+          <p className={styles.p}>
+            낮 시간의 야외 활동은 수면에 도움이 됩니다:)
+          </p>
         )}
         {keyFactor === "스트레스" && (
-          <p>스트레스를 낮추기 위해 잠시 휴식을 가져보는게 어떨까요?</p>
+          <p className={styles.p}>
+            스트레스를 낮추기 위해 잠시 휴식을 가져보는게 어떨까요?
+          </p>
         )}
       </div>
     </div>

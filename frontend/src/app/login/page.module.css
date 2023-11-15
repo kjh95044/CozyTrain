@@ -12,6 +12,9 @@
 .logo {
   position: absolute;
   top: 24%;
+  display: flex;
+  justify-content: center;
+  width: 100%;
 }
 
 .signup_button {
