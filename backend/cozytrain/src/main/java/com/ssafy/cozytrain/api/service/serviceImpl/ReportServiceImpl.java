@@ -36,7 +36,7 @@ public class ReportServiceImpl implements ReportService {
 
     @Override
     @Transactional(rollbackFor = Exception.class)
-    public Long saveReport(HealthDto.HealthDtoReq healthDto, Member member) {
+    public Report saveReport(HealthDto.HealthDtoReq healthDto, Member member) {
         List<SleepStageDto.SleepStageDtoReq> sleepStagesReq = healthDto.getSleepStages();
 
         /*
@@ -54,7 +54,7 @@ public class ReportServiceImpl implements ReportService {
                 .build());
 
         report.updateUpdatedAt(LocalDateTime.now());
-        Long reportId = reportRepository.save(report).getReportId();
+        Report reportResult = reportRepository.save(report);
 
         Health health;
         if (todayReport.isPresent()) {
@@ -89,7 +89,7 @@ public class ReportServiceImpl implements ReportService {
             }
         }
 
-        return reportId;
+        return reportResult;
     }
 
     /*

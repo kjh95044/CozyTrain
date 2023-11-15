@@ -9,7 +9,7 @@ import java.time.LocalDate;
 import java.util.Optional;
 
 public interface ReportService {
-    Long saveReport(HealthDto.HealthDtoReq healthDto, Member member);
+    Report saveReport(HealthDto.HealthDtoReq healthDto, Member member);
     ReportDto.ReportDtoCommon insertHealthScore(Long reportId);
     Optional<Report> findReportToday(Member member);
     ReportDto.ReportDtoRes getTodayReport(Member member);
