@@ -34,7 +34,7 @@ export default function Page() {
           height={100}
         />
         <div className={styles.memberName}>
-          <div>닉네임: {memberName}</div>
+          <div>{memberName}</div>
         </div>
       </div>
       <div className={styles.userInfo}>

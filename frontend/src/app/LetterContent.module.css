@@ -1,8 +1,5 @@
-.lottie {
-  position: relative;
-  display: flex;
-  justify-content: center;
-  top: -20px;
+.container {
+  min-height: 44vh;
 }
 
 .title {

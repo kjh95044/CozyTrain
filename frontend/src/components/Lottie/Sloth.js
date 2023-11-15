@@ -1,11 +1,11 @@
 "use client";
 import { useLottie } from "lottie-react";
 
-import coffee from "/public/lotties/coffee.json";
+import sloth from "/public/lotties/sloth.json";
 
-export default function Coffee() {
+export default function Sloth() {
   const { View } = useLottie({
-    animationData: coffee,
+    animationData: sloth,
   });
 
   return <div style={{ width: "80%" }}>{View}</div>;

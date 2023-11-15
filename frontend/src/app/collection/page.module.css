@@ -8,7 +8,7 @@
 .button {
   position: absolute;
   right: 10px;
-  top: 10px;
+  top: 20px;
   width: 80px;
   background: none;
   border: none;
@@ -19,7 +19,7 @@
 }
 
 .note_container {
-  height: 480px;
+  height: 72vh;
   position: absolute;
   top: 52%;
   left: 50%;
@@ -42,6 +42,10 @@
   justify-content: space-between;
 }
 
+.countryName {
+  margin-top: 20px;
+}
+
 .item_yes {
   width: calc(25% - 8px);
   display: flex;
@@ -58,7 +62,7 @@
 }
 
 .modal {
-  height: 300px;
+  height: max-content;
 }
 
 .title {
@@ -91,4 +95,9 @@
   z-index: 1000;
   transform: translateY(-50%);
   left: 0;
+}
+
+.btn_bring {
+  position: absolute;
+  bottom: 4px;
 }
