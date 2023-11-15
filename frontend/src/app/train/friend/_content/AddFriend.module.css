@@ -5,18 +5,20 @@
 }
 
 .inputBox {
-  width: 241px;
+  flex: 4;
   height: 37px;
   border-radius: 10px;
   border: 1px solid #cecece;
   padding-left: 10px;
+  margin-right: 20px;
+  font-size: 18px;
 }
 
 .buttonBox {
-  width: 70px;
-  height: 32px;
+  flex: 1.2;
   border-radius: 15px;
   border: none;
+  font-size: 18px;
 }
 
 .topFont {
@@ -50,7 +52,6 @@
 }
 
 .middleContainer {
-  width: 325px;
   height: 91px;
   background-color: #ffffff;
   border-radius: 10px;
@@ -69,12 +70,17 @@
 .profileContainer {
   display: flex;
   margin: 20px 13px;
-  justify-content: space-around;
+  justify-content: space-between;
   width: 100%;
+}
+
+.profileContainerLeft {
+  display: flex;
 }
 
 .profile {
   height: 50px;
   width: 50px;
   border-radius: 49px;
+  margin-right: 20px;
 }

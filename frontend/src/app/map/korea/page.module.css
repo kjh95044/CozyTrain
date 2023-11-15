@@ -5,8 +5,30 @@
     background-size: cover;
 }
 
+.loadingContainer {
+    width: 100px;
+    height: 100px;
+    position: fixed;
+    z-index: 700; /* Set a high z-index value to make sure it's above other elements */
+    background-color: rgba(255, 255, 255, 0.9); /* Add a semi-transparent white background */
+    font-size: 18px;
+}
+
 .mapAllButton {
     position: absolute;
+    z-index: 2;
     left: 140px;
-    top: 20px;
+    top: 10px;
+}
+
+.modalTitle {
+    font-size: larger;
+    font-weight: bold;
+    margin-top: 10px;
+}
+
+.modalText {
+    white-space: pre-line;
+    margin-top: 10px;
+    margin-bottom: 10px;
 }

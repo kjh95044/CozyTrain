@@ -22,6 +22,7 @@ export default function Page(props) {
 
     const set = new Set(resp.response.content.map((item) => item.name));
     setAutoSearchValue(Array.from(set));
+    setOnAutoSearch(true);
   };
 
   const handleSubmit = async (e) => {
@@ -29,6 +30,7 @@ export default function Page(props) {
 
     setIsSearched(true);
     searchDrink(e.target.getElementsByTagName("input")[0].value);
+    setOnAutoSearch(false);
   };
 
   const handleAutoSearchSubmit = () => {

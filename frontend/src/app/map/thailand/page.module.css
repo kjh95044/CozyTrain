@@ -1,0 +1,13 @@
+.container {
+    width: 100vw;
+    height: 100vh;
+    background-image: url('../../../../public/images/blue-sky.jpg');
+    background-size: cover;
+}
+
+.mapAllButton {
+    position: absolute;
+    z-index: 2;
+    left: 140px;
+    top: 10px;
+}
