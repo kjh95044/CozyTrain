@@ -53,14 +53,19 @@ export default function Korea() {
         }
 
         getTrainLocation();
+
+        setShowModal(true);
+        setModalText(`건물과 국기를 클릭해보세요!
+        설명을 볼 수 있어요 ( •̀ ω •́ )✧`)
     }, []);
 
     const Models = [
-        { name: "ground", url: "/models/korea-ground1.glb", position: [0, 0, 0], rotation: [0, 0, 0] },
+        { name: "ground", url: "/models/korea-ground.glb", position: [0, 0, 0], rotation: [0, 0, 0] },
         { name: "train", url: "/models/red-train.glb", position: curPosition, rotation: curRotation },
         { name: "flag", url: "/models/korea-flag.glb", position: [0, 0.1, 0], rotation: [0, 0, 0]},
         { name: "seoul", url: "/models/seoul.glb", position: [-0.111, 0.03, -0.07], rotation: [0, 0, 0]},
-        { name: "busan", url: "/models/busan.glb", position: [-0.02, -0.003, 0.108], rotation: [0, 1.8, 0]}
+        { name: "busan", url: "/models/busan.glb", position: [-0.02, -0.003, 0.108], rotation: [0, 1.8, 0]},
+        { name: "jeju", url: "/models/jeju.glb", position: [0.065, 0, -0.098], rotation: [0, 0.3, 0]}
     ]
 
     const Model = ({ url, scale, position, rotation, onClick, title, text }) => {
@@ -76,8 +81,6 @@ export default function Korea() {
                 setModalTitle(title);
                 setModalText(text);
             }
-            console.log("모델 클릭 되었어용");
-
         }
 
 
@@ -153,14 +156,29 @@ export default function Korea() {
                         부산은 다양한 해안 경치와, 맛있는 해산물로 유명하며, 
                         대표적인 관광지로는 해운대, 광안리 등이 있습니다. `}
                     />
+                    <Model
+                        url={Models[5].url}
+                        scale={0.000012}
+                        position={[Models[5].position[0], Models[5].position[1], Models[5].position[2]]}
+                        rotation={[Models[5].rotation[0], Models[5].rotation[1], Models[5].rotation[2]]}
+                        onClick={() => setShowModal(true)}
+                        title="🔴제주도🔵 - 바람, 귤"
+                        text={`
+                        제주도는 대한민국 남쪽 해상에 위치한 섬으로, 
+                        아름다운 자연 경관과 독특한 문화로 알려져 있습니다. 
+                        
+                        화산 활동으로 형성된 한라산은 대표적인 자연 명소이며, 
+                        용두암과 함께 제주의 아름다운 풍경을 만들어냅니다. 
+                        
+                        제주는 특유의 흑돼지와 맛있는 감귤로 유명하며, 
+                        다양한 휴양지가 방문객들에게 휴식을 제공합니다. `}
+                    />
                     <ambientLight intensity={3} />
                     <Model
                         url={Models[0].url}
                         scale={0.175}
                         position={[Models[0].position[0], Models[0].position[1], Models[0].position[2]]}
                         rotation={[Models[0].rotation[0], Models[0].rotation[1], Models[0].rotation[2]]}
-                        text={`건물과 국기를 클릭해보세요!
-                        설명을 볼 수 있어요 ( •̀ ω •́ )✧`}
                     />
                 </Suspense>
                 <OrbitControls
