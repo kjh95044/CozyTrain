@@ -20,15 +20,17 @@ public class TrainDto {
         private final int regionNum;
         private final int dist;
         private final int area;
+        private final int totalDist;
 
         @Builder
-        public TrainCurInfoDto(String region, String regionKor, String countryKor, int regionNum, int dist, int area){
+        public TrainCurInfoDto(String region, String regionKor, String countryKor, int regionNum, int dist, int area, int totalDist){
             this.region = region;
             this.regionKor = regionKor;
             this.countryKor = countryKor;
             this.regionNum = regionNum;
             this.dist = dist;
             this.area = area;
+            this.totalDist = totalDist;
         }
     }
 }
