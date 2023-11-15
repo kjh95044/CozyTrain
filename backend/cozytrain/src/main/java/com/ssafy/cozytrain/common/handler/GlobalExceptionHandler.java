@@ -1,4 +1,5 @@
 package com.ssafy.cozytrain.common.handler;
+import com.ssafy.cozytrain.common.exception.NoContentException;
 import com.ssafy.cozytrain.common.exception.NotFoundException;
 import com.ssafy.cozytrain.common.exception.AccessTokenExpiredException;
 import com.ssafy.cozytrain.common.utils.ApiUtils;
@@ -39,5 +40,12 @@ public class GlobalExceptionHandler {
         log.info("err: " + e.getMessage());
 
         return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body(error(e, HttpStatus.UNAUTHORIZED));
+    }
+
+    @ExceptionHandler({
+            NoContentException.class
+    })
+    public ResponseEntity<ApiUtils.ApiResult<?>> handleNoContentException(Exception e) {
+        return ResponseEntity.status(HttpStatus.NO_CONTENT).body(error(e, HttpStatus.NO_CONTENT));
     }
 }
