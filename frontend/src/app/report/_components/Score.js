@@ -18,11 +18,16 @@ export default function Score(props) {
   const [moveDist, setMoveDist] = useState(50);
 
   useEffect(() => {
-    const caffeineDiff = props.report.caffeine - props.averageReport.caffeine;
-    const stepsDiff = props.report.steps - props.averageReport.steps;
-    const stressLevelDiff =
-      props.report.stressLevel - props.averageReport.stressLevel;
-    const scoreDiff = props.report.sleepScore - props.averageReport.sleepScore;
+    const caffeineDiff = parseInt(
+      props.report.caffeine - props.averageReport.caffeine
+    );
+    const stepsDiff = parseInt(props.report.steps - props.averageReport.steps);
+    const stressLevelDiff = parseInt(
+      props.report.stressLevel - props.averageReport.stressLevel
+    );
+    const scoreDiff = parseInt(
+      props.report.sleepScore - props.averageReport.sleepScore
+    );
 
     setCaffeineDiff(caffeineDiff);
     setStepsDiff(stepsDiff);
@@ -72,11 +77,19 @@ export default function Score(props) {
     }
   }, [props]);
 
+  const formatScore = (score) => {
+    if (score > 0) {
+      return `+${score}`;
+    }
+
+    return score;
+  };
+
   return (
     <div className={styles.layout}>
       <div className={styles.calc}>
         <div className={styles.score}>
-          점수: {props.report.sleepScore}점({scoreDiff})
+          점수: {props.report.sleepScore}점({formatScore(scoreDiff)})
         </div>
         <div className={styles.moveDist}>
           이동 거리: {props.report.moveDist}km
@@ -92,13 +105,15 @@ export default function Score(props) {
       <div className={styles.health_data}>
         <div className={styles.health}>
           <div>
-            카페인 섭취량: {props.report.caffeine}mg ({caffeineDiff})
+            카페인 섭취량: {props.report.caffeine}mg (
+            {formatScore(caffeineDiff)})
           </div>
           <div>
-            걸음수: {props.report.steps}걸음 ({stepsDiff})
+            걸음수: {props.report.steps}걸음 ({formatScore(stepsDiff)})
           </div>
           <div>
-            스트레스 지수: {props.report.stressLevel}점 ({stressLevelDiff})
+            스트레스 지수: {props.report.stressLevel}점 (
+            {formatScore(stressLevelDiff)})
           </div>
         </div>
         <div className={styles.lottie}>
