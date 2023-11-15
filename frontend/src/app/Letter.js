@@ -76,7 +76,7 @@ export default function Letter() {
   }
 
   return (
-    <div>
+    <>
       <Image
         className={`${styles.letter} ${showLetter ? styles.arive : ""} ${
           shakeLetter ? styles.shake : ""
@@ -95,6 +95,6 @@ export default function Letter() {
           </Link>
         </Modal>
       )}
-    </div>
+    </>
   );
 }

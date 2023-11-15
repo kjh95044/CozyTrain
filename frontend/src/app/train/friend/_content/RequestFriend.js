@@ -59,22 +59,20 @@ export default function RequestFreind() {
         return (
           <div className={styles.middleContainer} key={index}>
             <div className={styles.profileContainer}>
-              <div className={styles.profileContainerLeft}>
-                <Image
-                  src={request.profileImg}
-                  width={50}
-                  height={50}
-                  className={styles.profile}
-                  alt="프로필사진"
-                />
-                <div className={styles.fontContainer}>
-                  <div>{request.friendNickname}</div>
-                  <div className={styles.fontWrap}>
-                    <div className={styles.boldFont}>위치&nbsp;</div>
-                    <div>
-                      {request.trainInfo.countryKor}&nbsp;
-                      {request.trainInfo.regionKor}
-                    </div>
+              <Image
+                src={request.profileImg}
+                width={50}
+                height={50}
+                className={styles.profile}
+                alt="프로필사진"
+              />
+              <div className={styles.fontContainer}>
+                <div>{request.friendNickname}</div>
+                <div className={styles.fontWrap}>
+                  <div className={styles.boldFont}>위치&nbsp;</div>
+                  <div>
+                    {request.trainInfo.countryKor}&nbsp;
+                    {request.trainInfo.regionKor}
                   </div>
                 </div>
               </div>
@@ -92,22 +90,20 @@ export default function RequestFreind() {
         return (
           <div className={styles.middleContainer} key={index}>
             <div className={styles.profileContainer}>
-              <div className={styles.profileContainerLeft}>
-                <Image
-                  src={request.profileImg}
-                  width={50}
-                  height={50}
-                  className={styles.profile}
-                  alt="프로필사진"
-                />
-                <div className={styles.fontContainer}>
-                  <div>{request.friendNickname}</div>
-                  <div className={styles.fontWrap}>
-                    <div className={styles.boldFont}>위치&nbsp;</div>
-                    <div>
-                      {request.trainInfo.countryKor}&nbsp;
-                      {request.trainInfo.regionKor}
-                    </div>
+              <Image
+                src={request.profileImg}
+                width={50}
+                height={50}
+                className={styles.profile}
+                alt="프로필사진"
+              />
+              <div className={styles.fontContainer}>
+                <div>{request.friendNickname}</div>
+                <div className={styles.fontWrap}>
+                  <div className={styles.boldFont}>위치&nbsp;</div>
+                  <div>
+                    {request.trainInfo.countryKor}&nbsp;
+                    {request.trainInfo.regionKor}
                   </div>
                 </div>
               </div>

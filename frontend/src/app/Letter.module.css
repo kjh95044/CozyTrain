@@ -11,12 +11,10 @@
   transform: translateX(-50%) scale(1);
   bottom: 36%;
   animation: ease-in-out;
-  max-width: 100%;
-  height: auto;
 }
 
 .shake {
-  animation: shake 0.8s infinite;
+  animation: shake 0.5s infinite;
 }
 
 @keyframes shake {
@@ -24,16 +22,16 @@
     transform: translate(-50%, 0);
   }
   10% {
-    transform: translate(-49.5%, -1px);
+    transform: translate(-49%, -2px);
   }
   20% {
-    transform: translate(-50.5%, 1px);
+    transform: translate(-51%, 2px);
   }
   30% {
-    transform: translate(-49.5%, 1px);
+    transform: translate(-49%, 2px);
   }
   40% {
-    transform: translate(-50.5%, -1px);
+    transform: translate(-51%, -2px);
   }
   50% {
     transform: translate(-50%, 0);

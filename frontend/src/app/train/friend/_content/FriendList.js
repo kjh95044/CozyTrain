@@ -36,24 +36,22 @@ export default function FriendList() {
         return (
           <div className={styles.middleContainer} key={index}>
             <div className={styles.profileContainer}>
-              <div className={styles.profileContainerLeft}>
-                <Image
-                  src={request.profileImg}
-                  width={50}
-                  height={50}
-                  className={styles.profile}
-                  alt="프로필사진"
-                />
-                <div className={styles.fontContainer}>
+              <Image
+                src={request.profileImg}
+                width={50}
+                height={50}
+                className={styles.profile}
+                alt="프로필사진"
+              />
+              <div className={styles.fontContainer}>
+                <div>
+                  #{index + 1} {request.friendNickname}
+                </div>
+                <div className={styles.fontWrap}>
+                  <div className={styles.boldFont}>위치&nbsp;</div>
                   <div>
-                    #{index + 1} {request.friendNickname}
-                  </div>
-                  <div className={styles.fontWrap}>
-                    <div className={styles.boldFont}>위치&nbsp;&nbsp;</div>
-                    <div>
-                      {request.trainInfo.countryKor} {""}
-                      {request.trainInfo.regionKor}
-                    </div>
+                    {request.trainInfo.countryKor} &nbsp;
+                    {request.trainInfo.regionKor}
                   </div>
                 </div>
               </div>

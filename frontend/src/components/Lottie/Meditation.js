@@ -8,5 +8,5 @@ export default function Meditation() {
     animationData: meditation,
   });
 
-  return <div style={{ width: "80%" }}>{View}</div>;
+  return <div style={{ width: "60%" }}>{View}</div>;
 }

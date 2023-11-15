@@ -19,7 +19,7 @@ export default function SleepTime(props) {
 
     const hours = Number.parseInt(props.report.sleepDuration / 60);
     const minutes = props.report.sleepDuration % 60;
-    setSleepTime(`${hours}h ${minutes}m`);
+    setSleepTime(`${hours} : ${minutes}`);
 
     props.report.sleepStages.forEach((sleepStage, idx) => {
       if (idx === 0) {
@@ -48,7 +48,7 @@ export default function SleepTime(props) {
     <div className={styles.layout}>
       <div className={styles.container}>
         <div className={styles.content}>
-          <div className={styles.title}>수면 시간</div>
+          <div>수면 시간</div>
           <div className={styles.time}>
             <Image src={clock} alt="시계"></Image>
             {sleepTime}
@@ -56,7 +56,7 @@ export default function SleepTime(props) {
         </div>
 
         <div className={styles.content}>
-          <div className={styles.title}>취침 시간</div>
+          <div>취침 시간</div>
           <div className={styles.time}>
             <Image src={moon} alt="달"></Image>
             {bedTime}
@@ -64,7 +64,7 @@ export default function SleepTime(props) {
         </div>
 
         <div className={styles.content}>
-          <div className={styles.title}>기상 시간</div>
+          <div>기상 시간</div>
           <div className={styles.time}>
             <Image src={sun} alt="해"></Image>
             {wakeUpTime}

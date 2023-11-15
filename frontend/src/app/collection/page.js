@@ -98,7 +98,7 @@ export default function Collection() {
           {collection.length === 32 &&
             countrys.map((country, countryIdx) => (
               <div key={countryIdx}>
-                <h3 className={styles.countryName}>{country}</h3>
+                <h3>{country}</h3>
                 <div className={styles.item_container}>
                   {collection
                     .slice(countryIdx * cnt, (countryIdx + 1) * cnt)
@@ -175,7 +175,6 @@ export default function Collection() {
                     {gachaitem.itemDescription}
                   </div>
                   <PrimaryButton
-                    className={styles.btn_bring}
                     onClick={() => {
                       selectItem(gachaitem);
                     }}
@@ -194,7 +193,6 @@ export default function Collection() {
                             {countrys[country.countryId - 1]} {country.cnt}개
                           </span>
                           <PrimaryButton
-                            className={styles.btn_bring}
                             onClick={() => {
                               getGacha(country.countryId);
                             }}
