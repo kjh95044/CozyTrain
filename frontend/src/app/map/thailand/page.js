@@ -9,6 +9,7 @@ import styles from "./page.module.css"
 import MapCloseButton from "../component/MapCloseButton";
 import MapAllButton from "../component/MapAllButton";
 import GlobeButton from "../component/GlobeButton";
+import TrainButton from "../component/TrainButton";
 
 import getFetch from "@/services/getFetch"
 import positionData from "public/json/position.json"
@@ -64,6 +65,7 @@ export default function Korea() {
     return (
         <div className={styles.container}>
             <GlobeButton />
+            <TrainButton/>
             <MapCloseButton />
             <div className={styles.mapAllButton}>
                 <MapAllButton>태국</MapAllButton>
