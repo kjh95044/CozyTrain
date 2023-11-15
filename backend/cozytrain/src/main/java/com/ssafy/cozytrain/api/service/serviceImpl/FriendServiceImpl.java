@@ -183,7 +183,7 @@ public class FriendServiceImpl implements FriendService {
         Collections.sort(friendList, new Comparator<FriendDto.FriendResDto>() {
             @Override
             public int compare(FriendDto.FriendResDto o1, FriendDto.FriendResDto o2) {
-                return o2.getTrainInfo().getDist() - o1.getTrainInfo().getDist();
+                return o2.getTrainInfo().getTotalDist()- o1.getTrainInfo().getTotalDist();
             }
         });
 
