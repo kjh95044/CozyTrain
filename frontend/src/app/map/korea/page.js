@@ -13,7 +13,6 @@ import Modal from "@/components/Modal";
 
 import getFetch from "@/services/getFetch"
 import positionData from "public/json/position.json"
-import MapModal from "../component/MapModal";
 
 export default function Korea() {
 
@@ -56,14 +55,11 @@ export default function Korea() {
         getTrainLocation();
     }, []);
 
-    useEffect(() => {
-        handleClick();
-    }, [showModal])
-
     const Models = [
-        { name: "ground", url: "/models/korea-ground.glb", position: [0, 0, 0], rotation: [0, 0, 0] },
+        { name: "ground", url: "/models/korea-ground1.glb", position: [0, 0, 0], rotation: [0, 0, 0] },
         { name: "train", url: "/models/red-train.glb", position: curPosition, rotation: curRotation },
-        { name: "flag", url: "/models/korea-flag.glb", position: [0, 0.1, 0], rotation: [0, 0, 0]}
+        { name: "flag", url: "/models/korea-flag.glb", position: [0, 0.1, 0], rotation: [0, 0, 0]},
+        { name: "seoul", url: "/models/seoul.glb", position: [-0.111, 0.03, -0.07], rotation: [0, 0, 0]}
     ]
 
     const Model = ({ url, scale, position, rotation, onClick, title, text }) => {
@@ -72,14 +68,18 @@ export default function Korea() {
         scene.position.set(position[0], position[1], position[2])
         scene.rotation.set(rotation[0], rotation[1], rotation[2])
 
-        setModalTitle(title);
-        setModalText(text);
-        return <Clone object={scene} onClick={onClick} />;
+        const handleClick = () => {
+            console.log("모델 클릭 되었어용");
+            setShowModal(true);
+            setModalTitle(title);
+            setModalText(text);
+        }
+
+
+        return <Clone object={scene} onClick={handleClick} />;
     }
 
-    const handleClick = () => {
-        console.log("모델 클릭 되었어용");
-    }
+
 
     return (
         <div className={styles.container}>
@@ -90,12 +90,6 @@ export default function Korea() {
             </div>
             <Canvas camera={{ position: [0, 0.03, -0.2], near: 0.038 }}>
                 <Suspense fallback={null}>
-                    <Model
-                        url={Models[0].url}
-                        scale={0.175}
-                        position={[Models[0].position[0], Models[0].position[1], Models[0].position[2]]}
-                        rotation={[Models[0].rotation[0], Models[0].rotation[1], Models[0].rotation[2]]}
-                    />
                     {curCountry === '한국' && (
                         <group ref={group}>
                             <Model
@@ -122,6 +116,29 @@ export default function Korea() {
 
 
                         또한, 한국의 전통문화인 한복, 불교, 향토음식 등도 많은 사람들에게 인기를 끌고 있습니다.`}
+                    />
+                    <Model
+                        url={Models[3].url}
+                        scale={0.0004}
+                        position={[Models[3].position[0], Models[3].position[1], Models[3].position[2]]}
+                        rotation={[Models[3].rotation[0], Models[3].rotation[1], Models[3].rotation[2]]}
+                        onClick={() => setShowModal(true)}
+                        title="🔴서울🔵 - 롯데타워"
+                        text={`
+                        대한민국의 수도로, 한반도 중앙에 위치해 있습니다. 
+
+                        현대적인 농경지와 전통적인 한옥이 공존하며, 
+                        한강이 시내를 가로지르고 있습니다. 
+
+                        서울은 국제적인 비즈니스와 문화 중심지로서 번화하고 다양한 역사적 명소, 현대적 건축물, 예술과 음악의 장소를 제공합니다. `}
+                    />
+                    <Model
+                        url={Models[0].url}
+                        scale={0.175}
+                        position={[Models[0].position[0], Models[0].position[1], Models[0].position[2]]}
+                        rotation={[Models[0].rotation[0], Models[0].rotation[1], Models[0].rotation[2]]}
+                        text={`건물과 국기를 클릭해보세요!
+                        설명을 볼 수 있어요 ( •̀ ω •́ )✧`}
                     />
                     <ambientLight intensity={3} />
                 </Suspense>
