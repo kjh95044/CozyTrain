@@ -91,9 +91,13 @@ fun DrawHealthConnectSubscreen(
 
         Log.d("성공", "인데 왜 화면이 안 뜨지")
 
-        val steps = stepVMD.data[0].count.toInt()
+        val steps = stepVMD.data[1].count.toInt()
         val sleepDuration = parseDuration(sleepsessionVMD.data[0].duration.toString())
         val sleepStages = convertSleepStageToSleepStages(sleepsessionVMD.data[0].stages)
+
+        for(data in stepVMD.data){
+            Log.d("걸음수", data.count.toInt().toString())
+        }
 
         val webViewState =
             rememberWebViewState(
