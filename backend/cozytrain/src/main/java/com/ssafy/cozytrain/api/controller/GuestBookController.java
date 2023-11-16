@@ -41,6 +41,6 @@ public class GuestBookController {
         String memberId = jwtUtils.getIdFromToken(header.substring(7));
         Member member = memberService.findByMemberLoginId(memberId)
                 .orElseThrow(() -> new NotFoundException("Not Found User"));
-        return success(guestBookService.getRandomGuestBook(member, countryId));
+        return success(guestBookService.getRandomGuestBook(countryId));
     }
 }

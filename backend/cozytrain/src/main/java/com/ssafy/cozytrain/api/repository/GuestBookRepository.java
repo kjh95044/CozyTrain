@@ -9,6 +9,6 @@ import java.util.List;
 import java.util.Optional;
 
 public interface GuestBookRepository extends JpaRepository<GuestBook,Long> {
-    List<GuestBook> getGuestBookByMemberNotAndCountry(Member member, Country country);
+    List<GuestBook> getGuestBookByCountry(Country country);
     Optional<GuestBook> findByMemberAndCountry(Member member, Country country);
 }

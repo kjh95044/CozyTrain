@@ -69,7 +69,7 @@ public class TrainServiceImpl implements TrainService {
                     .regionNum(station.getRegionNum())
                     .dist(train.getTrainCurDist())
                     .area(calculateArea(train.getTrainCurDist()))
-                    .totalDist(station.getStationId().intValue() * 300 + train.getTrainCurDist())
+                    .totalDist(station.getStationId().intValue() * 300 + train.getTrainCurDist() - 300)
                     .build();
         }
     }
