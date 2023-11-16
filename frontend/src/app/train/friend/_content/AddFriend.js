@@ -11,9 +11,7 @@ export default function AddFriend() {
   const [friendLoginId, setFriendLoginId] = useState("");
 
   const addFriendReq = async () => {
-    console.log(friendLoginId);
     const data = await getFetch(`friend/search`, { friendLoginId });
-    console.log(data.response);
     setFriendAdd(data.response);
   };
 
