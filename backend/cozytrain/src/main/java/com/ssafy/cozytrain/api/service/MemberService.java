@@ -21,4 +21,6 @@ public interface MemberService {
     Boolean updateMemberName(UpdateMemberReq updateMemberReq, Member member);
     Boolean deleteMember(Member member);
     Integer logout(HttpServletRequest request, LogoutReq logoutReq);
+
+    MemberInfo findMemberInfo(Long memberId);
 }
