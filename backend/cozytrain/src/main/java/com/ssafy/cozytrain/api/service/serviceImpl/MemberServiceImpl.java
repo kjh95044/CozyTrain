@@ -117,10 +117,6 @@ public class MemberServiceImpl implements MemberService {
     @Override
     @Transactional(rollbackFor = Exception.class)
     public UpdateMemberRes updateMemberImg(MultipartFile file, Member member) throws IOException {
-        if(member.getMemberImageUrl() != null) {
-            s3Uploader.removeFile(member.getMemberImageName());
-        }
-
         String imgName = file.getOriginalFilename();
         String imgPath = "profile/" + member.getMemberId();
 
