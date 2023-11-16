@@ -10,8 +10,12 @@ import MapCloseButton from "../component/MapCloseButton";
 import MapAllButton from "../component/MapAllButton";
 import GlobeButton from "../component/GlobeButton";
 import TrainButton from "../component/TrainButton";
+import PrimaryButton from "@/components/button/PrimaryButton";
+import SecondaryButton from "@/components/button/SecondaryButton";
 import Modal from "@/components/Modal";
 import ExplainModal from "../component/ExplainModal"
+import ViewGuestBook from "../component/ViewGuestBook";
+import SubmitGuestbook from "../component/submitGuestbook";
 
 import getFetch from "@/services/getFetch"
 import positionData from "public/json/position.json"
@@ -29,6 +33,7 @@ export default function Korea() {
     const [showModal, setShowModal] = useState(false);
     const [modalTitle, setModalTitle] = useState("");
     const [modalText, setModalText] = useState("");
+    const [modalNum, setModalNum] = useState(-1);
 
     const [loading, setLoading] = useState(true);
 
@@ -80,7 +85,7 @@ export default function Korea() {
         { name: "jeju", url: "/models/jeju.glb", position: [0.065, 0, -0.098], rotation: [0, 0.3, 0]}
     ]
 
-    const Model = ({ url, scale, position, rotation, title, text }) => {
+    const Model = ({ url, scale, position, rotation, title, text, num }) => {
         const { scene } = useGLTF(url);
         scene.scale.set(scale, scale, scale);
         scene.position.set(position[0], position[1], position[2])
@@ -94,11 +99,13 @@ export default function Korea() {
 
         
         const handleClick = () => {
-            if(url !== Models[0].url) {
+            setModalNum(num);
+            if(num !== 0) {
                 setShowModal(true);
                 setModalTitle(title);
                 setModalText(text);
             }
+            console.log(modalNum);
         }
 
 
@@ -131,6 +138,7 @@ export default function Korea() {
                                 열차는 지금 ${curCountry} ${curRegion}에서 달리고 있습니다!
                                 (｡･∀･)ﾉﾞ
                                 `}
+                                num = {1}
                             />
                         </group>
                     )}
@@ -148,8 +156,8 @@ export default function Korea() {
 
                         문화적으로는 한류 현상으로 세계적으로 유명한 대한민국의 드라마, 음악, 영화 등이 있습니다. 
 
-
                         또한, 한국의 전통문화인 한복, 불교, 향토음식 등도 많은 사람들에게 인기를 끌고 있습니다.`}
+                        num = {2}
                     />
                     <Model
                         url={Models[3].url}
@@ -165,6 +173,7 @@ export default function Korea() {
                         한강이 시내를 가로지르고 있습니다. 
 
                         서울은 국제적인 비즈니스와 문화 중심지로서 번화하고 다양한 역사적 명소, 현대적 건축물, 예술과 음악의 장소를 제공합니다. `}
+                        num={3}
                     />
                     <Model
                         url={Models[4].url}
@@ -181,6 +190,7 @@ export default function Korea() {
 
                         부산은 다양한 해안 경치와, 맛있는 해산물로 유명하며, 
                         대표적인 관광지로는 해운대, 광안리 등이 있습니다. `}
+                        num={4}
                     />
                     <Model
                         url={Models[5].url}
@@ -198,6 +208,7 @@ export default function Korea() {
                         
                         제주는 특유의 흑돼지와 맛있는 감귤로 유명하며, 
                         다양한 휴양지가 방문객들에게 휴식을 제공합니다. `}
+                        num={5}
                     />
                     <ambientLight intensity={3} />
                     <Model
@@ -205,6 +216,7 @@ export default function Korea() {
                         scale={0.175}
                         position={[Models[0].position[0], Models[0].position[1], Models[0].position[2]]}
                         rotation={[Models[0].rotation[0], Models[0].rotation[1], Models[0].rotation[2]]}
+                        num={0}
                     />
                 </Suspense>
                 <OrbitControls
@@ -217,14 +229,41 @@ export default function Korea() {
             {showModal && (
                 <>
                 <Modal onClick={() => setShowModal(false)} >
+                    {modalNum !== 10 && modalNum !== 20 && (
                     <div>
                         <div className={styles.modalTitle}>
                             {modalTitle}
                         </div>
-                            <div className={styles.modalText}>
+                        <div className={styles.modalText}>
                             {modalText}
+                        </div>
+                        {modalNum === 2 && (
+                            <div>
+                                <PrimaryButton onClick={() => setModalNum(10)}>방명록 등록</PrimaryButton>
+                                &nbsp;&nbsp;
+                                <SecondaryButton onClick = {() => setModalNum(20)}>방명록 조회</SecondaryButton>
                             </div>
+                        )}
                     </div>
+                    ) }
+                    {modalNum === 10 && (
+                        <>
+                        <div className={styles.modalTitle}>
+                            {modalTitle}
+                        </div>
+                        <SubmitGuestbook 
+                            countryId={1}
+                            onClick={() => setModalNum(2)}></SubmitGuestbook>
+                        </>
+                    )}
+                    {modalNum === 20 && (
+                        <>
+                        <div className={styles.modalTitle}>
+                            {modalTitle}
+                        </div>
+                        <ViewGuestBook countryId={1}></ViewGuestBook>
+                        </>
+                    )}
                 </Modal>
                 </>
             )}
