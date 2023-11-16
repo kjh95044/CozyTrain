@@ -1,8 +1,8 @@
-import { useState } from "react";
+import { useState, useRef } from "react";
 import { useRouter } from "next/navigation";
 import Image from "next/image";
 
-import patchFetch from "@/services/patchFetch";
+import patchFormFetch from "@/services/patchFormFetch";
 import profileImg from "#/images/profile-img.png";
 import DeleteAccout from "./DeleteAccout";
 import PrimaryButton from "@/components/button/PrimaryButton";
@@ -11,8 +11,10 @@ import styles from "./page.module.css";
 
 export default function Page() {
   const [deleteAcount, setDeleteAcount] = useState(false);
-  const { memberName, memberProfileImg, region, dist, logout } = useStore();
+  const { memberName, memberProfileImg, region, dist, logout, setMemberImg } =
+    useStore();
   const router = useRouter();
+  const inputRef = useRef();
 
   const handleLogoutBtn = () => {
     document.cookie = "accessToken=; expires=Thu, 01 Jan 1970 00:00:00 UTC;";
@@ -22,9 +24,17 @@ export default function Page() {
     router.push("/login");
   };
 
-  // const handleImgClick = async () => {
-  //   const dataa = await patchFetch("member/image", )
-  // };
+  const handleImgClick = () => {
+    inputRef.current.click();
+  };
+
+  const handleInputChange = async () => {
+    if (!inputRef.current.files) return;
+
+    const image = inputRef.current.files[0];
+    const data = await patchFormFetch("member/image", image);
+    setMemberImg(data.response.memberImgUrl);
+  };
 
   const handleDeleteAcountFalse = () => {
     setDeleteAcount(false);
@@ -33,14 +43,22 @@ export default function Page() {
   return (
     <div className={styles.container}>
       <div className={styles.userProfile}>
+        <input
+          ref={inputRef}
+          type="file"
+          style={{ display: "none" }}
+          onChange={handleInputChange}
+        />
+
         <Image
           className={styles.profileImg}
           src={memberProfileImg ? memberProfileImg : profileImg}
           alt="프로필 사진"
           width={100}
           height={100}
-          // onClick={handleImgClick}
+          onClick={handleImgClick}
         />
+
         <div className={styles.memberName}>
           <div>{memberName}</div>
         </div>
