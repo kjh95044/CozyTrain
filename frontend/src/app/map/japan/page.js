@@ -16,7 +16,7 @@ import Modal from "@/components/Modal";
 import ExplainModal from "../component/ExplainModal"
 import MapModal from "../component/MapModal";
 import ViewGuestBook from "../component/ViewGuestBook";
-import SubmitGuestbook from "../component/submitGuestbook";
+import SubmitGuestbook from "../component/SubmitGuestbook";
 
 import getFetch from "@/services/getFetch"
 import positionData from "public/json/position.json"
