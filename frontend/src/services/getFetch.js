@@ -24,11 +24,8 @@ export default async function Fetch(url, params = {}) {
       }
     );
 
-    console.log(response);
     if (response.status === 401) {
       const responseData = await response.json();
-
-      console.log(responseData);
 
       const accessToken = responseData.error.message;
       document.cookie = `accessToken=${accessToken}; path=/`;

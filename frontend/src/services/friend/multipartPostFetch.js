@@ -8,8 +8,7 @@ import getAccessToken from "@/utils/getAccessToken";
  */
 export default async function multipartFetchPost(url, data) {
   const accessToken = getAccessToken();
-  for (const [key, value] of data.entries()) {
-  }
+
   try {
     const response = await fetch("https://dev.cozytrain.com/api/" + url, {
       method: "POST",
@@ -19,7 +18,17 @@ export default async function multipartFetchPost(url, data) {
       },
     });
 
-    if (!response.ok) throw new Error(`HTTP error! Status: ${response.status}`);
+    if (response.status === 401) {
+      const responseData = await response.json();
+
+      const accessToken = responseData.error.message;
+      document.cookie = `accessToken=${accessToken}; path=/`;
+
+      return multipartFetchPost(url, data);
+    }
+
+    if (!response.ok && response.status !== 401)
+      throw new Error(`HTTP error! Status: ${response.status}`);
 
     const responseData = await response.json();
     return responseData;
