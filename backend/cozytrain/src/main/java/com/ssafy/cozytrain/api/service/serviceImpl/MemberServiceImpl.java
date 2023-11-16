@@ -64,16 +64,18 @@ public class MemberServiceImpl implements MemberService {
 
         TokenDto tokenDto = jwtUtil.createAllToken(loginReq.getMemberId());
         Optional<RefreshToken> refreshToken = refreshTokenRepository.findById(loginReq.getMemberId());
+        log.info("get: " + refreshToken.get());
         jwtUtil.setHeaderAccessToken(response, tokenDto.getAccessToken());
 
         String cookieValue = null;
-        RefreshToken newToken = new RefreshToken(loginReq.memberId, tokenDto.getRefreshToken());
         if(refreshToken.isPresent()) {
+            log.info("tt: " + refreshToken.get().getRefreshToken());
             cookieValue = refreshToken.get().getRefreshToken();
         }else {
+            RefreshToken newToken = new RefreshToken(loginReq.memberId, tokenDto.getRefreshToken());
             cookieValue = tokenDto.getRefreshToken();
+            refreshTokenRepository.save(newToken);
         }
-        refreshTokenRepository.save(newToken);
 
         long maxAgeInSeconds = 14 * 24 * 60 * 60 * 1000L / 1000;
         ResponseCookie cookie = ResponseCookie.from("refreshToken", cookieValue)
@@ -102,6 +104,22 @@ public class MemberServiceImpl implements MemberService {
     }
 
     @Override
+    public MemberInfo findMemberInfo(Long memberId) {
+        Member member = memberRepository.findByMemberId(memberId).orElseThrow(() -> new NotFoundException("Not Found User"));
+
+        MemberInfo memberInfo = MemberInfo.builder()
+                .memberId(member.getMemberId())
+                .memberLoginId(member.getMemberLoginId())
+                .memberName(member.getMemberName())
+                .memberImageUrl(member.getMemberImageUrl())
+                .memberImageName(member.getMemberImageName())
+                .createdAt(member.getCreatedAt())
+                .updatedAt(member.getUpdatedAt())
+                .build();
+        return memberInfo;
+    }
+
+    @Override
     public Optional<Member> findByMemberLoginId(String memberLoginId) {
         return memberRepository.findByMemberLoginId(memberLoginId);
     }
@@ -117,10 +135,6 @@ public class MemberServiceImpl implements MemberService {
     @Override
     @Transactional(rollbackFor = Exception.class)
     public UpdateMemberRes updateMemberImg(MultipartFile file, Member member) throws IOException {
-        if(member.getMemberImageUrl() != null) {
-            s3Uploader.removeFile(member.getMemberImageName());
-        }
-
         String imgName = file.getOriginalFilename();
         String imgPath = "profile/" + member.getMemberId();
 

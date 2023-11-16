@@ -66,6 +66,9 @@ public class Member {
     @OneToMany(mappedBy = "member")
     private List<ItemList> itemLists;
 
+    @OneToMany(mappedBy = "member")
+    private List<GuestBook> guestBooks;
+
     @ManyToOne
     @JoinColumn(name = "item_list_id", referencedColumnName = "item_list_id")
     private ItemList item;
