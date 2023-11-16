@@ -146,9 +146,9 @@ public class ReportRepositoryImpl implements ReportRepositoryCustom {
                                 )
                         )
                 );
-        if (reports.isEmpty())
-            throw new NotFoundException(date + " 리포트가 없습니다.");
-        return reports.get(0);
+//        if (reports.isEmpty())
+//            throw new NotFoundException(date + " 리포트가 없습니다.");
+        return reports.isEmpty()? null : reports.get(0);
     }
 
 //    @Override
