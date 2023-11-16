@@ -24,10 +24,6 @@ export default function Page() {
     router.push("/login");
   };
 
-  const handleImgClick = () => {
-    inputRef.current.click();
-  };
-
   const handleInputChange = async () => {
     if (!inputRef.current.files) return;
 
@@ -56,7 +52,7 @@ export default function Page() {
           alt="프로필 사진"
           width={100}
           height={100}
-          onClick={handleImgClick}
+          onClick={() => inputRef.current.click()}
         />
 
         <div className={styles.memberName}>
