@@ -19,21 +19,17 @@ export default function RequestFreind() {
 
   const getFriendReq = async () => {
     const data = await getFetch("friend/received-list");
-    console.log("get: " + data.response);
     setFriendRequest(data.response);
   };
 
   const sendFriendReq = async () => {
     const data = await getFetch("friend/send-list");
-    console.log("send: " + data.response);
     setSendRequest(data.response);
   };
 
   const patchFriendReq = async (friendId) => {
-    console.log(friendId);
     try {
       const data = await patchFetch("friend", { friendId });
-      console.log(data);
       getFriendReq();
     } catch (e) {
       console.log(e);
@@ -41,10 +37,8 @@ export default function RequestFreind() {
   };
 
   const deleteFriendReq = async (friendId) => {
-    console.log(friendId);
     try {
       const data = await deleteFetch("friend/" + friendId);
-      console.log(data);
       sendFriendReq();
     } catch (e) {
       console.log(e);

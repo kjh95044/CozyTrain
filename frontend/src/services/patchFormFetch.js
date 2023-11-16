@@ -8,13 +8,14 @@ import getAccessToken from "@/utils/getAccessToken";
  */
 export default async function fetchPatch(url, data) {
   const accessToken = getAccessToken();
+  const formData = new FormData();
+  formData.append("image", data);
 
   try {
     const response = await fetch(process.env.NEXT_PUBLIC_API + url, {
       method: "PATCH",
-      body: JSON.stringify(data),
+      body: formData,
       headers: {
-        "Content-Type": "application/json",
         Authorization: `Bearer ${accessToken}`,
       },
     });

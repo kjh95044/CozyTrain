@@ -10,6 +10,7 @@ import styles from "./LoginForm.module.css";
 export default function LoginForm() {
   const [id, setId] = useState("");
   const [password, setPassword] = useState("");
+  const [success, setSuccess] = useState(true);
   const router = useRouter();
   const { login } = useStore();
 
@@ -37,6 +38,7 @@ export default function LoginForm() {
       router.push("/");
     } catch (e) {
       console.log(e);
+      setSuccess(false);
     }
   };
 
@@ -62,6 +64,16 @@ export default function LoginForm() {
           onChange={(e) => setPassword(e.target.value)}
         />
       </div>
+      {!success && (
+        <div style={{ color: "red" }}>
+          <p style={{ textAlign: "center", marginBottom: "4px" }}>
+            로그인에 실패했습니다.
+          </p>
+          <p style={{ textAlign: "center" }}>
+            아이디와 비밀번호를 확인해주세요.
+          </p>
+        </div>
+      )}
       <div className={styles.button_container}>
         <button className={styles.button} type="submit" onClick={handleSubmit}>
           로그인

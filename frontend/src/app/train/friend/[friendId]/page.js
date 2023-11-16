@@ -52,7 +52,6 @@ export default function Message() {
   }, []);
 
   useLayoutEffect(() => {
-    console.log(ref.current);
     if (ref.current) {
       ref.current.scrollTop = ref.current.scrollHeight;
     }
@@ -60,9 +59,7 @@ export default function Message() {
 
   const messageListReq = async () => {
     const data = await getFetch(`message/${friendMemberId}`);
-    console.log(data.response);
     setmessageList(data.response);
-    console.log(friendMemberId);
   };
 
   const playAudio = (audioUrl) => {
@@ -93,7 +90,6 @@ export default function Message() {
     });
   };
   const offRecAudio = () => {
-    console.log(pause);
     setPause(true);
     setIsRecording(false);
     media.ondataavailable = function (e) {
@@ -111,7 +107,6 @@ export default function Message() {
 
   const onSubmitAudioFile = async () => {
     if (audioUrl) {
-      console.log(URL.createObjectURL(audioUrl));
     }
     const sound = new File([audioUrl], "soundBlob", {
       lastModified: new Date().getTime(),

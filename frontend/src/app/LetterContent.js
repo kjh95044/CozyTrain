@@ -1,5 +1,6 @@
 import { useState, useEffect } from "react";
 
+import useStore from "@/store/useStore";
 import getFetch from "@/services/getFetch";
 import styles from "./LetterContent.module.css";
 import SleepTime from "./report/_components/SleepTime";
@@ -11,10 +12,41 @@ export default function LetterContent() {
   const [isLoading, setIsLoading] = useState(true);
   const [report, setReport] = useState({});
   const [date, setDate] = useState(new Date());
+  const { setLocation } = useStore();
 
   useEffect(() => {
     getReport();
+    getCurLocation();
   }, []);
+
+  const getCurLocation = async () => {
+    const resp = await getFetch("train/cur-location-info");
+    const location = resp.response;
+
+    switch (location.region) {
+      case "seoul":
+        setLocation("한국 서울", location.totalDist);
+        break;
+      case "busan":
+        setLocation("한국 부산", location.totalDist);
+        break;
+      case "jeju":
+        setLocation("한국 제주도", location.totalDist);
+        break;
+      case "sapporo":
+        setLocation("일본 삿포로", location.totalDist);
+        break;
+      case "tokyo":
+        setLocation("일본 도쿄", location.totalDist);
+        break;
+      case "osaka":
+        setLocation("일본 오사카", location.totalDist);
+        break;
+      default:
+        setLocation("중국..", location.totalDist);
+        break;
+    }
+  };
 
   const getReport = async () => {
     try {
