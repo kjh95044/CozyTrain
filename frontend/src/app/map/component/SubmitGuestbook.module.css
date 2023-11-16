@@ -1,0 +1,11 @@
+.inputContent {
+    width: 90%;
+    height: 100px;
+    resize: none;
+    border: 1px solid #FFAAAA;
+    border-radius: 10px;
+    margin-top: 10px;
+    margin-bottom: 8px;
+    font-size: 16px;
+    padding: 10px;
+}
