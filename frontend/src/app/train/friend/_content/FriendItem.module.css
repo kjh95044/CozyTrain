@@ -1,21 +1,13 @@
-#topContainer {
-  gap: 12px;
+.itemContainer {
   display: flex;
-  justify-content: space-between;
-  margin-bottom: 10px;
-}
-
-.inputBox {
-  width: 90%;
-  height: 37px;
-  border-radius: 10px;
-  border: 1px solid #cecece;
-  padding-left: 10px;
+  flex-direction: column;
+  gap: 10px;
 }
 
 .buttonBox {
-  width: 24%;
-  border-radius: 10px;
+  width: 70px;
+  height: 32px;
+  border-radius: 15px;
   border: none;
 }
 
@@ -34,7 +26,6 @@
 }
 
 .primaryHeaderButton {
-  width: 99px;
   height: 49px;
   border-radius: 10px;
   border: none;
@@ -42,11 +33,18 @@
 }
 
 .secondaryHeaderButton {
-  width: 99px;
   height: 49px;
   border-radius: 10px;
   border: none;
   background: #fff;
+}
+
+.wrapContainer {
+  display: flex;
+  height: 70%;
+  width: 70%;
+  align-items: center;
+  gap: 10%;
 }
 
 .middleContainer {
@@ -55,8 +53,8 @@
   border-radius: 10px;
   border: 1px solid #cecece;
   display: flex;
-  margin-top: 9px;
   flex-direction: row;
+  padding: 0 16px;
 }
 
 .fontContainer {
@@ -67,13 +65,15 @@
 
 .profileContainer {
   display: flex;
-  margin: 20px 13px;
-  justify-content: space-around;
+  justify-content: space-between;
+  align-items: center;
   width: 100%;
 }
 
+.messageButton {
+  height: 90%;
+}
+
 .profile {
-  height: 50px;
-  width: 50px;
   border-radius: 49px;
 }

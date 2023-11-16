@@ -1,13 +1,12 @@
 import { useState, useEffect } from "react";
 import Image from "next/image";
 
-import PrimaryButton from "@/components/button/PrimaryButton";
-import SecondaryButton from "@/components/button/SecondaryButton";
 import styles from "./RequestFriend.module.css";
 import getFetch from "@/services/getFetch";
 import patchFetch from "@/services/patchFetch";
 import deleteFetch from "@/services/deleteFetch";
 import noResponse from "/public/images/no-response.png";
+import FriendItem from "./FriendItem";
 
 export default function RequestFreind() {
   const [friendRequest, setFriendRequest] = useState([]);
@@ -55,35 +54,14 @@ export default function RequestFreind() {
   return (
     <div>
       <div className={styles.topFont}>받은 요청</div>
+      <FriendItem
+        friendList={friendRequest}
+        isPrimary={true}
+        class={"recieve"}
+        text={"수락"}
+        onClick={patchFriendReq}
+      ></FriendItem>
 
-      {friendRequest.map((request, index) => {
-        return (
-          <div className={styles.middleContainer} key={index}>
-            <div className={styles.profileContainer}>
-              <Image
-                src={request.profileImg}
-                width={50}
-                height={50}
-                className={styles.profile}
-                alt="프로필사진"
-              />
-              <div className={styles.fontContainer}>
-                <div>{request.friendNickname}</div>
-                <div className={styles.fontWrap}>
-                  <div className={styles.boldFont}>위치&nbsp;</div>
-                  <div>
-                    {request.trainInfo.countryKor}&nbsp;
-                    {request.trainInfo.regionKor}
-                  </div>
-                </div>
-              </div>
-              <PrimaryButton onClick={() => patchFriendReq(request.friendId)}>
-                수락
-              </PrimaryButton>
-            </div>
-          </div>
-        );
-      })}
       {friendRequest.length == 0 && (
         <Image
           src={noResponse}
@@ -93,36 +71,13 @@ export default function RequestFreind() {
       )}
       <div className={styles.topFont}>보낸 요청</div>
 
-      {sendRequest.map((request, index) => {
-        return (
-          <div className={styles.middleContainer} key={index}>
-            <div className={styles.profileContainer}>
-              <Image
-                src={request.profileImg}
-                width={50}
-                height={50}
-                className={styles.profile}
-                alt="프로필사진"
-              />
-              <div className={styles.fontContainer}>
-                <div>{request.friendNickname}</div>
-                <div className={styles.fontWrap}>
-                  <div className={styles.boldFont}>위치&nbsp;</div>
-                  <div>
-                    {request.trainInfo.countryKor}&nbsp;
-                    {request.trainInfo.regionKor}
-                  </div>
-                </div>
-              </div>
-              <SecondaryButton
-                onClick={() => deleteFriendReq(request.friendId)}
-              >
-                취소
-              </SecondaryButton>
-            </div>
-          </div>
-        );
-      })}
+      <FriendItem
+        friendList={sendRequest}
+        isPrimary={false}
+        text={"취소"}
+        onClick={deleteFriendReq}
+      ></FriendItem>
+
       {sendRequest.length == 0 && (
         <Image
           src={noResponse}

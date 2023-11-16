@@ -1,6 +1,7 @@
 .topFont {
   font-size: 18px;
   font-weight: 400;
+  margin-bottom: 10px;
 }
 
 .boldFont {
@@ -31,8 +32,8 @@
   border-radius: 10px;
   border: 1px solid #cecece;
   display: flex;
-  margin-top: 9px;
   flex-direction: row;
+  padding: 0 16px;
 }
 
 .fontContainer {
@@ -41,16 +42,22 @@
   justify-content: center;
 }
 
+.wrapContainer {
+  display: flex;
+  height: 70%;
+  width: 70%;
+  align-items: center;
+  gap: 10%;
+}
+
 .profileContainer {
   display: flex;
-  margin: 20px 13px;
-  justify-content: space-around;
+  justify-content: space-between;
+  align-items: center;
   width: 100%;
 }
 
 .profile {
-  height: 50px;
-  width: 50px;
   border-radius: 49px;
 }
 
