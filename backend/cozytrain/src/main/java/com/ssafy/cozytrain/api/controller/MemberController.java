@@ -83,4 +83,12 @@ public class MemberController {
     public ApiUtils.ApiResult<Boolean> findMemberId(@PathVariable String loginId) {
         return success(memberService.findMemberLoginId(loginId));
     }
+
+    @GetMapping("/info/{memberId}")
+    @Operation(summary = "회원 아이디 중복 체크 API", description = "header에 token 필요 X")
+    public ApiUtils.ApiResult<MemberInfo> findMemberId(@PathVariable Long memberId) {
+        return success(memberService.findMemberInfo(memberId));
+    }
+
+
 }

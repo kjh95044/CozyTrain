@@ -103,6 +103,22 @@ public class MemberServiceImpl implements MemberService {
     }
 
     @Override
+    public MemberInfo findMemberInfo(Long memberId) {
+        Member member = memberRepository.findByMemberId(memberId).orElseThrow(() -> new NotFoundException("Not Found User"));
+
+        MemberInfo memberInfo = MemberInfo.builder()
+                .memberId(member.getMemberId())
+                .memberLoginId(member.getMemberLoginId())
+                .memberName(member.getMemberName())
+                .memberImageUrl(member.getMemberImageUrl())
+                .memberImageName(member.getMemberImageName())
+                .createdAt(member.getCreatedAt())
+                .updatedAt(member.getUpdatedAt())
+                .build();
+        return memberInfo;
+    }
+
+    @Override
     public Optional<Member> findByMemberLoginId(String memberLoginId) {
         return memberRepository.findByMemberLoginId(memberLoginId);
     }

@@ -51,10 +51,10 @@ public class GuestBookServiceImpl implements GuestBookService {
     }
 
     @Override
-    public GuestBookDto.GuestBookResDto getRandomGuestBook(Member member, Long countryId) {
+    public GuestBookDto.GuestBookResDto getRandomGuestBook(Long countryId) {
         Country country = countryRepository.findById(countryId).orElseThrow(()-> new NotFoundException("Not Found Country"));
 
-        List<GuestBook> guestBooks = guestBookRepository.getGuestBookByMemberNotAndCountry(member,country);
+        List<GuestBook> guestBooks = guestBookRepository.getGuestBookByCountry(country);
         if(guestBooks.isEmpty()){
             throw new NoContentException("방명록이 없습니다.");
         }

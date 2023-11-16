@@ -6,7 +6,12 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import org.springframework.web.multipart.MultipartFile;
 
+import javax.persistence.Column;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
 import javax.validation.constraints.NotNull;
+import java.time.LocalDateTime;
 
 public class MemberDto {
 
@@ -82,6 +87,30 @@ public class MemberDto {
         @Builder
         public UpdateMemberReq(String memberName) {
             this.memberName = memberName;
+        }
+    }
+
+
+    @Getter
+    public static class MemberInfo {
+        private Long memberId;
+        private String memberLoginId;
+        private String memberName;
+        private String memberImageUrl;
+        private String memberImageName;
+
+        private LocalDateTime createdAt;
+        private LocalDateTime updatedAt;
+
+        @Builder
+        public MemberInfo(Long memberId, String memberLoginId, String memberName, String memberImageUrl, String memberImageName, LocalDateTime createdAt, LocalDateTime updatedAt) {
+            this.memberId = memberId;
+            this.memberLoginId = memberLoginId;
+            this.memberName = memberName;
+            this.memberImageUrl = memberImageUrl;
+            this.memberImageName = memberImageName;
+            this.createdAt = createdAt;
+            this.updatedAt = updatedAt;
         }
     }
 }
