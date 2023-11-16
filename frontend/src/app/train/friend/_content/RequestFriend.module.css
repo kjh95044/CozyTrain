@@ -1,7 +1,7 @@
 .topFont {
   font-size: 18px;
   font-weight: 400;
-  margin-top: 35px;
+  margin-bottom: 10px;
 }
 
 .boldFont {
@@ -13,7 +13,6 @@
 }
 
 .primaryHeaderButton {
-  width: 99px;
   height: 49px;
   border-radius: 10px;
   border: none;
@@ -21,7 +20,6 @@
 }
 
 .secondaryHeaderButton {
-  width: 99px;
   height: 49px;
   border-radius: 10px;
   border: none;
@@ -34,31 +32,37 @@
   border-radius: 10px;
   border: 1px solid #cecece;
   display: flex;
-  margin-top: 9px;
   flex-direction: row;
+  padding: 0 16px;
 }
 
 .fontContainer {
   display: flex;
   flex-direction: column;
   justify-content: center;
-  line-height: 24px;
+}
+
+.wrapContainer {
+  display: flex;
+  height: 70%;
+  width: 70%;
+  align-items: center;
+  gap: 10%;
 }
 
 .profileContainer {
   display: flex;
-  margin: 20px 13px;
   justify-content: space-between;
+  align-items: center;
   width: 100%;
 }
 
-.profileContainerLeft {
-  display: flex;
+.profile {
+  border-radius: 49px;
 }
 
-.profile {
-  height: 50px;
-  width: 50px;
-  border-radius: 49px;
-  margin-right: 20px;
+.noResponse {
+  margin-top: 9px;
+  width: 80%;
+  height: 50%;
 }
