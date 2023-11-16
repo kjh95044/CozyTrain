@@ -24,3 +24,13 @@
     margin-left: 10px;
     padding-top: 6px;
 }
+
+.profileImg {
+    border-radius: 15px;
+}
+
+.loading {
+    padding-top: 50px;
+    font-size: 18px;
+    height: 160px;
+}
