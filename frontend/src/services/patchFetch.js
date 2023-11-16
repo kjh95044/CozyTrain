@@ -10,7 +10,7 @@ export default async function fetchPatch(url, data) {
   const accessToken = getAccessToken();
 
   try {
-    const response = await fetch("https://dev.cozytrain.com/api/" + url, {
+    const response = await fetch(process.env.NEXT_PUBLIC_API + url, {
       method: "PATCH",
       body: JSON.stringify(data),
       headers: {

@@ -1,6 +1,6 @@
 export default async function fetchPost(url, data) {
   try {
-    const response = await fetch(`https://dev.cozytrain.com/api/${url}`, {
+    const response = await fetch(`${process.env.NEXT_PUBLIC_API}${url}`, {
       method: "POST",
       body: JSON.stringify(data),
       headers: {

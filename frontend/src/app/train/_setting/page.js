@@ -2,6 +2,7 @@ import { useState } from "react";
 import { useRouter } from "next/navigation";
 import Image from "next/image";
 
+import patchFetch from "@/services/patchFetch";
 import profileImg from "#/images/profile-img.png";
 import DeleteAccout from "./DeleteAccout";
 import PrimaryButton from "@/components/button/PrimaryButton";
@@ -21,6 +22,10 @@ export default function Page() {
     router.push("/login");
   };
 
+  // const handleImgClick = async () => {
+  //   const dataa = await patchFetch("member/image", )
+  // };
+
   const handleDeleteAcountFalse = () => {
     setDeleteAcount(false);
   };
@@ -34,6 +39,7 @@ export default function Page() {
           alt="프로필 사진"
           width={100}
           height={100}
+          // onClick={handleImgClick}
         />
         <div className={styles.memberName}>
           <div>{memberName}</div>
