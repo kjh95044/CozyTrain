@@ -6,6 +6,8 @@
   border-radius: 22px 22px 0px 0px;
   background: #f5f5f5;
   z-index: 30;
+  display: flex;
+  justify-content: center;
 }
 
 .messageContainer {
@@ -84,13 +86,17 @@
   background: #ffaaaa;
   justify-content: center;
   align-items: center;
-  margin: 6px auto;
+  margin-top: 76.4px;
 }
 
 .progressContainer {
   display: flex;
-  margin: 0 15px;
   align-items: center;
+  position: absolute;
+  padding: 0 16px;
+  width: 100%;
+  left: 0;
+  top: 0;
 }
 
 .progress {
