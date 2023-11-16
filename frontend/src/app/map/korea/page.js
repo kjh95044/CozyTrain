@@ -251,7 +251,9 @@ export default function Korea() {
                         <div className={styles.modalTitle}>
                             {modalTitle}
                         </div>
-                        <SubmitGuestbook onClick={() => setModalNum(2)}></SubmitGuestbook>
+                        <SubmitGuestbook 
+                            countryId={1}
+                            onClick={() => setModalNum(2)}></SubmitGuestbook>
                         </>
                     )}
                     {modalNum === 20 && (

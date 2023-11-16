@@ -9,7 +9,7 @@ import postFetch from "@/services/postFetch";
 import { useState } from "react";
 
 
-export default function SubmitGuestbook({onClick}) {
+export default function SubmitGuestbook({countryId, onClick}) {
 
     const [showToast, setShowToast] = useState(false);
     const [content, setContent] = useState("");
@@ -20,8 +20,8 @@ export default function SubmitGuestbook({onClick}) {
 
     const handleSubmit = async (e) => {
         const postData = {
-            countryId: 1,
-            guestBookContent: content.replace(/\n/g, "<br>"),
+            countryId: countryId,
+            guestBookContent: content,
         }
 
         const respData = await postFetch("guest-book", postData);
