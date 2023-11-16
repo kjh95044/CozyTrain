@@ -1,5 +1,7 @@
 "use client"
 
+import Check from "@/components/Lottie/Check";
+import Toast from "@/components/Toast";
 import styles from "./SubmitGuestbook.module.css"
 import PrimaryButton from "@/components/button/PrimaryButton"
 import postFetch from "@/services/postFetch";
@@ -9,6 +11,7 @@ import { useState } from "react";
 
 export default function SubmitGuestbook({onClick}) {
 
+    const [showToast, setShowToast] = useState(false);
     const [content, setContent] = useState("");
 
     const contentChange = (event) => {
@@ -22,18 +25,20 @@ export default function SubmitGuestbook({onClick}) {
         }
 
         const respData = await postFetch("guest-book", postData);
-        if(respData.success) {
-            console.log(respData);
-        }
+        if (respData.success) {
+            setShowToast(true);
+            setTimeout(() => {
+              setShowToast(false);
+              if(onClick) {
+                onClick();
+            }
+            }, 1600);
+          }
     }
 
     const handleButtonClick = () => {
         console.log(content);
         handleSubmit();
-
-        if(onClick) {
-            onClick();
-        }
     }
 
     return (
@@ -45,7 +50,20 @@ export default function SubmitGuestbook({onClick}) {
                 onChange={contentChange}
             ></textarea>
             <br/>
-            <PrimaryButton onClick={handleButtonClick}>등록</PrimaryButton>
+            {showToast ? (
+                <>
+                <Toast>
+                    <Check />
+                </Toast>
+                <div className={styles.gapContent}>
+                </div>
+                </>
+            ) : (
+                <PrimaryButton 
+                className={styles.btn}
+                onClick={handleButtonClick}>등록</PrimaryButton>
+            )}
+            
         </div>
     )
 }
