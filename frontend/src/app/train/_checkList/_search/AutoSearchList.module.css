@@ -1,0 +1,30 @@
+.list {
+  border: none;
+  border-radius: 0 0 12px 12px;
+  box-shadow: 0 4px 4px rgba(0, 0, 0, 0.25);
+  text-align: left;
+  white-space: nowrap;
+  overflow: hidden;
+  position: absolute;
+  top: 40px;
+  width: 100%;
+  z-index: 1;
+  background-color: white;
+}
+
+.item {
+  position: relative;
+  margin: 12px 0;
+}
+
+.icon {
+  position: absolute;
+  height: 24px;
+  left: 8px;
+  top: 50%;
+  transform: translateY(-50%);
+}
+
+.content {
+  margin-left: 40px;
+}

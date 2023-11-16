@@ -82,7 +82,7 @@ export default function NavBottom() {
         <Image
           className={styles.nav_icon}
           src={pathName === "/collection" ? collectionSelect : collection}
-          alt="설정"
+          alt="컬렉션"
         />
         컬렉션
       </Link>

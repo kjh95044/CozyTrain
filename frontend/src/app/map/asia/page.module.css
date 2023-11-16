@@ -5,3 +5,9 @@
     background-repeat: no-repeat;
     background-size: cover;
 }
+
+.mapAllButton {
+    position: absolute;
+    left: 140px;
+    bottom: 40px;
+}

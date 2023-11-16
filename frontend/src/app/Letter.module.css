@@ -1,21 +1,14 @@
 .letter {
   position: absolute;
   z-index: 1;
-  scale: 0;
-  left: 6%;
+  transform: translateX(-50%) scale(0);
+  left: 50%;
   bottom: 4%;
   transition: all 1.6s;
 }
 
-.modal_btn {
-  position: absolute;
-  bottom: 10%;
-  left: 50%;
-  transform: translateX(-50%);
-}
-
 .arive {
-  scale: 1;
+  transform: translateX(-50%) scale(1);
   bottom: 36%;
   animation: ease-in-out;
 }
@@ -26,24 +19,24 @@
 
 @keyframes shake {
   0% {
-    transform: translate(0, 0);
+    transform: translate(-50%, 0);
   }
   10% {
-    transform: translate(-2px, -2px);
+    transform: translate(-49%, -2px);
   }
   20% {
-    transform: translate(2px, 2px);
+    transform: translate(-51%, 2px);
   }
   30% {
-    transform: translate(-2px, 2px);
+    transform: translate(-49%, 2px);
   }
   40% {
-    transform: translate(2px, -2px);
+    transform: translate(-51%, -2px);
   }
   50% {
-    transform: translate(0, 0);
+    transform: translate(-50%, 0);
   }
   100% {
-    transform: translate(0, 0);
+    transform: translate(-50%, 0);
   }
 }

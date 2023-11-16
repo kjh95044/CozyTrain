@@ -17,6 +17,7 @@ class SleepSessionViewModel @Inject constructor(
     override fun getViewModelData(): ViewModelData<SleepSessionData> {
         val data by elements
         val onPermissionsResult = { readData(sleep) }
+//        val hasPermission = init(sleep)
 
         val permissionsLauncher =
             rememberLauncherForActivityResult(permissionLauncher) { onPermissionsResult() }
@@ -27,6 +28,7 @@ class SleepSessionViewModel @Inject constructor(
             permissions = sleep.readPermissions,
             onPermissionsResult = onPermissionsResult,
             onRequestPermissions = { values -> permissionsLauncher.launch(values) },
+//            hasPermission = hasPermission
         )
     }
 }

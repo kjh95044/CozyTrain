@@ -1,5 +1,5 @@
 <resources xmlns:tools="http://schemas.android.com/tools" tools:ignore = "typos">
-    <string name="app_name">Help me...</string>
+    <string name="app_name">칙칙포근포근</string>
 
     <!-- Available data -->
     <string name="sleep">수면</string>

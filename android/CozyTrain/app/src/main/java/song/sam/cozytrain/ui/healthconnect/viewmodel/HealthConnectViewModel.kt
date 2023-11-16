@@ -10,10 +10,12 @@ import androidx.health.connect.client.PermissionController
 import androidx.health.connect.client.records.Record
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import kotlinx.coroutines.CompletableDeferred
 import song.sam.cozytrain.data.healthconnect.HealthConnectSource
 import song.sam.cozytrain.ui.component.ViewModelData
 import song.sam.cozytrain.ui.healthconnect.UiState
 import kotlinx.coroutines.launch
+import kotlinx.coroutines.runBlocking
 import java.io.IOException
 
 /**
@@ -32,6 +34,19 @@ abstract class HealthConnectViewModel<T : Record> : ViewModel() {
      * Launcher to request permissions
      */
     val permissionLauncher = PermissionController.createRequestPermissionResultContract()
+    
+//    fun init(HealthConnectSource: HealthConnectSource<T>) : Boolean{
+//        val result = CompletableDeferred<Boolean>()
+//
+//        viewModelScope.launch {
+//            val permissionsCheckResult = HealthConnectSource.readPermissionsCheck()
+//            result.complete(permissionsCheckResult)
+//        }
+//
+//        return runBlocking {
+//            result.await()
+//        }
+//    }
 
     fun readData(HealthConnectSource: HealthConnectSource<T>) {
         viewModelScope.launch {

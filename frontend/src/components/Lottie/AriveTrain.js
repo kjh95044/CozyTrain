@@ -16,8 +16,8 @@ export default function TurnSheep() {
   }, []);
 
   return (
-    <div style={{ width: "100vw", height: "100vh" }}>
-      <Image src={AriveTrain} alt="기차 도착" layout="fill" />
+    <div style={{ width: "100vw", height: "100vh", position: "relative" }}>
+      <Image src={AriveTrain} alt="기차 도착" fill />
     </div>
   );
 }
