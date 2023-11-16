@@ -14,7 +14,7 @@ import PrimaryButton from "@/components/button/PrimaryButton";
 import SecondaryButton from "@/components/button/SecondaryButton";
 import Modal from "@/components/Modal";
 import ExplainModal from "../component/ExplainModal"
-
+import ViewGuestBook from "../component/ViewGuestBook";
 import SubmitGuestbook from "../component/submitGuestbook";
 
 import getFetch from "@/services/getFetch"
@@ -241,7 +241,7 @@ export default function Korea() {
                             <div>
                                 <PrimaryButton onClick={() => setModalNum(10)}>방명록 등록</PrimaryButton>
                                 &nbsp;&nbsp;
-                                <SecondaryButton>방명록 조회</SecondaryButton>
+                                <SecondaryButton onClick = {() => setModalNum(20)}>방명록 조회</SecondaryButton>
                             </div>
                         )}
                     </div>
@@ -254,7 +254,14 @@ export default function Korea() {
                         <SubmitGuestbook onClick={() => setModalNum(2)}></SubmitGuestbook>
                         </>
                     )}
-
+                    {modalNum === 20 && (
+                        <>
+                        <div className={styles.modalTitle}>
+                            {modalTitle}
+                        </div>
+                        <ViewGuestBook countryId={1}></ViewGuestBook>
+                        </>
+                    )}
                 </Modal>
                 </>
             )}

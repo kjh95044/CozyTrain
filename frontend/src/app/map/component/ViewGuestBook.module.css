@@ -1,0 +1,26 @@
+.speechBubble {
+	background: #ffe2e2;
+	border-radius: 30px;
+    border: none;
+    height: 100px;
+    width: 95%;
+    padding: 20px;
+    margin: 0 auto;
+    margin-bottom: 8px;
+}
+
+.userProfile {
+    display: flex;
+    text-align: left;
+    margin-left: 20px;
+    margin-top: 10px;
+    margin-bottom: 8px;
+}
+
+.nickname {
+    font-size: 17px;
+    font-weight: bold;
+    color: rgb(65, 65, 65);
+    margin-left: 10px;
+    padding-top: 6px;
+}

@@ -21,7 +21,7 @@ export default function SubmitGuestbook({onClick}) {
     const handleSubmit = async (e) => {
         const postData = {
             countryId: 1,
-            guestBookContent: content,
+            guestBookContent: content.replace(/\n/g, "<br>"),
         }
 
         const respData = await postFetch("guest-book", postData);
