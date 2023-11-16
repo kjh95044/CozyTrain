@@ -5,8 +5,9 @@ import Image from "next/image";
 import { useRouter } from "next/navigation";
 
 import getFetch from "@/services/getFetch";
-import PrimaryButton from "@/components/button/PrimaryButton";
 import styles from "./FriendList.module.css";
+
+import FriendItem from "./FriendItem";
 
 export default function FriendList() {
   const router = useRouter();
@@ -18,6 +19,7 @@ export default function FriendList() {
 
   const friendListReq = async () => {
     const data = await getFetch("friend");
+    console.log(data.response);
     setFriendList(data.response);
   };
 
@@ -31,38 +33,13 @@ export default function FriendList() {
 
   return (
     <div className={styles.topContainer}>
-      {friendList.map((request, index) => {
-        return (
-          <div className={styles.middleContainer} key={index}>
-            <div className={styles.profileContainer}>
-              <div className={styles.profileContainerLeft}>
-                <Image
-                  src={request.profileImg}
-                  width={50}
-                  height={50}
-                  className={styles.profile}
-                  alt="프로필사진"
-                />
-                <div className={styles.fontContainer}>
-                  <div>
-                    #{index + 1} {request.friendNickname}
-                  </div>
-                  <div className={styles.fontWrap}>
-                    <div className={styles.boldFont}>위치&nbsp;&nbsp;</div>
-                    <div>
-                      {request.trainInfo.countryKor} {""}
-                      {request.trainInfo.regionKor}
-                    </div>
-                  </div>
-                </div>
-              </div>
-              <PrimaryButton onClick={() => handleRedirect(request)}>
-                메시지
-              </PrimaryButton>
-            </div>
-          </div>
-        );
-      })}
+      <FriendItem
+        friendList={friendList}
+        isPrimary={true}
+        class={"list"}
+        text={"메시지"}
+        onClick={handleRedirect}
+      ></FriendItem>
     </div>
   );
 }

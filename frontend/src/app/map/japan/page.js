@@ -10,14 +10,18 @@ import MapCloseButton from "../component/MapCloseButton";
 import MapAllButton from "../component/MapAllButton";
 import GlobeButton from "../component/GlobeButton";
 import TrainButton from "../component/TrainButton";
+import PrimaryButton from "@/components/button/PrimaryButton";
+import SecondaryButton from "@/components/button/SecondaryButton";
 import Modal from "@/components/Modal";
 import ExplainModal from "../component/ExplainModal"
 import MapModal from "../component/MapModal";
+import ViewGuestBook from "../component/ViewGuestBook";
+import SubmitGuestbook from "../component/SubmitGuestbook";
 
 import getFetch from "@/services/getFetch"
 import positionData from "public/json/position.json"
 
-export default function Korea() {
+export default function Japan() {
 
     const [curPosition, setCurPosition] = useState([]);
     const [curRotation, setCurRotation] = useState([]);
@@ -29,6 +33,7 @@ export default function Korea() {
     const [showModal, setShowModal] = useState(false);
     const [modalTitle, setModalTitle] = useState("");
     const [modalText, setModalText] = useState("");
+    const [modalNum, setModalNum] = useState(-1);
 
     const [loading, setLoading] = useState(true);
 
@@ -80,7 +85,7 @@ export default function Korea() {
         { name: "osaka", url: "/models/osaka.glb", position: [0.068, -0.002, -0.107], rotation: [0, 1.16, 0] },
     ]
 
-    const Model = ({ url, scale, position, rotation, title, text }) => {
+    const Model = ({ url, scale, position, rotation, title, text, num }) => {
         const { scene } = useGLTF(url);
         scene.scale.set(scale, scale, scale);
         scene.position.set(position[0], position[1], position[2])
@@ -93,7 +98,8 @@ export default function Korea() {
         }, [scene])
 
         const handleClick = () => {
-            if(url !== Models[0].url) {
+            setModalNum(num);
+            if(num !== 0) {
                 setShowModal(true);
                 setModalTitle(title);
                 setModalText(text);
@@ -125,7 +131,8 @@ export default function Korea() {
                                 
                                 열차는 지금 ${curCountry} ${curRegion}에서 달리고 있습니다!
                                 (｡･∀･)ﾉﾞ
-                                `} />
+                                `}
+                                num={1} />
                         </group>
                     )
                     }
@@ -144,6 +151,7 @@ export default function Korea() {
 
                         또한, 일본은 매력적인 음식 문화로 유명하며, 
                         회, 라멘, 초밥 등이 세계적으로 사랑받고 있습니다.`}
+                        num={2}
                     />
                     <Model
                         url={Models[3].url}
@@ -159,6 +167,7 @@ export default function Korea() {
                         
                         특히 겨울에는 눈으로 덮인 풍경이 아름다움을 더해주며, 
                         삿포로 눈축제는 세계적으로 유명한 축제 중 하나로 손꼽힙니다.`}
+                        num={3}
                     />
                     <Model
                         url={Models[4].url}
@@ -174,6 +183,7 @@ export default function Korea() {
                         현대적이고 번화한 상업 지역까지 다양한 얼굴을 갖추고 있습니다. 
                         
                         높은 건물들과 현대적인 도로망은 도쿄가 세계적인 도시로서의 역할을 두드러지게 합니다. `}
+                        num={4}
                     />
                     <Model
                         url={Models[5].url}
@@ -189,12 +199,14 @@ export default function Korea() {
                         
                         또한, 많은 애니메이션 매장과 카페가 모여 있어 
                         애니메이션 팬들에게 인기를 끌고 있습니다.`}
+                        num={5}
                     />
                     <Model
                         url={Models[0].url}
                         scale={0.175}
                         position={[Models[0].position[0], Models[0].position[1], Models[0].position[2]]}
                         rotation={[Models[0].rotation[0], Models[0].rotation[1], Models[0].rotation[2]]}
+                        num={0}
                     />
                     <ambientLight intensity={3} />
                 </Suspense>
@@ -208,14 +220,41 @@ export default function Korea() {
             {showModal && (
                 <>
                 <Modal onClick={() => setShowModal(false)}>
-                    <div>
+                    {modalNum !== 10 && modalNum !== 20 && (
+                        <div>
+                            <div className={styles.modalTitle}>
+                                {modalTitle}
+                            </div>
+                             <div className={styles.modalText}>
+                                {modalText}
+                            </div>
+                        </div>
+                    )}
+                    {modalNum == 2 && (
+                        <div>
+                            <PrimaryButton onClick={() => setModalNum(10)}>방명록 등록</PrimaryButton>
+                            &nbsp;&nbsp;
+                            <SecondaryButton onClick={() => setModalNum(20)}>방명록 조회</SecondaryButton>
+                        </div>                        
+                    )}
+                    {modalNum === 10 && (
+                        <>
                         <div className={styles.modalTitle}>
                             {modalTitle}
                         </div>
-                        <div className={styles.modalText}>
-                            {modalText}
+                        <SubmitGuestbook 
+                        countryId={2}
+                        onClick={() => setModalNum(2)}></SubmitGuestbook>
+                        </>
+                    )}
+                    {modalNum === 20 && (
+                        <>
+                        <div className={styles.modalTitle}>
+                            {modalTitle}
                         </div>
-                    </div>
+                        <ViewGuestBook countryId={2}></ViewGuestBook>
+                        </>
+                    )}                    
                 </Modal>
                 </>
             )}

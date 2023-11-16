@@ -25,25 +25,25 @@ export default function LetterContent() {
 
     switch (location.region) {
       case "seoul":
-        setLocation("한국 서울", location.dist);
+        setLocation("한국 서울", location.totalDist);
         break;
       case "busan":
-        setLocation("한국 부산", location.dist);
+        setLocation("한국 부산", location.totalDist);
         break;
       case "jeju":
-        setLocation("한국 제주도", location.dist);
+        setLocation("한국 제주도", location.totalDist);
         break;
       case "sapporo":
-        setLocation("일본 삿포로", location.dist);
+        setLocation("일본 삿포로", location.totalDist);
         break;
       case "tokyo":
-        setLocation("일본 도쿄", location.dist);
+        setLocation("일본 도쿄", location.totalDist);
         break;
       case "osaka":
-        setLocation("일본 오사카", location.dist);
+        setLocation("일본 오사카", location.totalDist);
         break;
       default:
-        setLocation("중국..", location.dist);
+        setLocation("중국..", location.totalDist);
         break;
     }
   };
