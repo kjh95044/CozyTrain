@@ -7,6 +7,7 @@ import styles from "./RequestFriend.module.css";
 import getFetch from "@/services/getFetch";
 import patchFetch from "@/services/patchFetch";
 import deleteFetch from "@/services/deleteFetch";
+import noResponse from "/public/images/no-response.png";
 
 export default function RequestFreind() {
   const [friendRequest, setFriendRequest] = useState([]);
@@ -83,7 +84,13 @@ export default function RequestFreind() {
           </div>
         );
       })}
-
+      {friendRequest.length == 0 && (
+        <Image
+          src={noResponse}
+          className={styles.noResponse}
+          alt="받은 요청이 없습니다."
+        />
+      )}
       <div className={styles.topFont}>보낸 요청</div>
 
       {sendRequest.map((request, index) => {
@@ -116,6 +123,13 @@ export default function RequestFreind() {
           </div>
         );
       })}
+      {sendRequest.length == 0 && (
+        <Image
+          src={noResponse}
+          className={styles.noResponse}
+          alt="받은 요청이 없습니다."
+        />
+      )}
     </div>
   );
 }

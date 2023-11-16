@@ -24,7 +24,6 @@ export default function AddFriend() {
 
     const respData = await postFetch("friend", postData);
     if (respData.success) {
-      alert("요청 완료");
       addFriendReq(friendLoginId);
     }
   };
@@ -58,7 +57,7 @@ export default function AddFriend() {
                 <div className={styles.fontWrap}>
                   <div className={styles.boldFont}>위치&nbsp;</div>
                   <div>
-                    {friend.trainInfo.countryKor} &nbsp;
+                    {friend.trainInfo.countryKor}&nbsp;
                     {friend.trainInfo.regionKor}
                   </div>
                 </div>

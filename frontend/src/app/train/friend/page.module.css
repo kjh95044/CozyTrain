@@ -1,26 +1,26 @@
 .topContainer {
-    margin: 18px;
+  margin: 16px;
 }
 
 .buttonContainer {
-    display: flex;
-    flex-direction: row;
-    justify-content: space-between;
+  height: 52px;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+
+  margin-bottom: 24px;
 }
 
 .primaryHeaderButton {
-    width: 99px;
-    height: 49px;
-    border-radius: 10px;
-    border: none;
-    background: var(--mandy-200, #F8D3D6);
+  flex-basis: 30%;
+  border-radius: 10px;
+  border: none;
+  background: var(--mandy-200, #f8d3d6);
 }
 
 .secondaryHeaderButton {
-    width: 99px;
-    height: 49px;
-    border-radius: 10px;
-    border: none;
-    background: #FFF;
+  border-radius: 10px;
+  flex-basis: 30%;
+  border: none;
+  background: #fff;
 }
-
