@@ -22,4 +22,9 @@ public class TestController {
     public ApiUtils.ApiResult<List<Test>> testTrain(){
         return success(testService.findAll());
     }
+
+    @GetMapping("check")
+    public ApiUtils.ApiResult<String> testCheck(){
+        return success("check(수정)");
+    }
 }

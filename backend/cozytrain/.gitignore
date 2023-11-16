@@ -37,4 +37,11 @@ out/
 .vscode/
 
 application.yml
+<<<<<<< HEAD
+=======
+application-dev.yml
+application-prod.yml
+
+### Querydsl
+>>>>>>> 57617c64e4087a0111e3ab54149dd97fa41d0620
 /src/main/generated
