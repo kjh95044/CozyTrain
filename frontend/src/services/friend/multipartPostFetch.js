@@ -8,9 +8,7 @@ import getAccessToken from "@/utils/getAccessToken";
  */
 export default async function multipartFetchPost(url, data) {
   const accessToken = getAccessToken();
-  console.log(data);
   for (const [key, value] of data.entries()) {
-    console.log(`${key}: ${value}`);
   }
   try {
     const response = await fetch("https://dev.cozytrain.com/api/" + url, {

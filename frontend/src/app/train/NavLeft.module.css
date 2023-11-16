@@ -2,6 +2,7 @@
   position: absolute;
   left: 1.4%;
   top: 6%;
+  z-index: 50;
 }
 
 .nav_item {

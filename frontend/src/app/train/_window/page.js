@@ -4,7 +4,6 @@ import { useState, useEffect } from "react";
 import Image from "next/image";
 
 import useStore from "@/store/useStore";
-import getFetch from "@/services/getFetch";
 import china from "#/images/city/china.jpg";
 import jeju from "#/images/city/jeju.png";
 import seoul from "#/images/city/seoul.jpg";
@@ -15,41 +14,31 @@ import osaka from "#/images/city/osaka.png";
 import styles from "./page.module.css";
 
 export default function Window() {
-  const [region, setRegion] = useState("");
-  const { setLocation } = useStore();
+  const [location, setLocation] = useState("");
+  const { region } = useStore();
 
-  const getCurLocation = async () => {
-    const resp = await getFetch("train/cur-location-info");
-    const location = resp.response;
-
-    switch (location.region) {
-      case "seoul":
-        setRegion(seoul);
-        setLocation("한국 서울", location.dist);
+  const getCurLocation = () => {
+    switch (region) {
+      case "한국 서울":
+        setLocation(seoul);
         break;
-      case "busan":
-        setRegion(busan);
-        setLocation("한국 부산", location.dist);
+      case "한국 부산":
+        setLocation(busan);
         break;
-      case "jeju":
-        setRegion(jeju);
-        setLocation("한국 제주도", location.dist);
+      case "한국 제주도":
+        setLocation(jeju);
         break;
-      case "sapporo":
-        setRegion(sapporo);
-        setLocation("일본 삿포로", location.dist);
+      case "일본 삿포로":
+        setLocation(sapporo);
         break;
-      case "tokyo":
-        setRegion(tokyo);
-        setLocation("일본 도쿄", location.dist);
+      case "일본 도쿄":
+        setLocation(tokyo);
         break;
-      case "osaka":
-        setRegion(osaka);
-        setLocation("일본 오사카", location.dist);
+      case "일본 오사카":
+        setLocation(osaka);
         break;
       default:
-        setRegion(china);
-        setLocation("중국..", location.dist);
+        setLocation(china);
         break;
     }
   };
@@ -58,7 +47,7 @@ export default function Window() {
     getCurLocation();
   }, []);
 
-  return region ? (
-    <Image src={region} alt="" className={styles.city}></Image>
+  return location ? (
+    <Image src={location} alt="" className={styles.city}></Image>
   ) : null;
 }

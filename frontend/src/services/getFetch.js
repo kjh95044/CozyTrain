@@ -12,7 +12,7 @@ export default async function Fetch(url, params = {}) {
 
   try {
     const response = await fetch(
-      `https://dev.cozytrain.com/api/${url}${
+      `${process.env.NEXT_PUBLIC_API}${url}${
         queryParams ? `?${queryParams}` : ""
       }`,
       {

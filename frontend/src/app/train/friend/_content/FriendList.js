@@ -18,7 +18,6 @@ export default function FriendList() {
 
   const friendListReq = async () => {
     const data = await getFetch("friend");
-    console.log(data.response);
     setFriendList(data.response);
   };
 
