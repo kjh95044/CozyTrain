@@ -28,7 +28,7 @@ public class Health {
     @OneToMany(mappedBy = "health", cascade = CascadeType.ALL)
     private List<SleepStage> sleepStages;
 
-    @OneToOne
+    @OneToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "report_id", referencedColumnName = "report_id")
     private Report report;
 

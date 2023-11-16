@@ -7,6 +7,7 @@ import com.ssafy.cozytrain.api.entity.*;
 import com.ssafy.cozytrain.api.repository.*;
 import com.ssafy.cozytrain.api.service.CollectionService;
 import com.ssafy.cozytrain.api.service.TrainService;
+import com.ssafy.cozytrain.common.exception.NoContentException;
 import com.ssafy.cozytrain.common.exception.NotFoundException;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -136,7 +137,7 @@ public class CollectionServiceImpl implements CollectionService {
     public ItemDto.ItemDtoRes getMemberCollection(Member member) {
         ItemList itemList = member.getItem();
         if(itemList == null){
-            throw new NotFoundException("대표 컬렉션이 없습니다.");
+            throw new NoContentException("대표 컬렉션이 없습니다.");
         }
         log.info(itemList.toString());
 

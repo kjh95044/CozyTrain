@@ -24,6 +24,8 @@ public class Train {
     private LocalDate endDate;
     private LocalDateTime createdAt;
     private LocalDateTime updatedAt;
+    private int moveDist;
+
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "station_id", referencedColumnName = "station_id")
     private Station station;
