@@ -39,7 +39,9 @@ public class JwtAuthFilter extends OncePerRequestFilter {
             }
             else if (refreshToken != null) {
                 boolean isRefreshToken = jwtUtil.refreshTokenValidation(refreshToken);
+                log.info(isRefreshToken+"");
                 if (isRefreshToken) {
+                    log.info("isRef");
                     String loginId = jwtUtil.getIdFromToken(refreshToken);
                     String newAccessToken = jwtUtil.createToken(loginId, "Access_Token");
 
@@ -51,6 +53,7 @@ public class JwtAuthFilter extends OncePerRequestFilter {
                     return;
                 }
                 else {
+                    log.info("Ref");
                     setErrorResponse(HttpStatus.UNAUTHORIZED, response, "invalid refreshToken");
                     return;
                 }

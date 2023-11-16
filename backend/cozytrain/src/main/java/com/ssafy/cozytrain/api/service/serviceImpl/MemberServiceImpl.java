@@ -64,16 +64,18 @@ public class MemberServiceImpl implements MemberService {
 
         TokenDto tokenDto = jwtUtil.createAllToken(loginReq.getMemberId());
         Optional<RefreshToken> refreshToken = refreshTokenRepository.findById(loginReq.getMemberId());
+        log.info("get: " + refreshToken.get());
         jwtUtil.setHeaderAccessToken(response, tokenDto.getAccessToken());
 
         String cookieValue = null;
-        RefreshToken newToken = new RefreshToken(loginReq.memberId, tokenDto.getRefreshToken());
         if(refreshToken.isPresent()) {
+            log.info("tt: " + refreshToken.get().getRefreshToken());
             cookieValue = refreshToken.get().getRefreshToken();
         }else {
+            RefreshToken newToken = new RefreshToken(loginReq.memberId, tokenDto.getRefreshToken());
             cookieValue = tokenDto.getRefreshToken();
+            refreshTokenRepository.save(newToken);
         }
-        refreshTokenRepository.save(newToken);
 
         long maxAgeInSeconds = 14 * 24 * 60 * 60 * 1000L / 1000;
         ResponseCookie cookie = ResponseCookie.from("refreshToken", cookieValue)

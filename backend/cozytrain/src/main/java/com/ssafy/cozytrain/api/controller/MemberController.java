@@ -40,6 +40,8 @@ public class MemberController {
     @PostMapping("/login")
     @Operation(summary = "로그인 API")
     public ApiUtils.ApiResult<LoginRes> login(@RequestBody @Valid LoginReq loginReq, HttpServletResponse response) {
+        log.info(loginReq.getMemberId());
+        log.info(loginReq.getMemberPassword());
         return success(memberService.login(loginReq, response));
     }
 
