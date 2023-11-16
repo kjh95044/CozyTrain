@@ -17,6 +17,10 @@ const useStore = create((set) => ({
   setLocation: (region, dist) => {
     set({ region, dist });
   },
+
+  setMemberImg: (memberProfileImg) => {
+    set({ memberProfileImg });
+  },
 }));
 
 export default useStore;

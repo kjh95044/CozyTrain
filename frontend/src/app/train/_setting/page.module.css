@@ -1,11 +1,22 @@
 .userProfile {
   display: flex;
   align-items: center;
-  height: 100px;
+  height: 160px;
+  margin-top: 12px;
 }
 
 .profileImg {
-  width: 36%;
+  width: 60%;
+  height: 100%;
+  border-radius: 20px;
+}
+
+.profileImg:hover {
+  filter: brightness(50%);
+}
+
+.profileImg:focus {
+  filter: brightness(50%);
 }
 
 .memberName {
@@ -14,14 +25,15 @@
   justify-content: center;
   gap: 16px;
   flex-grow: 1;
-  text-align: center;
   height: 100%;
+  font-size: 20px;
 }
 
 .userInfo {
   display: flex;
   flex-direction: column;
   gap: 8px;
+  margin: 0 6px;
 }
 
 .content {
@@ -42,4 +54,11 @@
   display: flex;
   flex-direction: column;
   gap: 20px;
+}
+
+.profile {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
 }

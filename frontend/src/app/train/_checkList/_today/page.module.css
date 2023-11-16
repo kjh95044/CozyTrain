@@ -1,4 +1,5 @@
 .title {
+  margin-top: 8px;
   font-size: 20px;
 }
 
@@ -14,4 +15,12 @@
   justify-content: space-between;
   align-items: center;
   font-size: 18px;
+}
+
+.defalutText {
+  position: absolute;
+  width: 100%;
+  top: 48%;
+  transform: translateY(-50%);
+  left: 0;
 }

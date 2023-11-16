@@ -3,21 +3,33 @@ import getAccessToken from "@/utils/getAccessToken";
 /**
  *
  * @param {string} url - URL
+ * @param {Object} data - Body
  * @returns {Promise}
  */
-export default async function Fetch(url) {
+export default async function fetchPatch(url, data) {
   const accessToken = getAccessToken();
 
   try {
-    const response = await fetch(`https://dev.cozytrain.com/api/${url}`, {
+    const response = await fetch(process.env.NEXT_PUBLIC_API + url, {
       method: "PATCH",
+      body: JSON.stringify(data),
       headers: {
         "Content-Type": "application/json",
         Authorization: `Bearer ${accessToken}`,
       },
     });
 
-    if (!response.ok) throw new Error(`HTTP error! Status: ${response.status}`);
+    if (response.status === 401) {
+      const responseData = await response.json();
+
+      const accessToken = responseData.error.message;
+      document.cookie = `accessToken=${accessToken}; path=/`;
+
+      return fetchPatch(url, data);
+    }
+
+    if (!response.ok && response.status !== 401)
+      throw new Error(`HTTP error! Status: ${response.status}`);
 
     const responseData = await response.json();
     return responseData;

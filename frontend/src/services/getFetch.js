@@ -12,7 +12,7 @@ export default async function Fetch(url, params = {}) {
 
   try {
     const response = await fetch(
-      `https://dev.cozytrain.com/api/${url}${
+      `${process.env.NEXT_PUBLIC_API}${url}${
         queryParams ? `?${queryParams}` : ""
       }`,
       {
@@ -24,7 +24,18 @@ export default async function Fetch(url, params = {}) {
       }
     );
 
-    if (!response.ok) throw new Error(`HTTP error! Status: ${response.status}`);
+    if (response.status === 401) {
+      const responseData = await response.json();
+
+      const accessToken = responseData.error.message;
+      document.cookie = `accessToken=${accessToken}; path=/`;
+
+      return Fetch(url, params);
+    }
+
+    if (!response.ok && response.status !== 401)
+      throw new Error(`HTTP error! Status: ${response.status}`);
+
     const responseData = await response.json();
 
     return responseData;

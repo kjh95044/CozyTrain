@@ -42,7 +42,11 @@ export default function Page() {
         오늘 섭취한 <b>음료</b>입니다.
       </div>
       <div className={styles.itemContainer}>
-        {!checkList.length && <div>검색에서 음료를 추가해주세요.</div>}
+        {!checkList.length && (
+          <div className={styles.defalutText}>
+            검색에서 음료를 추가해주세요.
+          </div>
+        )}
         {checkList.map((e) => {
           return (
             <div key={e.checkListId} className={styles.item}>

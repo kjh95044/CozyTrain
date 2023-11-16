@@ -1,5 +1,17 @@
 import styles from "./SecondaryButton.module.css";
 
 export default function SecondaryButton(props) {
-  return <button className={styles.button}>{props.children}</button>;
+  const buttonStyle = {
+    height: props.height || "",
+  };
+
+  return (
+    <button
+      className={styles.button}
+      onClick={props.onClick}
+      style={buttonStyle}
+    >
+      {props.children}
+    </button>
+  );
 }

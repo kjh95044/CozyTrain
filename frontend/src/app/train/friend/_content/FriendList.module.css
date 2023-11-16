@@ -1,0 +1,73 @@
+.buttonBox {
+  width: 70px;
+  height: 32px;
+  border-radius: 15px;
+  border: none;
+}
+
+.topFont {
+  font-size: 18px;
+  font-weight: 400;
+  margin-top: 35px;
+}
+
+.boldFont {
+  font-weight: bold;
+}
+
+.fontWrap {
+  display: flex;
+}
+
+.primaryHeaderButton {
+  height: 49px;
+  border-radius: 10px;
+  border: none;
+  background: var(--mandy-200, #f8d3d6);
+}
+
+.secondaryHeaderButton {
+  height: 49px;
+  border-radius: 10px;
+  border: none;
+  background: #fff;
+}
+
+.wrapContainer {
+  display: flex;
+  height: 70%;
+  width: 70%;
+  align-items: center;
+  gap: 10%;
+}
+
+.middleContainer {
+  height: 91px;
+  background-color: #ffffff;
+  border-radius: 10px;
+  border: 1px solid #cecece;
+  display: flex;
+  flex-direction: row;
+  padding: 0 16px;
+}
+
+.fontContainer {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+.profileContainer {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  width: 100%;
+}
+
+.messageButton {
+  height: 90%;
+}
+
+.profile {
+  border-radius: 49px;
+}

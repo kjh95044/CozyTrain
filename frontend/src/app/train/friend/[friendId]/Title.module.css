@@ -1,0 +1,10 @@
+.title {
+  padding-top: 30px;
+  font-size: var(--text-2xl);
+  text-align: center;
+}
+
+.back {
+  position: absolute;
+  left: 16px;
+}

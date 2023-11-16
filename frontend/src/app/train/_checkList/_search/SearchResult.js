@@ -47,7 +47,7 @@ export default function SearchResult(props) {
       setShowToast(true);
       setTimeout(() => {
         setShowToast(false);
-      }, 3000);
+      }, 1600);
     }
   };
 

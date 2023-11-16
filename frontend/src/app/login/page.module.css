@@ -10,13 +10,14 @@
 }
 
 .logo {
-  padding-top: 8px;
+  position: absolute;
+  top: 24%;
 }
 
 .signup_button {
   position: fixed;
   width: 100%;
-  bottom: 16%;
+  bottom: 12%;
   display: flex;
   height: 16%;
   flex-direction: column;
@@ -26,7 +27,7 @@
 .signin_button {
   position: fixed;
   width: 100%;
-  bottom: 8%;
+  bottom: 4%;
   display: flex;
   height: 16%;
   flex-direction: column;
