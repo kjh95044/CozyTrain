@@ -64,7 +64,6 @@ public class MemberServiceImpl implements MemberService {
 
         TokenDto tokenDto = jwtUtil.createAllToken(loginReq.getMemberId());
         Optional<RefreshToken> refreshToken = refreshTokenRepository.findById(loginReq.getMemberId());
-        log.info("get: " + refreshToken.get());
         jwtUtil.setHeaderAccessToken(response, tokenDto.getAccessToken());
 
         String cookieValue = null;
