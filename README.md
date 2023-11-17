@@ -21,10 +21,13 @@
 ## 아키텍쳐
 ![](system.png)
 
-## 개발 설정
-[포닝 메뉴얼(메인 서버)](https://lab.ssafy.com/s09-final/S09P31E104/-/wikis/%ED%8F%AC%ED%8C%85-%EB%A9%94%EB%89%B4%EC%96%BC(%EB%A9%94%EC%9D%B8%EC%84%9C%EB%B2%84))
 
-[포팅 메뉴얼(ELK 서버)](https://lab.ssafy.com/s09-final/S09P31E104/-/wikis/%ED%8F%AC%ED%8C%85-%EB%A9%94%EB%89%B4%EC%96%BC(ELK-%EC%84%9C%EB%B2%84))
+## 개발 설정
+[포닝 메뉴얼(메인 서버)](https://lab.ssafy.com/s09-final/S09P31E104/-/blob/develop/exec/1.%20%EB%B9%8C%EB%93%9C%20%EC%8B%9C%20%EC%82%AC%EC%9A%A9%EB%90%98%EB%8A%94%20%ED%99%98%EA%B2%BD%20%EB%B3%80%EC%88%98%20%EB%93%B1%EC%9D%98%20%EC%A3%BC%EC%9A%94%20%EB%82%B4%EC%9A%A9%20%EC%83%81%EC%84%B8%20%EA%B8%B0%EC%9E%AC/%ED%8F%AC%ED%8C%85%EB%A9%94%EB%89%B4%EC%96%BC(%EB%A9%94%EC%9D%B8%EC%84%9C%EB%B2%84).pdf?ref_type=heads)
+
+[포팅 메뉴얼(ELK 서버)](https://lab.ssafy.com/s09-final/S09P31E104/-/blob/develop/exec/1.%20%EB%B9%8C%EB%93%9C%20%EC%8B%9C%20%EC%82%AC%EC%9A%A9%EB%90%98%EB%8A%94%20%ED%99%98%EA%B2%BD%20%EB%B3%80%EC%88%98%20%EB%93%B1%EC%9D%98%20%EC%A3%BC%EC%9A%94%20%EB%82%B4%EC%9A%A9%20%EC%83%81%EC%84%B8%20%EA%B8%B0%EC%9E%AC/%ED%8F%AC%ED%8C%85%EB%A9%94%EB%89%B4%EC%96%BC(ELK%20%EC%84%9C%EB%B2%84).pdf?ref_type=heads)
 
 ## 사용 예시
-https://www.youtube.com/watch?v=dGGt7w4j8eI&ab_channel=HyoinJeong
+[사용 예시](https://lab.ssafy.com/s09-final/S09P31E104/-/blob/develop/exec/3.%20%EC%8B%9C%EC%97%B0%20%EC%8B%9C%EB%82%98%EB%A6%AC%EC%98%A4/%EC%8B%9C%EC%97%B0%20%EC%8B%9C%EB%82%98%EB%A6%AC%EC%98%A4.pdf?ref_type=heads)
+
+[UCC](https://www.youtube.com/watch?v=dGGt7w4j8eI&ab_channel=HyoinJeong)
