@@ -23,6 +23,7 @@
 
 ## 개발 설정
 [포닝 메뉴얼(메인 서버)](https://lab.ssafy.com/s09-final/S09P31E104/-/wikis/%ED%8F%AC%ED%8C%85-%EB%A9%94%EB%89%B4%EC%96%BC(%EB%A9%94%EC%9D%B8%EC%84%9C%EB%B2%84))
+
 [포팅 메뉴얼(ELK 서버)](https://lab.ssafy.com/s09-final/S09P31E104/-/wikis/%ED%8F%AC%ED%8C%85-%EB%A9%94%EB%89%B4%EC%96%BC(ELK-%EC%84%9C%EB%B2%84))
 
 ## 사용 예시
