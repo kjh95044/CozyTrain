@@ -3,6 +3,7 @@ package com.ssafy.cozytrain.api.entity;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
+import lombok.ToString;
 
 import javax.persistence.*;
 import java.util.List;
@@ -10,6 +11,7 @@ import java.util.List;
 @Entity
 @Getter
 @NoArgsConstructor
+@ToString
 public class ItemList {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)

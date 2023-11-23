@@ -23,6 +23,10 @@ repositories {
 
 dependencies {
     implementation 'org.springframework.boot:spring-boot-starter-data-jpa'
+    implementation 'org.junit.jupiter:junit-jupiter:5.8.1'
+    testImplementation 'junit:junit:4.13.1'
+    testImplementation 'org.junit.jupiter:junit-jupiter:5.8.1'
+    testImplementation 'org.projectlombok:lombok:1.18.26'
     compileOnly 'org.projectlombok:lombok'
     developmentOnly 'org.springframework.boot:spring-boot-devtools'
     runtimeOnly 'com.mysql:mysql-connector-j'
@@ -62,8 +66,16 @@ dependencies {
 
     // log
     implementation group: 'net.logstash.logback', name: 'logstash-logback-encoder', version: '7.2'
+
+    testImplementation('org.springframework.boot:spring-boot-starter-test')
+    testImplementation('org.junit.jupiter:junit-jupiter')
+    testImplementation('org.junit.jupiter:junit-jupiter-api')
+    testRuntimeOnly('org.junit.jupiter:junit-jupiter-engine')
 }
 
+test {
+    useJUnitPlatform()
+}
 
 // Querydsl 설정부
 def generated = 'src/main/generated'
@@ -81,8 +93,4 @@ sourceSets {
 // gradle clean 시에 QClass 디렉토리 삭제
 clean {
     delete file(generated)
-}
-
-tasks.named('test') {
-    useJUnitPlatform()
 }
